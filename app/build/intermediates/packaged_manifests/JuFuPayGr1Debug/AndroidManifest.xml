@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jingyu.pay"
-    android:versionCode="9"
-    android:versionName="1.0.9" >
+    package="com.jingyu.otc"
+    android:versionCode="1"
+    android:versionName="1.0.1" >
 
     <uses-sdk
         android:minSdkVersion="24"
@@ -101,7 +101,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.jingyu.pay.fileProvider"
+            android:authorities="com.jingyu.otc.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -288,7 +288,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.jingyu.pay.provider"
+            android:authorities="com.jingyu.otc.provider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -326,7 +326,7 @@
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
-            android:authorities="com.jingyu.pay.firebaseinitprovider"
+            android:authorities="com.jingyu.otc.firebaseinitprovider"
             android:directBootAware="true"
             android:exported="false"
             android:initOrder="100" />
@@ -358,7 +358,7 @@
 
         <provider
             android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-            android:authorities="com.jingyu.pay.lifecycle-process"
+            android:authorities="com.jingyu.otc.lifecycle-process"
             android:exported="false"
             android:multiprocess="true" />
     </application>

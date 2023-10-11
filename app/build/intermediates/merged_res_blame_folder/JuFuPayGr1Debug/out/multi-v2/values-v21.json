@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/merged.dir/values-v21/values-v21.xml",
+            "outputFile": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/merged.dir/values-v21/values-v21.xml",
             "map": [
                 {
                     "source": "/Users/JackPan/.gradle/caches/transforms-3/32c5729b27bdc07025cd59966662860f/transformed/jetified-MaterialNavigationView-1.2/res/values-v21/values-v21.xml",

@@ -1,318 +1,318 @@
 [
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/layout_chicken3_fragment.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/layout_chicken3_fragment.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/layout_chicken2_fragment.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/layout_chicken2_fragment.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_tools.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_tools.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_detail.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_detail.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/nav_header_main.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/nav_header_main.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/bank_item_view.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/bank_item_view.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/gp_spinner_item_adapter.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/gp_spinner_item_adapter.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_sell_sure.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/dialog_sell_sure.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/group_list_item.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/group_list_item.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/bankcard_item_view.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/bankcard_item_view.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_slideshow.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_slideshow.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/thridlogin_dialog_loading.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/thridlogin_dialog_loading.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/order_item_view.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/order_item_view.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_banklist.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_banklist.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_update.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/dialog_update.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_send.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_send.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_login.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_login.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_user_order.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/dialog_user_order.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/content_purchase_history.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/content_purchase_history.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dropdown_stytle.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/dropdown_stytle.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/app_bar_main.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/app_bar_main.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/add_pay_card.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/add_pay_card.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/sell_list_item.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/sell_list_item.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_gallery.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_gallery.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_add_group.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/dialog_add_group.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_pay.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_pay.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/bank_item_view.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/bank_item_view.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_tools.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_tools.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_main.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_main.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_add_group.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/dialog_add_group.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/content_main.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/content_main.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/spinner_item.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/spinner_item.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/loading_view.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/loading_view.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_add_bank_card.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/dialog_add_bank_card.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_my.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_my.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/buy_record_list_item.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/buy_record_list_item.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/nav_header.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/nav_header.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/order_item_view.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/order_item_view.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_second.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_second.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/loading_view.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/loading_view.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_bank_card_list.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_bank_card_list.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_group_listctivity.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_group_listctivity.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_user_order.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/dialog_user_order.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/group_report_list_item.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/group_report_list_item.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/message_item_view.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/message_item_view.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/bill_detail.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/bill_detail.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_password.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_password.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_order.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_order.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/layout_chicken4_fragment.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/layout_chicken4_fragment.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/gp_spinner_spinner_item.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/gp_spinner_spinner_item.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/loglayout.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/loglayout.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/layout_chicken1_fragment.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/layout_chicken1_fragment.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_sell_sure.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/dialog_sell_sure.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/add_bank_card.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/add_bank_card.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/buy_record_list_item.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/buy_record_list_item.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/paymentmatching_list_item.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/paymentmatching_list_item.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_notifications.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_notifications.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_user_login.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_user_login.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_group_report.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_group_report.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/gp_spinner_item_adapter.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/gp_spinner_item_adapter.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_wechat.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_wechat.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/sell_record_list_item.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/sell_record_list_item.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/thridlogin_dialog_loading.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/thridlogin_dialog_loading.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_main22.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_main22.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_checkloginstate.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/dialog_checkloginstate.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/mylayout.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/mylayout.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_banklist.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_banklist.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_login.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_login.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_user_login.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_user_login.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/layout_chicken5_fragment.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/layout_chicken5_fragment.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_purchase_history.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_purchase_history.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/content_purchase_history.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/content_purchase_history.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_home.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_home.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_home.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_home.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/add_bank_card.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/add_bank_card.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/nav_header_main.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/nav_header_main.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_dashboard.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_dashboard.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_my.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_my.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_share.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_share.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_report_day.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_report_day.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_my_order.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/dialog_my_order.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_update.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/dialog_update.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_order_status.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/dialog_order_status.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_account.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_account.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_transaction.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_transaction.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_wechat.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_wechat.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/gp_spinner_spinner_item.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/gp_spinner_spinner_item.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_bank_card_list.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_bank_card_list.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/mylayout.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/mylayout.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/frozen_record_list_item.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/frozen_record_list_item.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_first.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_first.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/nav_header.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/nav_header.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_launcher.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_launcher.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_buy_record.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_buy_record.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/bill_detail.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/bill_detail.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_broadcast.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/dialog_broadcast.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_order.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_order.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/detail.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/detail.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/layout_chicken5_fragment.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/layout_chicken5_fragment.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_notifications.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_notifications.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/oreder_item_view.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/oreder_item_view.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_second.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_second.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/add_google.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/add_google.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/loglayout.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/loglayout.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/reportday_list_item.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/reportday_list_item.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_first.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_first.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/add_pay_card.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/add_pay_card.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_main.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_main.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_send.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_send.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_launcher.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_launcher.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/group_report_list_item.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/group_report_list_item.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/layout_chicken4_fragment.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/layout_chicken4_fragment.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_add_bank_card.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/dialog_add_bank_card.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/app_bar_main.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/app_bar_main.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dropdown_stytle.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/dropdown_stytle.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_checknetwork.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/dialog_checknetwork.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_report_day.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_report_day.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_share.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_share.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_group_listctivity.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_group_listctivity.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/message_item_view.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/message_item_view.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/layout_chicken1_fragment.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/layout_chicken1_fragment.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_checkloginstate.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/dialog_checkloginstate.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/sell_record_list_item.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/sell_record_list_item.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/content_main.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/content_main.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/frozen_record_list_item.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/frozen_record_list_item.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_my_order.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/dialog_my_order.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/detail.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/detail.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_transaction.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_transaction.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_buy_record.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_buy_record.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_dashboard.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_dashboard.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_broadcast.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/dialog_broadcast.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/sell_list_item.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/sell_list_item.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_account.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_account.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/reportday_list_item.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/reportday_list_item.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_checknetwork.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/dialog_checknetwork.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/group_list_item.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/group_list_item.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/paymentmatching_list_item.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/paymentmatching_list_item.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/add_google.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/add_google.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_detail.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_detail.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_password.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_password.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_gallery.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_gallery.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_sell_record.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_sell_record.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/spinner_item.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/spinner_item.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_home.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_home.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/buy_list_item.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/buy_list_item.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/dialog_order_status.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/dialog_order_status.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_main22.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_main22.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/oreder_item_view.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/oreder_item_view.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/bankcard_item_view.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/bankcard_item_view.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_group_report.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_group_report.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/layout_chicken2_fragment.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/layout_chicken2_fragment.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/buy_list_item.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/buy_list_item.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_pay.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/fragment_pay.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_purchase_history.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_purchase_history.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_home.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_home.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/layout_chicken3_fragment.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/layout_chicken3_fragment.xml"
     },
     {
-        "merged": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/activity_sell_record.xml",
-        "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/layout/activity_sell_record.xml"
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/stripped.dir/layout/fragment_slideshow.xml",
+        "source": "/Users/JackPan/OTC/app/src/main/res/layout/fragment_slideshow.xml"
     }
 ]

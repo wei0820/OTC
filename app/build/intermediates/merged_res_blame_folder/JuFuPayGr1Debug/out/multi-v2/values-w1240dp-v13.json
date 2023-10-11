@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/JackPan/PayHelper-Android/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/merged.dir/values-w1240dp-v13/values-w1240dp-v13.xml",
+            "outputFile": "/Users/JackPan/OTC/app/build/intermediates/incremental/mergeJuFuPayGr1DebugResources/merged.dir/values-w1240dp-v13/values-w1240dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/JackPan/PayHelper-Android/app/src/main/res/values-w1240dp/dimens.xml",
+                    "source": "/Users/JackPan/OTC/app/src/main/res/values-w1240dp/dimens.xml",
                     "from": {
                         "startLines": "1",
                         "startColumns": "4",
