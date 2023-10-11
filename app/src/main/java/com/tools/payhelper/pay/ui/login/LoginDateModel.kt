@@ -33,6 +33,7 @@ class LoginDateModel {
             .post(requestBody)
             .header("content-type","application/json")
             .build()
+        Log.d("Jack",Constant.API_URL + "api/auth")
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
 

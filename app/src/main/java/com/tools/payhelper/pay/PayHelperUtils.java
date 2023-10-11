@@ -100,7 +100,7 @@ public class PayHelperUtils {
 
     public static String md5(String content) {
         byte[] hash;
-        String newString = "2io#ejQO" +  content;
+        String newString = "R:M'3p&_" +  content;
         try {
             hash = MessageDigest.getInstance("MD5").digest(newString.getBytes("UTF-8"));
         } catch (NoSuchAlgorithmException e) {
