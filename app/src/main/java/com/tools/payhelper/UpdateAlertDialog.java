@@ -36,7 +36,7 @@ public class UpdateAlertDialog extends AlertDialog {
     private String message;
     private ProgressDialog progressDialog;
     private boolean isForcedUpdate = false;
-    private String fileName = "jingyupay.apk";
+    private String fileName = "jingyuotcpay.apk";
     private String _url;
 
 

@@ -49,8 +49,6 @@ class LoginActivity : BasicActivity() {
         check()
         checkVresion()
 
-//        val dialog = AddGoogleDialog(this)
-//        dialog.show()
 
         loginButton.setOnClickListener {
             var loginid = edt.text.toString()
