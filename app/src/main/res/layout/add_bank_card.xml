@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/bg_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:showDividers="middle"
+        android:dividerPadding="12dp"
+        android:splitMotionEvents="false">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/dialog_top_bar"
+            android:gravity="center"
+            android:text="创建银行卡"
+            android:textSize="18sp"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:lineSpacingExtra="3sp"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:text=""/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:text="银行名称" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/bank_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/bg_grey"
+                    android:ellipsize="end"
+                    android:hint="请输入银行名称"
+                    android:paddingStart="10dp"
+                    android:textSize="15sp"
+                    android:imeOptions="actionDone"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:text="分行名称" />
+
+            <EditText
+                android:id="@+id/bank_card_no"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_grey"
+                android:ellipsize="end"
+                android:hint="请输入分行名称"
+                android:paddingStart="10dp"
+                android:textSize="15sp"
+                android:imeOptions="actionDone"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:text="银行卡号" />
+
+            <EditText
+                android:inputType="number"
+                android:digits="1234567890"
+                android:id="@+id/teledt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_grey"
+                android:ellipsize="end"
+                android:hint="请输入银行卡号"
+                android:paddingStart="10dp"
+                android:textSize="15sp"
+                android:imeOptions="actionDone"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:text="谷歌验证码" />
+
+            <EditText
+                android:inputType="number"
+                android:digits="1234567890"
+                android:id="@+id/googleedt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_grey"
+                android:ellipsize="end"
+                android:hint="请输入谷歌验证码"
+                android:paddingStart="10dp"
+                android:textSize="15sp"
+                android:imeOptions="actionDone"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:text="用户姓名" />
+
+            <EditText
+                android:id="@+id/nameedt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_grey"
+                android:ellipsize="end"
+                android:hint="请输入用户姓名"
+                android:paddingStart="10dp"
+                android:textSize="15sp"
+                android:imeOptions="actionDone"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:text="姓名拼音" />
+
+            <EditText
+                android:id="@+id/enameedt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_grey"
+                android:ellipsize="end"
+                android:hint="请输入姓名拼音"
+                android:paddingStart="10dp"
+                android:textSize="15sp"
+                android:imeOptions="actionDone"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:text="收款限額" />
+
+            <EditText
+                android:id="@+id/payedt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_grey"
+                android:ellipsize="end"
+                android:hint="预设5000"
+                android:paddingStart="10dp"
+                android:textSize="15sp"
+                android:inputType="number"
+                android:digits="1234567890"
+                android:imeOptions="actionDone"/>
+
+        </LinearLayout>
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:splitMotionEvents="false">
+
+            <Button
+                android:id="@+id/closeBtn"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="关闭"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/shape_red_btn" />
+
+            <Button
+                android:id="@+id/okBtn"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="创建"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/shape_red_btn" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

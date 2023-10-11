@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 圆角 -->
+    <corners android:radius="3pt" android:color="@color/gp_default_theme_color" />
+
+    <!-- 实心 -->
+    <solid android:color="#F5F5F5" />
+
+</shape>

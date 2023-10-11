@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="首頁" />
+        <item
+            android:id="@+id/nav_pay"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="帳目金額" />
+
+
+        <item
+            android:id="@+id/nav_tools"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_slideshow" />
+
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="手工訂單列表" />
+                <item
+                    android:id="@+id/nav_gallery"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="搶單-公開池" />
+        <item
+            android:id="@+id/nav_my"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="搶單-私有池" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="監聽訊息查詢" />
+
+<!--        <item-->
+<!--            android:icon="@drawable/ic_menu_slideshow"-->
+<!--            android:title="無" />-->
+
+    </group>
+
+
+</menu>

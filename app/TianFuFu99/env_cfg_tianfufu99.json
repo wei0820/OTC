@@ -1,0 +1,7 @@
+{
+  "apiDomain" : "https://api.tianfufu99.com/",
+  "minVersuon" : "1.0.8",
+  "newVersion" : "1.0.8",
+  "updateAppUrl" : "https://za.tianfufu99.com/app/tianfufu99.apk",
+  "message" : "1.不能添加相同银行的银行卡\n2.请确认您添加的银行卡已在后台设置完成"
+}

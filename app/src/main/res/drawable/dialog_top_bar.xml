@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 圆角 -->
+    <corners android:topLeftRadius="7pt" android:topRightRadius="7pt" android:color="#2828FF" />
+
+    <!-- 实心 -->
+    <solid android:color="@color/default_color" />
+
+</shape>

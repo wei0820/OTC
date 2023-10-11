@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="7"
+            android:orientation="vertical">
+            <TextView
+                android:gravity="center"
+                android:id="@+id/orderno"
+                android:textSize="14sp"
+                android:textColor="#3a3a3a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#3a3a3a"
+                android:id="@+id/bankname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text=""/>
+
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:paddingStart="20dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/cardno"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="#3a3a3a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1287398127381273"/>
+
+        <TextView
+            android:visibility="gone"
+            android:textSize="14sp"
+            android:textColor="#3a3a3a"
+            android:gravity="center_horizontal"
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500000.000" />
+
+        <TextView
+            android:visibility="gone"
+            android:textSize="14sp"
+            android:textColor="#3a3a3a"
+            android:gravity="center_horizontal"
+            android:id="@+id/frozen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500000.000" />
+    </LinearLayout>
+    <LinearLayout
+        android:paddingStart="20dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_weight="8"
+            android:id="@+id/time"
+            android:textSize="12sp"
+            android:textColor="#9e9e9e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kdjfgsdfdsf" />
+    </LinearLayout>
+
+    <View
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="#000000"  />
+</LinearLayout>
