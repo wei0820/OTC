@@ -197,14 +197,12 @@ public class UpdateAlertDialog extends AlertDialog {
 
             Intent installIntent = new Intent(Intent.ACTION_VIEW);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Toast.makeText(context,"1", Toast.LENGTH_SHORT).show();
 
                 installIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 installIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileProvider", new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
                 installIntent.setDataAndType(contentUri, "application/vnd.android.package-archive");
             } else {
-                Toast.makeText(context,"2", Toast.LENGTH_SHORT).show();
 
                 installIntent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName)), "application/vnd.android.package-archive");
                 installIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
