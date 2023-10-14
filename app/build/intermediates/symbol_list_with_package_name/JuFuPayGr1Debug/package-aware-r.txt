@@ -2157,8 +2157,6 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
-id btn_album
-id btn_scan
 id button2
 id button3
 id buttonPanel
@@ -2473,6 +2471,7 @@ id passlayout
 id password_toggle
 id path
 id pathRelative
+id pay_adds
 id payedt
 id payerNameText
 id paymentxe
@@ -2514,6 +2513,7 @@ id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
 id scale
+id scanbtn
 id screen
 id scroll
 id scrollIndicatorDown
@@ -2648,7 +2648,6 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
-id tv_content
 id tv_load_more_message
 id tx
 id unchecked
@@ -2958,6 +2957,7 @@ string abc_toolbar_collapse_description
 string action_settings
 string add_bankcard
 string add_pay
+string add_scan
 string app_name
 string appbar_scrolling_view_behavior
 string appname

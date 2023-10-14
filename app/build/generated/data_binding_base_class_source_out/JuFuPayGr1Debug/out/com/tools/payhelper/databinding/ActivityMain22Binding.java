@@ -5,7 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,28 +18,71 @@ import java.lang.String;
 
 public final class ActivityMain22Binding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final RelativeLayout rootView;
 
   @NonNull
-  public final Button btnAlbum;
+  public final EditText bankCard;
 
   @NonNull
-  public final Button btnScan;
+  public final EditText bankCardNo;
 
   @NonNull
-  public final TextView tvContent;
+  public final Button closeBtn;
 
-  private ActivityMain22Binding(@NonNull LinearLayout rootView, @NonNull Button btnAlbum,
-      @NonNull Button btnScan, @NonNull TextView tvContent) {
+  @NonNull
+  public final EditText enameedt;
+
+  @NonNull
+  public final EditText googleedt;
+
+  @NonNull
+  public final RelativeLayout loading;
+
+  @NonNull
+  public final TextView message;
+
+  @NonNull
+  public final EditText nameedt;
+
+  @NonNull
+  public final Button okBtn;
+
+  @NonNull
+  public final TextView payAdds;
+
+  @NonNull
+  public final EditText payedt;
+
+  @NonNull
+  public final Button scanbtn;
+
+  @NonNull
+  public final EditText teledt;
+
+  private ActivityMain22Binding(@NonNull RelativeLayout rootView, @NonNull EditText bankCard,
+      @NonNull EditText bankCardNo, @NonNull Button closeBtn, @NonNull EditText enameedt,
+      @NonNull EditText googleedt, @NonNull RelativeLayout loading, @NonNull TextView message,
+      @NonNull EditText nameedt, @NonNull Button okBtn, @NonNull TextView payAdds,
+      @NonNull EditText payedt, @NonNull Button scanbtn, @NonNull EditText teledt) {
     this.rootView = rootView;
-    this.btnAlbum = btnAlbum;
-    this.btnScan = btnScan;
-    this.tvContent = tvContent;
+    this.bankCard = bankCard;
+    this.bankCardNo = bankCardNo;
+    this.closeBtn = closeBtn;
+    this.enameedt = enameedt;
+    this.googleedt = googleedt;
+    this.loading = loading;
+    this.message = message;
+    this.nameedt = nameedt;
+    this.okBtn = okBtn;
+    this.payAdds = payAdds;
+    this.payedt = payedt;
+    this.scanbtn = scanbtn;
+    this.teledt = teledt;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public RelativeLayout getRoot() {
     return rootView;
   }
 
@@ -63,25 +107,82 @@ public final class ActivityMain22Binding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btn_album;
-      Button btnAlbum = rootView.findViewById(id);
-      if (btnAlbum == null) {
+      id = R.id.bank_card;
+      EditText bankCard = rootView.findViewById(id);
+      if (bankCard == null) {
         break missingId;
       }
 
-      id = R.id.btn_scan;
-      Button btnScan = rootView.findViewById(id);
-      if (btnScan == null) {
+      id = R.id.bank_card_no;
+      EditText bankCardNo = rootView.findViewById(id);
+      if (bankCardNo == null) {
         break missingId;
       }
 
-      id = R.id.tv_content;
-      TextView tvContent = rootView.findViewById(id);
-      if (tvContent == null) {
+      id = R.id.closeBtn;
+      Button closeBtn = rootView.findViewById(id);
+      if (closeBtn == null) {
         break missingId;
       }
 
-      return new ActivityMain22Binding((LinearLayout) rootView, btnAlbum, btnScan, tvContent);
+      id = R.id.enameedt;
+      EditText enameedt = rootView.findViewById(id);
+      if (enameedt == null) {
+        break missingId;
+      }
+
+      id = R.id.googleedt;
+      EditText googleedt = rootView.findViewById(id);
+      if (googleedt == null) {
+        break missingId;
+      }
+
+      RelativeLayout loading = (RelativeLayout) rootView;
+
+      id = R.id.message;
+      TextView message = rootView.findViewById(id);
+      if (message == null) {
+        break missingId;
+      }
+
+      id = R.id.nameedt;
+      EditText nameedt = rootView.findViewById(id);
+      if (nameedt == null) {
+        break missingId;
+      }
+
+      id = R.id.okBtn;
+      Button okBtn = rootView.findViewById(id);
+      if (okBtn == null) {
+        break missingId;
+      }
+
+      id = R.id.pay_adds;
+      TextView payAdds = rootView.findViewById(id);
+      if (payAdds == null) {
+        break missingId;
+      }
+
+      id = R.id.payedt;
+      EditText payedt = rootView.findViewById(id);
+      if (payedt == null) {
+        break missingId;
+      }
+
+      id = R.id.scanbtn;
+      Button scanbtn = rootView.findViewById(id);
+      if (scanbtn == null) {
+        break missingId;
+      }
+
+      id = R.id.teledt;
+      EditText teledt = rootView.findViewById(id);
+      if (teledt == null) {
+        break missingId;
+      }
+
+      return new ActivityMain22Binding((RelativeLayout) rootView, bankCard, bankCardNo, closeBtn,
+          enameedt, googleedt, loading, message, nameedt, okBtn, payAdds, payedt, scanbtn, teledt);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

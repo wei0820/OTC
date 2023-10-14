@@ -87,7 +87,8 @@ class BankCardDateModel {
 
 
 
-    fun setBankCard(context: Context,bankName:String,
+    fun setBankCard(context: Context,
+                    bankName:String,
                     subName:String,
                     cardNo:String,
                     collectionlimit:Float,
@@ -109,12 +110,13 @@ class BankCardDateModel {
 
 
         var jsonStr=jsonObject.toString()
+        Log.d("Jack",jsonStr);
+
         val contentType: MediaType = "application/json".toMediaType()
         val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/bindCard").toHttpUrlOrNull()!!.newBuilder()
 //        urlBuilder.addQueryParameter("id", "")
 //        urlBuilder.addQueryParameter("day", "")
         val url: String = urlBuilder.build().toString()
-        Log.d("Jack",url);
 
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)

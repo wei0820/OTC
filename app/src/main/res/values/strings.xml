@@ -35,6 +35,7 @@
     <string name="add_bankcard">新增银行卡</string>
     <string name="add_pay">新增支付宝转帐</string>
 
+    <string name="add_scan">新增支付宝扫码</string>
 
 
     <string-array name="planets_array">

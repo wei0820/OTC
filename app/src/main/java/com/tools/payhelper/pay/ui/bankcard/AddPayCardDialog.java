@@ -26,12 +26,8 @@ import com.tools.payhelper.pay.PayHelperUtils;
 public class AddPayCardDialog extends AlertDialog {
     private Activity activity;
     private EditText pd, name,tel,googleedt,usernaem,eusername,payedt;
-    private Spinner spinner;
     private OnAddCallback onAddCallback;
     private OnAddBanKListCallback onAddBanKListCallback;
-    private Dialog dialog;
-    private Switch aSwitch;
-    private  TextView textView,textView2;
     private Handler handlerLoading = new Handler();
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
     public void setOnAddCallback(OnAddCallback onAddCallback) {

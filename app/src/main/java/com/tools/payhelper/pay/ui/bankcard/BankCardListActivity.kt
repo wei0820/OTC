@@ -1,5 +1,6 @@
 package com.jingyu.pay.ui.bankcard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import com.jingyu.pay.ui.group.*
+import com.jingyu.pay.ui.login.LoginActivity
+import com.tools.payhelper.Main22Activity
 import com.tools.payhelper.R
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.bankcard.AddCardDialog
@@ -96,7 +99,7 @@ class BankCardListActivity : AppCompatActivity() {
 
     fun addAlert(){
         lunch = listOf(getString(R.string.add_bankcard),
-            getString(R.string.add_pay), )
+            getString(R.string.add_pay),  getString(R.string.add_scan),)
         AlertDialog.Builder(this@BankCardListActivity)
             .setItems(lunch.toTypedArray()) { _, which ->
                 val name = lunch[which]
@@ -128,11 +131,22 @@ class BankCardListActivity : AppCompatActivity() {
                         }
                         dialog.show()
                     }
+                    getString(R.string.add_scan) -> {
+                        val intent  = Intent()
+                        intent.setClass(this, Main22Activity::class.java)
+                        startActivity(intent)
+                    }
 
                 }
             }
             .show()
     }
+
+    override fun onResume() {
+        super.onResume()
+        getBankCardList()
+    }
+
 
     fun getBankCardList(){
         bankCardViewModel.getBankList(this).observe(this, Observer {

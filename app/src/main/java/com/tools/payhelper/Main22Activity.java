@@ -1,71 +1,163 @@
 package com.tools.payhelper;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.FormatException;
+import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
+import com.jingyu.pay.ui.bankcard.BankCardDateModel;
 import com.permissionx.guolindev.PermissionX;
 import com.permissionx.guolindev.callback.ExplainReasonCallback;
 import com.permissionx.guolindev.callback.ForwardToSettingsCallback;
 import com.permissionx.guolindev.callback.RequestCallback;
 import com.permissionx.guolindev.request.ExplainScope;
 import com.permissionx.guolindev.request.ForwardScope;
+import com.tools.payhelper.pay.ToastManager;
+import com.tools.payhelper.pay.ui.bankcard.AddBankCardData;
+import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main22Activity extends AppCompatActivity implements View.OnClickListener {
-
+    private EditText  name,tel,googleedt,usernaem,eusername,payedt,pd;
+    private AddPayCardDialog.OnAddCallback onAddCallback;
+    private AddPayCardDialog.OnAddBanKListCallback onAddBanKListCallback;
+    private Handler handlerLoading = new Handler();
     private Button btn_scan, btn_album;
-    private TextView tv_content;
+    private TextView padd;
     public static final String CAMERA = Manifest.permission.CAMERA;
     public static final String WRITE_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     public static final int SCAN_RESULT = 1120;
     public final static int DEVICE_PHOTO_REQUEST = 1234;
+    BankCardDateModel bankCardDateModel = new BankCardDateModel();
+    public void setOnAddCallback(AddPayCardDialog.OnAddCallback onAddCallback) {
+        this.onAddCallback = onAddCallback;
+    }
+
+    public  void  setAddBankCallback(AddPayCardDialog.OnAddBanKListCallback onAddBanKListCallback){
+        this.onAddBanKListCallback = onAddBanKListCallback;
+
+    }
+
+    public interface OnAddCallback {
+        void onAdd(String cardNo, String bankName, String bankCode);
+    }
+    public  interface  OnAddBanKListCallback{
+        void onResponse(AddBankCardData addBankCardData);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         setContentView(R.layout.activity_main22);
         initView();
     }
 
     private void initView() {
-        btn_scan = findViewById(R.id.btn_scan);
-        btn_album = findViewById(R.id.btn_album);
-        tv_content = findViewById(R.id.tv_content);
+        btn_scan = findViewById(R.id.scanbtn);
+//        btn_album = findViewById(R.id.btn_album);
+//        tv_content = findViewById(R.id.tv_content);
         btn_scan.setOnClickListener(this);
-        btn_album.setOnClickListener(this);
+//        btn_album.setOnClickListener(this);
+
+        name = findViewById(R.id.bank_card);
+        pd = findViewById(R.id.bank_card_no);
+        tel = findViewById(R.id.teledt);
+        googleedt = findViewById(R.id.googleedt);
+        usernaem = findViewById(R.id.nameedt);
+        eusername = findViewById(R.id.enameedt);
+        payedt = findViewById(R.id.payedt);
+        padd = findViewById(R.id.pay_adds);
+
+
+        findViewById(R.id.closeBtn).setOnClickListener(v -> {
+
+            Main22Activity.this.finish();
+
+        });
+
+
+
+
+        findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String n = "支付宝扫码";
+                String p = pd.getText().toString();
+                String t = padd.getText().toString();
+                String google = googleedt.getText().toString();
+                String username = usernaem.getText().toString();
+                String euserName = eusername.getText().toString();
+                String pay = payedt.getText().toString().isEmpty() ?"5000" : payedt.getText().toString();
+                Float payF = Float.parseFloat(pay);
+                bankCardDateModel.setBankCard(Main22Activity.this, n, p, t, payF, google, username, euserName, new BankCardDateModel.BankCardResponse() {
+                    @Override
+                    public void getResponse(@NonNull String s) {
+                        if (!s.isEmpty()){
+                            AddBankCardData addBankCardData = new Gson().fromJson(s,AddBankCardData.class);
+                            if (addBankCardData !=null){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (addBankCardData.code==0){
+                                            Main22Activity.this.finish();
+
+                                        }else {
+                                            ToastManager.showToastCenter(Main22Activity.this,addBankCardData.msg);
+                                        }
+                                    }
+                                });
+
+                            }
+                        }
+                    }
+                });
+
+
+            }
+        });
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_scan://二维码扫描
-                checkCamera();
-                break;
+//            case R.id.scanbtn://二维码扫描
+//                checkCamera();
+//                break;
 
-            case R.id.btn_album://打开相册
+            case R.id.scanbtn://打开相册
                 checkStorage();
                 break;
 
@@ -73,7 +165,6 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void checkStorage() {
-        Log.d("Jack","checkStorage");
         PermissionX.init(this).permissions(WRITE_STORAGE).onExplainRequestReason(new ExplainReasonCallback() {
             @Override
             public void onExplainReason(ExplainScope scope, List<String> deniedList) {
@@ -125,13 +216,12 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-
+    Bitmap generatedQRCode;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //系统相册返回请求
-        Log.d("Jack","onActivityResult");
-        Log.d("Jack",requestCode+"");
+
 
         switch (requestCode) {
             case DEVICE_PHOTO_REQUEST:
@@ -141,12 +231,15 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
                     Log.d("Jack",imagePath+"");
 
                     //对获取到的二维码照片进行压缩
-                    Bitmap bitmap = BitMapUtil.compressPicture(imagePath);
-                    Result result = setZxingResult(bitmap);
+                    Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
+
+
+
+                    Result result = setZxingResult(generatedQRCode);
                     if (result == null) {
-                        tv_content.setText("识别失败，请试试其它二维码");
+                        ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档");
                     } else {
-                        tv_content.setText(result.getText());
+                        padd.setText(result.getText());
                     }
                 }
                 break;
@@ -182,11 +275,20 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
         Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
         hints.put(DecodeHintType.CHARACTER_SET, "utf-8");
         hints.put(DecodeHintType.TRY_HARDER, true);
+
+        int width = bitmap.getWidth(), height = bitmap.getHeight();
+        int[] pixels = new int[width * height];
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+        bitmap.recycle();
+        bitmap = null;
+        RGBLuminanceSource source = new RGBLuminanceSource(width, height, pixels);
+        BinaryBitmap bBitmap = new BinaryBitmap(new HybridBinarizer(source));
+        MultiFormatReader reader = new MultiFormatReader();
         Result result;
         try {
-            result = qrCodeReader.decode(bb, hints);
+            result = reader.decode(bb);
             return result;
-        } catch (NotFoundException | ChecksumException | FormatException e) {
+        } catch (NotFoundException  e) {
             e.printStackTrace();
             return null;
         }
