@@ -21,6 +21,9 @@
             android:layout_height="wrap_content"
             android:text="訂單號:" />
         <TextView
+            android:maxEms="16"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:layout_weight="8"
             android:id="@+id/orderno"
             android:textSize="14sp"
@@ -97,7 +100,9 @@
             android:orientation="vertical"
             >
             <TextView
-
+                android:maxEms="16"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:gravity="center"
                 android:textSize="14sp"
                 android:textColor="#3a3a3a"
@@ -108,6 +113,9 @@
                 android:text="bank"/>
 
             <TextView
+                android:maxEms="16"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:id="@+id/cname"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -118,6 +126,9 @@
                 android:text="1287398127381273"/>
 
             <TextView
+                android:maxEms="16"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:id="@+id/cardno"
                 android:gravity="center"
                 android:textSize="14sp"
