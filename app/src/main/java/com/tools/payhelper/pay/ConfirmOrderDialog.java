@@ -6,15 +6,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,7 +24,7 @@ import com.tools.payhelper.pay.ui.dashboard.SellListData;
 
 public class ConfirmOrderDialog extends AlertDialog {
     private Activity activity;
-    private EditText max,min;
+    private EditText max, name;
     private OnAddCallback onAddCallback;
     private OnAddBanKListCallback onAddBanKListCallback;
     private Dialog dialog;
@@ -80,14 +76,14 @@ public class ConfirmOrderDialog extends AlertDialog {
         setCanceledOnTouchOutside(false);
         setCancelable(false);
 
-        min = findViewById(R.id.bank_card);
+        name = findViewById(R.id.bank_card);
         max = findViewById(R.id.bank_card_no);
         String maxString = mSellListData.score+"";
         String minString = mSellListData.userName;
         String ischeckString =PayHelperUtils.getBuyIsOpen(activity) ? "买币已开启" : "买币已关闭";
 
         boolean ischeck = PayHelperUtils.getBuyIsOpen(activity);
-        min.setHint(minString);
+        name.setHint(minString);
         max.setHint(maxString);
 
 
@@ -111,17 +107,24 @@ public class ConfirmOrderDialog extends AlertDialog {
         view.findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = min.getText().toString().isEmpty() ? mSellListData.score+"" : min.getText().toString();
-                String name = max.getText().toString().isEmpty() ? mSellListData.userName: max.getText().toString();
+                String _name = name.getText().toString().isEmpty() ? mSellListData.userName + "" : name.getText().toString();
+//                String id = max.getText().toString().isEmpty() ? mSellListData.userName: max.getText().toString();
 
-                sellDateModel.setConfirmOrder(mSellListData.id, name, activity, new SellDateModel.SellResponse() {
+                sellDateModel.setConfirmOrder(mSellListData.id, _name, activity, new SellDateModel.SellResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
-                        Log.d("Jack",s);
+
                         if (!s.isEmpty()){
                             ConfirmData confirmData = new Gson().fromJson(s,ConfirmData.class);
                             if (confirmData!=null){
                                 onAddBanKListCallback.onResponse(confirmData);
+                                activity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ToastManager.showToastCenter(activity,confirmData.msg);
+                                        dismiss();
+                                    }
+                                });
 
                             }
                         }

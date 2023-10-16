@@ -99,9 +99,6 @@ class SellDateModel {
         var jsonObject= JSONObject()
         jsonObject.put("id",id)
         jsonObject.put("userName",userName)
-        Log.d("Jack", id)
-        Log.d("Jack", userName)
-
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
         //调用请求
