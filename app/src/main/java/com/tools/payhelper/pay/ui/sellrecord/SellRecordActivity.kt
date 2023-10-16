@@ -163,7 +163,7 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
         holder.bankName.text = "姓名:" + info.userName
         holder.cardNo.text = "卡号:" +  info.cardNo
         holder.time.text = info.created
-        holder.amount.text = "￥"+info.commission
+        holder.amount.text = "￥"+info.commission +"/" +"￥"+info.score
         holder.cBankName.text = info.cBankName
         holder.cName.text = info.cUserName
 

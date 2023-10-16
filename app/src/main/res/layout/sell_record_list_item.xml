@@ -100,9 +100,9 @@
             android:orientation="vertical"
             >
             <TextView
-                android:maxEms="16"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:ellipsize="end"
+                android:maxEms="6"
                 android:gravity="center"
                 android:textSize="14sp"
                 android:textColor="#3a3a3a"
@@ -113,9 +113,9 @@
                 android:text="bank"/>
 
             <TextView
-                android:maxEms="16"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:ellipsize="end"
+                android:maxEms="6"
                 android:id="@+id/cname"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -126,9 +126,9 @@
                 android:text="1287398127381273"/>
 
             <TextView
-                android:maxEms="16"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:ellipsize="end"
+                android:maxEms="6"
                 android:id="@+id/cardno"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -136,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:text="1287398127381273"/>
+                android:text="128739812738127311111111111111111111"/>
 
         </LinearLayout>
 

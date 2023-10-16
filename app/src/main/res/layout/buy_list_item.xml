@@ -71,7 +71,16 @@
                 android:text="1287398127381273"/>
 
 
-
+            <TextView
+                android:layout_marginTop="12dp"
+                android:id="@+id/username"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#9e9e9e"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="1287398127381273"/>
         </LinearLayout>
 
         <LinearLayout

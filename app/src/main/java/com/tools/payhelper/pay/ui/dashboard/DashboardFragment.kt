@@ -21,6 +21,7 @@ import com.tools.payhelper.R
 import com.tools.payhelper.databinding.FragmentDashboardBinding
 import com.tools.payhelper.pay.ConfirmOrderDialog
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.dashboard.SellListData
 
 
@@ -131,6 +132,8 @@ class DashboardFragment : Fragment() {
     fun cancelToUrl(id : String){
 
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "voucher/" +id +"?actionName=cancel"
+        ToastManager.showToastCenter(requireActivity(),url)
+
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
         intent.data = Uri.parse(url)

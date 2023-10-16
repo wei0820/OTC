@@ -11,6 +11,7 @@ import android.os.PowerManager
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -36,8 +37,10 @@ class LoginActivity : BasicActivity() {
     lateinit var edt2 : EditText
     lateinit var edt3 : EditText
     lateinit var loginButton: Button
+    lateinit var _versiontext : TextView
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -45,6 +48,9 @@ class LoginActivity : BasicActivity() {
         edt = findViewById(R.id.edt)
         edt2 = findViewById(R.id.edt2)
         edt3 = findViewById(R.id.edt3)
+        _versiontext = findViewById(R.id.vertext);
+        _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()
+
 
         check()
         checkVresion()

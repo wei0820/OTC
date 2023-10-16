@@ -40,9 +40,13 @@ public final class BuyListItemBinding implements ViewBinding {
   @NonNull
   public final TextView time;
 
+  @NonNull
+  public final TextView username;
+
   private BuyListItemBinding(@NonNull LinearLayout rootView, @NonNull Button addbtn,
       @NonNull TextView amount, @NonNull TextView bankname, @NonNull TextView cardno,
-      @NonNull LinearLayout layout, @NonNull TextView orderno, @NonNull TextView time) {
+      @NonNull LinearLayout layout, @NonNull TextView orderno, @NonNull TextView time,
+      @NonNull TextView username) {
     this.rootView = rootView;
     this.addbtn = addbtn;
     this.amount = amount;
@@ -51,6 +55,7 @@ public final class BuyListItemBinding implements ViewBinding {
     this.layout = layout;
     this.orderno = orderno;
     this.time = time;
+    this.username = username;
   }
 
   @Override
@@ -122,8 +127,14 @@ public final class BuyListItemBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.username;
+      TextView username = rootView.findViewById(id);
+      if (username == null) {
+        break missingId;
+      }
+
       return new BuyListItemBinding((LinearLayout) rootView, addbtn, amount, bankname, cardno,
-          layout, orderno, time);
+          layout, orderno, time, username);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -73,7 +73,6 @@ class HomeDateModel {
 
 
         val url: String = urlBuilder.build().toString()
-        Log.d("Jack",url)
 
         val requestBody = jsonStr.toRequestBody(contentType)
         val client = OkHttpClient()
@@ -85,7 +84,6 @@ class HomeDateModel {
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.d("Jack",e.toString());
 
 
             }
@@ -118,7 +116,6 @@ class HomeDateModel {
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.d("Jack",e.toString());
 
 
             }

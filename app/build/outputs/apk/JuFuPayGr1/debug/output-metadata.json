@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 3,
-      "versionName": "1.0.3",
-      "outputFile": "jingyuotcpay-v1.0.3.apk"
+      "versionCode": 7,
+      "versionName": "1.0.7",
+      "outputFile": "jingyuotcpay-v1.0.7.apk"
     }
   ]
 }

@@ -8,8 +8,8 @@ public final class BuildConfig {
   public static final String APPLICATION_ID = "com.jingyu.otc";
   public static final String BUILD_TYPE = "debug";
   public static final String FLAVOR = "JuFuPayGr1";
-  public static final int VERSION_CODE = 3;
-  public static final String VERSION_NAME = "1.0.3";
+  public static final int VERSION_CODE = 7;
+  public static final String VERSION_NAME = "1.0.7";
   // Field from product flavor: JuFuPayGr1
   public static final String API_DOMAIN = "https://portal.broslpay.com/";
   // Field from product flavor: JuFuPayGr1

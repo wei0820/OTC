@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tools.payhelper.R
 import com.tools.payhelper.databinding.FragmentOrderBinding
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.order.PaymentMatchingData
 import java.util.*
 
@@ -101,7 +102,7 @@ class OrderFragment : Fragment(){
     fun cancelToUrl(id : String){
 
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "voucherError/" +id
-
+        ToastManager.showToastCenter(requireActivity(),url)
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
         intent.data = Uri.parse(url)
@@ -113,6 +114,7 @@ class OrderFragment : Fragment(){
     fun confirmOrder(id : String){
 
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "index/" +id
+        ToastManager.showToastCenter(requireActivity(),url)
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
         intent.data = Uri.parse(url)

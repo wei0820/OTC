@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,6 +20,7 @@ import com.tools.payhelper.pay.AddBuySettingDilog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.home.BuyData
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -149,12 +151,26 @@ class HomeFragment : Fragment() {
     }
 
     fun  getPament(id:String){
+        ToastManager.showToastCenter(requireActivity(),id);
+
         merchantOrdersViewModel.getPaymentMatchingData(requireActivity(),id).observe(requireActivity(),
             Observer {
-                if (it!=null){
-                    ToastManager.showToastCenter(requireActivity(),it.msg);
-                    getBuyDataList()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    if (it!=null){
+                        if (it.code==0){
+                            ToastManager.showToastCenter(requireActivity(),it.msg);
+                            getBuyDataList()
+                        }else{
+                            ToastManager.showToastCenter(requireActivity(),it.msg);
+                            getBuyDataList()
+                        }
+
+                    }else{
+                        ToastManager.showToastCenter(requireActivity(),"error");
+
+                    }
                 }
+
             })
     }
 
@@ -181,6 +197,7 @@ class HomeFragment : Fragment() {
             var amount: TextView
             var orderno: TextView
             var addButton : Button
+            var username : TextView
 
 
             init {
@@ -190,6 +207,7 @@ class HomeFragment : Fragment() {
                 amount = view.findViewById(R.id.amount)
                 orderno = view.findViewById(R.id.orderno)
                 addButton = view.findViewById(R.id.addbtn);
+                username = view.findViewById(R.id.username);
 
 
             }
@@ -210,14 +228,21 @@ class HomeFragment : Fragment() {
             holder.amount.text = "￥"+info.score
             holder.orderno.text = info.orderNo
             holder.addButton.text = info.state
-            if (info.state.equals("已接单")){
-                holder.addButton.isEnabled = false
-            }else{
-                holder.addButton.setOnClickListener {
-                    mfragment.getPament(info.id);
+            holder.username.text = info.userName
 
-                }
+            holder.addButton.setOnClickListener {
+                mfragment.getPament(info.id);
+
             }
+
+//            if (info.state.equals("已接单")){
+//                holder.addButton.isEnabled = false
+//            }else{
+//                holder.addButton.setOnClickListener {
+//                    mfragment.getPament(info.id);
+//
+//                }
+//            }
 
         }
 
