@@ -1,15 +1,12 @@
 package com.jingyu.pay.ui.order
 
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -36,7 +33,7 @@ class OrderFragment : Fragment(){
     val merchantOrdersViewModel: OrderViewModel by lazy {
         ViewModelProvider(this, OrderViewModelFactory()).get(OrderViewModel::class.java)
     }
-    var adapter:Adapter? = null
+    var adapter:IngAdapter? = null
 
     var buyDataList: ArrayList<PaymentMatchingData.Data> = ArrayList()
 
@@ -54,7 +51,7 @@ class OrderFragment : Fragment(){
         getList();
 
 
-        adapter = Adapter(this)
+        adapter = IngAdapter(this)
 
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
         adapter!!.updateList(buyDataList)
@@ -129,7 +126,7 @@ class OrderFragment : Fragment(){
 
 }
 
-class Adapter(fragment: OrderFragment) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+class IngAdapter(fragment: OrderFragment) : RecyclerView.Adapter<IngAdapter.ViewHolder>() {
     var bankCardInfoList:ArrayList<PaymentMatchingData.Data>? = null
     var mfragment= fragment
 

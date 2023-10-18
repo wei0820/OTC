@@ -31,8 +31,8 @@ class LoginViewModel : ViewModel() {
 
         homeViewModel.setUserLogin(loginid,password,code, object : LoginDateModel.LoginrResponse {
             override fun getResponse(s: String) {
-                Log.d("Jack",s)
                 if (!s.isEmpty()){
+                    Log.d("Jack",s)
                     viewModelScope.launch {
                         var userData = Gson().fromJson(s, LoginData::class.java)
                         token.value = userData

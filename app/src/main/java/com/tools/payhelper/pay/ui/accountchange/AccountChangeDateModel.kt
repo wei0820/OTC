@@ -24,7 +24,7 @@ class AccountChangeDateModel {
         val contentType: MediaType = "application/json".toMediaType()
 
 
-        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/FrozenRecords?").toHttpUrlOrNull()!!.newBuilder()
+        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/AccountChange").toHttpUrlOrNull()!!.newBuilder()
         urlBuilder.addQueryParameter("date", "")
         val url: String = urlBuilder.build().toString()
 
@@ -37,6 +37,8 @@ class AccountChangeDateModel {
             .header("content-type","application/json")
             .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
             .build()
+        Log.d("Jack", url);
+
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
 

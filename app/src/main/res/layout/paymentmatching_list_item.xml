@@ -69,6 +69,7 @@
                 android:layout_marginEnd="5dp"
                 android:text=""/>
             <TextView
+                android:layout_marginTop="12dp"
                 android:id="@+id/bankname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,6 +103,8 @@
 
 
             <TextView
+                android:layout_marginTop="12dp"
+
                 android:id="@+id/username"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -128,6 +131,8 @@
         android:orientation="horizontal"
         >
         <TextView
+            android:layout_marginTop="12dp"
+
             android:textSize="20sp"
             android:textColor="#3a3a3a"
             android:gravity="center_horizontal"
@@ -162,13 +167,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-            android:layout_toLeftOf="@+id/sure_button"
-            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="left"
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_login_blue_radius"
-            android:text="付款确认"
+            android:text="取消付款"
+            android:background="@drawable/bg_login_gray_radius"
+
             android:textColor="@android:color/white"
             android:textSize="14sp"/>
 
@@ -181,7 +187,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_login_blue_radius"
-            android:text="确定到账"
+            android:text="付款完成"
             android:textColor="@android:color/white"
             android:textSize="14sp"/>
 

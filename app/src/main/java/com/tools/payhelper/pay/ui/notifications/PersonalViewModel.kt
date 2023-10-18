@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ui.notifications.UserinfoData
 import kotlinx.coroutines.launch
@@ -28,6 +29,8 @@ class PersonalViewModel : ViewModel() {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
                     if(!s.isEmpty()){
+                        Log.d("Jack", s);
+
                         var userData = Gson().fromJson(s, UserinfoData::class.java)
                         userinfoData.value = userData
                     }

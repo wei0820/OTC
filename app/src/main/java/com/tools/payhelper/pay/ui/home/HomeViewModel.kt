@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.jingyu.pay.ui.order.OrderDateModel
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.home.BuyData
 import com.tools.payhelper.pay.ui.home.PaymentMatchingData
@@ -26,6 +27,7 @@ class HomeViewModel : ViewModel() {
     var  buyData = MutableLiveData<BuyData>()
     var  mPaymentMatchingData = MutableLiveData<PaymentMatchingData>()
 
+    var  paymentMatchingData = MutableLiveData<com.tools.payhelper.pay.ui.order.PaymentMatchingData>()
 
 
 
@@ -34,6 +36,8 @@ class HomeViewModel : ViewModel() {
                 override fun getResponse(s: String) {
                     viewModelScope.launch {
                         if (!s.isEmpty()) {
+                            Log.d("Jack",s)
+
                             var data = Gson().fromJson(s, StartBuyData::class.java)
 
                             startBuy.value = data
@@ -59,6 +63,8 @@ class HomeViewModel : ViewModel() {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
                     if (!s.isEmpty()){
+                        Log.d("Jack",s)
+
                         var data = Gson().fromJson(s,BuyData::class.java)
                         buyData.value = data
                     }else{
@@ -79,6 +85,8 @@ class HomeViewModel : ViewModel() {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
                     if (!s.isEmpty()){
+                        Log.d("Jack",s)
+
                         var data = Gson().fromJson(s,PaymentMatchingData::class.java)
                         mPaymentMatchingData.value = data
                     }else{
@@ -93,6 +101,29 @@ class HomeViewModel : ViewModel() {
 
 
         return  mPaymentMatchingData
+    }
+
+
+    fun getPaymentMatching(context: Context) : LiveData<com.tools.payhelper.pay.ui.order.PaymentMatchingData>{
+        homeViewModel.getPaymentMatching(context, object : OrderDateModel.OrderResponse {
+            override fun getResponse(s: String) {
+                viewModelScope.launch {
+                    if (!s.isEmpty()){
+                        Log.d("Jack",s)
+                        var data = Gson().fromJson(s,
+                            com.tools.payhelper.pay.ui.order.PaymentMatchingData::class.java);
+                        if (data!=null){
+                            paymentMatchingData.value = data
+                        }
+                    }
+                }
+            }
+
+            override fun getFailure(s: String) {
+            }
+
+        })
+        return paymentMatchingData;
     }
 
 }

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.tools.payhelper.BuildConfig;
 
@@ -22,6 +23,23 @@ public class PayHelperUtils {
         return BuildConfig.VERSION_NAME;
 
     }
+
+
+    public static void copyToClipboard(Context context,String str){
+        ToastManager.showToastCenter(context,"已复制:"+str);
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if(sdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(str);
+            Log.e("version","1 version");
+        } else {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager )context.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("text label",str);
+            clipboard.setPrimaryClip(clip);
+            Log.e("version","2 version");
+        }
+    }
+
 
 
 

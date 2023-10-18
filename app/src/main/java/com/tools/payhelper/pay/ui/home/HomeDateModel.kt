@@ -2,6 +2,7 @@ package com.jingyu.pay.ui.home
 
 import android.content.Context
 import android.util.Log
+import com.jingyu.pay.ui.order.OrderDateModel
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
 
@@ -117,6 +118,33 @@ class HomeDateModel {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
 
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                orderResponse.getResponse( response.body?.string()!!)
+            }
+        })
+
+    }
+
+    fun getPaymentMatching(context: Context, orderResponse: OrderDateModel.OrderResponse){
+
+        var jsonObject= JSONObject()
+        jsonObject.put("token","")
+        var jsonStr=jsonObject.toString()
+        val contentType: MediaType = "application/json".toMediaType()
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(BaseUrl + "api/user/GetPaymentMatching")
+            .get()
+            .header("content-type","application/json")
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
 
             }
 

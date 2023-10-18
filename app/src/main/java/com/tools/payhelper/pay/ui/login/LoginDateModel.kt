@@ -60,8 +60,9 @@ class LoginDateModel {
             .post(requestBody)
             .header("content-type","application/json")
             .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(activity))
-
             .build()
+        Log.d("Jack",Constant.API_URL + "api/auth/bindKey")
+
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
 
@@ -89,9 +90,10 @@ class LoginDateModel {
 
             .header("content-type","application/json")
             .build()
+        Log.d("Jack",Constant.API_URL + "api/auth/google")
+
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.d("Jack",e.localizedMessage)
 
             }
 

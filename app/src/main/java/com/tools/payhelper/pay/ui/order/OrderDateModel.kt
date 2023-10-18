@@ -2,6 +2,7 @@ package com.jingyu.pay.ui.order
 
 import android.content.Context
 import android.util.Log
+import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -12,7 +13,7 @@ import java.io.IOException
 class OrderDateModel {
 
 
-    var BaseUrl : String = "https://api2.channel-sign.com/"
+    var BaseUrl : String =  Constant.API_URL
 
     fun getPaymentMatching(context: Context, orderResponse: OrderResponse){
 

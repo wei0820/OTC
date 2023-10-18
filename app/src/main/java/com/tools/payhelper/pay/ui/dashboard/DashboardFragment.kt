@@ -252,6 +252,29 @@ class DashboardFragment : Fragment() {
                 mfragment.confirmOrder(info)
             }
 
+            holder.bankName.setOnClickListener {
+                PayHelperUtils.copyToClipboard(mfragment.requireActivity(),info.bankName)
+
+            }
+            holder.amount.setOnClickListener {
+                PayHelperUtils.copyToClipboard(mfragment.requireActivity(),"￥"+info.score)
+
+            }
+
+            holder.orderno.setOnClickListener {
+                PayHelperUtils.copyToClipboard(mfragment.requireActivity(),info.orderNo)
+
+            }
+
+            holder.userName.setOnClickListener {
+                PayHelperUtils.copyToClipboard(mfragment.requireActivity(),info.userName)
+
+            }
+
+            holder.payName.setOnClickListener {
+                PayHelperUtils.copyToClipboard(mfragment.requireActivity(),info.payUserName)
+
+            }
 
 
 

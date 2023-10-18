@@ -2,6 +2,7 @@ package com.jingyu.pay.ui.order
 
 import android.content.Context
 import android.util.Log
+import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,7 @@ import java.io.IOException
 class PasswordDateModel {
 
 
-    var BaseUrl : String = "https://api2.channel-sign.com/"
+    var BaseUrl : String =  Constant.API_URL
 
 //    fun setSecurity(context: Context) :Flow<String>{
 //

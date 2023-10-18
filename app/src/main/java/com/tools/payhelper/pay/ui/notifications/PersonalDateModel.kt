@@ -15,7 +15,7 @@ import java.io.IOException
 class PersonalDateModel {
 
 
-    var BaseUrl : String = "https://api2.channel-sign.com/"
+    var BaseUrl : String = Constant.API_URL
     fun getMerchantPublicOrders(token:String,orderResponse: OrderResponse){
         var jsonObject= JSONObject()
         jsonObject.put("token",token)
@@ -56,9 +56,10 @@ class PersonalDateModel {
             .header("content-type","application/json")
             .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
             .build()
+        Log.d("Jack",Constant.API_URL + "api/user/userinfo?");
+
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.d("Jack",e.toString());
 
 
             }

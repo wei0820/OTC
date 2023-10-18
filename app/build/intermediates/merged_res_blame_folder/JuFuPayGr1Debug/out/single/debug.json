@@ -340,6 +340,10 @@
         "source": "/Users/JackPan/OTC/app/src/main/res/layout/activity_bank_card_list.xml"
     },
     {
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/res/merged/JuFuPayGr1/debug/drawable_bg_login_gray_radius.xml.flat",
+        "source": "/Users/JackPan/OTC/app/src/main/res/drawable/bg_login_gray_radius.xml"
+    },
+    {
         "merged": "/Users/JackPan/OTC/app/build/intermediates/res/merged/JuFuPayGr1/debug/drawable-hdpi_ic_baseline_add_24.xml.flat",
         "source": "/Users/JackPan/OTC/app/src/main/res/drawable-hdpi/ic_baseline_add_24.xml"
     },
@@ -530,6 +534,10 @@
     {
         "merged": "/Users/JackPan/OTC/app/build/intermediates/res/merged/JuFuPayGr1/debug/drawable-hdpi_ic_keyboard_arrow_down_black_24dp.xml.flat",
         "source": "/Users/JackPan/OTC/app/src/main/res/drawable-hdpi/ic_keyboard_arrow_down_black_24dp.xml"
+    },
+    {
+        "merged": "/Users/JackPan/OTC/app/build/intermediates/res/merged/JuFuPayGr1/debug/drawable-hdpi_bg_login_gray_radius.xml.flat",
+        "source": "/Users/JackPan/OTC/app/src/main/res/drawable-hdpi/bg_login_gray_radius.xml"
     },
     {
         "merged": "/Users/JackPan/OTC/app/build/intermediates/res/merged/JuFuPayGr1/debug/drawable-hdpi_ic_launcher_background.xml.flat",

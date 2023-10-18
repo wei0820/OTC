@@ -49,7 +49,8 @@ class LoginActivity : BasicActivity() {
         edt2 = findViewById(R.id.edt2)
         edt3 = findViewById(R.id.edt3)
         _versiontext = findViewById(R.id.vertext);
-        _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()
+        _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
+
 
 
         check()

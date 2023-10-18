@@ -1908,6 +1908,7 @@ drawable bg_blue
 drawable bg_grey
 drawable bg_login
 drawable bg_login_blue_radius
+drawable bg_login_gray_radius
 drawable bg_login_radius
 drawable bg_white
 drawable bill_detail_time_view_shape
@@ -2438,7 +2439,6 @@ id navigation_dashboard
 id navigation_header_container
 id navigation_home
 id navigation_notifications
-id navigation_order
 id never
 id neverCompleteToEnd
 id neverCompleteToStart
