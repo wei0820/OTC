@@ -35,7 +35,7 @@ public class CustomApplcation extends MultiDexApplication {
         super.onCreate();
         context = getApplicationContext();
         mInstance = this;
-        CrashReport.initCrashReport(getApplicationContext(), "7f2bcf2301", false);
+        CrashReport.initCrashReport(getApplicationContext(), "fb948de570", false);
 
 //        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
     }

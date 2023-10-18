@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.jingyu.otc",
+  "applicationId": "com.jingyu.pay",
   "variantName": "JuFuPayGr1Debug",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 8,
-      "versionName": "1.0.8",
-      "outputFile": "jingyuotcpay-v1.0.8.apk"
+      "versionCode": 2,
+      "versionName": "1.0.2",
+      "outputFile": "jingyuotcpay-v1.0.2.apk"
     }
   ]
 }

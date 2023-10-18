@@ -13,7 +13,7 @@ android {
 
         flavorDimensions "versionCode"
         multiDexEnabled true
-        applicationId "com.jingyu.otc"
+        applicationId "com.jingyu.pay"
         minSdkVersion 24
         targetSdkVersion 30
         compileOptions {
@@ -26,8 +26,8 @@ android {
     }
     productFlavors {
         TianFuFu99 {
-            resValue "string", "app_name", "聚宝OTC"
-            applicationId "com.jingyu.otc"
+            resValue "string", "app_name", "吉利"
+            applicationId "com.jingyu.pay"
             manifestPlaceholders = [app_icon: "@drawable/favicon"]
             buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
             buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
@@ -37,8 +37,8 @@ android {
             buildConfigField "String", "ELK_TYPE", "\"payhelper\""
         }
         WBPay99 {
-            resValue "string", "app_name", "聚宝OTC"
-            applicationId "com.jingyu.otc"
+            resValue "string", "app_name", "吉利"
+            applicationId "com.jingyu.pay"
             manifestPlaceholders = [app_icon: "@drawable/favicon"]
             buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
             buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
@@ -48,8 +48,8 @@ android {
             buildConfigField "String", "ELK_TYPE", "\"payhelper\""
         }
         JuFuPayGr1 {
-            resValue "string", "app_name", "聚宝OTC"
-            applicationId "com.jingyu.otc"
+            resValue "string", "app_name", "吉利"
+            applicationId "com.jingyu.pay"
             manifestPlaceholders = [app_icon: "@drawable/favicon"]
             buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
             buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""

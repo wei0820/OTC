@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jingyu.otc"
-    android:versionCode="8"
-    android:versionName="1.0.8" >
+    package="com.jingyu.pay"
+    android:versionCode="2"
+    android:versionName="1.0.2" >
 
     <uses-sdk
         android:minSdkVersion="24"
@@ -45,6 +45,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
+        android:testOnly="true"
         android:theme="@style/Theme.JingyuPay"
         android:usesCleartextTraffic="true" >
 
@@ -100,7 +101,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.jingyu.otc.fileProvider"
+            android:authorities="com.jingyu.pay.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -287,7 +288,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.jingyu.otc.provider"
+            android:authorities="com.jingyu.pay.provider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -325,7 +326,7 @@
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
-            android:authorities="com.jingyu.otc.firebaseinitprovider"
+            android:authorities="com.jingyu.pay.firebaseinitprovider"
             android:directBootAware="true"
             android:exported="false"
             android:initOrder="100" />
@@ -357,7 +358,7 @@
 
         <provider
             android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-            android:authorities="com.jingyu.otc.lifecycle-process"
+            android:authorities="com.jingyu.pay.lifecycle-process"
             android:exported="false"
             android:multiprocess="true" />
     </application>
