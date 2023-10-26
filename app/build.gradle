@@ -3,6 +3,10 @@ apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'kotlin-kapt'
 
 android {
+    buildFeatures {
+        buildConfig true
+    }
+
     compileSdkVersion 30
 
     defaultConfig {
@@ -25,37 +29,35 @@ android {
         }
     }
     productFlavors {
-        TianFuFu99 {
-            resValue "string", "app_name", "聚宝OTC"
-            applicationId "com.jingyu.otc"
+        luckyPay {
+            resValue "string", "app_name", "吉利"
+            applicationId "com.jingyu.pay"
             manifestPlaceholders = [app_icon: "@drawable/favicon"]
             buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
             buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
             buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
             buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
+            buildConfigField "String", "ELK_TYPE", "\"payhelper\""
+            buildConfigField "String", "UPDATE_URL", "\"https://pay.channel-lucky.com/apk/version.json\""
+            buildConfigField "String", "md5key", "\"2io#ejQO\""
+            buildConfigField "String", "API_URL", "\"https://api4.channel-sign.com/\""
 
-            buildConfigField "String", "ELK_TYPE", "\"payhelper\""
-        }
-        WBPay99 {
-            resValue "string", "app_name", "聚宝OTC"
-            applicationId "com.jingyu.otc"
-            manifestPlaceholders = [app_icon: "@drawable/favicon"]
-            buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
-            buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
-            buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
-            buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
 
-            buildConfigField "String", "ELK_TYPE", "\"payhelper\""
+
         }
-        JuFuPayGr1 {
+        otcPay {
             resValue "string", "app_name", "聚宝OTC"
             applicationId "com.jingyu.otc"
-            manifestPlaceholders = [app_icon: "@drawable/favicon"]
+            manifestPlaceholders = [app_icon: "@drawable/img_otc"]
             buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
             buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
             buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
             buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
             buildConfigField "String", "ELK_TYPE", "\"payhelper\""
+            buildConfigField "String", "UPDATE_URL", "\"https://pay.juying.org/apk/version.json\""
+            buildConfigField "String", "md5key", "\"R:M'3p&_\""
+            buildConfigField "String", "API_URL", "\"https://api.juying.org/\""
+
         }
 
         buildTypes {
@@ -75,6 +77,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
+
             def date = new Date().format("yyyyMMdd" , TimeZone.getTimeZone("GMT+08"))
             if(variant.buildType.name.equals('debug')){
                 ///"commonui_${date}_${versionName}.apk"
@@ -85,6 +88,7 @@ android {
             }
         }
     }
+
 
 
     lintOptions {

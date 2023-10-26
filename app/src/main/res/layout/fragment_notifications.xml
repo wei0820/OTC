@@ -102,7 +102,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
-                            android:text="冻结金额"
+                            android:text="交易中金额"
                             android:textSize="18sp"/>
                         <TextView
                             android:id="@+id/text3"

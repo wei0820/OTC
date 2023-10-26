@@ -118,7 +118,7 @@ public class PayHelperUtils {
 
     public static String md5(String content) {
         byte[] hash;
-        String newString = "R:M'3p&_" +  content;
+        String newString = Constant.MD5_String +  content;
         try {
             hash = MessageDigest.getInstance("MD5").digest(newString.getBytes("UTF-8"));
         } catch (NoSuchAlgorithmException e) {
@@ -185,7 +185,7 @@ public class PayHelperUtils {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.OPEN_URL, Context.MODE_PRIVATE);
 
-        return sharedPreferences.getString(Constant.OPEN_URL, "");
+        return sharedPreferences.getString(Constant.OPEN_URL, BuildConfig.API_URL);
     }
 
 

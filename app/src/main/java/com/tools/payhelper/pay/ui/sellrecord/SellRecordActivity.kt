@@ -7,10 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,7 +33,8 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
     var adapter: Adapter? = null
 
     var buyDataList: ArrayList<SellRecordData.Data> = ArrayList()
-
+    lateinit var   spinner : Spinner;
+    var dateString = ""
 
     @SuppressLint("MissingInflatedId")
 
@@ -48,6 +46,8 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
         recyclerView = findViewById(R.id.recycler_view)
         okButton = findViewById(R.id.datebtn)
         closebtn = findViewById(R.id.closeBtn)
+        spinner = findViewById(R.id.spinner)
+
         closebtn.setOnClickListener {
             finish()
         }
@@ -70,8 +70,21 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
 
         adapter!!.notifyDataSetChanged()
 
+        val adapter = ArrayAdapter.createFromResource(this,
+            R.array.spinner_item,
+            android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.setSelection(0, false)
+        spinner.onItemSelectedListener = spnOnItemSelected
+
+
 
     }
+
+
+
+
     fun getList(s:String){
         merchantOrdersViewModel.getSellRecodeList(this,s).observe(this, androidx.lifecycle.Observer {
             buyDataList.clear()
@@ -81,6 +94,50 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
                         buyDataList.add(datum)
 
                         adapter!!.notifyDataSetChanged()
+                    }
+                    if (buyDataList.size<=0){
+                        adapter!!.notifyDataSetChanged()
+
+                    }
+                }
+            }
+        })
+    }
+
+    fun getSelectList(s:String,type: String){
+        merchantOrdersViewModel.getSellRecodeList(this,s).observe(this, androidx.lifecycle.Observer {
+            buyDataList.clear()
+            if (it.code == 0){
+                if (it.data!=null){
+                    for (datum in it.data) {
+                        if (type=="全部"){
+                            buyDataList.add(datum)
+                            adapter!!.notifyDataSetChanged()
+                        }else{
+                            when(type){
+                                "进行中" ->
+                                    if (datum.state==0||datum.state==1){
+                                        buyDataList.add(datum)
+                                        adapter!!.notifyDataSetChanged()
+                                    }
+                                "已完成" ->
+                                    if (datum.state==2){
+                                        buyDataList.add(datum)
+                                        adapter!!.notifyDataSetChanged()
+                                    }
+                                "已超时" ->
+                                    if (datum.state==3){
+                                        buyDataList.add(datum)
+                                        adapter!!.notifyDataSetChanged()
+                                    }
+
+                            }
+
+                        }
+
+
+
+
                     }
                     if (buyDataList.size<=0){
                         adapter!!.notifyDataSetChanged()
@@ -106,8 +163,9 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
         Log.d("Jack",date)
         var string = year.toString()  +  "-" +(dayOfMonth+1).toString() + "-" + month.toString()
         dateTextView.text = string
-
+        dateString = string
         getList(string)
+        spinner.setSelection(0, false)
 
 
 
@@ -119,6 +177,26 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
         val df = SimpleDateFormat(dateformat)
         return df.format(mCal.time)
     }
+
+
+    private val spnOnItemSelected: AdapterView.OnItemSelectedListener =
+        object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View?,
+                pos: Int, id: Long,
+            ) {
+                val sPos = pos.toString()
+                val sInfo = parent.getItemAtPosition(pos).toString()
+                //String sInfo=parent.getSelectedItem().toString();
+                Log.d("Jack","選項$sPos:$sInfo")
+                getSelectList(dateString,sInfo)
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                //
+            }
+        }
 
 }
 
@@ -180,6 +258,8 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
     fun updateList(list:ArrayList<SellRecordData.Data>){
         bankCardInfoList = list
     }
+
+
 
 
 }

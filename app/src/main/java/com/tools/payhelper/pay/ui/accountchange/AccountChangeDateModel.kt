@@ -37,7 +37,6 @@ class AccountChangeDateModel {
             .header("content-type","application/json")
             .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
             .build()
-        Log.d("Jack", url);
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

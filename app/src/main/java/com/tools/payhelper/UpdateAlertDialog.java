@@ -84,15 +84,17 @@ public class UpdateAlertDialog extends AlertDialog {
 
         View cancelBtn = findViewById(R.id.cancelBtn);
         cancelBtn.setOnClickListener(v -> {
-
-            dismiss();
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(_url));
+            getContext().startActivity(intent);
         });
 
-        if (isForcedUpdate) {
-            cancelBtn.setVisibility(View.GONE);
-        } else {
-            cancelBtn.setVisibility(View.VISIBLE);
-        }
+//        if (isForcedUpdate) {
+//            cancelBtn.setVisibility(View.GONE);
+//        } else {
+//            cancelBtn.setVisibility(View.VISIBLE);
+//        }
     }
 
     public void setMessage(final String message) {

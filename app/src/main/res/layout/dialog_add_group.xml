@@ -152,8 +152,7 @@
                 android:textColor="@android:color/black"
                 android:text="卖币佣金" />
             <EditText
-                android:inputType="textVisiblePassword"
-                android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:inputType="text"
                 android:id="@+id/text1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -187,8 +186,7 @@
 
 
             <EditText
-                android:inputType="textVisiblePassword"
-                android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:inputType="text"
                 android:id="@+id/text2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -221,8 +219,7 @@
 
 
             <EditText
-                android:inputType="textVisiblePassword"
-                android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:inputType="text"
                 android:id="@+id/text22"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

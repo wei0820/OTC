@@ -118,16 +118,7 @@ public class AddGroupDialog extends AlertDialog {
                 Double re = Double.parseDouble(textView.getText().toString());
                 Double Pa = Double.parseDouble(textView2.getText().toString());
                 Double aa = Double.parseDouble(textiew22.getText().toString());
-                if (re>Double.parseDouble(maxString)){
-                    ToastManager.showToastCenter(activity,"只能低于点位");
 
-                }
-                if (Pa>Double.parseDouble(minString)){
-                    ToastManager.showToastCenter(activity,"只能低于点位");
-                }
-                if (aa>Double.parseDouble(alipayRebate)){
-                    ToastManager.showToastCenter(activity,"只能低于点位");
-                }
 
                 groupDateModel.getGroupRegister(activity, n, p, t,
                         re,

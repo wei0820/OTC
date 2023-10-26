@@ -29,7 +29,6 @@ class PersonalViewModel : ViewModel() {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
                     if(!s.isEmpty()){
-                        Log.d("Jack", s);
 
                         var userData = Gson().fromJson(s, UserinfoData::class.java)
                         userinfoData.value = userData

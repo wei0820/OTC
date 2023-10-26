@@ -33,6 +33,7 @@ import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.jingyu.pay.ui.bankcard.BankCardDateModel;
+import com.jingyu.pay.ui.bankcard.BankCardListActivity;
 import com.permissionx.guolindev.PermissionX;
 import com.permissionx.guolindev.callback.ExplainReasonCallback;
 import com.permissionx.guolindev.callback.ForwardToSettingsCallback;
@@ -102,7 +103,6 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
 
 
         findViewById(R.id.closeBtn).setOnClickListener(v -> {
-
             Main22Activity.this.finish();
 
         });
@@ -131,7 +131,11 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
                                     @Override
                                     public void run() {
                                         if (addBankCardData.code==0){
+                                            ToastManager.showToastCenter(Main22Activity.this,addBankCardData.msg);
                                             Main22Activity.this.finish();
+//                                            Intent intent = new Intent();
+//                                            intent.setClass(Main22Activity.this, BankCardListActivity.class);
+//                                            startActivity(intent);
 
                                         }else {
                                             ToastManager.showToastCenter(Main22Activity.this,addBankCardData.msg);
@@ -226,21 +230,23 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
         switch (requestCode) {
             case DEVICE_PHOTO_REQUEST:
                 if (data != null) {
-                    Uri uri = data.getData();
-                    String imagePath = BitMapUtil.getPicturePathFromUri(this, uri);
-                    Log.d("Jack",imagePath+"");
+                    try {
+                        Uri uri = data.getData();
 
-                    //对获取到的二维码照片进行压缩
-                    Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
+                        String imagePath = BitMapUtil.getPicturePathFromUri(this, uri);
 
-
-
-                    Result result = setZxingResult(generatedQRCode);
-                    if (result == null) {
-                        ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档");
-                    } else {
-                        padd.setText(result.getText());
+                        //对获取到的二维码照片进行压缩
+                        Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
+                        Result result = setZxingResult(generatedQRCode);
+                        if (result == null) {
+                            ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档");
+                        } else {
+                            padd.setText(result.getText());
+                        }
+                    }catch (Exception e){
+                        ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档"+e.getLocalizedMessage());
                     }
+
                 }
                 break;
         }

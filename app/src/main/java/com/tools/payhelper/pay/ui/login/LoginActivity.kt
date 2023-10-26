@@ -114,7 +114,7 @@ class LoginActivity : BasicActivity() {
                     val dialog = UpdateAlertDialog(this@LoginActivity,it.data.url)
                     dialog.setMessage(String.format("欢迎使用%s原生V%s版本",
                         getString(R.string.app_name),
-                        it.data.versionName))
+                        it.data.versionName)+"如升级失败，请选择网页下载升级")
                     dialog.setIsForcedUpdate(true)
                     dialog.show()
             }

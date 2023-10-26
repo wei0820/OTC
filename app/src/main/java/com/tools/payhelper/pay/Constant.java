@@ -1,9 +1,14 @@
 package com.tools.payhelper.pay;
 
+
+import com.tools.payhelper.BuildConfig;
+
 public class Constant {
+
 //    public  final static String  API_URL = "http://jytest.ddns.me:44301/";
-    public  final static String  API_URL =  "https://api.juying.org/";
-    public  final static String  UPDATE_URL =  "https://pay.juying.org/apk/version.json";
+    public  final static String  API_URL =     BuildConfig.API_URL;
+    public  final static String  UPDATE_URL =  BuildConfig.UPDATE_URL;
+    public  final  static  String MD5_String =  BuildConfig.md5key;
 
 
     public  final static  String CALL_API = "CALL_API";
