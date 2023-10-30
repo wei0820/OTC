@@ -7,10 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.jingyu.pay.ui.home.HomeDateModel
+import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.dashboard.CollectionQueueData
 import com.tools.payhelper.pay.ui.dashboard.CollectionQueueOffData
 import com.tools.payhelper.pay.ui.dashboard.ConfirmData
 import com.tools.payhelper.pay.ui.dashboard.SellListData
+import com.tools.payhelper.pay.ui.home.ExrateData
 import kotlinx.coroutines.launch
 
 class SellViewModel : ViewModel() {
@@ -18,6 +21,7 @@ class SellViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
     }
+    var exrateData = MutableLiveData<ExrateData>()
 
 
     var sellDateModel = SellDateModel()
@@ -106,6 +110,30 @@ class SellViewModel : ViewModel() {
 
         return  confirmData
 
+    }
+
+
+
+    fun getExrateData(context: Context) :LiveData<ExrateData>{
+        sellDateModel.getExrate(context,object : SellDateModel.SellResponse{
+            override fun getResponse(s: String) {
+                viewModelScope.launch {
+                    if (!s.isEmpty()){
+                        Log.d("Jack",s)
+
+                        var data = Gson().fromJson(s, ExrateData::class.java)
+                        exrateData.value = data
+                    }else{
+                        ToastManager.showToastCenter(context,"error")
+                    }
+                }
+            }
+
+        })
+
+
+
+        return  exrateData
     }
 
 }

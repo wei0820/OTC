@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +18,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.jingyu.pay.ui.order.IngAdapter
-import com.jingyu.pay.ui.order.OrderFragment
 import com.tools.payhelper.R
 
 import com.tools.payhelper.databinding.FragmentHomeBinding
@@ -30,6 +27,7 @@ import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.home.BuyData
 import com.tools.payhelper.pay.ui.order.PaymentMatchingData
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
 
 class HomeFragment : Fragment() {
 
@@ -43,6 +41,7 @@ class HomeFragment : Fragment() {
 
     lateinit var group : RadioGroup
     lateinit var recyclerView: RecyclerView
+     var exrateDouble : Double = 0.0
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -57,7 +56,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -68,6 +67,7 @@ class HomeFragment : Fragment() {
 
         setBuySetting()
         getBuyList()
+        getExrate()
 
         group.check(R.id.rb_yestday)
         group.setOnCheckedChangeListener { radioGroup, i ->
@@ -168,6 +168,18 @@ class HomeFragment : Fragment() {
         recyclerView!!.adapter = adapter
 
         adapter!!.notifyDataSetChanged()
+    }
+
+    fun getExrate(){
+        merchantOrdersViewModel.getExrateData(requireActivity()).observe(viewLifecycleOwner,
+            Observer {
+                if (it!=null){
+                    if (it.data!=null){
+                        exrateDouble = it.data.exrateDoubel
+                    }
+                }
+
+            })
     }
 
 
@@ -293,7 +305,10 @@ class HomeFragment : Fragment() {
             var bankName: TextView
             var cardNo: TextView
             var time: TextView
+
             var amount: TextView
+            var exrate: TextView
+            var usdt: TextView
             var orderno: TextView
             var addButton : Button
             var username : TextView
@@ -304,6 +319,8 @@ class HomeFragment : Fragment() {
                 cardNo = view.findViewById(R.id.cardno)
                 time = view.findViewById(R.id.time)
                 amount = view.findViewById(R.id.amount)
+                exrate = view.findViewById(R.id.exrate)
+                usdt = view.findViewById(R.id.usdt)
                 orderno = view.findViewById(R.id.orderno)
                 addButton = view.findViewById(R.id.addbtn);
                 username = view.findViewById(R.id.username);
@@ -320,11 +337,15 @@ class HomeFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val info: BuyData.Data = bankCardInfoList!!.get(position)
+            val df = DecimalFormat("###.00")
+
 
             holder.bankName.text = info.bankName
             holder.cardNo.text = info.cardId
             holder.time.text = info.created
             holder.amount.text = "￥"+info.score
+            holder.exrate.text = "单价:"+ mfragment.exrateDouble
+            holder.usdt.text = "成交金额USDT:"+ df.format(info.score/mfragment.exrateDouble)
             holder.orderno.text = info.orderNo
             holder.addButton.text = info.state
             holder.username.text =  info.userName
@@ -353,6 +374,7 @@ class HomeFragment : Fragment() {
                 mfragment.getPament(info.id);
 
             }
+
 
 //            if (info.state.equals("已接单")){
 //                holder.addButton.isEnabled = false
@@ -386,6 +408,9 @@ class HomeFragment : Fragment() {
             var cardNo: TextView
             var time: TextView
             var amount: TextView
+            var exrate: TextView
+            var usdt: TextView
+
             var orderno: TextView
             var userName : TextView
             var payName : TextView
@@ -398,6 +423,9 @@ class HomeFragment : Fragment() {
                 cardNo = view.findViewById(R.id.cardno)
                 time = view.findViewById(R.id.time)
                 amount = view.findViewById(R.id.amount)
+                exrate = view.findViewById(R.id.exrate)
+                usdt = view.findViewById(R.id.usdt)
+
                 orderno = view.findViewById(R.id.orderno)
                 userName = view.findViewById(R.id.username)
                 payName = view.findViewById(R.id.payname);
@@ -417,10 +445,14 @@ class HomeFragment : Fragment() {
         @SuppressLint("ResourceAsColor")
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val info: PaymentMatchingData.Data = bankCardInfoList!!.get(position)
+            val df = DecimalFormat("###.00")
 
             holder.bankName.text = "卡号:" +  info.cardId
             holder.time.text = info.created
             holder.amount.text = "￥"+info.score
+            holder.exrate.text = "单价:"+ mfragment.exrateDouble
+            holder.usdt.text = "成交金额USDT:"+ df.format(info.score/mfragment.exrateDouble)
+
             holder.orderno.text = info.orderNo
             holder.userName.text = "收款人姓名:" + info.userName
             holder.payName.text = "收款银行:" +info.bankName

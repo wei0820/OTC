@@ -14,7 +14,7 @@ public class PaymentMatchingData {
         @SerializedName("cardId") public  String cardId;
         @SerializedName("subName") public  String subName;
         @SerializedName("userName") public  String userName;
-        @SerializedName("score") public  String score;
+        @SerializedName("score") public  Double score;
         @SerializedName("orderNo") public  String orderNo;
         @SerializedName("state") public  int state;
         @SerializedName("isEnable") public  Boolean isEnable;

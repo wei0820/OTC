@@ -19,6 +19,7 @@ import com.tools.payhelper.databinding.FragmentOrderBinding
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.order.PaymentMatchingData
+import java.text.DecimalFormat
 import java.util.*
 
 class OrderFragment : Fragment(){
@@ -135,7 +136,9 @@ class IngAdapter(fragment: OrderFragment) : RecyclerView.Adapter<IngAdapter.View
         var bankName: TextView
         var cardNo: TextView
         var time: TextView
+
         var amount: TextView
+
         var orderno: TextView
         var userName : TextView
         var payName : TextView
@@ -170,8 +173,14 @@ class IngAdapter(fragment: OrderFragment) : RecyclerView.Adapter<IngAdapter.View
         holder.bankName.text = "卡号:" +  info.cardId
 //            holder.cardNo.text = info.cardId
         holder.time.text = info.created
-        holder.amount.text = "￥"+info.score
+
+
+
+
         holder.orderno.text = info.orderNo
+
+
+
         holder.userName.text = "收款人姓名:" + info.userName
         holder.payName.text = "收款银行:" +info.bankName
 //            holder.addButton.text = info.state

@@ -41,6 +41,8 @@ android {
             buildConfigField "String", "UPDATE_URL", "\"https://pay.channel-lucky.com/apk/version.json\""
             buildConfigField "String", "md5key", "\"2io#ejQO\""
             buildConfigField "String", "API_URL", "\"https://api4.channel-sign.com/\""
+            buildConfigField "String", "EXRATE_URL", "\"https://pay.channel-lucky.com/exrate.json\""
+
 
 
 
@@ -57,9 +59,10 @@ android {
             buildConfigField "String", "UPDATE_URL", "\"https://pay.juying.org/apk/version.json\""
             buildConfigField "String", "md5key", "\"R:M'3p&_\""
             buildConfigField "String", "API_URL", "\"https://api.juying.org/\""
+            buildConfigField "String", "EXRATE_URL", "\"https://pay.juying.org/exrate.json\""
+
 
         }
-
         buildTypes {
             debug {
                 minifyEnabled false

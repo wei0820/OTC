@@ -10,6 +10,7 @@ import com.google.gson.Gson
 import com.jingyu.pay.ui.order.OrderDateModel
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.home.BuyData
+import com.tools.payhelper.pay.ui.home.ExrateData
 import com.tools.payhelper.pay.ui.home.PaymentMatchingData
 import com.tools.payhelper.pay.ui.home.StartBuyData
 import kotlinx.coroutines.launch
@@ -28,6 +29,8 @@ class HomeViewModel : ViewModel() {
     var  mPaymentMatchingData = MutableLiveData<PaymentMatchingData>()
 
     var  paymentMatchingData = MutableLiveData<com.tools.payhelper.pay.ui.order.PaymentMatchingData>()
+
+    var exrateData = MutableLiveData<ExrateData>()
 
 
 
@@ -63,8 +66,6 @@ class HomeViewModel : ViewModel() {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
                     if (!s.isEmpty()){
-                        Log.d("Jack",s)
-
                         var data = Gson().fromJson(s,BuyData::class.java)
                         buyData.value = data
                     }else{
@@ -109,7 +110,6 @@ class HomeViewModel : ViewModel() {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
                     if (!s.isEmpty()){
-                        Log.d("Jack",s)
                         var data = Gson().fromJson(s,
                             com.tools.payhelper.pay.ui.order.PaymentMatchingData::class.java);
                         if (data!=null){
@@ -125,5 +125,30 @@ class HomeViewModel : ViewModel() {
         })
         return paymentMatchingData;
     }
+
+    fun getExrateData(context: Context) :LiveData<ExrateData>{
+        homeViewModel.getExrate(context,object : HomeDateModel.BuyResponse{
+            override fun getResponse(s: String) {
+                viewModelScope.launch {
+                    if (!s.isEmpty()){
+                        Log.d("Jack",s)
+
+                        var data = Gson().fromJson(s,ExrateData::class.java)
+                        exrateData.value = data
+                    }else{
+                        ToastManager.showToastCenter(context,"error")
+                    }
+                }
+            }
+
+            override fun getFailure(s: String) {
+            }
+        })
+
+
+
+        return  exrateData
+    }
+
 
 }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tools.payhelper.R
 import com.tools.payhelper.pay.ui.sellrecord.SellRecordData
+import java.text.DecimalFormat
 
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,6 +36,7 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
     var buyDataList: ArrayList<SellRecordData.Data> = ArrayList()
     lateinit var   spinner : Spinner;
     var dateString = ""
+    var extraDuble :Double  = 7.5
 
     @SuppressLint("MissingInflatedId")
 
@@ -61,7 +63,7 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
 
         getList(getTodayTime().toString())
 
-        adapter = Adapter()
+        adapter = Adapter(this)
 
         recyclerView!!.layoutManager = LinearLayoutManager(this)
         adapter!!.updateList(buyDataList)
@@ -80,6 +82,16 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
 
 
 
+    }
+
+    fun get(){
+        merchantOrdersViewModel.getExrateData(this).observe(this, androidx.lifecycle.Observer {
+            if (it!=null){
+                if (it.data!=null){
+                    extraDuble = it.data.exrateDoubel
+                }
+            }
+        })
     }
 
 
@@ -201,9 +213,9 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
 }
 
 
-class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
+class Adapter(activity: SellRecordActivity) : RecyclerView.Adapter<Adapter.ViewHolder>() {
     var bankCardInfoList:ArrayList<SellRecordData.Data>? = null
-
+    var mActivity = activity
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var bankName: TextView
@@ -213,7 +225,8 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
         var orderN0:TextView
         var cBankName : TextView
         var cName : TextView
-
+        var exrate: TextView
+        var usdt: TextView
 
         init {
             orderN0 = view.findViewById(R.id.orderno);
@@ -223,7 +236,8 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
             amount = view.findViewById(R.id.amount)
             cBankName = view.findViewById(R.id.cbankname);
             cName = view.findViewById(R.id.cname)
-
+            exrate = view.findViewById(R.id.exrate)
+            usdt = view.findViewById(R.id.usdt)
 
 
         }
@@ -237,6 +251,8 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info: SellRecordData.Data = bankCardInfoList!!.get(position)
+        val df = DecimalFormat("###.00")
+
         holder.orderN0.text = info.orderNo
         holder.bankName.text = "姓名:" + info.userName
         holder.cardNo.text = "卡号:" +  info.cardNo
@@ -244,7 +260,8 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
         holder.amount.text = "￥"+info.commission +"/" +"￥"+info.score
         holder.cBankName.text = info.cBankName
         holder.cName.text = info.cUserName
-
+        holder.exrate.text = "单价:"+ mActivity.extraDuble
+        holder.usdt.text = "成交金额USDT:"+ df.format(info.score/mActivity.extraDuble)
 
 
 

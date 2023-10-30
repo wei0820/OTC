@@ -23,6 +23,7 @@ import com.tools.payhelper.pay.ConfirmOrderDialog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.dashboard.SellListData
+import java.text.DecimalFormat
 
 
 class DashboardFragment : Fragment() {
@@ -40,7 +41,7 @@ class DashboardFragment : Fragment() {
     }
     var buyDataList: ArrayList<SellListData.Data> = ArrayList()
 
-
+    var extraDouble : Double = 7.5
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +53,8 @@ class DashboardFragment : Fragment() {
         val root: View = binding.root
         val recyclerView: RecyclerView =  root.findViewById(R.id.recycler_view)
         switch =  root.findViewById(R.id.switch1);
+
+        getEtr()
         checkOpen()
 
         switch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, b ->
@@ -83,6 +86,17 @@ class DashboardFragment : Fragment() {
 
         return root
     }
+
+    fun  getEtr(){
+        sellViewModel.getExrateData(requireActivity()).observe(viewLifecycleOwner, Observer {
+            if (it!=null){
+                if (it.data!=null){
+                    extraDouble = it.data.exrateDoubel
+                }
+            }
+        })
+    }
+
 
     fun getList(){
         sellViewModel.getSellList(requireActivity()).observe(requireActivity(), Observer {
@@ -209,6 +223,8 @@ class DashboardFragment : Fragment() {
             var payName : TextView
             var cancelButton : Button
             var sureButton  : Button
+            var exrate: TextView
+            var usdt: TextView
 
 
             init {
@@ -221,7 +237,8 @@ class DashboardFragment : Fragment() {
                 payName = view.findViewById(R.id.payname);
                 cancelButton = view.findViewById(R.id.cancel_button)
                 sureButton = view.findViewById(R.id.sure_button)
-
+                exrate = view.findViewById(R.id.exrate)
+                usdt = view.findViewById(R.id.usdt)
 
             }
         }
@@ -234,15 +251,20 @@ class DashboardFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val info: SellListData.Data = bankCardInfoList!!.get(position)
+            val df = DecimalFormat("###.00")
 
             holder.bankName.text = "收款银行:" + info.bankName
 //            holder.cardNo.text = info.cardId
             holder.time.text = info.created
-            holder.amount.text = "￥"+info.score
             holder.orderno.text = info.orderNo
             holder.userName.text = "收款人姓名:" + info.userName
             holder.payName.text = "打款人姓名:" + info.payUserName
 //            holder.addButton.text = info.state
+
+            holder.amount.text = "￥"+info.score
+            holder.exrate.text = "单价:"+ mfragment.extraDouble
+            holder.usdt.text = "成交金额USDT:"+ df.format(info.score/mfragment.extraDouble)
+
 
             holder.cancelButton.setOnClickListener {
                 mfragment.cancelToUrl(info.id);

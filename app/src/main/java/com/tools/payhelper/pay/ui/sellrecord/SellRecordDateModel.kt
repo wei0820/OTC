@@ -2,6 +2,7 @@ package com.jingyu.pay.ui.sellrecord
 
 import android.content.Context
 import android.util.Log
+import com.jingyu.pay.ui.home.HomeDateModel
 
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
@@ -50,6 +51,29 @@ class SellRecordDateModel {
             }
         })
 
+    }
+
+    fun getExrate(context: Context, orderResponse: OrderResponse){
+        var jsonObject= JSONObject()
+        var jsonStr=jsonObject.toString()
+        val contentType: MediaType = "application/json".toMediaType()
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(Constant.exrate_String)
+            .get()
+            .header("content-type","application/json")
+            .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                orderResponse.getResponse( response.body?.string()!!)
+            }
+        })
     }
 
 

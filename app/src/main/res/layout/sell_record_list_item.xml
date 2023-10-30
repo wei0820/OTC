@@ -139,16 +139,44 @@
                 android:text="128739812738127311111111111111111111"/>
 
         </LinearLayout>
-
-        <TextView
+        <LinearLayout
             android:layout_marginLeft="12dp"
-            android:textSize="20sp"
-            android:textColor="#3a3a3a"
-            android:gravity="right"
-            android:id="@+id/amount"
-            android:layout_width="wrap_content"
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="500000.000" />
+            android:orientation="vertical"
+            >
+            <TextView
+                android:textSize="16sp"
+                android:textColor="#3a3a3a"
+                android:gravity="center_horizontal"
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500000.000" />
+            <TextView
+                android:layout_marginTop="12dp"
+                android:textSize="16sp"
+                android:textColor="#3a3a3a"
+                android:gravity="center_horizontal"
+                android:id="@+id/exrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500000.000" />
+            <TextView
+                android:layout_marginTop="12dp"
+                android:textSize="16sp"
+                android:textColor="#3a3a3a"
+                android:gravity="center_horizontal"
+                android:id="@+id/usdt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500000.000" />
+
+
+        </LinearLayout>
+
+
 
 
     </LinearLayout>
