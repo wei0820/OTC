@@ -28,6 +28,11 @@ public class Constant {
     final static  String USER_PAYMENTXEREBATE = "USER_PAYMENTXEREBATE";
     final static  String USER_AlipayRebate = "USER_AlipayRebate";
     final static  String CHECKSELLSTATE = "CHECKSELLSTATE";
+    final static  String VIDEOSWITCH = "VIDEOSWITCH";
+
+    final static  String BUYLISTSIZE = "BUYLISTSIZE";
+
+
 
 
 

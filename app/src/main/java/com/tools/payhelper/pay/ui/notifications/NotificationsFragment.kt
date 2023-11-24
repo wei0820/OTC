@@ -6,9 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -56,7 +54,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var text4 :TextView
     lateinit var text5 :TextView
     lateinit var name :TextView
-
+    lateinit var mSwitchButton : Switch
 
 
     val personalViewModel: PersonalViewModel by lazy {
@@ -73,7 +71,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        mSwitchButton = root.findViewById(R.id.switchButton)
         text1 = root.findViewById(R.id.text1)
         text2 = root.findViewById(R.id.text2)
         text3 = root.findViewById(R.id.text3)
@@ -99,6 +97,27 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         banklayout.setOnClickListener(this)
         reportday_layout.setOnClickListener(this)
         passlayout.setOnClickListener(this)
+
+        var b = PayHelperUtils.getVideoState(requireActivity())
+        mSwitchButton.isChecked = b
+
+
+
+        mSwitchButton.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, b ->
+            if (b){
+                PayHelperUtils.saveVideoState(requireActivity(),true)
+
+
+            }else{
+                PayHelperUtils.saveVideoState(requireActivity(),false)
+
+
+            }
+        })
+
+
+
+
         return root
     }
 

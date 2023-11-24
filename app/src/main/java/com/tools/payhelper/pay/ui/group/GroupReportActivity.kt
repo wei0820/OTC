@@ -2,26 +2,22 @@ package com.jingyu.pay.ui.group
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat.startActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jingyu.pay.ui.home.HomeFragment
 import com.tools.payhelper.R
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ui.group.AddAllDataDialog
 import com.tools.payhelper.pay.ui.group.ReportsTeamData
-import org.w3c.dom.Text
 
 class GroupReportActivity : AppCompatActivity() {
     lateinit var closebtn : ImageButton
@@ -38,8 +34,19 @@ class GroupReportActivity : AppCompatActivity() {
     lateinit var  Text5 : TextView
     lateinit var  Text6 : TextView
     lateinit var  mName : TextView
+    lateinit var allbutton :Button
+
     var adapter: Adapter? = null
     var buyDataList: ArrayList<ReportsTeamData.Data> = ArrayList()
+    var paymentnmutableList : ArrayList<Double> = ArrayList()
+    var collectionmutableList : ArrayList<Double> = ArrayList()
+
+    var paymentXeCommutableList : ArrayList<Double> = ArrayList()
+    var commissionmutableList : ArrayList<Double> = ArrayList()
+    var paymentXemutableList : ArrayList<Double> = ArrayList()
+    var paymentXeQtymutableList : ArrayList<Double> = ArrayList()
+
+    var titleStr = ""
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +64,8 @@ class GroupReportActivity : AppCompatActivity() {
         Text5 = findViewById(R.id.text5)
         Text6 = findViewById(R.id.text6)
         mName = findViewById(R.id.name)
+        allbutton = findViewById(R.id.allbutton);
+
         mName.text = PayHelperUtils.getUserName(this)
         getReport("","0")
         closebtn.setOnClickListener {
@@ -65,6 +74,7 @@ class GroupReportActivity : AppCompatActivity() {
         group.setOnCheckedChangeListener { radioGroup, i ->
             when(i){
                 R.id.rb_yestday ->
+
                     getReport("","-1")
 
                 R.id.rb_today ->
@@ -85,10 +95,65 @@ class GroupReportActivity : AppCompatActivity() {
 
         adapter!!.notifyDataSetChanged()
 
+        allbutton.setOnClickListener {
+
+            var titletxtString = titleStr
+
+            var paymentString = paymentnmutableList.sum().toString()
+            var collectionString = collectionmutableList.sum().toString()
+            var commissionString = commissionmutableList.sum().toString()
+            var paymentXeString = paymentXemutableList.sum().toString()
+            var paymentXeQtyString = paymentXeQtymutableList.sum().toString()
+//            var paymentXeComString = paymentXeCommutableList.sum().toString()
+
+
+            Log.d("Jack",paymentString)
+            Log.d("Jack",collectionString)
+            Log.d("Jack",commissionString)
+            Log.d("Jack",paymentXeString)
+            Log.d("Jack",paymentXeQtyString)
+
+
+            val dialog = AddAllDataDialog(this,
+                titletxtString,paymentString,collectionString,commissionString, paymentXeString,
+                paymentXeQtyString)
+            dialog.setAddBankCallback {
+                if (it){
+                }
+            }
+            dialog.show()
+
+
+        }
+    }
+    fun clearAllData(){
+        collectionmutableList.clear()
+        commissionmutableList.clear()
+        paymentXemutableList.clear()
+        paymentXeQtymutableList.clear()
+        paymentnmutableList.clear()
+//        paymentXeCommutableList.clear()
+    }
+
+    fun addTeamAllData(data :ReportsTeamData.Data){
+        collectionmutableList.add(data.collection)
+        commissionmutableList.add(data.commission)
+        paymentXemutableList.add(data.paymentXe)
+        paymentXeQtymutableList.add(data.paymentXeQty)
+        paymentnmutableList.add(data.payment)
+//        paymentXeCommutableList.add(data.paymentXeRebate)
+
+
 
     }
 
     fun getReport( id : String, day : String){
+        if (day== "0"){
+            titleStr = "今日汇总报表"
+        }else{
+            titleStr = "昨日汇总报表"
+        }
+
         groupViewModel.getReport(this,id,day).observe(this, Observer {
             if (it!=null){
                 Text1.text = it.data.payment.toString()
@@ -116,13 +181,18 @@ class GroupReportActivity : AppCompatActivity() {
         startActivity(intent)
     }
     fun getReportTeam(id : String, day : String){
+
+
+
         groupViewModel.getReportTime(this,id,day).observe(this, Observer {
             if (it!=null){
                 buyDataList.clear()
+                clearAllData()
                 if (it.code == 0){
                     if (it.data!=null){
                         for (datum in it.data) {
                             buyDataList.add(datum)
+                            addTeamAllData(datum)
 
                             adapter!!.notifyDataSetChanged()
                         }
@@ -149,6 +219,7 @@ class GroupReportActivity : AppCompatActivity() {
             var orderno: TextView
             var addButton : Button
             var paymentxe : TextView
+            var  paymentxex : TextView
 
 
             init {
@@ -159,8 +230,7 @@ class GroupReportActivity : AppCompatActivity() {
                 orderno = view.findViewById(R.id.orderno)
                 addButton = view.findViewById(R.id.addbtn);
                 paymentxe = view.findViewById(R.id.paymentxe)
-
-
+                paymentxex = view.findViewById(R.id.paymentxex)
             }
         }
 
@@ -177,9 +247,9 @@ class GroupReportActivity : AppCompatActivity() {
 
             holder.orderno.text = "买币:"+info.payment.toString()
             holder.bankName.text = "卖币:"+info.collection.toString()
-            holder.orderno.text = "佣金:"+info.commission.toString()
-            holder.cardNo.text = "小额买币:"+info.paymentXe.toString()
-            holder.paymentxe.text = "小额买币笔数:"+info.paymentXeQty.toString()
+            holder.cardNo.text = "佣金:"+info.commission.toString()
+            holder.paymentxe.text = "小额买币:"+info.paymentXe.toString()
+            holder.paymentxex.text = "小额买币笔数:"+info.paymentXeQty.toString()
 
             holder.addButton.setOnClickListener {
 

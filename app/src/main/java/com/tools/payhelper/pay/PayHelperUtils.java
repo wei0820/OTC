@@ -240,4 +240,30 @@ public class PayHelperUtils {
     }
 
 
+
+    public static void saveVideoState(Context context, boolean token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.VIDEOSWITCH, Context.MODE_PRIVATE).edit();
+        edit.putBoolean(Constant.VIDEOSWITCH, token).apply();
+    }
+
+    public static boolean getVideoState(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.VIDEOSWITCH, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getBoolean(Constant.VIDEOSWITCH, false);
+    }
+
+
+    public static void savebuyListSize(Context context, Integer token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.BUYLISTSIZE, Context.MODE_PRIVATE).edit();
+        edit.putInt(Constant.BUYLISTSIZE, token).apply();
+    }
+
+    public static Integer getbuyListSize(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.BUYLISTSIZE, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getInt(Constant.BUYLISTSIZE, 0);
+    }
+
 }

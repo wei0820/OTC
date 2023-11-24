@@ -119,7 +119,7 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
                 String google = googleedt.getText().toString();
                 String username = usernaem.getText().toString();
                 String euserName = eusername.getText().toString();
-                String pay = payedt.getText().toString().isEmpty() ?"5000" : payedt.getText().toString();
+                String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
                 bankCardDateModel.setBankCard(Main22Activity.this, n, p, t, payF, google, username, euserName, new BankCardDateModel.BankCardResponse() {
                     @Override

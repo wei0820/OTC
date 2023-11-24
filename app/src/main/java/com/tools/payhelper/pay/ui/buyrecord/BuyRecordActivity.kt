@@ -54,7 +54,6 @@ class BuyRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListen
 
         getList(getTodayTime().toString())
 
-
         adapter = Adapter()
 
         recyclerView!!.layoutManager = LinearLayoutManager(this)

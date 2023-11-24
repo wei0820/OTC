@@ -2,8 +2,13 @@ package com.jingyu.pay.ui.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.media.AudioManager
+import android.media.SoundPool
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,8 +34,9 @@ import com.tools.payhelper.pay.ui.order.PaymentMatchingData
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
-class HomeFragment : Fragment() {
-
+class HomeFragment : Fragment() ,Handler.Callback{
+    private var spool: SoundPool? = null
+    private var sourceid = 0
     private var _binding: FragmentHomeBinding? = null
     var adapter: BuyAdapter? = null
     var adapter_ing: IngAdapter? = null
@@ -51,6 +57,7 @@ class HomeFragment : Fragment() {
     val merchantOrdersViewModel: HomeViewModel by lazy {
         ViewModelProvider(this, HomeViewModelFactory()).get(HomeViewModel::class.java)
     }
+    var handler: Handler? = null
 
 
     override fun onCreateView(
@@ -66,7 +73,6 @@ class HomeFragment : Fragment() {
         group =root.findViewById(R.id.group_radio)
 
         setBuySetting()
-        getBuyList()
         getExrate()
 
         group.check(R.id.rb_yestday)
@@ -143,6 +149,19 @@ class HomeFragment : Fragment() {
         })
         return root
     }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        handler = Handler(this)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getBuyList()
+
+    }
     fun  getBuyList(){
         fab.isVisible =true
         merchantOrdersViewModel.getBuyDataList(requireActivity()).observe(requireActivity(),
@@ -168,6 +187,27 @@ class HomeFragment : Fragment() {
         recyclerView!!.adapter = adapter
 
         adapter!!.notifyDataSetChanged()
+
+
+        handler!!.sendEmptyMessageDelayed(1,15000)
+        Log.d("jack","定時更新")
+
+        if (buyDataList.size>=1){
+
+            if (PayHelperUtils.getVideoState(requireActivity())){
+                spool = SoundPool(10, AudioManager.STREAM_MUSIC, 5)
+                sourceid = spool!!.load(requireActivity(), R.raw.buy, 1)
+                spool!!.setOnLoadCompleteListener { soundPool, i, i2 ->
+                    soundPool!!.play(sourceid, 1.0F, 1.0F, 1, 1, 1.0F);
+
+                }
+            }
+
+
+        }
+
+
+
     }
 
     fun getExrate(){
@@ -261,10 +301,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-    }
 
 
 
@@ -509,5 +546,22 @@ class HomeFragment : Fragment() {
         }
 
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (handler != null) {
+            handler!!.removeCallbacksAndMessages(null);
+            handler = null;
+
+        }
+    }
+
+    override fun handleMessage(p0: Message): Boolean {
+        if (p0.what ==1){
+            getBuyList()
+
+        }
+        return false;
     }
 }

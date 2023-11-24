@@ -4,6 +4,9 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.AudioManager
+import android.media.RingtoneManager
+import android.media.SoundPool
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -21,9 +24,7 @@ import com.tools.payhelper.R
 import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
-import com.tools.payhelper.pay.ui.login.AddGoogleDialog
 import com.tools.payhelper.ui.login.LoginViewModelFactory
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.String
@@ -52,7 +53,6 @@ class LoginActivity : BasicActivity() {
         _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
 
 
-
         check()
         checkVresion()
 
@@ -61,6 +61,7 @@ class LoginActivity : BasicActivity() {
             var loginid = edt.text.toString()
             var password = edt2.text.toString()
             var code = edt3.text.toString()
+
 
             if (loginid.isEmpty()){
                 ToastManager.showToastCenter(this,"帐号不得为空")
