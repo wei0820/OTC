@@ -145,6 +145,8 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             PayHelperUtils.saveRebate(context,it.data.rebate.toString())
             PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())
             PayHelperUtils.saveAlipayRebate(context,it.data.alipayRebate.toString())
+            PayHelperUtils.saveWechat(context,it.data.wechatrebate.toString())
+
             text1.text = it.data.commission.toString()
             text2.text = it.data.quota.toString()
             text3.text = it.data.frozen.toString()

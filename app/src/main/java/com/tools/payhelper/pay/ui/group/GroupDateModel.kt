@@ -160,6 +160,7 @@ class GroupDateModel {
                          Rebate:Double,
                          PaymentXeRebate:Double,
                          AlipayRebate:Double,
+                         wechatrebate: Double,
                          groupResponse: GroupResponse){
 
         var jsonObject= JSONObject()
@@ -169,6 +170,8 @@ class GroupDateModel {
         jsonObject.put("Rebate",Rebate)
         jsonObject.put("PaymentXeRebate",PaymentXeRebate)
         jsonObject.put("AlipayRebate",AlipayRebate)
+        jsonObject.put("WeChatRebate",wechatrebate)
+
 
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()

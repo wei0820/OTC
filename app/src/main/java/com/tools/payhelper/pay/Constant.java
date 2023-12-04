@@ -25,6 +25,9 @@ public class Constant {
     final static  String BUY_ISOPEN = "BUY_ISOPEN";
     final static  String OPEN_URL = "OPEN_URL";
     final static  String USER_REBATE = "USER_REBATE";
+    final static  String USER_WECHAT = "USER_WECHAT";
+
+
     final static  String USER_PAYMENTXEREBATE = "USER_PAYMENTXEREBATE";
     final static  String USER_AlipayRebate = "USER_AlipayRebate";
     final static  String CHECKSELLSTATE = "CHECKSELLSTATE";

@@ -207,6 +207,23 @@ public class PayHelperUtils {
         return sharedPreferences.getString(Constant.USER_REBATE, "");
     }
 
+
+    public static void saveWechat(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_WECHAT, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_WECHAT, token).apply();
+    }
+
+    public static String getWechat(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_WECHAT, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_WECHAT, "");
+    }
+
+
+
+
+
     public static void savePaymentXeRebate(Context context, String token) {
         SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_PAYMENTXEREBATE, Context.MODE_PRIVATE).edit();
         edit.putString(Constant.USER_PAYMENTXEREBATE, token).apply();
