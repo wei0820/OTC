@@ -26,7 +26,6 @@ class GroupViewModel : ViewModel() {
     var mReportDayData = MutableLiveData<ReportDayData>()
 
 
-
     fun getGroupList(context: Context) : LiveData<GroupListData>{
         groupDateModel.getGroupTimeList(context, object : GroupDateModel.GroupResponse {
             override fun getResponse(s: String) {

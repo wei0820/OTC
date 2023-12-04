@@ -4,13 +4,19 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.tools.payhelper.BuildConfig;
+import com.tools.payhelper.pay.ui.home.BuyData;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 public class PayHelperUtils {
 
@@ -264,6 +270,61 @@ public class PayHelperUtils {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.BUYLISTSIZE, Context.MODE_PRIVATE);
 
         return sharedPreferences.getInt(Constant.BUYLISTSIZE, 0);
+    }
+
+
+
+
+    public static void saveBuyArrayList(Context context,ArrayList<String> list){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(Constant.BUYLIST, json);
+        editor.apply();
+
+    }
+
+    public static ArrayList<String> getBuyArrayList(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = prefs.getString(Constant.BUYLIST, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
+
+    public static void saveSellArrayList(Context context,ArrayList<String> list){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(Constant.SELLLIST, json);
+        editor.apply();
+
+    }
+
+    public static ArrayList<String> getSellArrayList(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = prefs.getString(Constant.SELLLIST, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
+
+
+    // 驗證碼
+    public static void saveGoogle(Context context, boolean token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.CHECKGOOGLE, Context.MODE_PRIVATE).edit();
+        edit.putBoolean(Constant.CHECKGOOGLE, token).apply();
+    }
+
+    public static boolean getGoogle(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.CHECKGOOGLE, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getBoolean(Constant.CHECKGOOGLE, true);
     }
 
 }

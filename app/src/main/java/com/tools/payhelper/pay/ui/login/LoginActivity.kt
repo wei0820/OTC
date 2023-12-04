@@ -87,6 +87,7 @@ class LoginActivity : BasicActivity() {
 
                             PayHelperUtils.saveUserLoginToken(this,it.data.token)
                             PayHelperUtils.saveUserLoginName(this,loginid)
+                            PayHelperUtils.saveGoogle(this,it.data.google)
                             var intent  = Intent()
                             var bundle =  Bundle()
                             bundle.putBoolean("google",it.data.google)

@@ -126,6 +126,12 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         _binding = null
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getActivityData()
+
+    }
+
     override fun onResume() {
         super.onResume()
         personalViewModel.get(requireActivity()).observe(requireActivity(), Observer {
@@ -150,7 +156,6 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
         })
 
-        getActivityData()
 
 
 
@@ -174,7 +179,9 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     fun  getActivityData(){
         val activity: MainActivity? = activity as MainActivity?
 
-        var boolean = activity!!.getData()
+//        var boolean = activity!!.getData()
+            var boolean = PayHelperUtils.getGoogle(requireActivity());
+
 
         if (boolean){
             val dialog = AddGoogleDialog(requireActivity())
@@ -184,6 +191,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
                         if (it.code==0){
                             ToastManager.showToastCenter(requireActivity(),it.msg)
                             dialog.dismiss()
+                            PayHelperUtils.saveGoogle(requireActivity(),false)
 
                         }else{
                             ToastManager.showToastCenter(requireActivity(),it.msg)

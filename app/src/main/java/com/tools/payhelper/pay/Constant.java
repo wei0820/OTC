@@ -32,6 +32,13 @@ public class Constant {
 
     final static  String BUYLISTSIZE = "BUYLISTSIZE";
 
+    final static  String BUYLIST = "BUYLIST";
+
+    final static  String SELLLIST = "SELLLIST";
+
+
+    final static  String CHECKGOOGLE = "CHECKGOOGLE";
+
 
 
 

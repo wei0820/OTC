@@ -107,11 +107,7 @@ class GroupReportActivity : AppCompatActivity() {
 //            var paymentXeComString = paymentXeCommutableList.sum().toString()
 
 
-            Log.d("Jack",paymentString)
-            Log.d("Jack",collectionString)
-            Log.d("Jack",commissionString)
-            Log.d("Jack",paymentXeString)
-            Log.d("Jack",paymentXeQtyString)
+
 
 
             val dialog = AddAllDataDialog(this,

@@ -131,17 +131,17 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         })
         handler!!.sendEmptyMessageDelayed(1,15000)
         Log.d("jack","定時更新")
-        if(buyDataList.size>=1){
-            if (PayHelperUtils.getVideoState(requireActivity())){
-                spool = SoundPool(10, AudioManager.STREAM_MUSIC, 5)
-                sourceid = spool!!.load(requireActivity(), R.raw.sell, 1)
-                spool!!.setOnLoadCompleteListener { soundPool, i, i2 ->
-                    soundPool!!.play(sourceid, 1.0F, 1.0F, 1, 1, 1.0F);
-
-                }
-            }
-
-        }
+//        if(buyDataList.size>=1){
+//            if (PayHelperUtils.getVideoState(requireActivity())){
+//                spool = SoundPool(10, AudioManager.STREAM_MUSIC, 5)
+//                sourceid = spool!!.load(requireActivity(), R.raw.sell, 1)
+//                spool!!.setOnLoadCompleteListener { soundPool, i, i2 ->
+//                    soundPool!!.play(sourceid, 1.0F, 1.0F, 1, 1, 1.0F);
+//
+//                }
+//            }
+//
+//        }
 
 
 

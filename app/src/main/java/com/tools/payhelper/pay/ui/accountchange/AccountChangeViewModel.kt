@@ -26,7 +26,6 @@ class AccountChangeViewModel : ViewModel() {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
                     if (!s.isEmpty()){
-
                         var data = Gson().fromJson(s, AccountChange::class.java)
 
                         if (data!=null){

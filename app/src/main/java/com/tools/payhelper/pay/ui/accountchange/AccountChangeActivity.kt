@@ -54,6 +54,7 @@ class AccountChangeActivity: AppCompatActivity()  {
 
         adapter = Adapter()
 
+
         binding.recyclerView!!.layoutManager = LinearLayoutManager(this)
         adapter!!.updateList(buyDataList)
 
@@ -71,10 +72,14 @@ class AccountChangeActivity: AppCompatActivity()  {
             if (it.code == 0){
                 if (it.data!=null){
                     for (datum in it.data) {
+
                         buyDataList.add(datum)
 
-                        adapter!!.notifyDataSetChanged()
+
                     }
+                    Collections.reverse(buyDataList)
+                 
+                    adapter!!.notifyDataSetChanged()
                     if (buyDataList.size<=0){
                         adapter!!.notifyDataSetChanged()
 

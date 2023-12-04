@@ -99,7 +99,7 @@ class BankCardListActivity : AppCompatActivity() {
 
     fun addAlert(){
         lunch = listOf(getString(R.string.add_bankcard),
-            getString(R.string.add_pay),  getString(R.string.add_scan),)
+            getString(R.string.add_pay),  getString(R.string.add_scan),getString(R.string.add_wechat))
         AlertDialog.Builder(this@BankCardListActivity)
             .setItems(lunch.toTypedArray()) { _, which ->
                 val name = lunch[which]
@@ -132,6 +132,11 @@ class BankCardListActivity : AppCompatActivity() {
                         dialog.show()
                     }
                     getString(R.string.add_scan) -> {
+                        val intent  = Intent()
+                        intent.setClass(this, Main22Activity::class.java)
+                        startActivity(intent)
+                    }
+                    getString(R.string.add_wechat) -> {
                         val intent  = Intent()
                         intent.setClass(this, Main22Activity::class.java)
                         startActivity(intent)
