@@ -74,7 +74,7 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        setContentView(R.layout.activity_main22);
+        setContentView(R.layout.activity_mainwechat);
         initView();
     }
 

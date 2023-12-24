@@ -19,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import com.jingyu.pay.ui.group.*
 import com.jingyu.pay.ui.login.LoginActivity
+import com.tools.payhelper.AddWechatActivity
 import com.tools.payhelper.Main22Activity
 import com.tools.payhelper.R
 import com.tools.payhelper.pay.ToastManager
@@ -138,7 +139,7 @@ class BankCardListActivity : AppCompatActivity() {
                     }
                     getString(R.string.add_wechat) -> {
                         val intent  = Intent()
-                        intent.setClass(this, Main22Activity::class.java)
+                        intent.setClass(this, AddWechatActivity::class.java)
                         startActivity(intent)
                     }
 

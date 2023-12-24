@@ -25,7 +25,7 @@ class GroupDateModel {
         val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/team?").toHttpUrlOrNull()!!.newBuilder()
 //        urlBuilder.addQueryParameter("key", "")
 //        urlBuilder.addQueryParameter("page", "")
-//        urlBuilder.addQueryParameter("pagesize", "")
+        urlBuilder.addQueryParameter("pagesize", "99999")
         val url: String = urlBuilder.build().toString()
         Log.d("Jack",url);
 

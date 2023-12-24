@@ -259,7 +259,7 @@ public class PayHelperUtils {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.CHECKSELLSTATE, Context.MODE_PRIVATE);
 
-        return sharedPreferences.getBoolean(Constant.CHECKSELLSTATE, false);
+        return sharedPreferences.getBoolean(Constant.CHECKSELLSTATE,true);
     }
 
 

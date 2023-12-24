@@ -149,7 +149,9 @@ class DashboardFragment : Fragment() ,Handler.Callback{
     fun checkOpen(){
         var b = PayHelperUtils.getSellState(requireActivity())
         switch.isChecked = b
-        if (b){
+        val ischeckString = if (b) "卖币接单中" else "卖币暂停接单"
+        switch.text = ischeckString
+        if (b) {
             openSell()
 
         }else{
@@ -346,6 +348,13 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){
+            if(PayHelperUtils.getSellState(requireActivity())){
+                openSell()
+
+            }else{
+                Log.d("openSell","close")
+            }
+
             getList()
         }
         return false;

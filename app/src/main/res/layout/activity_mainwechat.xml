@@ -21,7 +21,7 @@
             android:layout_height="40dp"
             android:background="@drawable/dialog_top_bar"
             android:gravity="center"
-            android:text="创建银行卡"
+            android:text="微信扫码"
             android:textSize="18sp"
             android:textColor="@android:color/white" />
 
@@ -38,6 +38,7 @@
             android:text=""/>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
@@ -87,21 +88,25 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="分行名称" />
+                android:text="帐号" />
 
             <EditText
+                android:gravity="center_vertical"
                 android:id="@+id/bank_card_no"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
                 android:background="@drawable/bg_grey"
                 android:ellipsize="end"
-                android:hint="请输入分行名称"
+                android:hint="请输入帐号"
                 android:paddingStart="10dp"
                 android:textSize="15sp"
                 android:imeOptions="actionDone"/>
+
+
         </LinearLayout>
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
@@ -129,39 +134,6 @@
                 android:background="@drawable/bg_grey"
                 android:ellipsize="end"
                 android:hint="请输入银行卡号"
-                android:paddingStart="10dp"
-                android:textSize="15sp"
-                android:imeOptions="actionDone"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="11dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:textColor="@android:color/black"
-                android:text="谷歌验证码" />
-
-            <EditText
-                android:inputType="number"
-                android:digits="1234567890"
-                android:id="@+id/googleedt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/bg_grey"
-                android:ellipsize="end"
-                android:hint="请输入谷歌验证码"
                 android:paddingStart="10dp"
                 android:textSize="15sp"
                 android:imeOptions="actionDone"/>
@@ -214,7 +186,7 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="姓名拼音" />
+                android:text="昵称" />
 
             <EditText
                 android:id="@+id/enameedt"
@@ -223,12 +195,54 @@
                 android:layout_marginStart="15dp"
                 android:background="@drawable/bg_grey"
                 android:ellipsize="end"
-                android:hint="请输入姓名拼音"
+                android:hint="请输入昵称"
                 android:paddingStart="10dp"
                 android:textSize="15sp"
                 android:imeOptions="actionDone"/>
 
         </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:text="地址" />
+
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/pay_adds"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_grey"
+                android:ellipsize="end"
+                android:hint=""
+                android:paddingStart="10dp"
+                android:textSize="15sp"
+                android:imeOptions="actionDone"/>
+            <Button
+                android:id="@+id/scanbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择图片"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/shape_red_btn" />
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -262,8 +276,42 @@
                 android:digits="1234567890"
                 android:imeOptions="actionDone"/>
 
+
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:text="谷歌验证码" />
+
+            <EditText
+                android:inputType="number"
+                android:digits="1234567890"
+                android:id="@+id/googleedt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_grey"
+                android:ellipsize="end"
+                android:hint="请输入谷歌验证码"
+                android:paddingStart="10dp"
+                android:textSize="15sp"
+                android:imeOptions="actionDone"/>
+
+        </LinearLayout>
 
 
 
