@@ -59,7 +59,6 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         val recyclerView: RecyclerView =  root.findViewById(R.id.recycler_view)
         switch =  root.findViewById(R.id.switch1);
 
-
         getEtr()
         checkOpen()
 
@@ -348,12 +347,12 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){
-            if(PayHelperUtils.getSellState(requireActivity())){
-                openSell()
-
-            }else{
-                Log.d("openSell","close")
-            }
+//            if(PayHelperUtils.getSellState(requireActivity())){
+//                openSell()
+//
+//            }else{
+//                Log.d("openSell","close")
+//            }
 
             getList()
         }
