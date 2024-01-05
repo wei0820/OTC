@@ -1,28 +1,18 @@
 package com.jingyu.pay.ui.password
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.PowerManager
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.jingyu.pay.BasicActivity
-import com.jingyu.pay.MainActivity
 import com.jingyu.pay.ui.order.PassWordViewModel
 import com.jingyu.pay.ui.order.PasswordViewModelFactory
 import com.tools.payhelper.R
-import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
-import com.tools.payhelper.pay.ui.login.AddGoogleDialog
 
 import kotlinx.coroutines.launch
 

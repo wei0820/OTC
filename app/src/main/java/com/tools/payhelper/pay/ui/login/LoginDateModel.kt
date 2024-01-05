@@ -2,8 +2,8 @@ package com.jingyu.pay.ui.login
 
 import android.app.Activity
 import android.util.Log
-import com.google.firebase.database.core.Context
 import com.tools.payhelper.pay.Constant
+import android.content.Context
 import com.tools.payhelper.pay.PayHelperUtils
 import kotlinx.coroutines.channels.awaitClose
 import okhttp3.*
@@ -13,6 +13,8 @@ import org.json.JSONObject
 import java.io.IOException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+
+
 class LoginDateModel {
 
     fun setUserLogin(loginid:String,password:String,code:String,loginrResponse: LoginrResponse){
@@ -104,7 +106,35 @@ class LoginDateModel {
 
 
     }
+    fun getUserinfo(context: Context, loginrResponse: LoginrResponse){
 
+        var jsonObject= JSONObject()
+        jsonObject.put("token", PayHelperUtils.getUserToken(context))
+        var jsonStr=jsonObject.toString()
+        val contentType: MediaType = "application/json".toMediaType()
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(Constant.API_URL + "api/user/userinfo?")
+            .get()
+            .header("content-type","application/json")
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .build()
+        Log.d("Jack",Constant.API_URL + "api/user/userinfo?");
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                loginrResponse.getResponse( response.body?.string()!!)
+            }
+        })
+
+    }
 
 
     fun getUpdate(): Flow<String> {
@@ -134,9 +164,6 @@ class LoginDateModel {
 
             }
         }
-
-
-
 
     }
 

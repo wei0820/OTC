@@ -2,7 +2,6 @@ package com.jingyu.pay.ui.notifications
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.jingyu.pay.MainActivity
+import com.tools.payhelper.pay.ui.login.MainActivity
 import com.jingyu.pay.ui.accountchange.AccountChangeActivity
 import com.jingyu.pay.ui.bankcard.BankCardListActivity
 import com.jingyu.pay.ui.buyrecord.BuyRecordActivity
@@ -25,7 +24,6 @@ import com.tools.payhelper.R
 import com.tools.payhelper.databinding.FragmentNotificationsBinding
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
-import com.tools.payhelper.pay.ui.bankcard.AddCardDialog
 import com.tools.payhelper.pay.ui.login.AddGoogleDialog
 import kotlinx.coroutines.launch
 

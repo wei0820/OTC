@@ -1,15 +1,14 @@
 package com.jingyu.pay.ui.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.tools.payhelper.pay.ui.login.GoogleData
-import com.tools.payhelper.pay.ui.login.LoginData
-import com.tools.payhelper.pay.ui.login.UpdateData
+import com.tools.payhelper.pay.ui.login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -102,6 +101,21 @@ class LoginViewModel : ViewModel() {
             }
         }
 
+    }
+
+    fun getUserInfo(context: Context){
+        homeViewModel.getUserinfo(context, object : LoginDateModel.LoginrResponse {
+            override fun getResponse(s: String) {
+
+                if (!s.isEmpty()){
+                    Log.d("Jack",s)
+                    viewModelScope.launch {
+
+                    }
+                }
+            }
+
+        })
     }
 
 

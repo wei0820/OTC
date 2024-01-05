@@ -4,9 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.AudioManager
-import android.media.RingtoneManager
-import android.media.SoundPool
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -19,7 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.jingyu.pay.BasicActivity
-import com.jingyu.pay.MainActivity
+import com.tools.payhelper.pay.ui.login.MainActivity
 import com.tools.payhelper.R
 import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.pay.PayHelperUtils
@@ -73,6 +70,8 @@ class LoginActivity : BasicActivity() {
                 return@setOnClickListener
 
             }
+//            loginViewModel.getUserData(loginid,PayHelperUtils.md5(password),code)
+
             loginViewModel.getUserToken(loginid,PayHelperUtils.md5(password),code).observe(this, Observer {
                 if (it!=null){
                     runOnUiThread {
