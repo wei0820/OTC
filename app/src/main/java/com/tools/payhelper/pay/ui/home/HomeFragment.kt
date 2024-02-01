@@ -54,6 +54,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
     // onDestroyView.
     private val binding get() = _binding!!
     lateinit var fab: FloatingActionButton
+     var  isIng : Boolean = false
 
     val merchantOrdersViewModel: HomeViewModel by lazy {
         ViewModelProvider(this, HomeViewModelFactory()).get(HomeViewModel::class.java)
@@ -164,6 +165,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     }
     fun  getBuyList(){
+        isIng = false
         fab.isVisible =true
         merchantOrdersViewModel.getBuyDataList(requireActivity()).observe(requireActivity(),
             Observer {
@@ -259,6 +261,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     fun getinglIst(){
         fab.isVisible = false
+        isIng = true
 
         merchantOrdersViewModel.getPaymentMatching(requireActivity()).observe(requireActivity(),
             Observer {
@@ -593,7 +596,9 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){
-            getBuyList()
+            if (!isIng){
+                getBuyList()
+            }
 
         }
         return false;

@@ -6,12 +6,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -32,6 +34,7 @@ public class ConfirmOrderDialog extends AlertDialog {
 
     private SellDateModel sellDateModel = new SellDateModel();
     private Handler handlerLoading = new Handler();
+    String _name;
 
     public void setOnAddCallback(OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
@@ -79,12 +82,10 @@ public class ConfirmOrderDialog extends AlertDialog {
         name = findViewById(R.id.bank_card);
         max = findViewById(R.id.bank_card_no);
         String maxString = mSellListData.score+"";
-        String minString = mSellListData.userName;
+        String minString = mSellListData.payUserName;
         String ischeckString =PayHelperUtils.getBuyIsOpen(activity) ? "买币已开启" : "买币已关闭";
 
         boolean ischeck = PayHelperUtils.getBuyIsOpen(activity);
-        name.setHint(minString);
-        max.setHint(maxString);
 
 
 
@@ -107,8 +108,30 @@ public class ConfirmOrderDialog extends AlertDialog {
         view.findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String _name = name.getText().toString().isEmpty() ? mSellListData.userName + "" : name.getText().toString();
+//                String _name = name.getText().toString().isEmpty() ? mSellListData.payUserName + "" : name.getText().toString();
 //                String id = max.getText().toString().isEmpty() ? mSellListData.userName: max.getText().toString();
+                String payname = mSellListData.payUserName.substring(mSellListData.payUserName.length()-1);
+                if (!name.getText().toString().isEmpty()){
+                    if (!name.getText().toString().equals(payname)){
+                        Toast.makeText(activity, "付款名称输入错误"+"\n"
+                                +"打款人名称:"+mSellListData.payUserName+"\n"
+                                +"最后一个字:"+payname+"\n"
+                                +"输入:"+name.getText().toString(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }else {
+                        _name =  mSellListData.payUserName;
+                    }
+
+                }else {
+                    Toast.makeText(activity, "名称输入错误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                if (max.getText().toString().isEmpty()){
+                    Toast.makeText(activity, "金额输入错误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 sellDateModel.setConfirmOrder(mSellListData.id, _name, activity, new SellDateModel.SellResponse() {
                     @Override
@@ -126,7 +149,13 @@ public class ConfirmOrderDialog extends AlertDialog {
                                     }
                                 });
 
+                            }else {
+                                Toast.makeText(activity, "令牌失效 请重新登入", Toast.LENGTH_SHORT).show();
+                                dismiss();
                             }
+                        }else {
+                            Toast.makeText(activity, "令牌失效 请重新登入", Toast.LENGTH_SHORT).show();
+                            dismiss();
                         }
                     }
                 });

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.jingyu.pay.ui.home.HomeDateModel
+import com.jingyu.pay.ui.login.LoginDateModel
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.dashboard.CollectionQueueData
 import com.tools.payhelper.pay.ui.dashboard.CollectionQueueOffData
@@ -134,6 +135,20 @@ class SellViewModel : ViewModel() {
 
 
         return  exrateData
+    }
+
+    fun getUserInfo(context: Context){
+        sellDateModel.getUserinfo(context, object : SellDateModel.SellResponse {
+            override fun getResponse(s: String) {
+
+                if (!s.isEmpty()){
+                    viewModelScope.launch {
+
+                    }
+                }
+            }
+
+        })
     }
 
 }

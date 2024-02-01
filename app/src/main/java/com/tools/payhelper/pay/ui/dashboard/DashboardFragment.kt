@@ -128,8 +128,8 @@ class DashboardFragment : Fragment() ,Handler.Callback{
             }
 
         })
+//        sellViewModel.getUserInfo(requireActivity())
         handler!!.sendEmptyMessageDelayed(1,15000)
-        Log.d("jack","定時更新")
 //        if(buyDataList.size>=1){
 //            if (PayHelperUtils.getVideoState(requireActivity())){
 //                spool = SoundPool(10, AudioManager.STREAM_MUSIC, 5)
@@ -159,7 +159,6 @@ class DashboardFragment : Fragment() ,Handler.Callback{
     }
     fun openSell(){
         sellViewModel.setSellSetting(requireActivity()).observe(requireActivity(), Observer {
-            Log.d("Jack","openSell："+it.msg)
 
 
         })
@@ -167,7 +166,6 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     fun closeSell(){
         sellViewModel.setCloseSellSetting(requireActivity()).observe(requireActivity(), Observer {
-            Log.d("Jack","closeSell："+it.msg)
 
         })
     }
@@ -192,11 +190,12 @@ class DashboardFragment : Fragment() ,Handler.Callback{
                         requireActivity().runOnUiThread {
                             getList()
                             dialog.dismiss()
-                            Toast.makeText(requireActivity(),"业务操作已完成",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireActivity(),it.msg,Toast.LENGTH_SHORT).show()
 
                         }
                     }else{
                         requireActivity().runOnUiThread {
+                            Toast.makeText(requireActivity(),it.msg,Toast.LENGTH_SHORT).show()
                             getList()
                             dialog.dismiss()
                         }
@@ -217,7 +216,6 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     override fun onStop() {
         super.onStop()
-
     }
 
     override fun onDestroy() {
@@ -347,12 +345,6 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){
-//            if(PayHelperUtils.getSellState(requireActivity())){
-//                openSell()
-//
-//            }else{
-//                Log.d("openSell","close")
-//            }
 
             getList()
         }

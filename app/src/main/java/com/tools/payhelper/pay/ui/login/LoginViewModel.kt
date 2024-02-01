@@ -9,13 +9,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.tools.payhelper.pay.ui.login.*
+import com.tools.payhelper.pay.ui.notifications.UserinfoData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
-
+    var data = MutableLiveData<UserinfoData>()
     var homeViewModel = LoginDateModel()
     var  token  = MutableLiveData<LoginData>()
     var  update  = MutableLiveData<UpdateData>()
@@ -27,11 +28,9 @@ class LoginViewModel : ViewModel() {
 
 
     fun getUserToken(loginid:String,password:String,code:String) : LiveData<LoginData>{
-
         homeViewModel.setUserLogin(loginid,password,code, object : LoginDateModel.LoginrResponse {
             override fun getResponse(s: String) {
                 if (!s.isEmpty()){
-                    Log.d("Jack",s)
                     viewModelScope.launch {
                         var userData = Gson().fromJson(s, LoginData::class.java)
                         token.value = userData
@@ -103,19 +102,38 @@ class LoginViewModel : ViewModel() {
 
     }
 
-    fun getUserInfo(context: Context){
+    fun getUserInfo(context: Context) : LiveData<UserinfoData>{
         homeViewModel.getUserinfo(context, object : LoginDateModel.LoginrResponse {
             override fun getResponse(s: String) {
 
                 if (!s.isEmpty()){
-                    Log.d("Jack",s)
                     viewModelScope.launch {
+                        var ud = Gson().fromJson(s,UserinfoData::class.java)
+                        data.value = ud
+
 
                     }
                 }
             }
 
         })
+        return  data
+    }
+
+    fun  getVersionUpdate(context: Context): LiveData<UpdateData>{
+        homeViewModel.getVersionUpdate(context, object : LoginDateModel.LoginrResponse {
+            override fun getResponse(s: String) {
+                if (!s.isEmpty()){
+                    viewModelScope.launch {
+                        var up = Gson().fromJson(s,UpdateData::class.java);
+                        update.value = up
+
+                    }
+                }
+            }
+
+        })
+        return  update
     }
 
 

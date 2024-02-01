@@ -168,6 +168,32 @@ class LoginDateModel {
     }
 
 
+    fun getVersionUpdate(context: Context, loginrResponse: LoginrResponse) {
+
+        var jsonObject= JSONObject()
+        var jsonStr=jsonObject.toString()
+        val contentType: MediaType = "application/json".toMediaType()
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(Constant.UPDATE_URL)
+            .get()
+            .header("content-type","application/json")
+            .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                loginrResponse.getResponse( response.body?.string()!!)
+
+            }
+        })
+
+    }
+
     interface LoginrResponse{
         fun getResponse(s : String)
     }

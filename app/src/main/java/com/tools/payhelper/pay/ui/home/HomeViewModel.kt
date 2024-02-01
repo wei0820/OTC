@@ -41,6 +41,7 @@ class HomeViewModel : ViewModel() {
                         if (!s.isEmpty()) {
                             Log.d("Jack",s)
 
+
                             var data = Gson().fromJson(s, StartBuyData::class.java)
 
                             startBuy.value = data
@@ -86,8 +87,6 @@ class HomeViewModel : ViewModel() {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
                     if (!s.isEmpty()){
-                        Log.d("Jack",s)
-
                         var data = Gson().fromJson(s,PaymentMatchingData::class.java)
                         mPaymentMatchingData.value = data
                     }else{

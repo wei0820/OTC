@@ -8,6 +8,7 @@ import android.view.Window
 import android.view.WindowManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,11 +16,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.jingyu.pay.ui.login.LoginViewModel
 import com.tools.payhelper.R
+import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.databinding.ActivityMainBinding
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.ui.login.LoginViewModelFactory
+import java.lang.String
 
-class MainActivity : AppCompatActivity()  , Handler.Callback{
+class MainActivity : AppCompatActivity(),Handler.Callback{
 
     private lateinit var binding: ActivityMainBinding
     private  val TAG = "MainActivity"
@@ -57,7 +60,6 @@ class MainActivity : AppCompatActivity()  , Handler.Callback{
 
     override fun onResume() {
         super.onResume()
-//        getData()
         getInfo()
     }
 
@@ -76,19 +78,44 @@ class MainActivity : AppCompatActivity()  , Handler.Callback{
     }
 
     fun getInfo(){
-        loginViewModel.getUserInfo(this)
-        handler!!.sendEmptyMessageDelayed(1,10000)
+        loginViewModel.getUserInfo(this).observe(this, Observer {
+            if (it!=null){
+                runOnUiThread {
+                    Log.d("Jack",it.data.isEnable.toString())
+                    if (!it.data.isEnable){
+
+
+
+                    }else{
+
+                    }
+                }
+
+            }
+        })
+        handler!!.sendEmptyMessageDelayed(1,8000)
+    }
+    fun getUpdate(){
+        loginViewModel.getVersionUpdate(this).observe(this, Observer {
+            if (it!=null){
+                if (PayHelperUtils.getVersionCode()<it.data.versionCode){
+                    val dialog = UpdateAlertDialog(this@MainActivity,it.data.url)
+                    dialog.setMessage(String.format("欢迎使用%s原生V%s版本",
+                        getString(R.string.app_name),
+                        it.data.versionName)+"如升级失败，请选择网页下载升级")
+                    dialog.setIsForcedUpdate(true)
+                    dialog.show()
+                }
+
+
+            }
+        })
     }
 
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){
-//            if(PayHelperUtils.getSellState(requireActivity())){
-//                openSell()
-//
-//            }else{
-//                Log.d("openSell","close")
-//            }
             getInfo()
+//            getUpdate()
 
         }
         return false;

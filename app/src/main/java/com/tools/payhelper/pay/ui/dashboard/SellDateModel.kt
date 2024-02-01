@@ -3,6 +3,7 @@ package com.jingyu.pay.ui.dashboard
 import android.content.Context
 import android.util.Log
 import com.jingyu.pay.ui.home.HomeDateModel
+import com.jingyu.pay.ui.login.LoginDateModel
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
 
@@ -146,6 +147,35 @@ class SellDateModel {
                 orderResponse.getResponse( response.body?.string()!!)
             }
         })
+    }
+    fun getUserinfo(context: Context,sellResponse: SellResponse){
+
+        var jsonObject= JSONObject()
+        jsonObject.put("token", PayHelperUtils.getUserToken(context))
+        var jsonStr=jsonObject.toString()
+        val contentType: MediaType = "application/json".toMediaType()
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(Constant.API_URL + "api/user/userinfo?")
+            .get()
+            .header("content-type","application/json")
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .build()
+        Log.d("Jack",Constant.API_URL + "api/user/userinfo?");
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                sellResponse.getResponse( response.body?.string()!!)
+            }
+        })
+
     }
 
 
