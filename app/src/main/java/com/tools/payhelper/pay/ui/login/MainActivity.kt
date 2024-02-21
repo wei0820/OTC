@@ -19,25 +19,25 @@ import com.tools.payhelper.R
 import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.databinding.ActivityMainBinding
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.ui.login.LoginViewModelFactory
 import java.lang.String
 
-class MainActivity : AppCompatActivity(),Handler.Callback{
+class MainActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityMainBinding
     private  val TAG = "MainActivity"
-    var googleBoolean = false;
     val loginViewModel: LoginViewModel by lazy {
         ViewModelProvider(this, LoginViewModelFactory()).get(LoginViewModel::class.java)
     }
-    var handler: Handler? = null
+//    var handler: Handler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        handler = Handler(this)
+//        handler = Handler(this)
 
 
         val navView: BottomNavigationView = binding.navView
@@ -54,46 +54,40 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.selectedItemId = R.id.navigation_notifications
+//        getInfo()
+        Log.d("Jack","2222")
 
 
     }
 
     override fun onResume() {
         super.onResume()
-        getInfo()
+        Log.d("Jack","111")
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
-        if (handler != null) {
-            handler!!.removeCallbacksAndMessages(null);
-            handler = null;
-
-        }
+//        if (handler != null) {
+//            handler!!.removeCallbacksAndMessages(null);
+//            handler = null;
+//
+//        }
     }
 
-    fun  getData() : Boolean{
-        return  intent.getBooleanExtra("google",false)
-
-    }
 
     fun getInfo(){
         loginViewModel.getUserInfo(this).observe(this, Observer {
             if (it!=null){
                 runOnUiThread {
-                    Log.d("Jack",it.data.isEnable.toString())
                     if (!it.data.isEnable){
-
-
-
-                    }else{
-
+                        ToastManager.showToastCenter(this,"令牌失效 请重新登入")
                     }
                 }
 
             }
         })
-        handler!!.sendEmptyMessageDelayed(1,8000)
+//        handler!!.sendEmptyMessageDelayed(1,8000)
     }
     fun getUpdate(){
         loginViewModel.getVersionUpdate(this).observe(this, Observer {
@@ -112,13 +106,23 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         })
     }
 
-    override fun handleMessage(p0: Message): Boolean {
-        if (p0.what ==1){
-            getInfo()
-//            getUpdate()
-
-        }
-        return false;
+    override fun onRestart() {
+        super.onRestart()
 
     }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+
+    }
+
+//    override fun handleMessage(p0: Message): Boolean {
+////        if (p0.what ==1){
+////            getInfo()
+//////            getUpdate()
+////
+////        }
+//        return false;
+//
+//    }
 }

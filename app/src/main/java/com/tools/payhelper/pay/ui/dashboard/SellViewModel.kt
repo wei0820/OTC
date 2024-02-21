@@ -15,6 +15,7 @@ import com.tools.payhelper.pay.ui.dashboard.CollectionQueueOffData
 import com.tools.payhelper.pay.ui.dashboard.ConfirmData
 import com.tools.payhelper.pay.ui.dashboard.SellListData
 import com.tools.payhelper.pay.ui.home.ExrateData
+import com.tools.payhelper.pay.ui.notifications.UserinfoData
 import kotlinx.coroutines.launch
 
 class SellViewModel : ViewModel() {
@@ -24,6 +25,7 @@ class SellViewModel : ViewModel() {
     }
     var exrateData = MutableLiveData<ExrateData>()
 
+    var data = MutableLiveData<UserinfoData>()
 
     var sellDateModel = SellDateModel()
     var setSellSettingData = MutableLiveData<CollectionQueueData>()
@@ -101,6 +103,7 @@ class SellViewModel : ViewModel() {
                     if (!s.isEmpty()){
                         var data = Gson().fromJson(s,ConfirmData::class.java)
                         if (data!=null){
+                            confirmData.value = data
                         }
                     }
                 }
@@ -137,18 +140,24 @@ class SellViewModel : ViewModel() {
         return  exrateData
     }
 
-    fun getUserInfo(context: Context){
+    fun getUserInfo(context: Context): LiveData<UserinfoData>{
         sellDateModel.getUserinfo(context, object : SellDateModel.SellResponse {
             override fun getResponse(s: String) {
-
                 if (!s.isEmpty()){
                     viewModelScope.launch {
+                        viewModelScope.launch {
+                            var ud = Gson().fromJson(s, UserinfoData::class.java)
+                            data.value = ud
 
+
+                        }
                     }
                 }
             }
 
         })
+        return  data
+
     }
 
 }

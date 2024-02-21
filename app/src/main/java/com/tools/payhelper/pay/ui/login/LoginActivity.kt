@@ -2,6 +2,7 @@ package com.jingyu.pay.ui.login
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -37,6 +38,9 @@ class LoginActivity : BasicActivity() {
     lateinit var loginButton: Button
     lateinit var _versiontext : TextView
 
+    lateinit var progressDialog: ProgressDialog
+    var tokenString = "test"
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +58,18 @@ class LoginActivity : BasicActivity() {
         checkVresion()
 
 
+
         loginButton.setOnClickListener {
+            loginButton.isEnabled = false
+            loginButton.isClickable = false;
+            progressDialog = ProgressDialog(this)
+            progressDialog.setTitle("Please Wait")
+            progressDialog.setMessage("Loading ...")
+            progressDialog.setCancelable(true) // blocks UI interaction
+            progressDialog.show()
+            Log.d("jack","1")
+            Log.d("jack",tokenString)
+
             var loginid = edt.text.toString()
             var password = edt2.text.toString()
             var code = edt3.text.toString()
@@ -73,30 +88,44 @@ class LoginActivity : BasicActivity() {
 //            loginViewModel.getUserData(loginid,PayHelperUtils.md5(password),code)
 
             loginViewModel.getUserToken(loginid,PayHelperUtils.md5(password),code).observe(this, Observer {
+
                 if (it!=null){
                     runOnUiThread {
                         if (it.code==1){
                             if(!it.msg.isEmpty()){
+                                loginButton.isEnabled = true
+                                loginButton.isClickable = true;
+
+                                progressDialog.hide()
                                 ToastManager.showToastCenter(this,it.msg)
                                 return@runOnUiThread
 
                             }
                         }else{
+                            progressDialog.hide()
+                            tokenString = it.data.token
                             ToastManager.showToastCenter(this,it.msg)
 
                             PayHelperUtils.saveUserLoginToken(this,it.data.token)
                             PayHelperUtils.saveUserLoginName(this,loginid)
                             PayHelperUtils.saveGoogle(this,it.data.google)
                             var intent  = Intent()
-                            var bundle =  Bundle()
-                            bundle.putBoolean("google",it.data.google)
-                            intent.putExtras(bundle)
                             intent.setClass(this, MainActivity::class.java)
                             startActivity(intent)
 
                         }
 
                     }
+                }else{
+
+                    runOnUiThread {
+                        ToastManager.showToastCenter(this,"error")
+                        loginButton.isEnabled = true
+                        loginButton.isClickable = true;
+
+                        progressDialog.hide()
+                    }
+
                 }
 
 
@@ -143,7 +172,6 @@ class LoginActivity : BasicActivity() {
                 checkAndRequestPermissions(permissionList)
             }
         } catch (ignored: Exception) {
-            Log.d("Jack",ignored.localizedMessage)
 
         }
     }

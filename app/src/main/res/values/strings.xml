@@ -41,12 +41,12 @@
 
 
     <string-array name="planets_array">
-    <item>一般訊息</item>
-    <item>錯誤訊息</item>
-    <item>成功回調訊息</item>
-    <item>錯誤回調訊息</item>
+        <item>一般訊息</item>
+        <item>錯誤訊息</item>
+        <item>成功回調訊息</item>
+        <item>錯誤回調訊息</item>
 
-</string-array>
+    </string-array>
 
     <string-array name="spinner_item">
         <item>全部</item>

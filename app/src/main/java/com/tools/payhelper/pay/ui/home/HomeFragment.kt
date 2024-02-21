@@ -76,6 +76,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
         setBuySetting()
         getExrate()
+        getInfo()
 
         group.check(R.id.rb_yestday)
         group.setOnCheckedChangeListener { radioGroup, i ->
@@ -194,8 +195,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
         adapter!!.notifyDataSetChanged()
 
 
-        handler!!.sendEmptyMessageDelayed(1,15000)
-        Log.d("XXX","定時更新")
+        handler!!.sendEmptyMessageDelayed(1,90000)
 //
 //        if (buyDataList.size>=1){
 //
@@ -292,22 +292,18 @@ class HomeFragment : Fragment() ,Handler.Callback{
     }
     fun setBuySetting(){
         val maxString =
-            if (PayHelperUtils.getBuyMax(activity).isEmpty()) "1000" else PayHelperUtils.getBuyMax(
+            if (PayHelperUtils.getBuyMax(activity).isEmpty()) "99999" else PayHelperUtils.getBuyMax(
                 activity
             )
         val minString =
-            if (PayHelperUtils.getBuyMin(activity).isEmpty()) "300" else PayHelperUtils.getBuyMin(
+            if (PayHelperUtils.getBuyMin(activity).isEmpty()) "1" else PayHelperUtils.getBuyMin(
                 activity
             )
 
         merchantOrdersViewModel.getBuySetting(requireActivity(),minString,maxString).observe(requireActivity(), Observer {
 
-
-
         })
     }
-
-
 
 
     fun  getPament(id:String){
@@ -363,6 +359,19 @@ class HomeFragment : Fragment() ,Handler.Callback{
         intent.data = Uri.parse(url)
         startActivity(intent)
 
+    }
+
+    fun getInfo(){
+        merchantOrdersViewModel.getUserInfo(requireActivity()).observe(viewLifecycleOwner, Observer {
+            if (it!=null){
+                requireActivity().runOnUiThread {
+                    if (!it.data.isEnable){
+                        ToastManager.showToastCenter(requireActivity(),"令牌失效 请重新登入")
+                    }
+                }
+
+            }
+        })
     }
 
 

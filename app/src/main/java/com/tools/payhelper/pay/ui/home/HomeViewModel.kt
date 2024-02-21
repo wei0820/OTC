@@ -7,12 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.jingyu.pay.ui.login.LoginDateModel
 import com.jingyu.pay.ui.order.OrderDateModel
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.home.BuyData
 import com.tools.payhelper.pay.ui.home.ExrateData
 import com.tools.payhelper.pay.ui.home.PaymentMatchingData
 import com.tools.payhelper.pay.ui.home.StartBuyData
+import com.tools.payhelper.pay.ui.notifications.UserinfoData
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
@@ -31,6 +33,7 @@ class HomeViewModel : ViewModel() {
     var  paymentMatchingData = MutableLiveData<com.tools.payhelper.pay.ui.order.PaymentMatchingData>()
 
     var exrateData = MutableLiveData<ExrateData>()
+    var data = MutableLiveData<UserinfoData>()
 
 
 
@@ -148,6 +151,25 @@ class HomeViewModel : ViewModel() {
 
         return  exrateData
     }
+    fun getUserInfo(context: Context) : LiveData<UserinfoData>{
+        homeViewModel.getUserinfo(context, object : HomeDateModel.BuyResponse {
+            override fun getResponse(s: String) {
+                if (!s.isEmpty()){
+                    viewModelScope.launch {
+                        var ud = Gson().fromJson(s, UserinfoData::class.java)
+                        data.value = ud
 
+
+                    }
+                }
+            }
+
+            override fun getFailure(s: String) {
+
+            }
+
+        })
+        return  data
+    }
 
 }

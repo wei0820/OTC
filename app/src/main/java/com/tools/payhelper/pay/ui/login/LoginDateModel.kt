@@ -13,6 +13,7 @@ import org.json.JSONObject
 import java.io.IOException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import java.util.concurrent.TimeUnit
 
 
 class LoginDateModel {
@@ -25,17 +26,27 @@ class LoginDateModel {
         jsonObject.put("roleName","会员")
         jsonObject.put("IP","125.119.224.148")
         jsonObject.put("version","v8")
+        jsonObject.put("ismobile","1")
+
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
+
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+
+        val client = OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
+
+
         val request = Request.Builder()
             .url(Constant.API_URL + "api/auth")
             .post(requestBody)
             .header("content-type","application/json")
             .build()
-        Log.d("Jack",Constant.API_URL + "api/auth")
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
 

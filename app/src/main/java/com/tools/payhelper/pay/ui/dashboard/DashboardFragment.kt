@@ -1,7 +1,6 @@
 package com.jingyu.pay.ui.dashboard
 
 import android.content.Intent
-import android.media.AudioManager
 import android.media.SoundPool
 import android.net.Uri
 import android.os.Bundle
@@ -17,11 +16,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.tools.payhelper.R
 import com.tools.payhelper.databinding.FragmentDashboardBinding
-import com.tools.payhelper.pay.ConfirmOrderDialog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
+import com.tools.payhelper.pay.ui.dashboard.ConfirmOrderActivity
 import com.tools.payhelper.pay.ui.dashboard.SellListData
 import java.text.DecimalFormat
 
@@ -61,6 +61,7 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
         getEtr()
         checkOpen()
+        getUserinfo()
 
         switch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, b ->
             val ischeckString = if (b) "卖币接单中" else "卖币暂停接单"
@@ -97,6 +98,18 @@ class DashboardFragment : Fragment() ,Handler.Callback{
          handler = Handler(this)
 
     }
+    fun  getUserinfo(){
+        sellViewModel.getUserInfo(requireActivity()).observe(viewLifecycleOwner, Observer {
+            if (it!=null){
+                requireActivity().runOnUiThread {
+                    if (!it.data.isEnable){
+                        ToastManager.showToastCenter(requireActivity(),"令牌失效 请重新登入")
+                    }
+                }
+
+            }
+        })
+    }
 
 
 
@@ -129,7 +142,7 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
         })
 //        sellViewModel.getUserInfo(requireActivity())
-        handler!!.sendEmptyMessageDelayed(1,15000)
+        handler!!.sendEmptyMessageDelayed(1,90000)
 //        if(buyDataList.size>=1){
 //            if (PayHelperUtils.getVideoState(requireActivity())){
 //                spool = SoundPool(10, AudioManager.STREAM_MUSIC, 5)
@@ -182,30 +195,37 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     }
     fun confirmOrder(data: SellListData.Data){
+//
+//            val dialog = ConfirmOrderDialog(requireActivity(),data)
+//            dialog.setAddBankCallback {
+//                if (it != null){
+//                    if (it.code == 1){
+//                        requireActivity().runOnUiThread {
+//                            getList()
+//                            dialog.dismiss()
+//                            Toast.makeText(requireActivity(),it.msg,Toast.LENGTH_SHORT).show()
+//
+//                        }
+//                    }else{
+//                        requireActivity().runOnUiThread {
+//                            getList()
+//                            dialog.dismiss()
+//                        }
+//                    }
+//
+//                }
+//
+//            }
+//            dialog.show()
+        if (data!=null){
+            var intent = Intent()
+            intent.setClass(requireActivity(),ConfirmOrderActivity::class.java)
+            intent.putExtra("json", Gson().toJson(data))
+            startActivity(intent)
+        }else{
+        Toast.makeText(requireActivity(),"发生错误 请重新登入",Toast.LENGTH_SHORT).show()
 
-            val dialog = ConfirmOrderDialog(requireActivity(),data)
-            dialog.setAddBankCallback {
-                if (it != null){
-                    if (it.code == 1){
-                        requireActivity().runOnUiThread {
-                            getList()
-                            dialog.dismiss()
-                            Toast.makeText(requireActivity(),it.msg,Toast.LENGTH_SHORT).show()
-
-                        }
-                    }else{
-                        requireActivity().runOnUiThread {
-                            Toast.makeText(requireActivity(),it.msg,Toast.LENGTH_SHORT).show()
-                            getList()
-                            dialog.dismiss()
-                        }
-                    }
-
-                }
-
-            }
-            dialog.show()
-
+        }
 
     }
 
@@ -215,6 +235,7 @@ class DashboardFragment : Fragment() ,Handler.Callback{
     }
 
     override fun onStop() {
+
         super.onStop()
     }
 
@@ -223,7 +244,6 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         if (handler != null) {
             handler!!.removeCallbacksAndMessages(null);
             handler = null;
-
         }
         }
 
