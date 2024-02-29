@@ -110,7 +110,6 @@ class BankCardDateModel {
 
 
         var jsonStr=jsonObject.toString()
-        Log.d("Jack",jsonStr);
 
         val contentType: MediaType = "application/json".toMediaType()
         val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/bindCard").toHttpUrlOrNull()!!.newBuilder()
