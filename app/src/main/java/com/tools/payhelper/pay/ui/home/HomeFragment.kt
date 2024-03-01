@@ -87,9 +87,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
                 R.id.rb_today ->
                     getinglIst()
 
-
-
-
             }
 
 
@@ -335,9 +332,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
 
 
-
-
-
     fun cancelToUrl(id : String){
 
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "voucherError/" +id
@@ -421,8 +415,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val info: BuyData.Data = bankCardInfoList!!.get(position)
             val df = DecimalFormat("###.00")
-
-
             holder.bankName.text = info.bankName
             holder.cardNo.text = info.cardId
             holder.time.text = info.created
@@ -458,15 +450,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
             }
 
-
-//            if (info.state.equals("已接单")){
-//                holder.addButton.isEnabled = false
-//            }else{
-//                holder.addButton.setOnClickListener {
-//                    mfragment.getPament(info.id);
-//
-//                }
-//            }
 
         }
 
@@ -542,11 +525,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
 //            holder.addButton.text = info.state
             holder.cancelButton.setBackgroundColor(R.color.default_color_pressed)
 
-
-
-
-
-
             holder.payName.setOnClickListener {
 
                 PayHelperUtils.copyToClipboard(mfragment.requireActivity(),info.bankName+"_"+info.subName)
@@ -576,9 +554,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
             holder.sureButton.setOnClickListener {
                 mfragment.confirmOrder(info.id)
             }
-
-
-
 
         }
 

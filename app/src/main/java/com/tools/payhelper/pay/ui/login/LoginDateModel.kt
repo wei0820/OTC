@@ -26,7 +26,7 @@ class LoginDateModel {
         jsonObject.put("roleName","会员")
         jsonObject.put("IP","125.119.224.148")
         jsonObject.put("version","v8")
-        jsonObject.put("ismobile","1")
+        jsonObject.put("ismobile",PayHelperUtils.getVersionName())
 
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
