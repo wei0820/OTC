@@ -6,12 +6,14 @@ import com.jingyu.pay.ui.home.HomeDateModel
 
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ui.login.SSLSocketClient
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class SellRecordDateModel {
 
@@ -34,7 +36,14 @@ class SellRecordDateModel {
 
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(), SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(url)
             .get()
@@ -59,7 +68,14 @@ class SellRecordDateModel {
         val contentType: MediaType = "application/json".toMediaType()
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(Constant.exrate_String)
             .get()

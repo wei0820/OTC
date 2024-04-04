@@ -42,7 +42,7 @@ android {
             buildConfigField "String", "ELK_TYPE", "\"payhelper\""
             buildConfigField "String", "UPDATE_URL", "\"https://pay.channel-lucky.com/apk/version.json\""
             buildConfigField "String", "md5key", "\"2io#ejQO\""
-            buildConfigField "String", "API_URL", "\"https://api4.channel-sign.com/\""
+            buildConfigField "String", "API_URL", "\"https://api.channel-sign.com/\""
             buildConfigField "String", "EXRATE_URL", "\"https://pay.channel-lucky.com/exrate.json\""
 
 

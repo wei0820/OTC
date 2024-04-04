@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ui.login.SSLSocketClient
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -14,6 +15,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class PasswordDateModel {
 
@@ -79,7 +81,14 @@ class PasswordDateModel {
         val url: String = urlBuilder.build().toString()
         val requestBody = jsonStr.toRequestBody(contentType)
 
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(), SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(url)
             .post(requestBody)

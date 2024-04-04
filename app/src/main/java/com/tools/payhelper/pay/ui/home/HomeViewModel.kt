@@ -68,6 +68,7 @@ class HomeViewModel : ViewModel() {
     fun getBuyDataList(context: Context) : LiveData<BuyData>{
         homeViewModel.getBuyOrederList(context,object : HomeDateModel.BuyResponse{
             override fun getResponse(s: String) {
+                Log.d("Jack＿getBuyDataList",s)
                 viewModelScope.launch {
                     if (!s.isEmpty()){
                         var data = Gson().fromJson(s,BuyData::class.java)

@@ -24,6 +24,7 @@ import com.tools.payhelper.R
 import com.tools.payhelper.databinding.FragmentNotificationsBinding
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
+import com.tools.payhelper.pay.ui.payment.PaymentActivity
 import com.tools.payhelper.pay.ui.login.AddGoogleDialog
 import kotlinx.coroutines.launch
 
@@ -53,6 +54,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var text5 :TextView
     lateinit var name :TextView
     lateinit var mSwitchButton : Switch
+    lateinit var paymentlayout :RelativeLayout
 
 
     val personalViewModel: PersonalViewModel by lazy {
@@ -85,6 +87,8 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         banklayout = root.findViewById(R.id.banklayout)
         reportday_layout = root.findViewById(R.id.reportday_layout)
         passlayout = root.findViewById(R.id.passlayout);
+        paymentlayout  = root.findViewById(R.id.paymentlayout);
+
         buy_record_layout.setOnClickListener(this)
         sell_record_layout.setOnClickListener(this)
         frozenrecord.setOnClickListener(this)
@@ -95,6 +99,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         banklayout.setOnClickListener(this)
         reportday_layout.setOnClickListener(this)
         passlayout.setOnClickListener(this)
+        paymentlayout.setOnClickListener(this)
 
         var b = PayHelperUtils.getVideoState(requireActivity())
         mSwitchButton.isChecked = b
@@ -173,6 +178,8 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             R.id.banklayout ->startActivity(Intent().setClass(requireActivity(),BankCardListActivity::class.java))
             R.id.reportday_layout->startActivity(Intent().setClass(requireActivity(),ReportDayActivity::class.java))
             R.id.passlayout -> startActivity(Intent().setClass(requireActivity(), PasswordActivity::class.java))
+            R.id.paymentlayout -> startActivity(Intent().setClass(requireActivity(), PaymentActivity::class.java))
+
         }
     }
 

@@ -10,6 +10,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tools.payhelper.BuildConfig;
+import com.tools.payhelper.pay.ui.bankcard.BanCardListData;
 import com.tools.payhelper.pay.ui.home.BuyData;
 
 import java.io.UnsupportedEncodingException;
@@ -17,6 +18,7 @@ import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PayHelperUtils {
 
@@ -344,4 +346,33 @@ public class PayHelperUtils {
         return sharedPreferences.getBoolean(Constant.CHECKGOOGLE, true);
     }
 
+
+
+    // 存銀行卡列表 全部
+    public static void setSaveALLBankCardData(Context context, List<BanCardListData.Data> bankCardInfo) {
+        if (bankCardInfo == null) {
+            return;
+        }
+
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.DEFAULT_SETTING, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.DEFAULT_SETTING_ALL_BANKCARD, new Gson().toJson(bankCardInfo)).apply();
+    }
+
+
+    public static ArrayList<BanCardListData.Data> getALLBankCardData(Context context) {
+        ArrayList<BanCardListData.Data> bankCardInfo = new ArrayList<>();
+        try {
+            SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.DEFAULT_SETTING, Context.MODE_PRIVATE);
+            String jsonStr = sharedPreferences.getString(Constant.DEFAULT_SETTING_ALL_BANKCARD, "");
+            if (!jsonStr.isEmpty()) {
+                bankCardInfo = new Gson().fromJson(jsonStr, new TypeToken<List<BanCardListData.Data>>(){}.getType());
+            }
+//            for (BanCardListData.Data info : bankCardInfo) {
+//                info.setOpen(false);
+//            }
+            return bankCardInfo;
+        } catch (Exception e) {
+            return bankCardInfo;
+        }
+    }
 }

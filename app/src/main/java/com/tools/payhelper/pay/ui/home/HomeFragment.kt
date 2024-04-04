@@ -33,6 +33,9 @@ import com.tools.payhelper.pay.ui.home.BuyData
 import com.tools.payhelper.pay.ui.order.PaymentMatchingData
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
+import com.jingyu.pay.ui.home.HomeFragment
+
+
 
 class HomeFragment : Fragment() ,Handler.Callback{
     private var spool: SoundPool? = null
@@ -70,13 +73,11 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        handler = Handler(this)
+
         fab = root.findViewById(R.id.normalFAB)
         recyclerView =  root.findViewById(R.id.recyclerView)
         group =root.findViewById(R.id.group_radio)
-
-        setBuySetting()
-        getExrate()
-        getInfo()
 
         group.check(R.id.rb_yestday)
         group.setOnCheckedChangeListener { radioGroup, i ->
@@ -111,6 +112,11 @@ class HomeFragment : Fragment() ,Handler.Callback{
             dialog.show()
         }
 
+
+        setBuySetting()
+        getExrate()
+        getInfo()
+        getBuyList()
 
 
         // make the adapter the data set changed for the recycler view
@@ -153,13 +159,11 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        handler = Handler(this)
 
     }
 
     override fun onResume() {
         super.onResume()
-        getBuyList()
 
     }
     fun  getBuyList(){
@@ -171,6 +175,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
                 buyIDDataList.clear()
                 if (it.code == 0){
                     if (it.data!=null){
+
                         for (datum in it.data) {
                             buyDataList.add(datum)
                             buyIDDataList.add(datum.id)

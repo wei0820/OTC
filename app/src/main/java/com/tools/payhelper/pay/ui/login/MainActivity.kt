@@ -55,14 +55,12 @@ class MainActivity : AppCompatActivity(){
         navView.setupWithNavController(navController)
         navView.selectedItemId = R.id.navigation_notifications
 //        getInfo()
-        Log.d("Jack","2222")
 
 
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d("Jack","111")
     }
 
 

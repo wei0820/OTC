@@ -22,6 +22,7 @@ import com.jingyu.pay.ui.login.LoginActivity
 import com.tools.payhelper.AddWechatActivity
 import com.tools.payhelper.Main22Activity
 import com.tools.payhelper.R
+import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.bankcard.AddCardDialog
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog
@@ -179,6 +180,7 @@ class BankCardListActivity : AppCompatActivity() {
                         recyclerView.post(Runnable { adapter!!.notifyDataSetChanged() })
 
                     }
+                    PayHelperUtils.setSaveALLBankCardData(this,buyDataList);
 
                 }
             }

@@ -14,7 +14,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-class BankCardDateModel {
+class PaymentDateModel {
 
 
     var BaseUrl : String = Constant.API_URL
@@ -60,71 +60,37 @@ class BankCardDateModel {
     }
 
 
-    fun getGroupReportsList(context: Context, id : String,day : String,groupResponse: BankCardResponse){
-
-        var jsonObject= JSONObject()
-        jsonObject.put("token","")
-        var jsonStr=jsonObject.toString()
-        val contentType: MediaType = "application/json".toMediaType()
-        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/Reports?").toHttpUrlOrNull()!!.newBuilder()
-        urlBuilder.addQueryParameter("id", id)
-        urlBuilder.addQueryParameter("day", day)
-        val url: String = urlBuilder.build().toString()
-        Log.d("Jack",url);
-
-        //调用请求
-        val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(url)
-            .get()
-            .header("content-type","application/json")
-            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
-            .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                groupResponse.getResponse( response.body?.string()!!)
-            }
-        })
-
-    }
-
-
-
-
-    fun setBankCard(context: Context,
-                    bankName:String,
-                    subName:String,
-                    cardNo:String,
-                    collectionlimit:Float,
-                    code:String,
-                    userName:String,
-                    PinYin:String,
-                         groupResponse: BankCardResponse){
+    fun setPayment(
+        context: Context,
+        bankName: String,
+        subName: String,
+        orderNo: String,
+        cardId: String,
+        code: String,
+        userName: String,
+        score: Float,
+        groupResponse: BankCardResponse,
+    ){
 
         var jsonObject= JSONObject()
         jsonObject.put("bankName",bankName)
         jsonObject.put("subName",subName)
-        jsonObject.put("cardNo",cardNo)
-        jsonObject.put("IsEnable",false)
-        jsonObject.put("collectionlimit",collectionlimit)
+        jsonObject.put("orderNo",orderNo)
         jsonObject.put("code",code)
         jsonObject.put("userName",userName)
-        jsonObject.put("id","")
-        jsonObject.put("PinYin",PinYin)
+        jsonObject.put("cardId",cardId)
+        jsonObject.put("score",score)
 
 
         var jsonStr=jsonObject.toString()
+        Log.d("jack", jsonStr)
 
         val contentType: MediaType = "application/json".toMediaType()
-        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/bindCard").toHttpUrlOrNull()!!.newBuilder()
+        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/payment").toHttpUrlOrNull()!!.newBuilder()
 //        urlBuilder.addQueryParameter("id", "")
 //        urlBuilder.addQueryParameter("day", "")
         val url: String = urlBuilder.build().toString()
+        Log.d("jack", url)
 
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
@@ -153,16 +119,16 @@ class BankCardDateModel {
         })
 
     }
-
-
-    fun setStopBankCard(context: Context, id : String,groupResponse: BankCardResponse){
+    fun getPaymentList(context: Context, groupResponse: BankCardResponse){
 
         var jsonObject= JSONObject()
         jsonObject.put("token","")
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
-        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/cardon?").toHttpUrlOrNull()!!.newBuilder()
-        urlBuilder.addQueryParameter("id", id)
+        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/accountOrder").toHttpUrlOrNull()!!.newBuilder()
+//        urlBuilder.addQueryParameter("key", "")
+//        urlBuilder.addQueryParameter("page", "")
+//        urlBuilder.addQueryParameter("pagesize", "")
         val url: String = urlBuilder.build().toString()
         Log.d("Jack",url);
 
@@ -170,7 +136,7 @@ class BankCardDateModel {
         val requestBody = jsonStr.toRequestBody(contentType)
 //        val client = OkHttpClient()
         val client = OkHttpClient.Builder()
-            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(), SSLSocketClient.getX509TrustManager())
             .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
@@ -195,45 +161,7 @@ class BankCardDateModel {
     }
 
 
-    fun setDeleteBankCard(context: Context,id: String,groupResponse: BankCardResponse){
 
-        var jsonObject= JSONObject()
-        jsonObject.put("token","")
-        var jsonStr=jsonObject.toString()
-        val contentType: MediaType = "application/json".toMediaType()
-        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/cardremove?").toHttpUrlOrNull()!!.newBuilder()
-        urlBuilder.addQueryParameter("id", id)
-//        urlBuilder.addQueryParameter("day", "")
-        val url: String = urlBuilder.build().toString()
-        Log.d("Jack",url);
-
-        //调用请求
-        val requestBody = jsonStr.toRequestBody(contentType)
-//        val client = OkHttpClient()
-        val client = OkHttpClient.Builder()
-            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
-            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .writeTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .build()
-        val request = Request.Builder()
-            .url(url)
-            .get()
-            .header("content-type","application/json")
-            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
-            .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                groupResponse.getResponse( response.body?.string()!!)
-            }
-        })
-
-    }
 
 
 

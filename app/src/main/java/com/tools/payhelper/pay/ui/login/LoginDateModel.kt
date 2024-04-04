@@ -1,18 +1,19 @@
 package com.jingyu.pay.ui.login
 
 import android.app.Activity
+import android.content.Context
 import android.util.Log
 import com.tools.payhelper.pay.Constant
-import android.content.Context
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ui.login.SSLSocketClient
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 import java.util.concurrent.TimeUnit
 
 
@@ -26,22 +27,25 @@ class LoginDateModel {
         jsonObject.put("roleName","会员")
         jsonObject.put("IP","125.119.224.148")
         jsonObject.put("version","v8")
-        jsonObject.put("ismobile",PayHelperUtils.getVersionName())
+        jsonObject.put("ismobile","Android_"+PayHelperUtils.getVersionName())
 
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
 
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-//        val client = OkHttpClient()
 
         val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .build()
 
 
+
+        Log.d("Jack",Constant.API_URL + "api/auth")
         val request = Request.Builder()
             .url(Constant.API_URL + "api/auth")
             .post(requestBody)
@@ -67,7 +71,15 @@ class LoginDateModel {
         val contentType: MediaType = "application/json".toMediaType()
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
+
         val request = Request.Builder()
             .url(Constant.API_URL + "api/auth/bindKey")
             .post(requestBody)
@@ -95,7 +107,14 @@ class LoginDateModel {
         val contentType: MediaType = "application/json".toMediaType()
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(Constant.API_URL + "api/auth/google")
             .get()
@@ -125,7 +144,14 @@ class LoginDateModel {
         val contentType: MediaType = "application/json".toMediaType()
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(Constant.API_URL + "api/user/userinfo?")
             .get()
@@ -156,7 +182,14 @@ class LoginDateModel {
             val contentType: MediaType = "application/json".toMediaType()
             //调用请求
             val requestBody = jsonStr.toRequestBody(contentType)
-            val client = OkHttpClient()
+//            val client = OkHttpClient()
+            val client = OkHttpClient.Builder()
+                .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+                .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build()
             val request = Request.Builder()
                 .url(Constant.UPDATE_URL)
                 .get()
@@ -186,7 +219,14 @@ class LoginDateModel {
         val contentType: MediaType = "application/json".toMediaType()
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(Constant.UPDATE_URL)
             .get()
