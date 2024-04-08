@@ -183,8 +183,8 @@ class GroupReportTeamActivity : AppCompatActivity() {
             holder.orderno.text = "买币:"+info.payment.toString()
             holder.bankName.text = "卖币:"+info.collection.toString()
             holder.orderno.text = "佣金:"+info.commission.toString()
-            holder.cardNo.text = "小额买币:"+info.paymentXe.toString()
-            holder.paymentxe.text = "小额买币笔数:"+info.paymentXeQty.toString()
+//            holder.cardNo.text = "小额买币:"+info.paymentXe.toString()
+//            holder.paymentxe.text = "小额买币笔数:"+info.paymentXeQty.toString()
 
 
         }

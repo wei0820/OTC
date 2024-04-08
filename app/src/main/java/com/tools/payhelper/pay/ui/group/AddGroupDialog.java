@@ -93,9 +93,14 @@ public class AddGroupDialog extends AlertDialog {
 
 
         TextView message = findViewById(R.id.message);
-        message.setText("您的佣金比例:\n"+"卖币:"+maxString+"\n"+"小额买币:"+minString+"\n"+"支付宝卖币:"+alipayRebate+"\n"+"微信卖币:"+wechatRebate);
+//        message.setText("您的佣金比例:\n"+"卖币:"+maxString+"\n"+"小额买币:"+minString+"\n"+"支付宝卖币:"+alipayRebate+"\n"+"微信卖币:"+wechatRebate);
+
+
+        message.setText("您的佣金比例:\n"+"卖币:"+maxString+"\n"+"\n"+"支付宝卖币:"+alipayRebate+"\n"+"微信卖币:"+wechatRebate);
+
         textView.setText(maxString);
         textView2.setText(minString);
+        textView2.setVisibility(View.GONE);
         textiew22.setText(alipayRebate);
         wechattext.setText(wechatRebate);
 
@@ -119,14 +124,15 @@ public class AddGroupDialog extends AlertDialog {
                 String p = pd.getText().toString();
                 String t = tel.getText().toString();
                 Double re = Double.parseDouble(textView.getText().toString());
-                Double Pa = Double.parseDouble(textView2.getText().toString());
+//                Double Pa = Double.parseDouble(textView2.getText().toString());
+
                 Double aa = Double.parseDouble(textiew22.getText().toString());
                 Double wechatDb = Double.parseDouble(wechattext.getText().toString());
 
 
                 groupDateModel.getGroupRegister(activity, n, p, t,
                         re,
-                        Pa,
+                        0.0,
                         aa,
                         wechatDb,
                         new GroupDateModel.GroupResponse() {

@@ -128,6 +128,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:visibility="invisible"
             android:orientation="horizontal"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
