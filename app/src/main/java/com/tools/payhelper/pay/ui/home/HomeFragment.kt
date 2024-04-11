@@ -527,7 +527,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
             holder.orderno.text = info.orderNo
             holder.userName.text = "收款人姓名:" + info.userName
             holder.payName.text = "收款银行:" +info.bankName
-//            holder.addButton.text = info.state
             holder.cancelButton.setBackgroundColor(R.color.default_color_pressed)
 
             holder.payName.setOnClickListener {
