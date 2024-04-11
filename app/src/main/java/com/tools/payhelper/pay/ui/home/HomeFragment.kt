@@ -197,7 +197,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
         adapter!!.notifyDataSetChanged()
 
 
-        handler!!.sendEmptyMessageDelayed(1,90000)
+        handler!!.sendEmptyMessageDelayed(1,60000)
 //
 //        if (buyDataList.size>=1){
 //
@@ -420,9 +420,9 @@ class HomeFragment : Fragment() ,Handler.Callback{
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val info: BuyData.Data = bankCardInfoList!!.get(position)
             val df = DecimalFormat("###.00")
-            holder.bankName.text = info.bankName
-            holder.cardNo.text = info.cardId
-            holder.time.text = info.created
+            holder.bankName.text =""
+            holder.cardNo.text = ""
+            holder.time.text = ""
             holder.amount.text = "￥"+info.score
             holder.exrate.text = "单价:"+ mfragment.exrateDouble
             holder.usdt.text = "成交金额USDT:"+ df.format(info.score/mfragment.exrateDouble)
