@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ui.login.SSLSocketClient
 
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -11,6 +12,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class GroupDateModel {
 
@@ -25,13 +27,20 @@ class GroupDateModel {
         val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/team?").toHttpUrlOrNull()!!.newBuilder()
 //        urlBuilder.addQueryParameter("key", "")
 //        urlBuilder.addQueryParameter("page", "")
-//        urlBuilder.addQueryParameter("pagesize", "")
+        urlBuilder.addQueryParameter("pagesize", "99999")
         val url: String = urlBuilder.build().toString()
         Log.d("Jack",url);
 
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(), SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(url)
             .get()
@@ -65,7 +74,14 @@ class GroupDateModel {
 
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(url)
             .get()
@@ -99,7 +115,14 @@ class GroupDateModel {
 
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(url)
             .get()
@@ -133,7 +156,14 @@ class GroupDateModel {
 
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(url)
             .get()
@@ -160,6 +190,7 @@ class GroupDateModel {
                          Rebate:Double,
                          PaymentXeRebate:Double,
                          AlipayRebate:Double,
+                         wechatrebate: Double,
                          groupResponse: GroupResponse){
 
         var jsonObject= JSONObject()
@@ -169,6 +200,8 @@ class GroupDateModel {
         jsonObject.put("Rebate",Rebate)
         jsonObject.put("PaymentXeRebate",PaymentXeRebate)
         jsonObject.put("AlipayRebate",AlipayRebate)
+        jsonObject.put("WeChatRebate",wechatrebate)
+
 
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
@@ -180,7 +213,14 @@ class GroupDateModel {
 
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(url)
             .post(requestBody)

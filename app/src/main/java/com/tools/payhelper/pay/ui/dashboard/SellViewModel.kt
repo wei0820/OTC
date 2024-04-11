@@ -7,10 +7,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.jingyu.pay.ui.home.HomeDateModel
+import com.jingyu.pay.ui.login.LoginDateModel
+import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.dashboard.CollectionQueueData
 import com.tools.payhelper.pay.ui.dashboard.CollectionQueueOffData
 import com.tools.payhelper.pay.ui.dashboard.ConfirmData
 import com.tools.payhelper.pay.ui.dashboard.SellListData
+import com.tools.payhelper.pay.ui.home.ExrateData
+import com.tools.payhelper.pay.ui.notifications.UserinfoData
 import kotlinx.coroutines.launch
 
 class SellViewModel : ViewModel() {
@@ -18,7 +23,9 @@ class SellViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
     }
+    var exrateData = MutableLiveData<ExrateData>()
 
+    var data = MutableLiveData<UserinfoData>()
 
     var sellDateModel = SellDateModel()
     var setSellSettingData = MutableLiveData<CollectionQueueData>()
@@ -96,6 +103,7 @@ class SellViewModel : ViewModel() {
                     if (!s.isEmpty()){
                         var data = Gson().fromJson(s,ConfirmData::class.java)
                         if (data!=null){
+                            confirmData.value = data
                         }
                     }
                 }
@@ -105,6 +113,50 @@ class SellViewModel : ViewModel() {
 
 
         return  confirmData
+
+    }
+
+
+
+    fun getExrateData(context: Context) :LiveData<ExrateData>{
+        sellDateModel.getExrate(context,object : SellDateModel.SellResponse{
+            override fun getResponse(s: String) {
+                viewModelScope.launch {
+                    if (!s.isEmpty()){
+                        Log.d("Jack",s)
+
+                        var data = Gson().fromJson(s, ExrateData::class.java)
+                        exrateData.value = data
+                    }else{
+                        ToastManager.showToastCenter(context,"error")
+                    }
+                }
+            }
+
+        })
+
+
+
+        return  exrateData
+    }
+
+    fun getUserInfo(context: Context): LiveData<UserinfoData>{
+        sellDateModel.getUserinfo(context, object : SellDateModel.SellResponse {
+            override fun getResponse(s: String) {
+                if (!s.isEmpty()){
+                    viewModelScope.launch {
+                        viewModelScope.launch {
+                            var ud = Gson().fromJson(s, UserinfoData::class.java)
+                            data.value = ud
+
+
+                        }
+                    }
+                }
+            }
+
+        })
+        return  data
 
     }
 

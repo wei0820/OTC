@@ -16,11 +16,11 @@
         android:name="com.jingyu.pay.ui.dashboard.DashboardFragment"
         android:label="卖币"
         tools:layout="@layout/fragment_dashboard" />
-    <fragment
-        android:id="@+id/navigation_order"
-        android:name="com.jingyu.pay.ui.order.OrderFragment"
-        android:label="进行中订单"
-        tools:layout="@layout/fragment_order" />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_order"-->
+<!--        android:name="com.jingyu.pay.ui.order.OrderFragment"-->
+<!--        android:label="进行中订单"-->
+<!--        tools:layout="@layout/fragment_order" />-->
 
     <fragment
         android:id="@+id/navigation_notifications"

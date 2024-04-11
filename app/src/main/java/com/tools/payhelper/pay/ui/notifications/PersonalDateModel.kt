@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ui.login.SSLSocketClient
 
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -11,11 +12,12 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.Console
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class PersonalDateModel {
 
 
-    var BaseUrl : String = "https://api2.channel-sign.com/"
+    var BaseUrl : String = Constant.API_URL
     fun getMerchantPublicOrders(token:String,orderResponse: OrderResponse){
         var jsonObject= JSONObject()
         jsonObject.put("token",token)
@@ -23,7 +25,14 @@ class PersonalDateModel {
         val contentType: MediaType = "application/json".toMediaType()
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(), SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(BaseUrl + "api/android/MerchantOrders/GetMerchantPublicOrders")
             .post(requestBody)
@@ -49,16 +58,24 @@ class PersonalDateModel {
         val contentType: MediaType = "application/json".toMediaType()
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
-        val client = OkHttpClient()
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         val request = Request.Builder()
             .url(Constant.API_URL + "api/user/userinfo?")
             .get()
             .header("content-type","application/json")
             .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
             .build()
+        Log.d("Jack",Constant.API_URL + "api/user/userinfo?");
+
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.d("Jack",e.toString());
 
 
             }

@@ -1,5 +1,6 @@
 package com.jingyu.pay.ui.bankcard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,10 +18,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import com.jingyu.pay.ui.group.*
+import com.jingyu.pay.ui.login.LoginActivity
+import com.tools.payhelper.AddWechatActivity
+import com.tools.payhelper.Main22Activity
 import com.tools.payhelper.R
+import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.bankcard.AddCardDialog
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog
+import com.tools.payhelper.pay.ui.bankcard.AddWechatPhoneDialog
 import com.tools.payhelper.pay.ui.bankcard.BanCardListData
 
 class BankCardListActivity : AppCompatActivity() {
@@ -96,7 +102,7 @@ class BankCardListActivity : AppCompatActivity() {
 
     fun addAlert(){
         lunch = listOf(getString(R.string.add_bankcard),
-            getString(R.string.add_pay), )
+            getString(R.string.add_pay),  getString(R.string.add_scan),getString(R.string.add_wechat),getString(R.string.add_wechat_phone))
         AlertDialog.Builder(this@BankCardListActivity)
             .setItems(lunch.toTypedArray()) { _, which ->
                 val name = lunch[which]
@@ -128,11 +134,41 @@ class BankCardListActivity : AppCompatActivity() {
                         }
                         dialog.show()
                     }
+                    getString(R.string.add_scan) -> {
+                        val intent  = Intent()
+                        intent.setClass(this, Main22Activity::class.java)
+                        startActivity(intent)
+                    }
+                    getString(R.string.add_wechat) -> {
+                        val intent  = Intent()
+                        intent.setClass(this, AddWechatActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    getString(R.string.add_wechat_phone) -> {
+                        val dialog = AddWechatPhoneDialog(this)
+                        dialog.setAddBankCallback {
+                            if (it!=null){
+                                runOnUiThread {
+                                    ToastManager.showToastCenter(this,it.msg)
+                                    getBankCardList()
+
+                                }
+                            }
+                        }
+                        dialog.show()
+                    }
 
                 }
             }
             .show()
     }
+
+    override fun onResume() {
+        super.onResume()
+        getBankCardList()
+    }
+
 
     fun getBankCardList(){
         bankCardViewModel.getBankList(this).observe(this, Observer {
@@ -144,6 +180,7 @@ class BankCardListActivity : AppCompatActivity() {
                         recyclerView.post(Runnable { adapter!!.notifyDataSetChanged() })
 
                     }
+                    PayHelperUtils.setSaveALLBankCardData(this,buyDataList);
 
                 }
             }

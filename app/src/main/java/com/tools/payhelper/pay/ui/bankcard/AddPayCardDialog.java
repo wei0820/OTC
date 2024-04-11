@@ -26,12 +26,8 @@ import com.tools.payhelper.pay.PayHelperUtils;
 public class AddPayCardDialog extends AlertDialog {
     private Activity activity;
     private EditText pd, name,tel,googleedt,usernaem,eusername,payedt;
-    private Spinner spinner;
     private OnAddCallback onAddCallback;
     private OnAddBanKListCallback onAddBanKListCallback;
-    private Dialog dialog;
-    private Switch aSwitch;
-    private  TextView textView,textView2;
     private Handler handlerLoading = new Handler();
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
     public void setOnAddCallback(OnAddCallback onAddCallback) {
@@ -106,7 +102,7 @@ public class AddPayCardDialog extends AlertDialog {
                 String google = googleedt.getText().toString();
                 String username = usernaem.getText().toString();
                 String euserName = eusername.getText().toString();
-                String pay = payedt.getText().toString().isEmpty() ?"5000" : payedt.getText().toString();
+                String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
                 bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName, new BankCardDateModel.BankCardResponse() {
                     @Override

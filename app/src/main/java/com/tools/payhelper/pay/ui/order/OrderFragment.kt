@@ -1,15 +1,12 @@
 package com.jingyu.pay.ui.order
 
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tools.payhelper.R
 import com.tools.payhelper.databinding.FragmentOrderBinding
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.order.PaymentMatchingData
+import java.text.DecimalFormat
 import java.util.*
 
 class OrderFragment : Fragment(){
@@ -35,7 +34,7 @@ class OrderFragment : Fragment(){
     val merchantOrdersViewModel: OrderViewModel by lazy {
         ViewModelProvider(this, OrderViewModelFactory()).get(OrderViewModel::class.java)
     }
-    var adapter:Adapter? = null
+    var adapter:IngAdapter? = null
 
     var buyDataList: ArrayList<PaymentMatchingData.Data> = ArrayList()
 
@@ -53,7 +52,7 @@ class OrderFragment : Fragment(){
         getList();
 
 
-        adapter = Adapter(this)
+        adapter = IngAdapter(this)
 
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
         adapter!!.updateList(buyDataList)
@@ -101,7 +100,7 @@ class OrderFragment : Fragment(){
     fun cancelToUrl(id : String){
 
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "voucherError/" +id
-
+        ToastManager.showToastCenter(requireActivity(),url)
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
         intent.data = Uri.parse(url)
@@ -113,6 +112,7 @@ class OrderFragment : Fragment(){
     fun confirmOrder(id : String){
 
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "index/" +id
+        ToastManager.showToastCenter(requireActivity(),url)
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
         intent.data = Uri.parse(url)
@@ -127,7 +127,7 @@ class OrderFragment : Fragment(){
 
 }
 
-class Adapter(fragment: OrderFragment) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+class IngAdapter(fragment: OrderFragment) : RecyclerView.Adapter<IngAdapter.ViewHolder>() {
     var bankCardInfoList:ArrayList<PaymentMatchingData.Data>? = null
     var mfragment= fragment
 
@@ -136,7 +136,9 @@ class Adapter(fragment: OrderFragment) : RecyclerView.Adapter<Adapter.ViewHolder
         var bankName: TextView
         var cardNo: TextView
         var time: TextView
+
         var amount: TextView
+
         var orderno: TextView
         var userName : TextView
         var payName : TextView
@@ -171,8 +173,14 @@ class Adapter(fragment: OrderFragment) : RecyclerView.Adapter<Adapter.ViewHolder
         holder.bankName.text = "卡号:" +  info.cardId
 //            holder.cardNo.text = info.cardId
         holder.time.text = info.created
-        holder.amount.text = "￥"+info.score
+
+
+
+
         holder.orderno.text = info.orderNo
+
+
+
         holder.userName.text = "收款人姓名:" + info.userName
         holder.payName.text = "收款银行:" +info.bankName
 //            holder.addButton.text = info.state

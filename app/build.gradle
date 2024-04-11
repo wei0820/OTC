@@ -3,12 +3,18 @@ apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'kotlin-kapt'
 
 android {
+    buildFeatures {
+        buildConfig true
+    }
+
     compileSdkVersion 30
 
     defaultConfig {
         ndk {
             // 设置支持的SO库架构
-            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+//            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'x86', 'x86_64', 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+
         }
 
         flavorDimensions "versionCode"
@@ -25,39 +31,40 @@ android {
         }
     }
     productFlavors {
-        TianFuFu99 {
-            resValue "string", "app_name", "聚宝OTC"
-            applicationId "com.jingyu.otc"
-            manifestPlaceholders = [app_icon: "@drawable/favicon"]
-            buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
-            buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
-            buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
-            buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
-
-            buildConfigField "String", "ELK_TYPE", "\"payhelper\""
-        }
-        WBPay99 {
-            resValue "string", "app_name", "聚宝OTC"
-            applicationId "com.jingyu.otc"
-            manifestPlaceholders = [app_icon: "@drawable/favicon"]
-            buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
-            buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
-            buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
-            buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
-
-            buildConfigField "String", "ELK_TYPE", "\"payhelper\""
-        }
-        JuFuPayGr1 {
-            resValue "string", "app_name", "聚宝OTC"
-            applicationId "com.jingyu.otc"
+        luckyPay {
+            resValue "string", "app_name", "吉利"
+            applicationId "com.jingyu.pay"
             manifestPlaceholders = [app_icon: "@drawable/favicon"]
             buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
             buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
             buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
             buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
             buildConfigField "String", "ELK_TYPE", "\"payhelper\""
-        }
+            buildConfigField "String", "UPDATE_URL", "\"https://pay.channel-lucky.com/apk/version.json\""
+            buildConfigField "String", "md5key", "\"2io#ejQO\""
+            buildConfigField "String", "API_URL", "\"https://api.channel-sign.com/\""
+            buildConfigField "String", "EXRATE_URL", "\"https://pay.channel-lucky.com/exrate.json\""
 
+
+
+
+        }
+        otcPay {
+            resValue "string", "app_name", "聚宝OTC"
+            applicationId "com.jingyu.otc"
+            manifestPlaceholders = [app_icon: "@drawable/img_otc"]
+            buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
+            buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
+            buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
+            buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
+            buildConfigField "String", "ELK_TYPE", "\"payhelper\""
+            buildConfigField "String", "UPDATE_URL", "\"https://pay.juying.org/apk/version.json\""
+            buildConfigField "String", "md5key", "\"R:M'3p&_\""
+            buildConfigField "String", "API_URL", "\"https://api.juying.org/\""
+            buildConfigField "String", "EXRATE_URL", "\"https://pay.juying.org/exrate.json\""
+
+
+        }
         buildTypes {
             debug {
                 minifyEnabled false
@@ -75,6 +82,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
+
             def date = new Date().format("yyyyMMdd" , TimeZone.getTimeZone("GMT+08"))
             if(variant.buildType.name.equals('debug')){
                 ///"commonui_${date}_${versionName}.apk"
@@ -85,6 +93,7 @@ android {
             }
         }
     }
+
 
 
     lintOptions {
@@ -162,8 +171,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 
 
-    implementation "com.squareup.retrofit2:retrofit:2.3.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 
 
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))

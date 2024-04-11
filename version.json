@@ -2,10 +2,10 @@
     "code": 0,
     "msg": "success",
     "data": {
-        "versionCode": 1,
-        "versionName": "1.0.1",
+        "versionCode": 36,
+        "versionName": "1.0.36",
 
-        "url": "https://pay.juying.org/apk/jingyuotcpay.apk"
+        "url": "https://pay.juying.org/apk/juyingotcpay.apk"
        
     }
 }

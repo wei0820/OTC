@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jingyu.pay.ui.home.HomeFragment
 import com.tools.payhelper.R
 import com.tools.payhelper.pay.ui.group.ReportsTeamData
 import org.w3c.dom.Text
@@ -35,6 +34,7 @@ class GroupReportTeamActivity : AppCompatActivity() {
     lateinit var name : TextView
     var adapter: Adapter? = null
     var buyDataList: ArrayList<ReportsTeamData.Data> = ArrayList()
+    lateinit var allbutton :Button
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +52,8 @@ class GroupReportTeamActivity : AppCompatActivity() {
         Text5 = findViewById(R.id.text5)
         Text6 = findViewById(R.id.text6)
         name = findViewById(R.id.name)
+        allbutton = findViewById(R.id.allbutton);
+        allbutton.visibility = View.GONE
 
 //        getReport("","0")
         getData("0")
@@ -82,6 +84,9 @@ class GroupReportTeamActivity : AppCompatActivity() {
         adapter!!.notifyDataSetChanged()
 
 
+
+
+
     }
     fun  getData(day : String){
 
@@ -90,6 +95,7 @@ class GroupReportTeamActivity : AppCompatActivity() {
         name.text = loginId
 
         getReport(accountId!!,day)
+
 
     }
 
@@ -111,6 +117,9 @@ class GroupReportTeamActivity : AppCompatActivity() {
         getReportTeam(id,day)
 
     }
+
+
+
     fun getReportTeam(id : String, day : String){
         groupViewModel.getReportTime(this,id,day).observe(this, Observer {
             if (it!=null){

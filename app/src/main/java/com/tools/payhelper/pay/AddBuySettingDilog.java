@@ -95,7 +95,6 @@ public class AddBuySettingDilog extends AlertDialog {
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Log.d("Jack",b+"");
                 String ischeckString = b ? "买币已开启" : "买币已关闭";
                 aSwitch.setText(ischeckString);
 

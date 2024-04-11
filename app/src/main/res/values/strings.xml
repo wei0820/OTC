@@ -35,14 +35,25 @@
     <string name="add_bankcard">新增银行卡</string>
     <string name="add_pay">新增支付宝转帐</string>
 
+    <string name="add_scan">新增支付宝扫码</string>
+
+    <string name="add_wechat">新增微信扫码</string>
+    <string name="add_wechat_phone">新增微信转账</string>
 
 
     <string-array name="planets_array">
-    <item>一般訊息</item>
-    <item>錯誤訊息</item>
-    <item>成功回調訊息</item>
-    <item>錯誤回調訊息</item>
+        <item>一般訊息</item>
+        <item>錯誤訊息</item>
+        <item>成功回調訊息</item>
+        <item>錯誤回調訊息</item>
 
-</string-array>
+    </string-array>
+
+    <string-array name="spinner_item">
+        <item>全部</item>
+        <item>进行中</item>
+        <item>已完成</item>
+        <item>已超时</item>
+    </string-array>
 
 </resources>

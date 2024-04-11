@@ -4,12 +4,21 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.tools.payhelper.BuildConfig;
+import com.tools.payhelper.pay.ui.bankcard.BanCardListData;
+import com.tools.payhelper.pay.ui.home.BuyData;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PayHelperUtils {
 
@@ -22,6 +31,23 @@ public class PayHelperUtils {
         return BuildConfig.VERSION_NAME;
 
     }
+
+
+    public static void copyToClipboard(Context context,String str){
+        ToastManager.showToastCenter(context,"已复制:"+str);
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if(sdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(str);
+            Log.e("version","1 version");
+        } else {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager )context.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("text label",str);
+            clipboard.setPrimaryClip(clip);
+            Log.e("version","2 version");
+        }
+    }
+
 
 
 
@@ -100,7 +126,7 @@ public class PayHelperUtils {
 
     public static String md5(String content) {
         byte[] hash;
-        String newString = "R:M'3p&_" +  content;
+        String newString = Constant.MD5_String +  content;
         try {
             hash = MessageDigest.getInstance("MD5").digest(newString.getBytes("UTF-8"));
         } catch (NoSuchAlgorithmException e) {
@@ -167,7 +193,7 @@ public class PayHelperUtils {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.OPEN_URL, Context.MODE_PRIVATE);
 
-        return sharedPreferences.getString(Constant.OPEN_URL, "");
+        return sharedPreferences.getString(Constant.OPEN_URL, BuildConfig.API_URL);
     }
 
 
@@ -182,6 +208,23 @@ public class PayHelperUtils {
 
         return sharedPreferences.getString(Constant.USER_REBATE, "");
     }
+
+
+    public static void saveWechat(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_WECHAT, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_WECHAT, token).apply();
+    }
+
+    public static String getWechat(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_WECHAT, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_WECHAT, "");
+    }
+
+
+
+
 
     public static void savePaymentXeRebate(Context context, String token) {
         SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_PAYMENTXEREBATE, Context.MODE_PRIVATE).edit();
@@ -218,8 +261,118 @@ public class PayHelperUtils {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.CHECKSELLSTATE, Context.MODE_PRIVATE);
 
-        return sharedPreferences.getBoolean(Constant.CHECKSELLSTATE, false);
+        return sharedPreferences.getBoolean(Constant.CHECKSELLSTATE,true);
     }
 
 
+
+    public static void saveVideoState(Context context, boolean token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.VIDEOSWITCH, Context.MODE_PRIVATE).edit();
+        edit.putBoolean(Constant.VIDEOSWITCH, token).apply();
+    }
+
+    public static boolean getVideoState(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.VIDEOSWITCH, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getBoolean(Constant.VIDEOSWITCH, false);
+    }
+
+
+    public static void savebuyListSize(Context context, Integer token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.BUYLISTSIZE, Context.MODE_PRIVATE).edit();
+        edit.putInt(Constant.BUYLISTSIZE, token).apply();
+    }
+
+    public static Integer getbuyListSize(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.BUYLISTSIZE, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getInt(Constant.BUYLISTSIZE, 0);
+    }
+
+
+
+
+    public static void saveBuyArrayList(Context context,ArrayList<String> list){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(Constant.BUYLIST, json);
+        editor.apply();
+
+    }
+
+    public static ArrayList<String> getBuyArrayList(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = prefs.getString(Constant.BUYLIST, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
+
+    public static void saveSellArrayList(Context context,ArrayList<String> list){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(Constant.SELLLIST, json);
+        editor.apply();
+
+    }
+
+    public static ArrayList<String> getSellArrayList(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = prefs.getString(Constant.SELLLIST, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
+
+
+    // 驗證碼
+    public static void saveGoogle(Context context, boolean token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.CHECKGOOGLE, Context.MODE_PRIVATE).edit();
+        edit.putBoolean(Constant.CHECKGOOGLE, token).apply();
+    }
+
+    public static boolean getGoogle(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.CHECKGOOGLE, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getBoolean(Constant.CHECKGOOGLE, true);
+    }
+
+
+
+    // 存銀行卡列表 全部
+    public static void setSaveALLBankCardData(Context context, List<BanCardListData.Data> bankCardInfo) {
+        if (bankCardInfo == null) {
+            return;
+        }
+
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.DEFAULT_SETTING, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.DEFAULT_SETTING_ALL_BANKCARD, new Gson().toJson(bankCardInfo)).apply();
+    }
+
+
+    public static ArrayList<BanCardListData.Data> getALLBankCardData(Context context) {
+        ArrayList<BanCardListData.Data> bankCardInfo = new ArrayList<>();
+        try {
+            SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.DEFAULT_SETTING, Context.MODE_PRIVATE);
+            String jsonStr = sharedPreferences.getString(Constant.DEFAULT_SETTING_ALL_BANKCARD, "");
+            if (!jsonStr.isEmpty()) {
+                bankCardInfo = new Gson().fromJson(jsonStr, new TypeToken<List<BanCardListData.Data>>(){}.getType());
+            }
+//            for (BanCardListData.Data info : bankCardInfo) {
+//                info.setOpen(false);
+//            }
+            return bankCardInfo;
+        } catch (Exception e) {
+            return bankCardInfo;
+        }
+    }
 }

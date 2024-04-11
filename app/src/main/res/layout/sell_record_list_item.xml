@@ -21,6 +21,9 @@
             android:layout_height="wrap_content"
             android:text="訂單號:" />
         <TextView
+            android:maxEms="16"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:layout_weight="8"
             android:id="@+id/orderno"
             android:textSize="14sp"
@@ -97,7 +100,9 @@
             android:orientation="vertical"
             >
             <TextView
-
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:maxEms="6"
                 android:gravity="center"
                 android:textSize="14sp"
                 android:textColor="#3a3a3a"
@@ -108,6 +113,9 @@
                 android:text="bank"/>
 
             <TextView
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:maxEms="6"
                 android:id="@+id/cname"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -118,6 +126,9 @@
                 android:text="1287398127381273"/>
 
             <TextView
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:maxEms="6"
                 android:id="@+id/cardno"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -125,19 +136,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:text="1287398127381273"/>
+                android:text="128739812738127311111111111111111111"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="12dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:textSize="16sp"
+                android:textColor="#3a3a3a"
+                android:gravity="center_horizontal"
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500000.000" />
+            <TextView
+                android:layout_marginTop="12dp"
+                android:textSize="16sp"
+                android:textColor="#3a3a3a"
+                android:gravity="center_horizontal"
+                android:id="@+id/exrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500000.000" />
+            <TextView
+                android:layout_marginTop="12dp"
+                android:textSize="16sp"
+                android:textColor="#3a3a3a"
+                android:gravity="center_horizontal"
+                android:id="@+id/usdt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500000.000" />
+
 
         </LinearLayout>
 
-        <TextView
-            android:layout_marginLeft="12dp"
-            android:textSize="20sp"
-            android:textColor="#3a3a3a"
-            android:gravity="right"
-            android:id="@+id/amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="500000.000" />
+
 
 
     </LinearLayout>

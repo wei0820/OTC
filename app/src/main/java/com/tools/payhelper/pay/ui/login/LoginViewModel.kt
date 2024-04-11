@@ -1,22 +1,22 @@
 package com.jingyu.pay.ui.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.tools.payhelper.pay.ui.login.GoogleData
-import com.tools.payhelper.pay.ui.login.LoginData
-import com.tools.payhelper.pay.ui.login.UpdateData
+import com.tools.payhelper.pay.ui.login.*
+import com.tools.payhelper.pay.ui.notifications.UserinfoData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
-
+    var data = MutableLiveData<UserinfoData>()
     var homeViewModel = LoginDateModel()
     var  token  = MutableLiveData<LoginData>()
     var  update  = MutableLiveData<UpdateData>()
@@ -28,10 +28,8 @@ class LoginViewModel : ViewModel() {
 
 
     fun getUserToken(loginid:String,password:String,code:String) : LiveData<LoginData>{
-
         homeViewModel.setUserLogin(loginid,password,code, object : LoginDateModel.LoginrResponse {
             override fun getResponse(s: String) {
-                Log.d("Jack",s)
                 if (!s.isEmpty()){
                     viewModelScope.launch {
                         var userData = Gson().fromJson(s, LoginData::class.java)
@@ -102,6 +100,40 @@ class LoginViewModel : ViewModel() {
             }
         }
 
+    }
+
+    fun getUserInfo(context: Context) : LiveData<UserinfoData>{
+        homeViewModel.getUserinfo(context, object : LoginDateModel.LoginrResponse {
+            override fun getResponse(s: String) {
+
+                if (!s.isEmpty()){
+                    viewModelScope.launch {
+                        var ud = Gson().fromJson(s,UserinfoData::class.java)
+                        data.value = ud
+
+
+                    }
+                }
+            }
+
+        })
+        return  data
+    }
+
+    fun  getVersionUpdate(context: Context): LiveData<UpdateData>{
+        homeViewModel.getVersionUpdate(context, object : LoginDateModel.LoginrResponse {
+            override fun getResponse(s: String) {
+                if (!s.isEmpty()){
+                    viewModelScope.launch {
+                        var up = Gson().fromJson(s,UpdateData::class.java);
+                        update.value = up
+
+                    }
+                }
+            }
+
+        })
+        return  update
     }
 
 

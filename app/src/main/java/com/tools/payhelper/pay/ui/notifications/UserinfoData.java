@@ -12,7 +12,7 @@ public class UserinfoData {
         @SerializedName("rebate") public  float rebate;
         @SerializedName("paymentXeRebate") public  float paymentXeRebate;
         @SerializedName("alipayRebate") public  float alipayRebate;
-
+        @SerializedName("weChatRebate") public  float wechatrebate;
         @SerializedName("quota") public  float quota;
         @SerializedName("frozen") public  float frozen;
         @SerializedName("payment") public  float payment;
@@ -26,7 +26,7 @@ public class UserinfoData {
         @SerializedName("cardQty") public  int cardQty;
         @SerializedName("note") public  String note;
         @SerializedName("apIs") public  String apIs;
-        @SerializedName("index") public  int index;
+        @SerializedName("index") public  String index;
 
     }
 

@@ -11,11 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -28,7 +26,7 @@ import com.tools.payhelper.pay.ui.dashboard.SellListData;
 
 public class ConfirmOrderDialog extends AlertDialog {
     private Activity activity;
-    private EditText max,min;
+    private EditText max, name;
     private OnAddCallback onAddCallback;
     private OnAddBanKListCallback onAddBanKListCallback;
     private Dialog dialog;
@@ -36,6 +34,7 @@ public class ConfirmOrderDialog extends AlertDialog {
 
     private SellDateModel sellDateModel = new SellDateModel();
     private Handler handlerLoading = new Handler();
+    String _name;
 
     public void setOnAddCallback(OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
@@ -80,15 +79,13 @@ public class ConfirmOrderDialog extends AlertDialog {
         setCanceledOnTouchOutside(false);
         setCancelable(false);
 
-        min = findViewById(R.id.bank_card);
+        name = findViewById(R.id.bank_card);
         max = findViewById(R.id.bank_card_no);
         String maxString = mSellListData.score+"";
-        String minString = mSellListData.userName;
+        String minString = mSellListData.payUserName;
         String ischeckString =PayHelperUtils.getBuyIsOpen(activity) ? "买币已开启" : "买币已关闭";
 
         boolean ischeck = PayHelperUtils.getBuyIsOpen(activity);
-        min.setHint(minString);
-        max.setHint(maxString);
 
 
 
@@ -111,19 +108,54 @@ public class ConfirmOrderDialog extends AlertDialog {
         view.findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = min.getText().toString().isEmpty() ? mSellListData.score+"" : min.getText().toString();
-                String name = max.getText().toString().isEmpty() ? mSellListData.userName: max.getText().toString();
+//                String _name = name.getText().toString().isEmpty() ? mSellListData.payUserName + "" : name.getText().toString();
+//                String id = max.getText().toString().isEmpty() ? mSellListData.userName: max.getText().toString();
+                String payname = mSellListData.payUserName.substring(mSellListData.payUserName.length()-1);
+                if (!name.getText().toString().isEmpty()){
+                    if (!name.getText().toString().equals(payname)){
+                        Toast.makeText(activity, "付款名称输入错误"+"\n"
+                                +"打款人名称:"+mSellListData.payUserName+"\n"
+                                +"最后一个字:"+payname+"\n"
+                                +"输入:"+name.getText().toString(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }else {
+                        _name =  mSellListData.payUserName;
+                    }
 
-                sellDateModel.setConfirmOrder(mSellListData.id, name, activity, new SellDateModel.SellResponse() {
+                }else {
+                    Toast.makeText(activity, "名称输入错误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                if (max.getText().toString().isEmpty()){
+                    Toast.makeText(activity, "金额输入错误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                sellDateModel.setConfirmOrder(mSellListData.id, _name, activity, new SellDateModel.SellResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
-                        Log.d("Jack",s);
+
                         if (!s.isEmpty()){
                             ConfirmData confirmData = new Gson().fromJson(s,ConfirmData.class);
                             if (confirmData!=null){
                                 onAddBanKListCallback.onResponse(confirmData);
+                                activity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ToastManager.showToastCenter(activity,confirmData.msg);
+                                        dismiss();
+                                    }
+                                });
 
+                            }else {
+                                Toast.makeText(activity, "令牌失效 请重新登入", Toast.LENGTH_SHORT).show();
+                                dismiss();
                             }
+                        }else {
+                            Toast.makeText(activity, "令牌失效 请重新登入", Toast.LENGTH_SHORT).show();
+                            dismiss();
                         }
                     }
                 });

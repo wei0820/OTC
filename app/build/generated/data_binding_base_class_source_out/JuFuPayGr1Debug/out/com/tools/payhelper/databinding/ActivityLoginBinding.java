@@ -41,9 +41,13 @@ public final class ActivityLoginBinding implements ViewBinding {
   @NonNull
   public final TextView text3;
 
+  @NonNull
+  public final TextView vertext;
+
   private ActivityLoginBinding(@NonNull ConstraintLayout rootView, @NonNull EditText edt,
       @NonNull EditText edt2, @NonNull EditText edt3, @NonNull Button loginbtn,
-      @NonNull TextView text, @NonNull TextView text2, @NonNull TextView text3) {
+      @NonNull TextView text, @NonNull TextView text2, @NonNull TextView text3,
+      @NonNull TextView vertext) {
     this.rootView = rootView;
     this.edt = edt;
     this.edt2 = edt2;
@@ -52,6 +56,7 @@ public final class ActivityLoginBinding implements ViewBinding {
     this.text = text;
     this.text2 = text2;
     this.text3 = text3;
+    this.vertext = vertext;
   }
 
   @Override
@@ -123,8 +128,14 @@ public final class ActivityLoginBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.vertext;
+      TextView vertext = rootView.findViewById(id);
+      if (vertext == null) {
+        break missingId;
+      }
+
       return new ActivityLoginBinding((ConstraintLayout) rootView, edt, edt2, edt3, loginbtn, text,
-          text2, text3);
+          text2, text3, vertext);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

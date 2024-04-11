@@ -2,24 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tools.payhelper"
-    android:versionCode="1"
-    android:versionName="1.0.1">
-
-
-
-
+    android:versionCode="36"
+    android:versionName="1.0.36">
 
     <uses-sdk
         android:minSdkVersion="19"
         android:targetSdkVersion="19" />
-    <uses-permission android:name="android.permission.SET_TIME_ZONE"
+
+    <uses-permission
+        android:name="android.permission.SET_TIME_ZONE"
         tools:ignore="ProtectedPermissions" />
-
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
-
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
@@ -44,63 +41,74 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
-        android:requestLegacyExternalStorage="true"
-        android:hardwareAccelerated="true"
         android:name=".CustomApplcation"
         android:allowBackup="true"
-        android:icon="@drawable/favicon"
+        android:hardwareAccelerated="true"
+        android:icon="${app_icon}"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.JingyuPay"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-<!--        <activity-->
-<!--            android:name=".ui.login.DetailActivity"-->
-<!--            android:exported="true"-->
-<!--            android:label="@string/title_activity_home"-->
-<!--            android:launchMode="singleInstance"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/AppTheme.NoActionBar"-->
-<!--            android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden">-->
-<!--            <meta-data-->
-<!--                android:name="android.app.lib_name"-->
-<!--                android:value="" />-->
-
-
-<!--        </activity>-->
-<!--        <activity-->
-<!--            android:name=".ui.login.UserLoginActivity"-->
-<!--            android:exported="true"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:launchMode="singleInstance"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"-->
-<!--            android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden">-->
-
-
-<!--        </activity>-->
-
-
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:name=".pay.ui.payment.PaymentActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".pay.ui.dashboard.ConfirmOrderActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity> <!-- <activity -->
+        <!-- android:name=".ui.login.DetailActivity" -->
+        <!-- android:exported="true" -->
+        <!-- android:label="@string/title_activity_home" -->
+        <!-- android:launchMode="singleInstance" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" -->
+        <!-- android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.app.lib_name" -->
+        <!-- android:value="" /> -->
+        <!-- </activity> -->
+        <!-- <activity -->
+        <!-- android:name=".ui.login.UserLoginActivity" -->
+        <!-- android:exported="true" -->
+        <!-- android:label="@string/app_name" -->
+        <!-- android:launchMode="singleInstance" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" -->
+        <!-- android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden"> -->
+        <!-- </activity> -->
         <activity
             android:name=".Main22Activity"
             android:exported="true"
             android:label="@string/app_name"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden">
 
-
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
 
         </activity>
+        <activity
+            android:name=".AddWechatActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden" />
 
         <service
             android:name=".DaemonService"
@@ -126,120 +134,113 @@
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
-        </service>
-
-
-<!--        <receiver-->
-<!--            android:name=".ui.NotificationClickReceiver">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-
-<!--        <activity-->
-<!--            android:name=".wechat.WechatActivity"-->
-<!--            android:exported="true"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:launchMode="singleInstance"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@android:style/Theme.Light.NoTitleBar"-->
-<!--            android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden">-->
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-<!--        </activity>-->
+        </service> <!-- <receiver -->
+        <!-- android:name=".ui.NotificationClickReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.ACTION_POWER_CONNECTED" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <!-- <activity -->
+        <!-- android:name=".wechat.WechatActivity" -->
+        <!-- android:exported="true" -->
+        <!-- android:label="@string/app_name" -->
+        <!-- android:launchMode="singleInstance" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@android:style/Theme.Light.NoTitleBar" -->
+        <!-- android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
-            android:screenOrientation="portrait"
             android:name="com.jingyu.pay.ui.group.ReportDayActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-
             android:name="com.jingyu.pay.ui.bankcard.BankCardListActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-
             android:name="com.jingyu.pay.ui.group.GroupReportActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.JingyuPay.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-
             android:name="com.jingyu.pay.ui.group.GroupReportTeamActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.JingyuPay.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-
             android:name="com.jingyu.pay.ui.group.GroupListctivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-
             android:name="com.jingyu.pay.ui.transaction.TransactionActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-
             android:name="com.jingyu.pay.ui.sellrecord.SellRecordActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-
             android:name="com.jingyu.pay.ui.buyrecord.BuyRecordActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-
             android:name="com.jingyu.pay.ui.purchasehistory.PurchaseHistoryActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.JingyuPay.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-
             android:name="com.jingyu.pay.SplashActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="com.jingyu.pay.ui.login.LoginActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -252,41 +253,28 @@
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-
-            android:name="com.jingyu.pay.ui.login.LoginActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <activity
-            android:screenOrientation="portrait"
-
-            android:name="com.jingyu.pay.MainActivity"
+            android:name=".pay.ui.login.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-
             android:name="com.jingyu.pay.ui.accountchange.AccountChangeActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:name="com.jingyu.pay.ui.password.PasswordActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -300,15 +288,10 @@
             android:value="模块描述" />
         <meta-data
             android:name="xposedminversion"
-            android:value="54" />
-
-<!--        <activity-->
-<!--            android:name="com.journeyapps.barcodescanner.CaptureActivity"-->
-<!--            android:screenOrientation="fullSensor"-->
-<!--            tools:replace="screenOrientation" />-->
-
-
-
+            android:value="54" /> <!-- <activity -->
+        <!-- android:name="com.journeyapps.barcodescanner.CaptureActivity" -->
+        <!-- android:screenOrientation="fullSensor" -->
+        <!-- tools:replace="screenOrientation" /> -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -316,10 +299,8 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
-
-
     </application>
 
 </manifest>

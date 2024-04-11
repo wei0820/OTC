@@ -2,18 +2,15 @@ package com.jingyu.pay.ui.notifications
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.jingyu.pay.MainActivity
+import com.tools.payhelper.pay.ui.login.MainActivity
 import com.jingyu.pay.ui.accountchange.AccountChangeActivity
 import com.jingyu.pay.ui.bankcard.BankCardListActivity
 import com.jingyu.pay.ui.buyrecord.BuyRecordActivity
@@ -27,7 +24,7 @@ import com.tools.payhelper.R
 import com.tools.payhelper.databinding.FragmentNotificationsBinding
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
-import com.tools.payhelper.pay.ui.bankcard.AddCardDialog
+import com.tools.payhelper.pay.ui.payment.PaymentActivity
 import com.tools.payhelper.pay.ui.login.AddGoogleDialog
 import kotlinx.coroutines.launch
 
@@ -56,7 +53,8 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var text4 :TextView
     lateinit var text5 :TextView
     lateinit var name :TextView
-
+    lateinit var mSwitchButton : Switch
+    lateinit var paymentlayout :RelativeLayout
 
 
     val personalViewModel: PersonalViewModel by lazy {
@@ -73,7 +71,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        mSwitchButton = root.findViewById(R.id.switchButton)
         text1 = root.findViewById(R.id.text1)
         text2 = root.findViewById(R.id.text2)
         text3 = root.findViewById(R.id.text3)
@@ -89,6 +87,8 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         banklayout = root.findViewById(R.id.banklayout)
         reportday_layout = root.findViewById(R.id.reportday_layout)
         passlayout = root.findViewById(R.id.passlayout);
+        paymentlayout  = root.findViewById(R.id.paymentlayout);
+
         buy_record_layout.setOnClickListener(this)
         sell_record_layout.setOnClickListener(this)
         frozenrecord.setOnClickListener(this)
@@ -99,12 +99,40 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         banklayout.setOnClickListener(this)
         reportday_layout.setOnClickListener(this)
         passlayout.setOnClickListener(this)
+        paymentlayout.setOnClickListener(this)
+
+        var b = PayHelperUtils.getVideoState(requireActivity())
+        mSwitchButton.isChecked = b
+
+
+
+        mSwitchButton.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, b ->
+            if (b){
+                PayHelperUtils.saveVideoState(requireActivity(),true)
+
+
+            }else{
+                PayHelperUtils.saveVideoState(requireActivity(),false)
+
+
+            }
+        })
+
+
+
+
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getActivityData()
+
     }
 
     override fun onResume() {
@@ -120,6 +148,8 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             PayHelperUtils.saveRebate(context,it.data.rebate.toString())
             PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())
             PayHelperUtils.saveAlipayRebate(context,it.data.alipayRebate.toString())
+            PayHelperUtils.saveWechat(context,it.data.wechatrebate.toString())
+
             text1.text = it.data.commission.toString()
             text2.text = it.data.quota.toString()
             text3.text = it.data.frozen.toString()
@@ -131,7 +161,6 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
         })
 
-        getActivityData()
 
 
 
@@ -149,13 +178,17 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             R.id.banklayout ->startActivity(Intent().setClass(requireActivity(),BankCardListActivity::class.java))
             R.id.reportday_layout->startActivity(Intent().setClass(requireActivity(),ReportDayActivity::class.java))
             R.id.passlayout -> startActivity(Intent().setClass(requireActivity(), PasswordActivity::class.java))
+            R.id.paymentlayout -> startActivity(Intent().setClass(requireActivity(), PaymentActivity::class.java))
+
         }
     }
 
     fun  getActivityData(){
         val activity: MainActivity? = activity as MainActivity?
 
-        var boolean = activity!!.getData()
+//        var boolean = activity!!.getData()
+            var boolean = PayHelperUtils.getGoogle(requireActivity());
+
 
         if (boolean){
             val dialog = AddGoogleDialog(requireActivity())
@@ -165,6 +198,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
                         if (it.code==0){
                             ToastManager.showToastCenter(requireActivity(),it.msg)
                             dialog.dismiss()
+                            PayHelperUtils.saveGoogle(requireActivity(),false)
 
                         }else{
                             ToastManager.showToastCenter(requireActivity(),it.msg)

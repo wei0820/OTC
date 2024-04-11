@@ -26,12 +26,12 @@ class GroupViewModel : ViewModel() {
     var mReportDayData = MutableLiveData<ReportDayData>()
 
 
-
     fun getGroupList(context: Context) : LiveData<GroupListData>{
         groupDateModel.getGroupTimeList(context, object : GroupDateModel.GroupResponse {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
                     if(!s.isEmpty()){
+                        Log.d("Jack",s)
                         var data = Gson().fromJson(s,GroupListData::class.java)
                         if (data !=null){
                             groupListData.value = data

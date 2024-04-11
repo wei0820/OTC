@@ -4,6 +4,9 @@ package com.tools.payhelper.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,15 +23,33 @@ public final class FragmentHomeBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
+  public final RadioGroup groupRadio;
+
+  @NonNull
+  public final RelativeLayout layout;
+
+  @NonNull
   public final FloatingActionButton normalFAB;
+
+  @NonNull
+  public final RadioButton rbToday;
+
+  @NonNull
+  public final RadioButton rbYestday;
 
   @NonNull
   public final RecyclerView recyclerView;
 
-  private FragmentHomeBinding(@NonNull ConstraintLayout rootView,
-      @NonNull FloatingActionButton normalFAB, @NonNull RecyclerView recyclerView) {
+  private FragmentHomeBinding(@NonNull ConstraintLayout rootView, @NonNull RadioGroup groupRadio,
+      @NonNull RelativeLayout layout, @NonNull FloatingActionButton normalFAB,
+      @NonNull RadioButton rbToday, @NonNull RadioButton rbYestday,
+      @NonNull RecyclerView recyclerView) {
     this.rootView = rootView;
+    this.groupRadio = groupRadio;
+    this.layout = layout;
     this.normalFAB = normalFAB;
+    this.rbToday = rbToday;
+    this.rbYestday = rbYestday;
     this.recyclerView = recyclerView;
   }
 
@@ -59,9 +80,33 @@ public final class FragmentHomeBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.group_radio;
+      RadioGroup groupRadio = rootView.findViewById(id);
+      if (groupRadio == null) {
+        break missingId;
+      }
+
+      id = R.id.layout;
+      RelativeLayout layout = rootView.findViewById(id);
+      if (layout == null) {
+        break missingId;
+      }
+
       id = R.id.normalFAB;
       FloatingActionButton normalFAB = rootView.findViewById(id);
       if (normalFAB == null) {
+        break missingId;
+      }
+
+      id = R.id.rb_today;
+      RadioButton rbToday = rootView.findViewById(id);
+      if (rbToday == null) {
+        break missingId;
+      }
+
+      id = R.id.rb_yestday;
+      RadioButton rbYestday = rootView.findViewById(id);
+      if (rbYestday == null) {
         break missingId;
       }
 
@@ -71,7 +116,8 @@ public final class FragmentHomeBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentHomeBinding((ConstraintLayout) rootView, normalFAB, recyclerView);
+      return new FragmentHomeBinding((ConstraintLayout) rootView, groupRadio, layout, normalFAB,
+          rbToday, rbYestday, recyclerView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

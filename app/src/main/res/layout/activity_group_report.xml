@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.group.GroupReportActivity">
+    android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/closelayout"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,8 +38,7 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
         <TextView
             android:visibility="gone"
@@ -75,13 +73,14 @@
                     android:textColor="@android:color/white"
                     android:text="买币"
                     android:textSize="18sp"/>
+
                 <TextView
                     android:id="@+id/text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
                     android:text="100.0"
-                    android:textSize="16sp"/>
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginLeft="16dp"
@@ -220,7 +219,7 @@
 
 
     </LinearLayout>
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layout"
         app:layout_constraintTop_toBottomOf="@id/daylayout"
         app:layout_constraintRight_toRightOf="parent"
@@ -229,6 +228,7 @@
         android:layout_height="wrap_content"
         >
         <RadioGroup
+            android:layout_centerInParent="true"
             android:id="@+id/group_radio"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -249,9 +249,17 @@
                 android:layout_height="wrap_content"
                 ></RadioButton>
         </RadioGroup>
+        <Button
+            android:layout_marginLeft="20dp"
+            android:id="@+id/allbutton"
+            android:layout_marginRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="汇总报表"
+            android:background="@null"
+            ></Button>
 
-    </RelativeLayout>
-
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
 
@@ -265,10 +273,5 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:splitMotionEvents="false" />
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

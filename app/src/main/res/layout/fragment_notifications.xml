@@ -68,7 +68,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
-                            android:text="100.0"
                             android:textSize="16sp"/>
                     </LinearLayout>
                     <LinearLayout
@@ -89,7 +88,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
-                            android:text="100.0"
                             android:textSize="16sp"/>
                     </LinearLayout>
                     <LinearLayout
@@ -102,7 +100,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
-                            android:text="冻结金额"
+                            android:text="交易中金额"
                             android:textSize="18sp"/>
                         <TextView
                             android:id="@+id/text3"
@@ -110,7 +108,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
-                            android:text="100.0"
                             android:textSize="16sp"/>
                     </LinearLayout>
 
@@ -140,7 +137,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
-                            android:text="100.0"
                             android:textSize="16sp"/>
                     </LinearLayout>
                     <LinearLayout
@@ -181,7 +177,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
-                            android:text="100.0"
                             android:textSize="16sp"/>
                     </LinearLayout>
 
@@ -525,6 +520,38 @@
 
                         ></ImageView>
                 </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/paymentlayout"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:id="@+id/imgpayment"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_credit_card_24"
+
+                        ></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="22dp"
+                        android:layout_toRightOf="@+id/imgpayment"
+                        android:text="提現"></TextView>
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+
+                        ></ImageView>
+                </RelativeLayout>
 
 
             </LinearLayout>
@@ -572,6 +599,39 @@
 
                         ></ImageView>
                 </RelativeLayout>
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:id="@+id/mm"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_credit_card_24"
+
+                        ></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="22dp"
+                        android:layout_toRightOf="@+id/mm"
+                        android:text="音效开关"></TextView>
+                    <Switch
+                        android:id="@+id/switchButton"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        ></Switch>
+                </RelativeLayout>
+
 
             </LinearLayout>
 

@@ -1908,6 +1908,7 @@ drawable bg_blue
 drawable bg_grey
 drawable bg_login
 drawable bg_login_blue_radius
+drawable bg_login_gray_radius
 drawable bg_login_radius
 drawable bg_white
 drawable bill_detail_time_view_shape
@@ -2157,8 +2158,6 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
-id btn_album
-id btn_scan
 id button2
 id button3
 id buttonPanel
@@ -2440,7 +2439,6 @@ id navigation_dashboard
 id navigation_header_container
 id navigation_home
 id navigation_notifications
-id navigation_order
 id never
 id neverCompleteToEnd
 id neverCompleteToStart
@@ -2473,6 +2471,7 @@ id passlayout
 id password_toggle
 id path
 id pathRelative
+id pay_adds
 id payedt
 id payerNameText
 id paymentxe
@@ -2514,6 +2513,7 @@ id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
 id scale
+id scanbtn
 id screen
 id scroll
 id scrollIndicatorDown
@@ -2648,7 +2648,6 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
-id tv_content
 id tv_load_more_message
 id tx
 id unchecked
@@ -2658,6 +2657,7 @@ id up
 id updateBtn
 id useLogo
 id username
+id vertext
 id vertical_only
 id view_offset_helper
 id view_transition
@@ -2958,6 +2958,7 @@ string abc_toolbar_collapse_description
 string action_settings
 string add_bankcard
 string add_pay
+string add_scan
 string app_name
 string appbar_scrolling_view_behavior
 string appname

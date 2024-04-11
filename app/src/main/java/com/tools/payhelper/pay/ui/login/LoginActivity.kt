@@ -2,6 +2,7 @@ package com.jingyu.pay.ui.login
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -11,18 +12,17 @@ import android.os.PowerManager
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.jingyu.pay.BasicActivity
-import com.jingyu.pay.MainActivity
+import com.tools.payhelper.pay.ui.login.MainActivity
 import com.tools.payhelper.R
 import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
-import com.tools.payhelper.pay.ui.login.AddGoogleDialog
 import com.tools.payhelper.ui.login.LoginViewModelFactory
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.String
@@ -36,8 +36,13 @@ class LoginActivity : BasicActivity() {
     lateinit var edt2 : EditText
     lateinit var edt3 : EditText
     lateinit var loginButton: Button
+    lateinit var _versiontext : TextView
+
+    lateinit var progressDialog: ProgressDialog
+    var tokenString = "test"
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -45,15 +50,30 @@ class LoginActivity : BasicActivity() {
         edt = findViewById(R.id.edt)
         edt2 = findViewById(R.id.edt2)
         edt3 = findViewById(R.id.edt3)
+        _versiontext = findViewById(R.id.vertext);
+        _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
+
 
         check()
         checkVresion()
 
 
+
         loginButton.setOnClickListener {
+            loginButton.isEnabled = false
+            loginButton.isClickable = false;
+            progressDialog = ProgressDialog(this)
+            progressDialog.setTitle("Please Wait")
+            progressDialog.setMessage("Loading ...")
+            progressDialog.setCancelable(true) // blocks UI interaction
+            progressDialog.show()
+            Log.d("jack","1")
+            Log.d("jack",tokenString)
+
             var loginid = edt.text.toString()
             var password = edt2.text.toString()
             var code = edt3.text.toString()
+
 
             if (loginid.isEmpty()){
                 ToastManager.showToastCenter(this,"帐号不得为空")
@@ -65,30 +85,47 @@ class LoginActivity : BasicActivity() {
                 return@setOnClickListener
 
             }
+//            loginViewModel.getUserData(loginid,PayHelperUtils.md5(password),code)
+
             loginViewModel.getUserToken(loginid,PayHelperUtils.md5(password),code).observe(this, Observer {
+
                 if (it!=null){
                     runOnUiThread {
                         if (it.code==1){
                             if(!it.msg.isEmpty()){
+                                loginButton.isEnabled = true
+                                loginButton.isClickable = true;
+
+                                progressDialog.hide()
                                 ToastManager.showToastCenter(this,it.msg)
                                 return@runOnUiThread
 
                             }
                         }else{
+                            progressDialog.hide()
+                            tokenString = it.data.token
                             ToastManager.showToastCenter(this,it.msg)
 
                             PayHelperUtils.saveUserLoginToken(this,it.data.token)
                             PayHelperUtils.saveUserLoginName(this,loginid)
+                            PayHelperUtils.saveGoogle(this,it.data.google)
                             var intent  = Intent()
-                            var bundle =  Bundle()
-                            bundle.putBoolean("google",it.data.google)
-                            intent.putExtras(bundle)
                             intent.setClass(this, MainActivity::class.java)
                             startActivity(intent)
 
                         }
 
                     }
+                }else{
+
+                    runOnUiThread {
+                        ToastManager.showToastCenter(this,"error")
+                        loginButton.isEnabled = true
+                        loginButton.isClickable = true;
+
+                        progressDialog.hide()
+                    }
+
                 }
 
 
@@ -107,7 +144,7 @@ class LoginActivity : BasicActivity() {
                     val dialog = UpdateAlertDialog(this@LoginActivity,it.data.url)
                     dialog.setMessage(String.format("欢迎使用%s原生V%s版本",
                         getString(R.string.app_name),
-                        it.data.versionName))
+                        it.data.versionName)+"如升级失败，请选择网页下载升级")
                     dialog.setIsForcedUpdate(true)
                     dialog.show()
             }
@@ -135,7 +172,6 @@ class LoginActivity : BasicActivity() {
                 checkAndRequestPermissions(permissionList)
             }
         } catch (ignored: Exception) {
-            Log.d("Jack",ignored.localizedMessage)
 
         }
     }

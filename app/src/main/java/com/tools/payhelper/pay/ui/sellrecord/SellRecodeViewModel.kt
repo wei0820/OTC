@@ -16,6 +16,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.jingyu.pay.ui.dashboard.DashboardFragment
+import com.jingyu.pay.ui.home.HomeDateModel
+import com.tools.payhelper.pay.ToastManager
+import com.tools.payhelper.pay.ui.home.ExrateData
 import com.tools.payhelper.pay.ui.sellrecord.SellRecordData
 import kotlinx.coroutines.launch
 
@@ -29,6 +32,7 @@ class SellRecodeViewModel : ViewModel() {
     var  orderDateModel = SellRecordDateModel()
     var  paymentMatchingData = MutableLiveData<SellRecordData>()
 
+    var exrateData = MutableLiveData<ExrateData>()
 
     fun getSellRecodeList(context: Context,date: String) : LiveData<SellRecordData>{
         orderDateModel.getSellRecordData(context,date, object : SellRecordDateModel.OrderResponse {
@@ -50,6 +54,30 @@ class SellRecodeViewModel : ViewModel() {
 
         })
         return paymentMatchingData
+    }
+
+
+    fun getExrateData(context: Context) :LiveData<ExrateData>{
+        orderDateModel.getExrate(context,object : SellRecordDateModel.OrderResponse{
+            override fun getResponse(s: String) {
+                viewModelScope.launch {
+                    if (!s.isEmpty()){
+
+                        var data = Gson().fromJson(s,ExrateData::class.java)
+                        exrateData.value = data
+                    }else{
+                        ToastManager.showToastCenter(context,"error")
+                    }
+                }
+            }
+
+            override fun getFailure(s: String) {
+            }
+        })
+
+
+
+        return  exrateData
     }
 
 }

@@ -1,30 +1,32 @@
 package com.jingyu.pay.ui.dashboard
 
 import android.content.Intent
+import android.media.SoundPool
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CompoundButton
-import android.widget.Switch
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.tools.payhelper.R
 import com.tools.payhelper.databinding.FragmentDashboardBinding
-import com.tools.payhelper.pay.ConfirmOrderDialog
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ToastManager
+import com.tools.payhelper.pay.ui.dashboard.ConfirmOrderActivity
 import com.tools.payhelper.pay.ui.dashboard.SellListData
+import java.text.DecimalFormat
 
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment() ,Handler.Callback{
 
     private var _binding: FragmentDashboardBinding? = null
     var adapter: Adapter? = null
@@ -39,11 +41,16 @@ class DashboardFragment : Fragment() {
     }
     var buyDataList: ArrayList<SellListData.Data> = ArrayList()
 
+    var extraDouble : Double = 7.5
+    var handler: Handler? = null
+
+    private var spool: SoundPool? = null
+    private var sourceid = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
 
 
@@ -51,7 +58,10 @@ class DashboardFragment : Fragment() {
         val root: View = binding.root
         val recyclerView: RecyclerView =  root.findViewById(R.id.recycler_view)
         switch =  root.findViewById(R.id.switch1);
+
+        getEtr()
         checkOpen()
+        getUserinfo()
 
         switch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, b ->
             val ischeckString = if (b) "卖币接单中" else "卖币暂停接单"
@@ -83,6 +93,36 @@ class DashboardFragment : Fragment() {
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+         handler = Handler(this)
+
+    }
+    fun  getUserinfo(){
+        sellViewModel.getUserInfo(requireActivity()).observe(viewLifecycleOwner, Observer {
+            if (it!=null){
+                requireActivity().runOnUiThread {
+                    if (!it.data.isEnable){
+                        ToastManager.showToastCenter(requireActivity(),"令牌失效 请重新登入")
+                    }
+                }
+
+            }
+        })
+    }
+
+
+
+    fun  getEtr(){
+        sellViewModel.getExrateData(requireActivity()).observe(viewLifecycleOwner, Observer {
+            if (it!=null){
+                if (it.data!=null){
+                    extraDouble = it.data.exrateDoubel
+                }
+            }
+        })
+    }
+
     fun getList(){
         sellViewModel.getSellList(requireActivity()).observe(requireActivity(), Observer {
             buyDataList.clear()
@@ -101,13 +141,29 @@ class DashboardFragment : Fragment() {
             }
 
         })
+//        sellViewModel.getUserInfo(requireActivity())
+        handler!!.sendEmptyMessageDelayed(1,90000)
+//        if(buyDataList.size>=1){
+//            if (PayHelperUtils.getVideoState(requireActivity())){
+//                spool = SoundPool(10, AudioManager.STREAM_MUSIC, 5)
+//                sourceid = spool!!.load(requireActivity(), R.raw.sell, 1)
+//                spool!!.setOnLoadCompleteListener { soundPool, i, i2 ->
+//                    soundPool!!.play(sourceid, 1.0F, 1.0F, 1, 1, 1.0F);
+//
+//                }
+//            }
+//
+//        }
+
 
 
     }
     fun checkOpen(){
         var b = PayHelperUtils.getSellState(requireActivity())
         switch.isChecked = b
-        if (b){
+        val ischeckString = if (b) "卖币接单中" else "卖币暂停接单"
+        switch.text = ischeckString
+        if (b) {
             openSell()
 
         }else{
@@ -116,7 +172,6 @@ class DashboardFragment : Fragment() {
     }
     fun openSell(){
         sellViewModel.setSellSetting(requireActivity()).observe(requireActivity(), Observer {
-            Log.d("Jack","openSell："+it.msg)
 
 
         })
@@ -124,13 +179,14 @@ class DashboardFragment : Fragment() {
 
     fun closeSell(){
         sellViewModel.setCloseSellSetting(requireActivity()).observe(requireActivity(), Observer {
-            Log.d("Jack","closeSell："+it.msg)
 
         })
     }
     fun cancelToUrl(id : String){
 
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "voucher/" +id +"?actionName=cancel"
+        ToastManager.showToastCenter(requireActivity(),url)
+
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
         intent.data = Uri.parse(url)
@@ -139,29 +195,37 @@ class DashboardFragment : Fragment() {
 
     }
     fun confirmOrder(data: SellListData.Data){
+//
+//            val dialog = ConfirmOrderDialog(requireActivity(),data)
+//            dialog.setAddBankCallback {
+//                if (it != null){
+//                    if (it.code == 1){
+//                        requireActivity().runOnUiThread {
+//                            getList()
+//                            dialog.dismiss()
+//                            Toast.makeText(requireActivity(),it.msg,Toast.LENGTH_SHORT).show()
+//
+//                        }
+//                    }else{
+//                        requireActivity().runOnUiThread {
+//                            getList()
+//                            dialog.dismiss()
+//                        }
+//                    }
+//
+//                }
+//
+//            }
+//            dialog.show()
+        if (data!=null){
+            var intent = Intent()
+            intent.setClass(requireActivity(),ConfirmOrderActivity::class.java)
+            intent.putExtra("json", Gson().toJson(data))
+            startActivity(intent)
+        }else{
+        Toast.makeText(requireActivity(),"发生错误 请重新登入",Toast.LENGTH_SHORT).show()
 
-            val dialog = ConfirmOrderDialog(requireActivity(),data)
-            dialog.setAddBankCallback {
-                if (it != null){
-                    if (it.code == 1){
-                        requireActivity().runOnUiThread {
-                            getList()
-                            dialog.dismiss()
-                            Toast.makeText(requireActivity(),"业务操作已完成",Toast.LENGTH_SHORT).show()
-
-                        }
-                    }else{
-                        requireActivity().runOnUiThread {
-                            getList()
-                            dialog.dismiss()
-                        }
-                    }
-
-                }
-
-            }
-            dialog.show()
-
+        }
 
     }
 
@@ -171,13 +235,17 @@ class DashboardFragment : Fragment() {
     }
 
     override fun onStop() {
-        super.onStop()
 
+        super.onStop()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-    }
+        if (handler != null) {
+            handler!!.removeCallbacksAndMessages(null);
+            handler = null;
+        }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -206,6 +274,8 @@ class DashboardFragment : Fragment() {
             var payName : TextView
             var cancelButton : Button
             var sureButton  : Button
+            var exrate: TextView
+            var usdt: TextView
 
 
             init {
@@ -218,7 +288,8 @@ class DashboardFragment : Fragment() {
                 payName = view.findViewById(R.id.payname);
                 cancelButton = view.findViewById(R.id.cancel_button)
                 sureButton = view.findViewById(R.id.sure_button)
-
+                exrate = view.findViewById(R.id.exrate)
+                usdt = view.findViewById(R.id.usdt)
 
             }
         }
@@ -231,15 +302,20 @@ class DashboardFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val info: SellListData.Data = bankCardInfoList!!.get(position)
+            val df = DecimalFormat("###.00")
 
             holder.bankName.text = "收款银行:" + info.bankName
 //            holder.cardNo.text = info.cardId
             holder.time.text = info.created
-            holder.amount.text = "￥"+info.score
             holder.orderno.text = info.orderNo
             holder.userName.text = "收款人姓名:" + info.userName
             holder.payName.text = "打款人姓名:" + info.payUserName
 //            holder.addButton.text = info.state
+
+            holder.amount.text = "￥"+info.score
+            holder.exrate.text = "单价:"+ mfragment.extraDouble
+            holder.usdt.text = "成交金额USDT:"+ df.format(info.score/mfragment.extraDouble)
+
 
             holder.cancelButton.setOnClickListener {
                 mfragment.cancelToUrl(info.id);
@@ -249,6 +325,29 @@ class DashboardFragment : Fragment() {
                 mfragment.confirmOrder(info)
             }
 
+            holder.bankName.setOnClickListener {
+                PayHelperUtils.copyToClipboard(mfragment.requireActivity(),info.bankName)
+
+            }
+            holder.amount.setOnClickListener {
+                PayHelperUtils.copyToClipboard(mfragment.requireActivity(),"￥"+info.score)
+
+            }
+
+            holder.orderno.setOnClickListener {
+                PayHelperUtils.copyToClipboard(mfragment.requireActivity(),info.orderNo)
+
+            }
+
+            holder.userName.setOnClickListener {
+                PayHelperUtils.copyToClipboard(mfragment.requireActivity(),info.userName)
+
+            }
+
+            holder.payName.setOnClickListener {
+                PayHelperUtils.copyToClipboard(mfragment.requireActivity(),info.payUserName)
+
+            }
 
 
 
@@ -263,4 +362,16 @@ class DashboardFragment : Fragment() {
             bankCardInfoList = list
         }
     }
+
+    override fun handleMessage(p0: Message): Boolean {
+        if (p0.what ==1){
+
+            getList()
+        }
+        return false;
+
+    }
+
+
+
 }

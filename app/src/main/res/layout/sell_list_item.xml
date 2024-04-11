@@ -59,6 +59,7 @@
                 android:text="打款人姓名:"/>
 
             <TextView
+                android:layout_marginTop="12dp"
                 android:id="@+id/cardno"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -91,6 +92,8 @@
             android:orientation="vertical">
 
             <TextView
+                android:layout_marginTop="12dp"
+
                 android:id="@+id/bankname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -101,6 +104,8 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:layout_marginTop="12dp"
+
                 android:id="@+id/username"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -124,13 +129,32 @@
         android:paddingBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         >
         <TextView
-            android:textSize="20sp"
+            android:layout_marginTop="12dp"
+            android:textSize="16sp"
             android:textColor="#3a3a3a"
             android:gravity="center_horizontal"
             android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500000.000" />
+        <TextView
+            android:layout_marginTop="12dp"
+            android:textSize="16sp"
+            android:textColor="#3a3a3a"
+            android:gravity="center_horizontal"
+            android:id="@+id/exrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500000.000" />
+        <TextView
+            android:layout_marginTop="12dp"
+            android:textSize="16sp"
+            android:textColor="#3a3a3a"
+            android:gravity="center_horizontal"
+            android:id="@+id/usdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="500000.000" />
@@ -161,12 +185,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-            android:layout_toLeftOf="@+id/sure_button"
+            android:layout_marginLeft="20dp"
             android:layout_gravity="center"
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_login_blue_radius"
+            android:background="@drawable/bg_login_gray_radius"
             android:text="申请消单"
             android:textColor="@android:color/white"
             android:textSize="14sp"/>
