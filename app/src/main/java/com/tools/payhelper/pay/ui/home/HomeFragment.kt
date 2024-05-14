@@ -12,9 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -25,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tools.payhelper.R
 
-import com.tools.payhelper.databinding.FragmentHomeBinding
 import com.tools.payhelper.pay.AddBuySettingDilog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
@@ -34,7 +31,7 @@ import com.tools.payhelper.pay.ui.order.PaymentMatchingData
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import com.jingyu.pay.ui.home.HomeFragment
-
+import com.tools.payhelper.databinding.FragmentHomeBinding
 
 
 class HomeFragment : Fragment() ,Handler.Callback{
@@ -64,6 +61,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
     }
     var handler: Handler? = null
 
+    lateinit var   spinner : Spinner;
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -82,11 +80,18 @@ class HomeFragment : Fragment() ,Handler.Callback{
         group.check(R.id.rb_yestday)
         group.setOnCheckedChangeListener { radioGroup, i ->
             when(i){
-                R.id.rb_yestday ->
+                R.id.rb_yestday ->{
+                    spinner.visibility = View.VISIBLE
                     getBuyList()
 
-                R.id.rb_today ->
+                }
+
+                R.id.rb_today ->{
+                    spinner.visibility = View.GONE
+
                     getinglIst()
+                }
+
 
             }
 
@@ -117,6 +122,14 @@ class HomeFragment : Fragment() ,Handler.Callback{
         getExrate()
         getInfo()
         getBuyList()
+        spinner = root.findViewById(R.id.spinner)
+        val adapter = ArrayAdapter.createFromResource(requireActivity(),
+            R.array.spinner_buy,
+            android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.setSelection(0, false)
+        spinner.onItemSelectedListener = spnOnItemSelected
 
 
         // make the adapter the data set changed for the recycler view
@@ -198,50 +211,58 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
 
         handler!!.sendEmptyMessageDelayed(1,60000)
-//
-//        if (buyDataList.size>=1){
-//
-//            if (PayHelperUtils.getVideoState(requireActivity())){
-//
-//
-//                if (PayHelperUtils.getBuyArrayList(requireActivity())!=null){
-//
-//                    if (!PayHelperUtils.getBuyArrayList(requireActivity()).equals(buyIDDataList)){
-//                        PayHelperUtils.getBuyArrayList(requireActivity()).clear()
-//
-//                        spool = SoundPool(10, AudioManager.STREAM_MUSIC, 5)
-//                        sourceid = spool!!.load(requireActivity(), R.raw.buy, 1)
-//                        spool!!.setOnLoadCompleteListener { soundPool, i, i2 ->
-//                            soundPool!!.play(sourceid, 1.0F, 1.0F, 1, 1, 1.0F);
-//
-//                        }
-//                        PayHelperUtils.saveBuyArrayList(requireActivity(),buyIDDataList)
-//
-//                        Log.d("XXX","不同")
-//                        Log.d("XXX",buyDataList.size.toString())
-//                        Log.d("XXX",PayHelperUtils.getBuyArrayList(requireActivity()).size.toString())
-//                        Log.d("XXX",  PayHelperUtils.getBuyArrayList(requireActivity()).equals(buyDataList).toString())
-//
-//                    }else{
-//
-//                        Log.d("XXX","同")
-//                        Log.d("XXX",PayHelperUtils.getBuyArrayList(requireActivity()).size.toString())
-//                        Log.d("XXX",  PayHelperUtils.getBuyArrayList(requireActivity()).equals(buyDataList).toString())
-//                    }
-//
-//
-//                }else{
-//                    PayHelperUtils.saveBuyArrayList(requireActivity(),buyIDDataList)
-//
-//                }
-//
-//
-//            }
-//
-//        }
+    }
 
 
 
+    fun  getBuyList(type :String){
+        isIng = true
+        fab.isVisible =true
+        merchantOrdersViewModel.getBuyDataList(requireActivity()).observe(requireActivity(),
+            Observer {
+                buyDataList.clear()
+                buyIDDataList.clear()
+                if (it.code == 0){
+                    if (it.data!=null){
+
+                        for (datum in it.data) {
+                            if (type=="全部"){
+                                isIng = false
+                                buyDataList.add(datum)
+//                                buyIDDataList.add(datum.id)
+                                adapter!!.notifyDataSetChanged()
+                            }else{
+                                when(type){
+                                    "支付宝" ->
+                                        if (datum.ordertype.equals("JFB")){
+                                            buyDataList.add(datum)
+                                            adapter!!.notifyDataSetChanged()
+                                        }
+                                        "银行卡" ->
+                                            if (datum.ordertype.equals("BANK")){
+                                                buyDataList.add(datum)
+                                                adapter!!.notifyDataSetChanged()
+                                            }
+                                }
+                            }
+
+
+                        }
+
+                    }
+                }
+            })
+        adapter = BuyAdapter(this)
+
+        recyclerView!!.layoutManager = LinearLayoutManager(activity)
+        adapter!!.updateList(buyDataList)
+
+        recyclerView!!.adapter = adapter
+
+        adapter!!.notifyDataSetChanged()
+
+
+        handler!!.sendEmptyMessageDelayed(1,60000)
     }
 
     override fun onPause() {
@@ -420,7 +441,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val info: BuyData.Data = bankCardInfoList!!.get(position)
             val df = DecimalFormat("###.00")
-            holder.bankName.text =""
+            holder.bankName.text = info.bankName
             holder.cardNo.text = ""
             holder.time.text = ""
             holder.amount.text = "￥"+info.score
@@ -585,10 +606,33 @@ class HomeFragment : Fragment() ,Handler.Callback{
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){
             if (!isIng){
+                Log.d("Jack","update")
+                spinner.setSelection(0)
                 getBuyList()
             }
 
         }
         return false;
     }
+
+    private val spnOnItemSelected: AdapterView.OnItemSelectedListener =
+        object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View?,
+                pos: Int, id: Long,
+            ) {
+                val sPos = pos.toString()
+                val sInfo = parent.getItemAtPosition(pos).toString()
+                //String sInfo=parent.getSelectedItem().toString();
+                Log.d("Jack","選項$sPos:$sInfo")
+//                getSelectList(dateString,sInfo)
+                getBuyList(sInfo)
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                //
+            }
+        }
+
 }

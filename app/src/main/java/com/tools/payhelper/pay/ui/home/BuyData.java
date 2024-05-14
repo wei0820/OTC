@@ -16,6 +16,8 @@ public class BuyData {
         @SerializedName("state") public  String state;
         @SerializedName("score") public  Double score;
         @SerializedName("created") public  String created;
+        @SerializedName("ordertype") public  String ordertype;
+
 
     }
 
