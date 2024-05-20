@@ -12,6 +12,7 @@ import com.jingyu.pay.ui.order.OrderDateModel
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.home.BuyData
 import com.tools.payhelper.pay.ui.home.ExrateData
+import com.tools.payhelper.pay.ui.home.PaymentIsValidData
 import com.tools.payhelper.pay.ui.home.PaymentMatchingData
 import com.tools.payhelper.pay.ui.home.StartBuyData
 import com.tools.payhelper.pay.ui.notifications.UserinfoData
@@ -34,6 +35,7 @@ class HomeViewModel : ViewModel() {
 
     var exrateData = MutableLiveData<ExrateData>()
     var data = MutableLiveData<UserinfoData>()
+    var mPaymentIsValidData = MutableLiveData<PaymentIsValidData>()
 
 
 
@@ -112,7 +114,9 @@ class HomeViewModel : ViewModel() {
         homeViewModel.getPaymentMatching(context, object : OrderDateModel.OrderResponse {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
+
                     if (!s.isEmpty()){
+                        Log.d("Jack",s);
                         var data = Gson().fromJson(s,
                             com.tools.payhelper.pay.ui.order.PaymentMatchingData::class.java);
                         if (data!=null){
@@ -171,6 +175,27 @@ class HomeViewModel : ViewModel() {
 
         })
         return  data
+    }
+
+    fun getPaymentIsValid(context: Context,id:String) : LiveData<PaymentIsValidData>{
+        homeViewModel.getPaymentIsValid(context,id,object :HomeDateModel.BuyResponse{
+            override fun getResponse(s: String) {
+                Log.d("Jack",s)
+                if (!s.isEmpty()){
+                    viewModelScope.launch {
+                        var ud = Gson().fromJson(s, PaymentIsValidData::class.java)
+                        mPaymentIsValidData.value = ud
+
+
+                    }
+                }
+            }
+
+            override fun getFailure(s: String) {
+            }
+
+        })
+        return  mPaymentIsValidData
     }
 
 }

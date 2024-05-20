@@ -83,12 +83,13 @@ class HomeFragment : Fragment() ,Handler.Callback{
                 R.id.rb_yestday ->{
                     spinner.visibility = View.VISIBLE
                     getBuyList()
+                    fab.show()
 
                 }
 
                 R.id.rb_today ->{
                     spinner.visibility = View.GONE
-
+                    fab.hide()
                     getinglIst()
                 }
 
@@ -142,20 +143,26 @@ class HomeFragment : Fragment() ,Handler.Callback{
                 // if the recycler view is scrolled
                 // above hide the FAB
                 if (dy > 10 && fab.isShown) {
+
                     fab.hide()
                 }
 
                 // if the recycler view is
                 // scrolled above show the FAB
                 if (dy < -10 && !fab.isShown) {
-                    fab.show()
+                    if(!isIng){
+                        fab.show()
+
+                    }
                 }
 
                 // of the recycler view is at the first
                 // item always show the FAB
                 if (!recyclerView.canScrollVertically(-1)) {
-                    fab.show()
-                }
+                    if(!isIng){
+                        fab.show()
+
+                    }                }
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -178,10 +185,10 @@ class HomeFragment : Fragment() ,Handler.Callback{
     override fun onResume() {
         super.onResume()
 
+
     }
     fun  getBuyList(){
-        isIng = false
-        fab.isVisible =true
+
         merchantOrdersViewModel.getBuyDataList(requireActivity()).observe(requireActivity(),
             Observer {
                 buyDataList.clear()
@@ -211,13 +218,15 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
 
         handler!!.sendEmptyMessageDelayed(1,60000)
+
+        isIng = false
+        fab.show()
     }
 
 
 
     fun  getBuyList(type :String){
-        isIng = true
-        fab.isVisible =true
+
         merchantOrdersViewModel.getBuyDataList(requireActivity()).observe(requireActivity(),
             Observer {
                 buyDataList.clear()
@@ -261,8 +270,9 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
         adapter!!.notifyDataSetChanged()
 
-
-        handler!!.sendEmptyMessageDelayed(1,60000)
+        isIng = true
+        fab.show()
+        handler!!.sendEmptyMessageDelayed(1,30000)
     }
 
     override fun onPause() {
@@ -283,9 +293,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
 
     fun getinglIst(){
-        fab.isVisible = false
-        isIng = true
-
         merchantOrdersViewModel.getPaymentMatching(requireActivity()).observe(requireActivity(),
             Observer {
                 IngDataList.clear()
@@ -312,6 +319,14 @@ class HomeFragment : Fragment() ,Handler.Callback{
         recyclerView!!.adapter = adapter_ing
 
         adapter_ing!!.notifyDataSetChanged()
+        fab.hide()
+        isIng = true
+        handler!!.sendEmptyMessageDelayed(1,10000)
+
+
+
+
+
     }
     fun setBuySetting(){
         val maxString =
@@ -359,25 +374,34 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
 
     fun cancelToUrl(id : String){
-
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "voucherError/" +id
         ToastManager.showToastCenter(requireActivity(),url)
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
         intent.data = Uri.parse(url)
         startActivity(intent)
+        requireActivity().runOnUiThread {
+            getinglIst()
+            fab.hide()
 
+        }
 
     }
 
     fun confirmOrder(id : String){
-
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "index/" +id
         ToastManager.showToastCenter(requireActivity(),url)
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
         intent.data = Uri.parse(url)
         startActivity(intent)
+
+          requireActivity().runOnUiThread {
+            getinglIst()
+            fab.hide()
+
+        }
+
 
     }
 
@@ -606,9 +630,19 @@ class HomeFragment : Fragment() ,Handler.Callback{
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){
             if (!isIng){
-                Log.d("Jack","update")
+                requireActivity().runOnUiThread {
+                    ToastManager.showToastCenter(requireActivity(),"买币資料刷新")
+                }
+                Log.d("Jack","update_getBuyList")
                 spinner.setSelection(0)
                 getBuyList()
+            }else{
+                Log.d("Jack","update_getinglIst")
+                requireActivity().runOnUiThread {
+                    ToastManager.showToastCenter(requireActivity(),"进行中订单/买币資料刷新")
+                }
+                getinglIst()
+
             }
 
         }

@@ -16,16 +16,17 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.gongwen.marqueen.SimpleMF
+import com.gongwen.marqueen.SimpleMarqueeView
 import com.jingyu.pay.BasicActivity
-import com.tools.payhelper.pay.ui.login.MainActivity
 import com.tools.payhelper.R
 import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
+import com.tools.payhelper.pay.ui.login.MainActivity
 import com.tools.payhelper.ui.login.LoginViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.String
 
 
 class LoginActivity : BasicActivity() {
@@ -40,6 +41,9 @@ class LoginActivity : BasicActivity() {
 
     lateinit var progressDialog: ProgressDialog
     var tokenString = "test"
+    lateinit var marqueeView : SimpleMarqueeView<String>
+
+    private val datas: List<String> = listOf("《赋得古原草送别》", "离离原上草，一岁一枯荣。", "野火烧不尽，春风吹又生。", "远芳侵古道，晴翠接荒城。", "又送王孙去，萋萋满别情。", "测试测试测试测试测试测试测试测试测试测试测试")
 
 
     @SuppressLint("MissingInflatedId")
@@ -52,8 +56,12 @@ class LoginActivity : BasicActivity() {
         edt3 = findViewById(R.id.edt3)
         _versiontext = findViewById(R.id.vertext);
         _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
+        val marqueeFactory: SimpleMF<String> = SimpleMF<String>(this@LoginActivity)
 
-
+        marqueeView = findViewById(R.id.simpleMarqueeView)
+        marqueeFactory.setData(datas);
+        marqueeView.setMarqueeFactory(marqueeFactory);
+        marqueeView.startFlipping();
         check()
         checkVresion()
 
@@ -232,5 +240,6 @@ class LoginActivity : BasicActivity() {
         // toast a message as "cancelled"
 
     }
+    
 
 }
