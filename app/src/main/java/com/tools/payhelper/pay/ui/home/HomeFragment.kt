@@ -121,7 +121,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
         setBuySetting()
         getExrate()
-        getInfo()
         getBuyList()
         spinner = root.findViewById(R.id.spinner)
         val adapter = ArrayAdapter.createFromResource(requireActivity(),
@@ -184,7 +183,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     override fun onResume() {
         super.onResume()
-
+        getInfo()
 
     }
     fun  getBuyList(){

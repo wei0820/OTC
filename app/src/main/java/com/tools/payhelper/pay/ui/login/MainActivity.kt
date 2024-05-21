@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        handler = Handler(this)
 
 
         val navView: BottomNavigationView = binding.navView
@@ -53,19 +54,13 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.selectedItemId = R.id.navigation_notifications
+        getInfo()
 
 
     }
 
     override fun onResume() {
         super.onResume()
-        if (handler != null){
-
-        }else{
-            handler = Handler(this)
-
-        }
-        getInfo()
 
 
     }
@@ -82,35 +77,11 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
 
 
     fun getInfo(){
-        Log.d("Jack","getinfo")
         loginViewModel.getUserInfo(this).observe(this, Observer {
-            if (it!=null){
-                runOnUiThread {
-//                    if (!it.data.isEnable){
-//                        ToastManager.showToastCenter(this,"令牌失效 请重新登入")
-//                    }
-                }
-
-            }
         })
         handler!!.sendEmptyMessageDelayed(1,15000)
     }
-//    fun getUpdate(){
-//        loginViewModel.getVersionUpdate(this).observe(this, Observer {
-//            if (it!=null){
-//                if (PayHelperUtils.getVersionCode()<it.data.versionCode){
-//                    val dialog = UpdateAlertDialog(this@MainActivity,it.data.url)
-//                    dialog.setMessage(String.format("欢迎使用%s原生V%s版本",
-//                        getString(R.string.app_name),
-//                        it.data.versionName)+"如升级失败，请选择网页下载升级")
-//                    dialog.setIsForcedUpdate(true)
-//                    dialog.show()
-//                }
-//
-//
-//            }
-//        })
-//    }
+
 
     override fun onRestart() {
         super.onRestart()
