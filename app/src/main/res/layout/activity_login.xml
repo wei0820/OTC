@@ -5,23 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.gongwen.marqueen.SimpleMarqueeView
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/text"
-        android:id="@+id/simpleMarqueeView"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:flipInterval="2500"
-        android:inAnimation="@anim/in_right"
-        android:outAnimation="@anim/out_left"
-        app:marqueeAnimDuration="2000"
-        app:smvTextColor="@color/black"
-        app:smvTextEllipsize="end"
-        app:smvTextGravity="center_vertical"
-        app:smvTextSingleLine="true"
-        app:smvTextSize="15sp" />
     <TextView
         android:layout_marginLeft="24dp"
         android:id="@+id/text"

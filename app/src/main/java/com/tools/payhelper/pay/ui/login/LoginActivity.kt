@@ -9,15 +9,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.gongwen.marqueen.SimpleMF
-import com.gongwen.marqueen.SimpleMarqueeView
 import com.jingyu.pay.BasicActivity
 import com.tools.payhelper.R
 import com.tools.payhelper.UpdateAlertDialog
@@ -41,9 +38,7 @@ class LoginActivity : BasicActivity() {
 
     lateinit var progressDialog: ProgressDialog
     var tokenString = "test"
-    lateinit var marqueeView : SimpleMarqueeView<String>
 
-    private val datas: List<String> = listOf("《赋得古原草送别》", "离离原上草，一岁一枯荣。", "野火烧不尽，春风吹又生。", "远芳侵古道，晴翠接荒城。", "又送王孙去，萋萋满别情。", "测试测试测试测试测试测试测试测试测试测试测试")
 
 
     @SuppressLint("MissingInflatedId")
@@ -56,14 +51,7 @@ class LoginActivity : BasicActivity() {
         edt3 = findViewById(R.id.edt3)
         _versiontext = findViewById(R.id.vertext);
         _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
-        val marqueeFactory: SimpleMF<String> = SimpleMF<String>(this@LoginActivity)
-
-        marqueeView = findViewById(R.id.simpleMarqueeView)
-        marqueeFactory.setData(datas);
-        marqueeView.setMarqueeFactory(marqueeFactory);
-        marqueeView.startFlipping();
         check()
-        checkVresion()
 
 
 
@@ -75,8 +63,6 @@ class LoginActivity : BasicActivity() {
             progressDialog.setMessage("Loading ...")
             progressDialog.setCancelable(true) // blocks UI interaction
             progressDialog.show()
-            Log.d("jack","1")
-            Log.d("jack",tokenString)
 
             var loginid = edt.text.toString()
             var password = edt2.text.toString()
@@ -238,6 +224,12 @@ class LoginActivity : BasicActivity() {
 
         // if the intentResult is null then
         // toast a message as "cancelled"
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkVresion()
 
     }
     

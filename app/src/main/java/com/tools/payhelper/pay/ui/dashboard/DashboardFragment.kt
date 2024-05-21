@@ -58,9 +58,9 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         val root: View = binding.root
         val recyclerView: RecyclerView =  root.findViewById(R.id.recycler_view)
         switch =  root.findViewById(R.id.switch1);
+        handler = Handler(this)
 
         getEtr()
-        checkOpen()
         getUserinfo()
 
         switch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, b ->
@@ -95,9 +95,9 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-         handler = Handler(this)
 
     }
+
     fun  getUserinfo(){
         sellViewModel.getUserInfo(requireActivity()).observe(viewLifecycleOwner, Observer {
             if (it!=null){
@@ -142,7 +142,7 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
         })
 //        sellViewModel.getUserInfo(requireActivity())
-        handler!!.sendEmptyMessageDelayed(1,90000)
+        handler!!.sendEmptyMessageDelayed(1,60000)
 //        if(buyDataList.size>=1){
 //            if (PayHelperUtils.getVideoState(requireActivity())){
 //                spool = SoundPool(10, AudioManager.STREAM_MUSIC, 5)
@@ -161,7 +161,9 @@ class DashboardFragment : Fragment() ,Handler.Callback{
     fun checkOpen(){
         var b = PayHelperUtils.getSellState(requireActivity())
         switch.isChecked = b
+
         val ischeckString = if (b) "卖币接单中" else "卖币暂停接单"
+
         switch.text = ischeckString
         if (b) {
             openSell()
@@ -169,9 +171,25 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         }else{
             closeSell()
         }
+
     }
     fun openSell(){
         sellViewModel.setSellSetting(requireActivity()).observe(requireActivity(), Observer {
+            if (it!=null){
+                if (!it.msg.isEmpty()){
+                    requireActivity().runOnUiThread {
+                        ToastManager.showToastCenter(requireActivity(),"CollectionQueue:"+it.msg)
+                    }
+                }else{
+                    requireActivity().runOnUiThread {
+                        ToastManager.showToastCenter(requireActivity(),"CollectionQueue:error")
+                    }
+                }
+            }else{
+                requireActivity().runOnUiThread {
+                    ToastManager.showToastCenter(requireActivity(),"CollectionQueue:error")
+                }
+            }
 
 
         })
@@ -179,7 +197,21 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     fun closeSell(){
         sellViewModel.setCloseSellSetting(requireActivity()).observe(requireActivity(), Observer {
-
+            if (it!=null){
+                if (!it.msg.isEmpty()){
+                    requireActivity().runOnUiThread {
+                        ToastManager.showToastCenter(requireActivity(),"CollectionQueueOff:"+it.msg)
+                    }
+                }else{
+                    requireActivity().runOnUiThread {
+                        ToastManager.showToastCenter(requireActivity(),"CollectionQueueOff:error")
+                    }
+                }
+            }else{
+                requireActivity().runOnUiThread {
+                    ToastManager.showToastCenter(requireActivity(),"CollectionQueueOff:error")
+                }
+            }
         })
     }
     fun cancelToUrl(id : String){
@@ -255,6 +287,8 @@ class DashboardFragment : Fragment() ,Handler.Callback{
     override fun onResume() {
         super.onResume()
         getList()
+        checkOpen()
+
 
 
     }
