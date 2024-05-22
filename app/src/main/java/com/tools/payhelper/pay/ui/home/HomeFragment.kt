@@ -48,7 +48,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     lateinit var group : RadioGroup
     lateinit var recyclerView: RecyclerView
-     var exrateDouble : Double = 0.0
+     var exrateDouble : Double = 7.5
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -642,7 +642,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
                 getinglIst()
 
             }
-            getExrate()
 
         }
         return false;

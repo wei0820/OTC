@@ -400,9 +400,7 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){
-
             getList()
-            getEtr()
 
         }
         return false;

@@ -1,5 +1,7 @@
 package com.tools.payhelper;
 
+import android.os.Build;
+
 import java.util.Locale;
 
 public class SystemUtil {
@@ -31,6 +33,9 @@ public class SystemUtil {
         return android.os.Build.MODEL;
     }
 
+    public static String getRELEASE(){
+        return  Build.VERSION.RELEASE;
+    }
     /**
      * 获取手机厂商
      *
