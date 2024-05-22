@@ -120,7 +120,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
 
         setBuySetting()
-        getExrate()
         getBuyList()
         spinner = root.findViewById(R.id.spinner)
         val adapter = ArrayAdapter.createFromResource(requireActivity(),
@@ -184,6 +183,8 @@ class HomeFragment : Fragment() ,Handler.Callback{
     override fun onResume() {
         super.onResume()
         getInfo()
+        getExrate()
+
 
     }
     fun  getBuyList(){
@@ -632,17 +633,16 @@ class HomeFragment : Fragment() ,Handler.Callback{
                 requireActivity().runOnUiThread {
                     ToastManager.showToastCenter(requireActivity(),"买币資料刷新")
                 }
-                Log.d("Jack","update_getBuyList")
                 spinner.setSelection(0)
                 getBuyList()
             }else{
-                Log.d("Jack","update_getinglIst")
                 requireActivity().runOnUiThread {
                     ToastManager.showToastCenter(requireActivity(),"进行中订单/买币資料刷新")
                 }
                 getinglIst()
 
             }
+            getExrate()
 
         }
         return false;

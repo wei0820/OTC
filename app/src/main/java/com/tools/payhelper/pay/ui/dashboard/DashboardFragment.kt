@@ -60,7 +60,6 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         switch =  root.findViewById(R.id.switch1);
         handler = Handler(this)
 
-        getEtr()
 
         switch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, b ->
             val ischeckString = if (b) "卖币接单中" else "卖币暂停接单"
@@ -288,6 +287,7 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         getList()
         checkOpen()
         getUserinfo()
+        getEtr()
 
 
 
@@ -402,6 +402,8 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         if (p0.what ==1){
 
             getList()
+            getEtr()
+
         }
         return false;
 

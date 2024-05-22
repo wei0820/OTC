@@ -138,8 +138,6 @@ class HomeViewModel : ViewModel() {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
                     if (!s.isEmpty()){
-                        Log.d("Jack",s)
-
                         var data = Gson().fromJson(s,ExrateData::class.java)
                         exrateData.value = data
                     }else{

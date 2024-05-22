@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.jingyu.pay.BasicActivity
 import com.tools.payhelper.R
+import com.tools.payhelper.SystemUtil
 import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
@@ -54,7 +56,6 @@ class LoginActivity : BasicActivity() {
         check()
 
 
-
         loginButton.setOnClickListener {
             loginButton.isEnabled = false
             loginButton.isClickable = false;
@@ -79,7 +80,9 @@ class LoginActivity : BasicActivity() {
                 return@setOnClickListener
 
             }
-//            loginViewModel.getUserData(loginid,PayHelperUtils.md5(password),code)
+
+
+
 
             loginViewModel.getUserToken(loginid,PayHelperUtils.md5(password),code).observe(this, Observer {
 
