@@ -73,7 +73,7 @@ class ConfirmOrderActivity : AppCompatActivity() {
             val payname: String = mSellListData!!.payUserName.substring(mSellListData!!.payUserName.length - 1)
             var pirceName : String = mSellListData!!.score.toString()
             if (!nameEdt.getText().toString().isEmpty()) {
-                if (nameEdt.getText().toString() != payname) {
+                if (!nameEdt.getText().toString().equals(payname)) {
                     Toast.makeText(this, "名称输入错误", Toast.LENGTH_SHORT).show()
 
                     return@setOnClickListener
