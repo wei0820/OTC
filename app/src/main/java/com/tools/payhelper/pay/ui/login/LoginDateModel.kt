@@ -3,6 +3,7 @@ package com.jingyu.pay.ui.login
 import android.app.Activity
 import android.content.Context
 import android.util.Log
+import com.tools.payhelper.SystemUtil
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ui.login.SSLSocketClient
@@ -27,7 +28,7 @@ class LoginDateModel {
         jsonObject.put("roleName","会员")
         jsonObject.put("IP","125.119.224.148")
         jsonObject.put("version","v8")
-        jsonObject.put("ismobile","Android_"+PayHelperUtils.getVersionName())
+        jsonObject.put("ismobile","Android_"+PayHelperUtils.getVersionName()+"_userDevice_"+ SystemUtil.getUserDevice())
 
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()

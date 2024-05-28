@@ -198,47 +198,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
 
         handler!!.sendEmptyMessageDelayed(1,90000)
-//
-//        if (buyDataList.size>=1){
-//
-//            if (PayHelperUtils.getVideoState(requireActivity())){
-//
-//
-//                if (PayHelperUtils.getBuyArrayList(requireActivity())!=null){
-//
-//                    if (!PayHelperUtils.getBuyArrayList(requireActivity()).equals(buyIDDataList)){
-//                        PayHelperUtils.getBuyArrayList(requireActivity()).clear()
-//
-//                        spool = SoundPool(10, AudioManager.STREAM_MUSIC, 5)
-//                        sourceid = spool!!.load(requireActivity(), R.raw.buy, 1)
-//                        spool!!.setOnLoadCompleteListener { soundPool, i, i2 ->
-//                            soundPool!!.play(sourceid, 1.0F, 1.0F, 1, 1, 1.0F);
-//
-//                        }
-//                        PayHelperUtils.saveBuyArrayList(requireActivity(),buyIDDataList)
-//
-//                        Log.d("XXX","不同")
-//                        Log.d("XXX",buyDataList.size.toString())
-//                        Log.d("XXX",PayHelperUtils.getBuyArrayList(requireActivity()).size.toString())
-//                        Log.d("XXX",  PayHelperUtils.getBuyArrayList(requireActivity()).equals(buyDataList).toString())
-//
-//                    }else{
-//
-//                        Log.d("XXX","同")
-//                        Log.d("XXX",PayHelperUtils.getBuyArrayList(requireActivity()).size.toString())
-//                        Log.d("XXX",  PayHelperUtils.getBuyArrayList(requireActivity()).equals(buyDataList).toString())
-//                    }
-//
-//
-//                }else{
-//                    PayHelperUtils.saveBuyArrayList(requireActivity(),buyIDDataList)
-//
-//                }
-//
-//
-//            }
-//
-//        }
 
 
 
@@ -421,8 +380,8 @@ class HomeFragment : Fragment() ,Handler.Callback{
             val info: BuyData.Data = bankCardInfoList!!.get(position)
             val df = DecimalFormat("###.00")
             holder.bankName.text = info.bankName
-            holder.cardNo.text = info.cardId
-            holder.time.text = info.created
+            holder.cardNo.text = ""
+            holder.time.text = ""
             holder.amount.text = "￥"+info.score
             holder.exrate.text = "单价:"+ mfragment.exrateDouble
             holder.usdt.text = "成交金额USDT:"+ df.format(info.score/mfragment.exrateDouble)
