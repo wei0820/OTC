@@ -32,18 +32,18 @@ android {
     }
     productFlavors {
         luckyPay {
-            resValue "string", "app_name", "吉利"
-            applicationId "com.jingyu.pay"
+            resValue "string", "app_name", "GEELY OTC"
+            applicationId "com.geelyotc.pay"
             manifestPlaceholders = [app_icon: "@drawable/favicon"]
             buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
             buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
             buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
             buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
             buildConfigField "String", "ELK_TYPE", "\"payhelper\""
-            buildConfigField "String", "UPDATE_URL", "\"https://pay.channel-lucky.com/apk/version.json\""
+            buildConfigField "String", "UPDATE_URL", "\"https://pay.17otc.com/exrate.json\""
             buildConfigField "String", "md5key", "\"2io#ejQO\""
-            buildConfigField "String", "API_URL", "\"https://api.channel-sign.com/\""
-            buildConfigField "String", "EXRATE_URL", "\"https://pay.channel-lucky.com/exrate.json\""
+            buildConfigField "String", "API_URL", "\"https://api.17otc.com/\""
+            buildConfigField "String", "EXRATE_URL", "\"https://pay.17otc.com/exrate.json\""
 
 
 
