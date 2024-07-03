@@ -2,10 +2,9 @@
     "code": 0,
     "msg": "success",
     "data": {
-        "versionCode": 48,
-        "versionName": "1.0.48",
-
-        "url": "https://pay.juying.org/apk/juyingotcpay.apk"
+        "versionCode": 49,
+        "versionName": "1.0.49",
+        "url": "https://pay.colorwin.com/apk/juyingotcpay.apk"
        
     }
 }

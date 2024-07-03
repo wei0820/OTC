@@ -58,10 +58,10 @@ android {
             buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
             buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
             buildConfigField "String", "ELK_TYPE", "\"payhelper\""
-            buildConfigField "String", "UPDATE_URL", "\"https://pay.juying.org/apk/version.json\""
+            buildConfigField "String", "UPDATE_URL", "\"https://pay.colorwin.com/apk/version.json\""
             buildConfigField "String", "md5key", "\"R:M'3p&_\""
-            buildConfigField "String", "API_URL", "\"https://api.juying.org/\""
-            buildConfigField "String", "EXRATE_URL", "\"https://pay.juying.org/exrate.json\""
+            buildConfigField "String", "API_URL", "\"https://api.colorwin.com/\""
+            buildConfigField "String", "EXRATE_URL", "\"https://api.colorwin.com/exrate.json\""
 
 
         }
