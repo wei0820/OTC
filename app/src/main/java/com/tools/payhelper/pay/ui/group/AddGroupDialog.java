@@ -32,7 +32,7 @@ public class AddGroupDialog extends AlertDialog {
     private OnAddBanKListCallback onAddBanKListCallback;
     private Dialog dialog;
     private Switch aSwitch;
-    private  EditText textView,textView2,textiew22,wechattext;
+    private  EditText textView,textView2,textiew22,wechattext,banktext;
     private Handler handlerLoading = new Handler();
     GroupDateModel groupDateModel = new GroupDateModel();
     public void setOnAddCallback(OnAddCallback onAddCallback) {
@@ -83,22 +83,25 @@ public class AddGroupDialog extends AlertDialog {
         textView2 = findViewById(R.id.text2);
         textiew22 = findViewById(R.id.text22);
         wechattext = findViewById(R.id.wechattext);
+        banktext = findViewById(R.id.banktext);
         tel = findViewById(R.id.teledt);
         String maxString = PayHelperUtils.getRebate(activity).isEmpty() ? "" : PayHelperUtils.getRebate(activity);
         String minString = PayHelperUtils.getPaymentXeRebate(activity).isEmpty() ? "" : PayHelperUtils.getPaymentXeRebate(activity);
         String alipayRebate = PayHelperUtils.getAlipayRebate(activity).isEmpty()? "" : PayHelperUtils.getAlipayRebate(activity);
         String wechatRebate = PayHelperUtils.getWechat(activity).isEmpty()? "" : PayHelperUtils.getWechat(activity);
+        String bankRebate = PayHelperUtils.getBank(activity).isEmpty()? "" : PayHelperUtils.getBank(activity);
 
 
 
 
         TextView message = findViewById(R.id.message);
-        message.setText("您的佣金比例:\n"+"卖币:"+maxString+"\n"+"小额买币:"+minString+"\n"+"支付宝卖币:"+alipayRebate+"\n"+"微信卖币:"+wechatRebate);
+        message.setText("您的佣金比例:\n"+"卖币:"+maxString+"\n"+"小额买币:"+minString+"\n"+"支付宝卖币:"+alipayRebate+"\n"+"微信卖币:"+wechatRebate
+        +"\n"+"数字人民币:"+bankRebate);
         textView.setText(maxString);
         textView2.setText(minString);
         textiew22.setText(alipayRebate);
         wechattext.setText(wechatRebate);
-
+        banktext.setText(bankRebate);
 
         view.findViewById(R.id.closeBtn).setOnClickListener(v -> {
             view.setEnabled(false);
@@ -122,6 +125,7 @@ public class AddGroupDialog extends AlertDialog {
                 Double Pa = Double.parseDouble(textView2.getText().toString());
                 Double aa = Double.parseDouble(textiew22.getText().toString());
                 Double wechatDb = Double.parseDouble(wechattext.getText().toString());
+                Double bankDb = Double.parseDouble(banktext.getText().toString());
 
 
                 groupDateModel.getGroupRegister(activity, n, p, t,
@@ -129,6 +133,7 @@ public class AddGroupDialog extends AlertDialog {
                         Pa,
                         aa,
                         wechatDb,
+                        bankDb,
                         new GroupDateModel.GroupResponse() {
                             @Override
                             public void getResponse(@NonNull String s) {

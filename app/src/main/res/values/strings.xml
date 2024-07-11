@@ -39,7 +39,7 @@
 
     <string name="add_wechat">新增微信扫码</string>
     <string name="add_wechat_phone">新增微信转账</string>
-
+    <string name="add_bank">新增数字人民币</string>
 
     <string-array name="planets_array">
         <item>一般訊息</item>

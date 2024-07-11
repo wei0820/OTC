@@ -21,7 +21,7 @@
             android:layout_height="40dp"
             android:background="@drawable/dialog_top_bar"
             android:gravity="center"
-            android:text="创建成员"
+            android:text="创建数字人民币"
             android:textSize="18sp"
             android:textColor="@android:color/white" />
 
@@ -38,6 +38,7 @@
             android:text=""/>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
@@ -52,7 +53,7 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="用户名称" />
+                android:text="银行名称" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -65,7 +66,7 @@
                     android:layout_marginStart="15dp"
                     android:background="@drawable/bg_grey"
                     android:ellipsize="end"
-                    android:hint="请输入用户名称"
+                    android:hint="请输入银行名称"
                     android:paddingStart="10dp"
                     android:textSize="15sp"
                     android:imeOptions="actionDone"/>
@@ -73,6 +74,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
@@ -87,7 +89,7 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="用户密码" />
+                android:text="分行名称" />
 
             <EditText
                 android:id="@+id/bank_card_no"
@@ -96,7 +98,7 @@
                 android:layout_marginStart="15dp"
                 android:background="@drawable/bg_grey"
                 android:ellipsize="end"
-                android:hint="请输入用户密码"
+                android:hint="请输入分行名称"
                 android:paddingStart="10dp"
                 android:textSize="15sp"
                 android:imeOptions="actionDone"/>
@@ -117,7 +119,7 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="用户电话" />
+                android:text="银行卡号" />
 
             <EditText
                 android:inputType="number"
@@ -128,7 +130,7 @@
                 android:layout_marginStart="15dp"
                 android:background="@drawable/bg_grey"
                 android:ellipsize="end"
-                android:hint="请输入电话"
+                android:hint="请输入银行卡号"
                 android:paddingStart="10dp"
                 android:textSize="15sp"
                 android:imeOptions="actionDone"/>
@@ -150,22 +152,55 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="卖币佣金" />
+                android:text="用户姓名" />
+
             <EditText
-                android:inputType="text"
-                android:id="@+id/text1"
+                android:id="@+id/nameedt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
                 android:background="@drawable/bg_grey"
                 android:ellipsize="end"
-                android:hint=""
+                android:hint="请输入用户姓名"
                 android:paddingStart="10dp"
                 android:textSize="15sp"
                 android:imeOptions="actionDone"/>
 
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:text="姓名拼音" />
+
+            <EditText
+                android:id="@+id/enameedt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_grey"
+                android:ellipsize="end"
+                android:hint="请输入姓名拼音"
+                android:paddingStart="10dp"
+                android:textSize="15sp"
+                android:imeOptions="actionDone"/>
 
         </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -182,23 +217,25 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="小额买币" />
-
+                android:text="收款限額" />
 
             <EditText
-                android:inputType="text"
-                android:id="@+id/text2"
+                android:id="@+id/payedt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
                 android:background="@drawable/bg_grey"
                 android:ellipsize="end"
-                android:hint=""
+                android:hint="预设50000"
                 android:paddingStart="10dp"
                 android:textSize="15sp"
+                android:inputType="number"
+                android:digits="1234567890"
                 android:imeOptions="actionDone"/>
 
         </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -215,95 +252,26 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="支付宝卖币佣金" />
-
+                android:text="谷歌验证码" />
 
             <EditText
-                android:inputType="text"
-                android:id="@+id/text22"
+                android:inputType="number"
+                android:digits="1234567890"
+                android:id="@+id/googleedt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
                 android:background="@drawable/bg_grey"
                 android:ellipsize="end"
-                android:hint=""
+                android:hint="请输入谷歌验证码"
                 android:paddingStart="10dp"
                 android:textSize="15sp"
                 android:imeOptions="actionDone"/>
 
-
-
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="11dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:textColor="@android:color/black"
-                android:text="微信卖币佣金" />
-
-
-            <EditText
-                android:inputType="text"
-                android:id="@+id/wechattext"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/bg_grey"
-                android:ellipsize="end"
-                android:hint=""
-                android:paddingStart="10dp"
-                android:textSize="15sp"
-                android:imeOptions="actionDone"/>
 
 
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="11dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:textColor="@android:color/black"
-                android:text="数字人民币佣金" />
-
-
-            <EditText
-                android:inputType="text"
-                android:id="@+id/banktext"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/bg_grey"
-                android:ellipsize="end"
-                android:hint=""
-                android:paddingStart="10dp"
-                android:textSize="15sp"
-                android:imeOptions="actionDone"/>
-
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -222,6 +222,21 @@ public class PayHelperUtils {
         return sharedPreferences.getString(Constant.USER_WECHAT, "");
     }
 
+    public static void saveBank(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_BANK, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_BANK, token).apply();
+    }
+
+    public static String getBank(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_BANK, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_BANK, "0");
+    }
+
+
+
+
 
 
 

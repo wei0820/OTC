@@ -32,6 +32,7 @@ public class Constant {
     final static  String OPEN_URL = "OPEN_URL";
     final static  String USER_REBATE = "USER_REBATE";
     final static  String USER_WECHAT = "USER_WECHAT";
+    final static  String USER_BANK = "USER_BANK";
 
 
     final static  String USER_PAYMENTXEREBATE = "USER_PAYMENTXEREBATE";
