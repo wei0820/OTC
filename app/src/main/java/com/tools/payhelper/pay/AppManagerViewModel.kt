@@ -1,6 +1,7 @@
 package com.tools.payhelper.pay
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,9 +19,10 @@ class AppManagerViewModel : ViewModel() {
     fun  getUserInfo(context: Context) :LiveData<UserinfoData>{
         appManagerDateModel.getUserinfo(context,object : AppManagerDateModel.AppManagerResponse{
             override fun getResponse(s: String) {
+                Log.d("Jack","AppManagerDateModel:"+s);
+
                 if(!s.isEmpty()){
-                    var data = MutableLiveData<UserinfoData>()
-                        viewModelScope.launch {
+                    viewModelScope.launch {
                         var ud = Gson().fromJson(s, UserinfoData::class.java)
                         data.value = ud
 

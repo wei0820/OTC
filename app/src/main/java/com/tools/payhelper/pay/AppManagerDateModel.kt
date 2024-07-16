@@ -40,7 +40,7 @@ class AppManagerDateModel {
             .header("content-type","application/json")
             .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
             .build()
-        Log.d("Jack",Constant.API_URL + "api/user/userinfo?");
+        Log.d("Jack","AppManagerDateModel:"+Constant.API_URL + "api/user/userinfo?");
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

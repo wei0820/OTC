@@ -32,6 +32,8 @@ import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import com.jingyu.pay.ui.home.HomeFragment
 import com.tools.payhelper.databinding.FragmentHomeBinding
+import com.tools.payhelper.pay.AppManagerViewModel
+import com.tools.payhelper.ui.login.AppManagerViewModelFactory
 
 
 class HomeFragment : Fragment() ,Handler.Callback{
@@ -58,6 +60,10 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     val merchantOrdersViewModel: HomeViewModel by lazy {
         ViewModelProvider(this, HomeViewModelFactory()).get(HomeViewModel::class.java)
+    }
+
+    val appManagerViewModel : AppManagerViewModel by lazy{
+        ViewModelProvider(this,AppManagerViewModelFactory()).get(AppManagerViewModel::class.java)
     }
     var handler: Handler? = null
 
@@ -121,6 +127,19 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
         setBuySetting()
         getBuyList()
+
+
+        appManagerViewModel.getUserInfo(requireActivity()).observe(requireActivity(), Observer {
+            Log.d("Jack","appManagerViewModel")
+
+            if (it.data!=null){
+                Log.d("Jack",it.code.toString())
+                Log.d("Jack",it.data.toString())
+
+            }
+        })
+
+
         spinner = root.findViewById(R.id.spinner)
         val adapter = ArrayAdapter.createFromResource(requireActivity(),
             R.array.spinner_buy,
@@ -329,6 +348,10 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     }
     fun setBuySetting(){
+
+
+
+
         val maxString =
             if (PayHelperUtils.getBuyMax(activity).isEmpty()) "99999" else PayHelperUtils.getBuyMax(
                 activity
@@ -345,6 +368,9 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
 
     fun  getPament(id:String){
+
+
+
         ToastManager.showToastCenter(requireActivity(),id);
 
         merchantOrdersViewModel.getPaymentMatchingData(requireActivity(),id).observe(requireActivity(),
