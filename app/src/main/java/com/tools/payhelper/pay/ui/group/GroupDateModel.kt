@@ -191,6 +191,7 @@ class GroupDateModel {
                          PaymentXeRebate:Double,
                          AlipayRebate:Double,
                          wechatrebate: Double,
+                         drmbRebate : Double,
                          groupResponse: GroupResponse){
 
         var jsonObject= JSONObject()
@@ -201,6 +202,8 @@ class GroupDateModel {
         jsonObject.put("PaymentXeRebate",PaymentXeRebate)
         jsonObject.put("AlipayRebate",AlipayRebate)
         jsonObject.put("WeChatRebate",wechatrebate)
+        jsonObject.put("drmbRebate",drmbRebate)
+
 
 
         var jsonStr=jsonObject.toString()

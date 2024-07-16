@@ -27,6 +27,7 @@ public class GroupListData {
         @SerializedName("alipayRebate") public  String alipayRebate;
         @SerializedName("weChatRebate") public  float wechatrebate;
 
+        @SerializedName("drmbRebate") public  float drmbRebate;
 
 
 
