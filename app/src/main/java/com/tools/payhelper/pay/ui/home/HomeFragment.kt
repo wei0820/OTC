@@ -128,16 +128,16 @@ class HomeFragment : Fragment() ,Handler.Callback{
         setBuySetting()
         getBuyList()
 
-
-        appManagerViewModel.getUserInfo(requireActivity()).observe(requireActivity(), Observer {
-            Log.d("Jack","appManagerViewModel")
-
-            if (it.data!=null){
-                Log.d("Jack",it.code.toString())
-                Log.d("Jack",it.data.toString())
-
-            }
-        })
+//
+//        appManagerViewModel.getUserInfo(requireActivity()).observe(requireActivity(), Observer {
+//            Log.d("Jack","appManagerViewModel")
+//
+//            if (it.data!=null){
+//                Log.d("Jack",it.code.toString())
+//                Log.d("Jack",it.data.toString())
+//
+//            }
+//        })
 
 
         spinner = root.findViewById(R.id.spinner)
