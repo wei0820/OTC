@@ -47,12 +47,15 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
     private AddPayCardDialog.OnAddBanKListCallback onAddBanKListCallback;
     private Handler handlerLoading = new Handler();
     private Button btn_scan, btn_album;
-    private TextView padd;
+    private EditText padd;
     public static final String CAMERA = Manifest.permission.CAMERA;
+
+
     public static final String WRITE_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     public static final int SCAN_RESULT = 1120;
     public final static int DEVICE_PHOTO_REQUEST = 1234;
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
+    private Button messageButton;
     public void setOnAddCallback(AddPayCardDialog.OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
     }
@@ -92,7 +95,7 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
         usernaem = findViewById(R.id.nameedt);
         eusername = findViewById(R.id.enameedt);
         payedt = findViewById(R.id.payedt);
-        padd = findViewById(R.id.pay_adds);
+        padd = findViewById(R.id.addurl);
 
 
         findViewById(R.id.closeBtn).setOnClickListener(v -> {
@@ -100,7 +103,8 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
 
         });
 
-
+        messageButton = findViewById(R.id.message);
+        messageButton.setOnClickListener(this);
 
 
         findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
@@ -157,7 +161,11 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
             case R.id.scanbtn://打开相册
                 checkStorage();
                 break;
-
+            case R.id.message:
+                Uri uri = Uri.parse("https://www.online-qr-scanner.com/zh-tw/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                break;
         }
     }
 
