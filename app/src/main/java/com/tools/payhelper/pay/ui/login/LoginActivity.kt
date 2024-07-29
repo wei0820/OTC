@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -52,7 +53,7 @@ class LoginActivity : BasicActivity() {
         edt3 = findViewById(R.id.edt3)
         _versiontext = findViewById(R.id.vertext);
         _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
-
+        _versiontext.visibility = View.GONE
 
         check()
         checkVresion()
@@ -67,8 +68,6 @@ class LoginActivity : BasicActivity() {
             progressDialog.setMessage("Loading ...")
             progressDialog.setCancelable(true) // blocks UI interaction
             progressDialog.show()
-            Log.d("jack","1")
-            Log.d("jack",tokenString)
 
             var loginid = edt.text.toString()
             var password = edt2.text.toString()
@@ -93,13 +92,22 @@ class LoginActivity : BasicActivity() {
                     runOnUiThread {
                         if (it.code==1){
                             if(!it.msg.isEmpty()){
+                                ToastManager.showToastCenter(this,it.msg)
+
                                 loginButton.isEnabled = true
                                 loginButton.isClickable = true;
 
-                                progressDialog.hide()
-                                ToastManager.showToastCenter(this,it.msg)
+                                progressDialog.dismiss()
                                 return@runOnUiThread
 
+                            }else{
+                                ToastManager.showToastCenter(this,"请求异常 无法无法连线到远程服务器")
+
+                                loginButton.isEnabled = true
+                                loginButton.isClickable = true;
+
+                                progressDialog.dismiss()
+                                return@runOnUiThread
                             }
                         }else{
                             progressDialog.hide()
@@ -119,11 +127,11 @@ class LoginActivity : BasicActivity() {
                 }else{
 
                     runOnUiThread {
-                        ToastManager.showToastCenter(this,"error")
+                        ToastManager.showToastCenter(this,"请求异常 无法无法连线到远程服务器")
                         loginButton.isEnabled = true
                         loginButton.isClickable = true;
 
-                        progressDialog.hide()
+                        progressDialog.dismiss()
                     }
 
                 }
