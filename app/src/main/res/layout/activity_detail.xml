@@ -13,15 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.shreyaspatil.material.navigationview.MaterialNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:theme="@style/Widget.NavigationView.RippleEffect"
-        app:headerLayout="@layout/nav_header_main"
-        app:insetForeground="@android:color/transparent"
-        app:itemStyle="default_style"
-        app:menu="@menu/drawer_view" />
+<!--    <com.shreyaspatil.material.navigationview.MaterialNavigationView-->
+<!--        android:id="@+id/nav_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="start"-->
+<!--        android:theme="@style/Widget.NavigationView.RippleEffect"-->
+<!--        app:headerLayout="@layout/nav_header_main"-->
+<!--        app:insetForeground="@android:color/transparent"-->
+<!--        app:itemStyle="default_style"-->
+<!--        app:menu="@menu/drawer_view" />-->
 
 </androidx.drawerlayout.widget.DrawerLayout>

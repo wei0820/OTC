@@ -18,21 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.MultiFormatReader;
-import com.google.zxing.NotFoundException;
-import com.google.zxing.RGBLuminanceSource;
-import com.google.zxing.Result;
-import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
+
 import com.jingyu.pay.ui.bankcard.BankCardDateModel;
-import com.permissionx.guolindev.PermissionX;
-import com.permissionx.guolindev.callback.ExplainReasonCallback;
-import com.permissionx.guolindev.callback.ForwardToSettingsCallback;
-import com.permissionx.guolindev.callback.RequestCallback;
-import com.permissionx.guolindev.request.ExplainScope;
-import com.permissionx.guolindev.request.ForwardScope;
+
 import com.tools.payhelper.pay.ToastManager;
 import com.tools.payhelper.pay.ui.bankcard.AddBankCardData;
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog;
@@ -155,142 +143,142 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
 //                break;
 
             case R.id.scanbtn://打开相册
-                checkStorage();
+//                checkStorage();
                 break;
 
         }
     }
-
-    private void checkStorage() {
-        PermissionX.init(this).permissions(WRITE_STORAGE).onExplainRequestReason(new ExplainReasonCallback() {
-            @Override
-            public void onExplainReason(ExplainScope scope, List<String> deniedList) {
-                scope.showRequestReasonDialog(deniedList, "读取相册需要该权限", "允许");
-            }
-        })
-                .onForwardToSettings(new ForwardToSettingsCallback() {
-                    @Override
-                    public void onForwardToSettings(ForwardScope scope, List<String> deniedList) {
-                        scope.showForwardToSettingsDialog(deniedList, "需要在应用程序设置中手动开启", "OK");
-                    }
-                })
-                .request(new RequestCallback() {
-                    @Override
-                    public void onResult(boolean allGranted, List<String> grantedList, List<String> deniedList) {
-                        if (allGranted) {
-                            Intent intent = new Intent(Intent.ACTION_PICK,
-                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(intent, DEVICE_PHOTO_REQUEST);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "权限已拒绝", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    private void checkCamera() {
-        PermissionX.init(this).permissions(CAMERA).onExplainRequestReason(new ExplainReasonCallback() {
-            @Override
-            public void onExplainReason(ExplainScope scope, List<String> deniedList) {
-                scope.showRequestReasonDialog(deniedList, "扫描二维码需要开启摄像头", "允许");
-            }
-        }).onForwardToSettings(new ForwardToSettingsCallback() {
-            @Override
-            public void onForwardToSettings(ForwardScope scope, List<String> deniedList) {
-                scope.showForwardToSettingsDialog(deniedList, "需要在应用程序设置中手动开启", "OK");
-            }
-        }).request(new RequestCallback() {
-            @Override
-            public void onResult(boolean allGranted, List<String> grantedList, List<String> deniedList) {
-                if (allGranted) {
-//                    startActivityForResult(
-////                            new Intent(MainActivity.this, ScanQRCodeActivity.class)
-//                            , SCAN_RESULT);
-                } else {
-                    Toast.makeText(getApplicationContext(), "权限已拒绝", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    Bitmap generatedQRCode;
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //系统相册返回请求
-
-
-        switch (requestCode) {
-            case DEVICE_PHOTO_REQUEST:
-                if (data != null) {
-                    try {
-                        Uri uri = data.getData();
-
-                        String imagePath = BitMapUtil.getPicturePathFromUri(this, uri);
-
-                        //对获取到的二维码照片进行压缩
-                        Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
-                        Result result = setZxingResult(generatedQRCode);
-                        if (result == null) {
-                            ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档");
-                        } else {
-                            padd.setText(result.getText());
-                        }
-                    }catch (Exception e){
-                        ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档"+e.getLocalizedMessage());
-                    }
-
-                }
-                break;
-        }
-
-
-        //扫描二维码返回结果码
-//        switch (resultCode) {
-//            case ScanQRCodeActivity.SCAN_SUCCESS:
-//                tv_content.setText(data.getStringExtra("success_result"));
-//                break;
 //
-//            case ScanQRCodeActivity.SCAN_FAIL:
-//                tv_content.setText(data.getStringExtra("fail_result"));
+//    private void checkStorage() {
+//        PermissionX.init(this).permissions(WRITE_STORAGE).onExplainRequestReason(new ExplainReasonCallback() {
+//            @Override
+//            public void onExplainReason(ExplainScope scope, List<String> deniedList) {
+//                scope.showRequestReasonDialog(deniedList, "读取相册需要该权限", "允许");
+//            }
+//        })
+//                .onForwardToSettings(new ForwardToSettingsCallback() {
+//                    @Override
+//                    public void onForwardToSettings(ForwardScope scope, List<String> deniedList) {
+//                        scope.showForwardToSettingsDialog(deniedList, "需要在应用程序设置中手动开启", "OK");
+//                    }
+//                })
+//                .request(new RequestCallback() {
+//                    @Override
+//                    public void onResult(boolean allGranted, List<String> grantedList, List<String> deniedList) {
+//                        if (allGranted) {
+//                            Intent intent = new Intent(Intent.ACTION_PICK,
+//                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                            startActivityForResult(intent, DEVICE_PHOTO_REQUEST);
+//                        } else {
+//                            Toast.makeText(getApplicationContext(), "权限已拒绝", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//    }
+//
+//    private void checkCamera() {
+//        PermissionX.init(this).permissions(CAMERA).onExplainRequestReason(new ExplainReasonCallback() {
+//            @Override
+//            public void onExplainReason(ExplainScope scope, List<String> deniedList) {
+//                scope.showRequestReasonDialog(deniedList, "扫描二维码需要开启摄像头", "允许");
+//            }
+//        }).onForwardToSettings(new ForwardToSettingsCallback() {
+//            @Override
+//            public void onForwardToSettings(ForwardScope scope, List<String> deniedList) {
+//                scope.showForwardToSettingsDialog(deniedList, "需要在应用程序设置中手动开启", "OK");
+//            }
+//        }).request(new RequestCallback() {
+//            @Override
+//            public void onResult(boolean allGranted, List<String> grantedList, List<String> deniedList) {
+//                if (allGranted) {
+////                    startActivityForResult(
+//////                            new Intent(MainActivity.this, ScanQRCodeActivity.class)
+////                            , SCAN_RESULT);
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "权限已拒绝", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
+//
+//    Bitmap generatedQRCode;
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        //系统相册返回请求
+//
+//
+//        switch (requestCode) {
+//            case DEVICE_PHOTO_REQUEST:
+//                if (data != null) {
+//                    try {
+//                        Uri uri = data.getData();
+//
+//                        String imagePath = BitMapUtil.getPicturePathFromUri(this, uri);
+//
+//                        //对获取到的二维码照片进行压缩
+//                        Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
+//                        Result result = setZxingResult(generatedQRCode);
+//                        if (result == null) {
+//                            ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档");
+//                        } else {
+//                            padd.setText(result.getText());
+//                        }
+//                    }catch (Exception e){
+//                        ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档"+e.getLocalizedMessage());
+//                    }
+//
+//                }
 //                break;
 //        }
-    }
-
-
-    private static Result setZxingResult(Bitmap bitmap) {
-        if (bitmap == null) return null;
-        int picWidth = bitmap.getWidth();
-        int picHeight = bitmap.getHeight();
-        int[] pix = new int[picWidth * picHeight];
-        //Log.e(TAG, "decodeFromPicture:图片大小： " + bitmap.getByteCount() / 1024 / 1024 + "M");
-        bitmap.getPixels(pix, 0, picWidth, 0, 0, picWidth, picHeight);
-        //构造LuminanceSource对象
-        RGBLuminanceSource rgbLuminanceSource = new RGBLuminanceSource(picWidth
-                , picHeight, pix);
-        BinaryBitmap bb = new BinaryBitmap(new HybridBinarizer(rgbLuminanceSource));
-        //因为解析的条码类型是二维码，所以这边用QRCodeReader最合适。
-        QRCodeReader qrCodeReader = new QRCodeReader();
-        Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
-        hints.put(DecodeHintType.CHARACTER_SET, "utf-8");
-        hints.put(DecodeHintType.TRY_HARDER, true);
-
-        int width = bitmap.getWidth(), height = bitmap.getHeight();
-        int[] pixels = new int[width * height];
-        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-        bitmap.recycle();
-        bitmap = null;
-        RGBLuminanceSource source = new RGBLuminanceSource(width, height, pixels);
-        BinaryBitmap bBitmap = new BinaryBitmap(new HybridBinarizer(source));
-        MultiFormatReader reader = new MultiFormatReader();
-        Result result;
-        try {
-            result = reader.decode(bb);
-            return result;
-        } catch (NotFoundException  e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//
+//
+//        //扫描二维码返回结果码
+////        switch (resultCode) {
+////            case ScanQRCodeActivity.SCAN_SUCCESS:
+////                tv_content.setText(data.getStringExtra("success_result"));
+////                break;
+////
+////            case ScanQRCodeActivity.SCAN_FAIL:
+////                tv_content.setText(data.getStringExtra("fail_result"));
+////                break;
+////        }
+//    }
+//
+//
+//    private static Result setZxingResult(Bitmap bitmap) {
+//        if (bitmap == null) return null;
+//        int picWidth = bitmap.getWidth();
+//        int picHeight = bitmap.getHeight();
+//        int[] pix = new int[picWidth * picHeight];
+//        //Log.e(TAG, "decodeFromPicture:图片大小： " + bitmap.getByteCount() / 1024 / 1024 + "M");
+//        bitmap.getPixels(pix, 0, picWidth, 0, 0, picWidth, picHeight);
+//        //构造LuminanceSource对象
+//        RGBLuminanceSource rgbLuminanceSource = new RGBLuminanceSource(picWidth
+//                , picHeight, pix);
+//        BinaryBitmap bb = new BinaryBitmap(new HybridBinarizer(rgbLuminanceSource));
+//        //因为解析的条码类型是二维码，所以这边用QRCodeReader最合适。
+//        QRCodeReader qrCodeReader = new QRCodeReader();
+//        Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
+//        hints.put(DecodeHintType.CHARACTER_SET, "utf-8");
+//        hints.put(DecodeHintType.TRY_HARDER, true);
+//
+//        int width = bitmap.getWidth(), height = bitmap.getHeight();
+//        int[] pixels = new int[width * height];
+//        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+//        bitmap.recycle();
+//        bitmap = null;
+//        RGBLuminanceSource source = new RGBLuminanceSource(width, height, pixels);
+//        BinaryBitmap bBitmap = new BinaryBitmap(new HybridBinarizer(source));
+//        MultiFormatReader reader = new MultiFormatReader();
+//        Result result;
+//        try {
+//            result = reader.decode(bb);
+//            return result;
+//        } catch (NotFoundException  e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
 }
