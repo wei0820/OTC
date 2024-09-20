@@ -5,8 +5,15 @@ buildscript {
     }
     repositories {
         google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.google.com'}
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         jcenter()
-        mavenCentral()  // Maven Central repository
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.1'
@@ -14,10 +21,22 @@ buildscript {
     }
 }
 
+
 allprojects {
     repositories {
-        jcenter()
         google()
-        mavenCentral()  // Maven Central repository
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.google.com'}
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        jcenter()
+
     }
+
+}
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
