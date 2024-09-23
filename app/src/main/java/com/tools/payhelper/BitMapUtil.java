@@ -127,5 +127,6 @@ public class BitMapUtil {
 
         return inSampleSize;
     }
+    
 
 }
