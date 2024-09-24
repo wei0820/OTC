@@ -237,13 +237,6 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
 
                         String imagePath = BitMapUtil.getPicturePathFromUri(this, uri);
 
-                        Log.d("pppp","data:image/png;base64,"+BitMapUtil.bitmapToString(imagePath));
-                        Log.d("imageToBase64","data:image/png;base64,"+BaseManager.imageToBase64(imagePath,100));
-                        Log.d("imgToBase64","data:image/png;base64,"+BaseManager.imgToBase64(imagePath));
-
-
-
-
                         //对获取到的二维码照片进行压缩
                         Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
 

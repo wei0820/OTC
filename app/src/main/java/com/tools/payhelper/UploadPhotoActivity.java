@@ -1,46 +1,32 @@
 package com.tools.payhelper;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.CursorLoader;
-
 import android.Manifest;
-import android.app.Activity;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.zxing.BinaryBitmap;
-import com.google.zxing.ChecksumException;
 import com.google.zxing.DecodeHintType;
-import com.google.zxing.FormatException;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.RGBLuminanceSource;
-import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.jingyu.pay.ui.bankcard.BankCardDateModel;
-import com.jingyu.pay.ui.bankcard.BankCardListActivity;
 import com.permissionx.guolindev.PermissionX;
 import com.permissionx.guolindev.callback.ExplainReasonCallback;
 import com.permissionx.guolindev.callback.ForwardToSettingsCallback;
@@ -52,12 +38,11 @@ import com.tools.payhelper.pay.ToastManager;
 import com.tools.payhelper.pay.ui.bankcard.AddBankCardData;
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog;
 
-import java.io.ByteArrayOutputStream;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class Main22Activity extends AppCompatActivity implements View.OnClickListener {
+public class UploadPhotoActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText  name,tel,googleedt,usernaem,eusername,payedt,pd;
     private AddPayCardDialog.OnAddCallback onAddCallback;
     private AddPayCardDialog.OnAddBanKListCallback onAddBanKListCallback;
@@ -91,7 +76,7 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        setContentView(R.layout.activity_main22);
+        setContentView(R.layout.activity_uploadphoto);
         initView();
     }
 
@@ -115,7 +100,7 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
 
 
         findViewById(R.id.closeBtn).setOnClickListener(v -> {
-            Main22Activity.this.finish();
+            UploadPhotoActivity.this.finish();
 
         });
 
@@ -133,7 +118,7 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
                 String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(Main22Activity.this, n, p, t, payF, google, username, euserName, new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(UploadPhotoActivity.this, n, p, t, payF, google, username, euserName, new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){
@@ -143,14 +128,14 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
                                     @Override
                                     public void run() {
                                         if (addBankCardData.code==0){
-                                            ToastManager.showToastCenter(Main22Activity.this,addBankCardData.msg);
-                                            Main22Activity.this.finish();
+                                            ToastManager.showToastCenter(UploadPhotoActivity.this,addBankCardData.msg);
+                                            UploadPhotoActivity.this.finish();
 //                                            Intent intent = new Intent();
 //                                            intent.setClass(Main22Activity.this, BankCardListActivity.class);
 //                                            startActivity(intent);
 
                                         }else {
-                                            ToastManager.showToastCenter(Main22Activity.this,addBankCardData.msg);
+                                            ToastManager.showToastCenter(UploadPhotoActivity.this,addBankCardData.msg);
                                         }
                                     }
                                 });
@@ -203,7 +188,7 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
                     public void onResult(boolean allGranted, List<String> grantedList, List<String> deniedList) {
                         if (allGranted) {
                             Intent intent = new Intent(Intent.ACTION_PICK,
-                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, DEVICE_PHOTO_REQUEST);
                         } else {
                             Toast.makeText(getApplicationContext(), "权限已拒绝", Toast.LENGTH_SHORT).show();
