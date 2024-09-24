@@ -3,14 +3,21 @@ package com.tools.payhelper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -44,6 +51,7 @@ import com.tools.payhelper.pay.ToastManager;
 import com.tools.payhelper.pay.ui.bankcard.AddBankCardData;
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog;
 
+import java.io.ByteArrayOutputStream;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -240,8 +248,11 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
                 if (data != null) {
                     try {
                         Uri uri = data.getData();
+                        bitmaptoBase(uri);
 
                         String imagePath = BitMapUtil.getPicturePathFromUri(this, uri);
+
+//                        Log.d("jack_photo",BitMapUtil.bitmapToString(imagePath));
 
                         //对获取到的二维码照片进行压缩
                         Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
@@ -306,6 +317,106 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
             e.printStackTrace();
             return null;
         }
+
+
+    }
+
+    private void bitmaptoBase(Uri uri){
+        Log.d("encode","in");
+
+
+        try {
+            //get the image path
+            String[] projection = {MediaStore.Images.Media.DATA};
+            CursorLoader cursorLoader = new CursorLoader(this,uri,projection,null,null,null);
+            Cursor cursor = cursorLoader.loadInBackground();
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+
+            String path = cursor.getString(column_index);
+            Log.d("encode","real path: "+path);
+            encode(path);
+        } catch (Exception ex) {
+            Log.e("encode", "failed." + ex.getMessage());
+        }
+    }
+
+
+
+    private void encode(String path) {
+
+
+        Bitmap bm = getSmallBitmap(path);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] b = baos.toByteArray();
+        Log.d("encode", "压缩后的大小=" + b.length);//1.5M的压缩后在100Kb以内，测试得值,压缩后的大小=94486,压缩后的大小=74473
+        //convert to byte array
+        Log("encode","encodeString: "+"data:image/png;base64,"+Base64.encodeToString(b,Base64.NO_WRAP));
+//        padd.setText(Base64.encodeToString(b,Base64.NO_WRAP));
+        copy(Base64.encodeToString(b,Base64.NO_WRAP),this);
+    }
+
+    //计算图片的缩放值
+    public static int calculateInSampleSize(BitmapFactory.Options options,int reqWidth, int reqHeight) {
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            final int heightRatio = Math.round((float) height/ (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+        return inSampleSize;
+    }
+
+    public static Bitmap getSmallBitmap(String filePath) {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, 240, 400);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+
+        return BitmapFactory.decodeFile(filePath, options);
+    }
+
+
+    public static void Log(String tag, String msg) {  //信息太长,分段打印
+        //因为String的length是字符数量不是字节数量所以为了防止中文字符过多，
+        //  把4*1024的MAX字节打印长度改为2001字符数
+        int max_str_length = 2001 - tag.length();
+        //大于4000时
+        while (msg.length() > max_str_length) {
+            Log.i(tag, msg.substring(0, max_str_length));
+            msg = msg.substring(max_str_length);
+
+        }
+        //剩余部分
+        Log.i(tag, msg);
+    }
+    public static void copy(String content, Context context)
+    {
+        // 得到剪贴板管理器
+        ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(content.trim());
+    }
+    /**
+     * 实现粘贴功能
+     * add by wangqianzhou
+     * @param context
+     * @return
+     */
+    public static String paste(Context context)
+    {
+        // 得到剪贴板管理器
+        ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+        return cmb.getText().toString().trim();
     }
 
 }
+

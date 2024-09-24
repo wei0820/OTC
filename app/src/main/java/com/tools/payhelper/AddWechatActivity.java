@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -32,6 +33,7 @@ import com.permissionx.guolindev.callback.ForwardToSettingsCallback;
 import com.permissionx.guolindev.callback.RequestCallback;
 import com.permissionx.guolindev.request.ExplainScope;
 import com.permissionx.guolindev.request.ForwardScope;
+import com.tools.payhelper.pay.BaseManager;
 import com.tools.payhelper.pay.ToastManager;
 import com.tools.payhelper.pay.ui.bankcard.AddBankCardData;
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog;
@@ -235,8 +237,16 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
 
                         String imagePath = BitMapUtil.getPicturePathFromUri(this, uri);
 
+                        Log.d("pppp","data:image/png;base64,"+BitMapUtil.bitmapToString(imagePath));
+                        Log.d("imageToBase64","data:image/png;base64,"+BaseManager.imageToBase64(imagePath,100));
+                        Log.d("imgToBase64","data:image/png;base64,"+BaseManager.imgToBase64(imagePath));
+
+
+
+
                         //对获取到的二维码照片进行压缩
                         Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
+
                         Result result = setZxingResult(generatedQRCode);
                         if (result == null) {
                             ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档");

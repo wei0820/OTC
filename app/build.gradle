@@ -196,6 +196,7 @@ dependencies {
 
 
     implementation 'com.gongwen:marqueelibrary:1.1.3'
+    implementation 'com.pixelcarrot.base64image:base64image:1.0.0'
 
 
 }
