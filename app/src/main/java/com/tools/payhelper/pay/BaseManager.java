@@ -112,7 +112,6 @@ public class BaseManager {
 
             String path = cursor.getString(column_index);
             Log.d("encode","real path: "+path);
-            encode(path);
         } catch (Exception ex) {
             Log.e("encode", "failed." + ex.getMessage());
         }
@@ -120,18 +119,22 @@ public class BaseManager {
 
 
 
-    public static  void encode(String path) {
+    public static  String  encode(String path,Context context) {
 
 
         Bitmap bm = getSmallBitmap(path);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        bm.compress(Bitmap.CompressFormat.JPEG, PayHelperUtils.getQuality(context), baos);
         byte[] b = baos.toByteArray();
         Log.d("encode", "压缩后的大小=" + b.length);//1.5M的压缩后在100Kb以内，测试得值,压缩后的大小=94486,压缩后的大小=74473
         //convert to byte array
         Log("encode","encodeString: "+"data:image/png;base64,"+Base64.encodeToString(b,Base64.NO_WRAP));
 //        padd.setText(Base64.encodeToString(b,Base64.NO_WRAP));
+
 //        copy(Base64.encodeToString(b,Base64.NO_WRAP),this);
+
+        return Base64.encodeToString(b,Base64.NO_WRAP);
+
     }
 
     //计算图片的缩放值

@@ -1,12 +1,6 @@
 package com.tools.payhelper;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.CursorLoader;
-
 import android.Manifest;
-import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -21,33 +15,32 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 
 import com.google.gson.Gson;
 import com.google.zxing.BinaryBitmap;
-import com.google.zxing.ChecksumException;
 import com.google.zxing.DecodeHintType;
-import com.google.zxing.FormatException;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.RGBLuminanceSource;
-import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.jingyu.pay.ui.bankcard.BankCardDateModel;
-import com.jingyu.pay.ui.bankcard.BankCardListActivity;
 import com.permissionx.guolindev.PermissionX;
 import com.permissionx.guolindev.callback.ExplainReasonCallback;
 import com.permissionx.guolindev.callback.ForwardToSettingsCallback;
 import com.permissionx.guolindev.callback.RequestCallback;
 import com.permissionx.guolindev.request.ExplainScope;
 import com.permissionx.guolindev.request.ForwardScope;
-import com.tools.payhelper.pay.BaseManager;
+import com.tools.payhelper.pay.PayHelperUtils;
 import com.tools.payhelper.pay.ToastManager;
 import com.tools.payhelper.pay.ui.bankcard.AddBankCardData;
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog;
@@ -57,7 +50,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class Main22Activity extends AppCompatActivity implements View.OnClickListener {
+public class UploadAliPayPhotoActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText  name,tel,googleedt,usernaem,eusername,payedt,pd;
     private AddPayCardDialog.OnAddCallback onAddCallback;
     private AddPayCardDialog.OnAddBanKListCallback onAddBanKListCallback;
@@ -68,6 +61,7 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
     public static final String WRITE_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     public static final int SCAN_RESULT = 1120;
     public final static int DEVICE_PHOTO_REQUEST = 1234;
+    public String photobaseurl = "";
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
     private Button messageButton;
     public void setOnAddCallback(AddPayCardDialog.OnAddCallback onAddCallback) {
@@ -91,7 +85,7 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        setContentView(R.layout.activity_main22);
+        setContentView(R.layout.activity_uploadphoto);
         initView();
     }
 
@@ -115,7 +109,7 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
 
 
         findViewById(R.id.closeBtn).setOnClickListener(v -> {
-            Main22Activity.this.finish();
+            UploadAliPayPhotoActivity.this.finish();
 
         });
 
@@ -125,15 +119,15 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String n = "支付宝扫码";
-                String p = pd.getText().toString();
-                String t = padd.getText().toString();
+                String n = "支付宝扫码(原图)";
+                String p =  pd.getText().toString();
+                String t =  photobaseurl;
                 String google = googleedt.getText().toString();
                 String username = usernaem.getText().toString();
                 String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(Main22Activity.this, n, p, t, payF, google, username, euserName, new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(UploadAliPayPhotoActivity.this, n, p, t, payF, google, username, euserName, new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){
@@ -143,14 +137,14 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
                                     @Override
                                     public void run() {
                                         if (addBankCardData.code==0){
-                                            ToastManager.showToastCenter(Main22Activity.this,addBankCardData.msg);
-                                            Main22Activity.this.finish();
+                                            ToastManager.showToastCenter(UploadAliPayPhotoActivity.this,addBankCardData.msg);
+                                            UploadAliPayPhotoActivity.this.finish();
 //                                            Intent intent = new Intent();
 //                                            intent.setClass(Main22Activity.this, BankCardListActivity.class);
 //                                            startActivity(intent);
 
                                         }else {
-                                            ToastManager.showToastCenter(Main22Activity.this,addBankCardData.msg);
+                                            ToastManager.showToastCenter(UploadAliPayPhotoActivity.this,addBankCardData.msg);
                                         }
                                     }
                                 });
@@ -203,7 +197,7 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
                     public void onResult(boolean allGranted, List<String> grantedList, List<String> deniedList) {
                         if (allGranted) {
                             Intent intent = new Intent(Intent.ACTION_PICK,
-                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, DEVICE_PHOTO_REQUEST);
                         } else {
                             Toast.makeText(getApplicationContext(), "权限已拒绝", Toast.LENGTH_SHORT).show();
@@ -249,18 +243,22 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
                 if (data != null) {
                     try {
                         Uri uri = data.getData();
+                        bitmaptoBase(uri,this);
 
-                        String imagePath = BitMapUtil.getPicturePathFromUri(this, uri);
 
+//                        String imagePath = BitMapUtil.getPicturePathFromUri(this, uri);
+//
+//
+//                        //对获取到的二维码照片进行压缩
+//                        Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
+//                        Result result = setZxingResult(generatedQRCode);
+//                        if (result == null) {
+//                            ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档");
+//                        } else {
+//                            padd.setText(result.getText());
+//                        }
+                        padd.setText("解析完成");
 
-                        //对获取到的二维码照片进行压缩
-                        Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
-                        Result result = setZxingResult(generatedQRCode);
-                        if (result == null) {
-                            ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档");
-                        } else {
-                            padd.setText(result.getText());
-                        }
                     }catch (Exception e){
                         ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档"+e.getLocalizedMessage());
                     }
@@ -320,6 +318,94 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    public   void bitmaptoBase(Uri uri, Context context){
+        Log.d("encode","in");
+
+
+        try {
+            //get the image path
+            String[] projection = {MediaStore.Images.Media.DATA};
+            CursorLoader cursorLoader = new CursorLoader(context,uri,projection,null,null,null);
+            Cursor cursor = cursorLoader.loadInBackground();
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+
+            String path = cursor.getString(column_index);
+            Log.d("encode","real path: "+path);
+            encode(path,this);
+        } catch (Exception ex) {
+            Log.e("encode", "failed." + ex.getMessage());
+        }
+    }
+
+
+
+    public  void  encode(String path,Context context) {
+
+
+        Bitmap bm = getSmallBitmap(path);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, PayHelperUtils.getQuality(context), baos);
+        byte[] b = baos.toByteArray();
+        Log.d("encode", "压缩后的大小=" + b.length);//1.5M的压缩后在100Kb以内，测试得值,压缩后的大小=94486,压缩后的大小=74473
+        //convert to byte array
+        Log("encode","encodeString: "+"data:image/png;base64,"+ Base64.encodeToString(b,Base64.NO_WRAP));
+//        padd.setText(Base64.encodeToString(b,Base64.NO_WRAP));
+
+        copy(Base64.encodeToString(b,Base64.NO_WRAP),this);
+        photobaseurl = Base64.encodeToString(b,Base64.NO_WRAP);
+
+
+
+    }
+    //计算图片的缩放值
+    public  int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            final int heightRatio = Math.round((float) height/ (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+        return inSampleSize;
+    }
+
+    public  Bitmap getSmallBitmap(String filePath) {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, 240, 400);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+
+        return BitmapFactory.decodeFile(filePath, options);
+    }
+
+
+    public  void Log(String tag, String msg) {  //信息太长,分段打印
+        //因为String的length是字符数量不是字节数量所以为了防止中文字符过多，
+        //  把4*1024的MAX字节打印长度改为2001字符数
+        int max_str_length = 2001 - tag.length();
+        //大于4000时
+        while (msg.length() > max_str_length) {
+            Log.i(tag, msg.substring(0, max_str_length));
+            msg = msg.substring(max_str_length);
+
+        }
+        //剩余部分
+        Log.i(tag, msg);
+    }
+    public  void copy(String content, Context context)
+    {
+        // 得到剪贴板管理器
+        ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(content.trim());
+    }
 
 
 }

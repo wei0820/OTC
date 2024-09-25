@@ -4,7 +4,8 @@
     "data": {
         "versionCode": 53,
         "versionName": "1.0.53",
-        "url": "https://pay.colorwin.com/apk/juyingotcpay.apk"
+        "url": "https://pay.colorwin.com/apk/juyingotcpay.apk",
+        "quality":"40"
        
     }
 }
