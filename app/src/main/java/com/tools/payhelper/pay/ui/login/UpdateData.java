@@ -19,6 +19,7 @@ public class UpdateData {
         public  Integer versionCode;
         @SerializedName("url")
         public String  url;
-
+        @SerializedName("quality")
+        public int  quality;
     }
 }

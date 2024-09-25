@@ -22,6 +22,8 @@ import com.jingyu.pay.ui.login.LoginActivity
 import com.tools.payhelper.AddWechatActivity
 import com.tools.payhelper.Main22Activity
 import com.tools.payhelper.R
+import com.tools.payhelper.UploadAliPayPhotoActivity
+import com.tools.payhelper.UploadPhotoActivity
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.bankcard.AddBankDialog
@@ -104,7 +106,7 @@ class BankCardListActivity : AppCompatActivity() {
     fun addAlert(){
         lunch = listOf(getString(R.string.add_bankcard),
             getString(R.string.add_pay),  getString(R.string.add_scan),getString(R.string.add_wechat),getString(R.string.add_wechat_phone)
-        ,getString(R.string.add_bank))
+        ,getString(R.string.add_bank),getString(R.string.add_upload),getString(R.string.add_upload2))
         AlertDialog.Builder(this@BankCardListActivity)
             .setItems(lunch.toTypedArray()) { _, which ->
                 val name = lunch[which]
@@ -173,6 +175,17 @@ class BankCardListActivity : AppCompatActivity() {
                             }
                         }
                         dialog.show()
+                    }
+
+                    getString(R.string.add_upload) -> {
+                        val intent  = Intent()
+                        intent.setClass(this, UploadPhotoActivity::class.java)
+                        startActivity(intent)
+                    }
+                    getString(R.string.add_upload2) -> {
+                        val intent  = Intent()
+                        intent.setClass(this, UploadAliPayPhotoActivity::class.java)
+                        startActivity(intent)
                     }
 
                 }
@@ -244,6 +257,8 @@ class BankCardListActivity : AppCompatActivity() {
                 var subName : TextView
                 var userName : TextView
                 var pinName : TextView
+            var lockName : TextView
+
 
 
             init {
@@ -254,7 +269,7 @@ class BankCardListActivity : AppCompatActivity() {
                 subName = view.findViewById(R.id.subname)
                 userName = view.findViewById(R.id.username)
                 pinName = view.findViewById(R.id.pin)
-
+                lockName= view.findViewById(R.id.lock)
             }
         }
 
@@ -271,6 +286,18 @@ class BankCardListActivity : AppCompatActivity() {
             holder.subName.text = info.subName
             holder.userName.text = info.userName
             holder.pinName.text = info.pinYin
+            if (info.lock!=null){
+                if (!info.lock.isEmpty()){
+                    holder.lockName.text =  "备注" +info.lock
+                }else {
+                    holder.lockName.text = "备注" + ""
+
+                }
+
+            }else{
+                holder.lockName.text = "备注" + ""
+            }
+
 
             holder.switchButton.isChecked = info.isEnable
 

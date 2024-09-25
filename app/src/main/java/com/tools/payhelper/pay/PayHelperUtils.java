@@ -361,6 +361,18 @@ public class PayHelperUtils {
         return sharedPreferences.getBoolean(Constant.CHECKGOOGLE, true);
     }
 
+    // quality
+    public static void saveQuality(Context context, int token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.QUALITY, Context.MODE_PRIVATE).edit();
+        edit.putInt(Constant.QUALITY, token).apply();
+    }
+
+    public static int getQuality(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.QUALITY, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getInt(Constant.QUALITY, 40);
+    }
 
 
     // 存銀行卡列表 全部

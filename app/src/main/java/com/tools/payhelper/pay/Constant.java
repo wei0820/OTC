@@ -49,6 +49,7 @@ public class Constant {
 
     final static  String CHECKGOOGLE = "CHECKGOOGLE";
 
+    final static  String QUALITY = "QUALITY";
 
 
 

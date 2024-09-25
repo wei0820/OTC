@@ -18,15 +18,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.jingyu.pay.BasicActivity
-import com.tools.payhelper.pay.ui.login.MainActivity
 import com.tools.payhelper.R
+import com.tools.payhelper.SystemUtil
 import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
+import com.tools.payhelper.pay.ui.login.MainActivity
 import com.tools.payhelper.ui.login.LoginViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.String
 
 
 class LoginActivity : BasicActivity() {
@@ -43,6 +43,7 @@ class LoginActivity : BasicActivity() {
     var tokenString = "test"
 
 
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +55,7 @@ class LoginActivity : BasicActivity() {
         _versiontext = findViewById(R.id.vertext);
         _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
         _versiontext.visibility = View.GONE
-
         check()
-        checkVresion()
-
 
 
         loginButton.setOnClickListener {
@@ -84,7 +82,9 @@ class LoginActivity : BasicActivity() {
                 return@setOnClickListener
 
             }
-//            loginViewModel.getUserData(loginid,PayHelperUtils.md5(password),code)
+
+
+
 
             loginViewModel.getUserToken(loginid,PayHelperUtils.md5(password),code).observe(this, Observer {
 
@@ -93,21 +93,17 @@ class LoginActivity : BasicActivity() {
                         if (it.code==1){
                             if(!it.msg.isEmpty()){
                                 ToastManager.showToastCenter(this,it.msg)
-
                                 loginButton.isEnabled = true
                                 loginButton.isClickable = true;
-
                                 progressDialog.dismiss()
                                 return@runOnUiThread
 
                             }else{
                                 ToastManager.showToastCenter(this,"请求异常 无法无法连线到远程服务器")
 
-                                loginButton.isEnabled = true
-                                loginButton.isClickable = true;
-
                                 progressDialog.dismiss()
                                 return@runOnUiThread
+
                             }
                         }else{
                             progressDialog.hide()
@@ -148,6 +144,12 @@ class LoginActivity : BasicActivity() {
     fun  checkVresion(){
         lifecycleScope.launch {
             loginViewModel._version.collect {
+                if (it!=null){
+                    if(it.data.quality!=null){
+                        PayHelperUtils.saveQuality(this@LoginActivity,it.data.quality)
+                    }
+                }
+
                 if (PayHelperUtils.getVersionCode()<it.data.versionCode){
                     val dialog = UpdateAlertDialog(this@LoginActivity,it.data.url)
                     dialog.setMessage(String.format("欢迎使用%s原生V%s版本",
@@ -240,5 +242,12 @@ class LoginActivity : BasicActivity() {
         // toast a message as "cancelled"
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        checkVresion()
+
+    }
+    
 
 }
