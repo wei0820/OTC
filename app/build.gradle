@@ -86,7 +86,7 @@ android {
             def date = new Date().format("yyyyMMdd" , TimeZone.getTimeZone("GMT+08"))
             if(variant.buildType.name.equals('debug')){
                 ///"commonui_${date}_${versionName}.apk"
-                outputFileName = "jingyuotcpay-v${variant.versionName}.apk"
+                outputFileName = "geelyotc-v${variant.versionName}.apk"
             }
             if(variant.buildType.name.equals('release')){
                 outputFileName = "commonpop_${versionName}.apk"
