@@ -20,13 +20,13 @@ import java.util.concurrent.TimeUnit
 
 class LoginDateModel {
 
-    fun setUserLogin(loginid:String,password:String,code:String,loginrResponse: LoginrResponse){
+    fun setUserLogin(context: Context,loginid:String,password:String,code:String,loginrResponse: LoginrResponse){
         var jsonObject= JSONObject()
         jsonObject.put("loginid",loginid)
         jsonObject.put("password",password)
         jsonObject.put("code",code)
         jsonObject.put("roleName","会员")
-        jsonObject.put("IP","125.119.224.148")
+        jsonObject.put("IP",PayHelperUtils.getDeviceIP(context))
         jsonObject.put("version","v8")
         jsonObject.put("ismobile","Android_"+PayHelperUtils.getVersionName()+"_userDevice_"+ SystemUtil.getUserDevice())
 

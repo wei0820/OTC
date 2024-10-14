@@ -56,7 +56,7 @@ class LoginActivity : BasicActivity() {
         _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
         _versiontext.visibility = View.GONE
         check()
-
+        PayHelperUtils.getLocalIpAddress(this)
 
         loginButton.setOnClickListener {
             loginButton.isEnabled = false
@@ -86,7 +86,7 @@ class LoginActivity : BasicActivity() {
 
 
 
-            loginViewModel.getUserToken(loginid,PayHelperUtils.md5(password),code).observe(this, Observer {
+            loginViewModel.getUserToken(this,loginid,PayHelperUtils.md5(password),code).observe(this, Observer {
 
                 if (it!=null){
                     runOnUiThread {

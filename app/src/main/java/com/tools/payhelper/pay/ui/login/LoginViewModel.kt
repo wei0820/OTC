@@ -27,8 +27,8 @@ class LoginViewModel : ViewModel() {
     }
 
 
-    fun getUserToken(loginid:String,password:String,code:String) : LiveData<LoginData>{
-        homeViewModel.setUserLogin(loginid,password,code, object : LoginDateModel.LoginrResponse {
+    fun getUserToken(context: Context,loginid:String,password:String,code:String) : LiveData<LoginData>{
+        homeViewModel.setUserLogin(context,loginid,password,code, object : LoginDateModel.LoginrResponse {
             override fun getResponse(s: String) {
                 if (!s.isEmpty()){
                     viewModelScope.launch {

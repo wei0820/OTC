@@ -28,7 +28,7 @@ import java.util.List;
 public class PayHelperUtils {
 
 
-    public static  String getLocalIpAddress() {
+    public static  String getLocalIpAddress(Context context) {
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
                 NetworkInterface intf = en.nextElement();
@@ -37,6 +37,7 @@ public class PayHelperUtils {
                     if (!inetAddress.isLoopbackAddress()) {
                         String ip = Formatter.formatIpAddress(inetAddress.hashCode());
                         Log.d("Jack", "***** IP="+ ip);
+                        PayHelperUtils.saveDeviceIP(context,ip);
                         return ip;
                     }
                 }
