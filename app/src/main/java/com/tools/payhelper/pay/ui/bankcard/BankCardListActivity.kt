@@ -105,8 +105,8 @@ class BankCardListActivity : AppCompatActivity() {
 
     fun addAlert(){
         lunch = listOf(getString(R.string.add_bankcard),
-            getString(R.string.add_pay),  getString(R.string.add_scan),getString(R.string.add_wechat),getString(R.string.add_wechat_phone)
-        ,getString(R.string.add_bank),getString(R.string.add_upload),getString(R.string.add_upload2))
+            getString(R.string.add_pay),  getString(R.string.add_scan),getString(R.string.add_upload2),getString(R.string.add_wechat),getString(R.string.add_upload),getString(R.string.add_wechat_phone)
+        ,getString(R.string.add_bank))
         AlertDialog.Builder(this@BankCardListActivity)
             .setItems(lunch.toTypedArray()) { _, which ->
                 val name = lunch[which]

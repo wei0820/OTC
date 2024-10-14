@@ -41,8 +41,8 @@
     <string name="add_wechat_phone">新增微信转账</string>
     <string name="add_bank">新增数字人民币</string>
 
-    <string name="add_upload">新增微信扫码(原图)</string>
-    <string name="add_upload2">支付宝扫码(原图)</string>
+    <string name="add_upload">微信原图（无法解析时选）</string>
+    <string name="add_upload2">支付宝原图（无法解析时选）</string>
 
 
     <string-array name="planets_array">
