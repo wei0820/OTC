@@ -22,6 +22,9 @@ public class Constant {
 
     final static  String USER_TOKEN = "USERTOKEN";
 
+    final static  String DEVICE_IP = "DEVICEIP";
+
+
 
 
     final static  String LOGIN_USER_TOKEN = "LOGIN_USER_TOKEN";

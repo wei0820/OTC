@@ -73,7 +73,18 @@ public class PayHelperUtils {
         }
     }
 
+    // 存ip
+    public static void saveDeviceIP(Context context, String ip) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.DEVICE_IP, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.DEVICE_IP, ip).apply();
+    }
 
+    public static String getDeviceIP(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.DEVICE_IP, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.DEVICE_IP, "125.119.224.148");
+    }
 
 
     // 存token
