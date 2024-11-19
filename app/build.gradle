@@ -67,13 +67,20 @@ android {
         }
         buildTypes {
             debug {
-                minifyEnabled false
+                // 启用代码压缩、优化和混淆（由R8或者ProGuard执行）
+                minifyEnabled true
+                // 启用资源压缩（由Android Gradle plugin执行）
+                shrinkResources true
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                buildConfigField "boolean", "LOG_ENABLE", "true"
+                buildConfigField "boolean", "LOG_ENABLE", "false"
 
             }
             release {
+                // 启用代码压缩、优化和混淆（由R8或者ProGuard执行）
                 minifyEnabled true
+                // 启用资源压缩（由Android Gradle plugin执行）
+                shrinkResources true
+
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
                 buildConfigField "boolean", "LOG_ENABLE", "false"
 

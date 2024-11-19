@@ -2,18 +2,15 @@ package com.jingyu.pay.ui.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.media.AudioManager
 import android.media.SoundPool
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -30,7 +27,6 @@ import com.tools.payhelper.pay.ui.home.BuyData
 import com.tools.payhelper.pay.ui.order.PaymentMatchingData
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
-import com.jingyu.pay.ui.home.HomeFragment
 import com.tools.payhelper.databinding.FragmentHomeBinding
 import com.tools.payhelper.pay.AppManagerViewModel
 import com.tools.payhelper.ui.login.AppManagerViewModelFactory
@@ -127,17 +123,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
         setBuySetting()
         getBuyList()
-
-//
-//        appManagerViewModel.getUserInfo(requireActivity()).observe(requireActivity(), Observer {
-//            Log.d("Jack","appManagerViewModel")
-//
-//            if (it.data!=null){
-//                Log.d("Jack",it.code.toString())
-//                Log.d("Jack",it.data.toString())
-//
-//            }
-//        })
 
 
         spinner = root.findViewById(R.id.spinner)
@@ -348,9 +333,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     }
     fun setBuySetting(){
-
-
-
 
         val maxString =
             if (PayHelperUtils.getBuyMax(activity).isEmpty()) "99999" else PayHelperUtils.getBuyMax(
@@ -682,10 +664,8 @@ class HomeFragment : Fragment() ,Handler.Callback{
                 val sPos = pos.toString()
                 val sInfo = parent.getItemAtPosition(pos).toString()
                 //String sInfo=parent.getSelectedItem().toString();
-                Log.d("Jack","選項$sPos:$sInfo")
 //                getSelectList(dateString,sInfo)
                 getBuyList(sInfo)
-
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

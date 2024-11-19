@@ -62,8 +62,8 @@ class LoginActivity : BasicActivity() {
             loginButton.isEnabled = false
             loginButton.isClickable = false;
             progressDialog = ProgressDialog(this)
-            progressDialog.setTitle("Please Wait")
-            progressDialog.setMessage("Loading ...")
+            progressDialog.setTitle("请稍候")
+            progressDialog.setMessage("登入中 ...")
             progressDialog.setCancelable(true) // blocks UI interaction
             progressDialog.show()
 
@@ -126,7 +126,6 @@ class LoginActivity : BasicActivity() {
                         ToastManager.showToastCenter(this,"请求异常 无法无法连线到远程服务器")
                         loginButton.isEnabled = true
                         loginButton.isClickable = true;
-
                         progressDialog.dismiss()
                     }
 
