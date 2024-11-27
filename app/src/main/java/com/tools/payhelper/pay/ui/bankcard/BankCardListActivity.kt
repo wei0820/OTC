@@ -17,8 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-import com.jingyu.pay.ui.group.*
-import com.jingyu.pay.ui.login.LoginActivity
 import com.tools.payhelper.AddWechatActivity
 import com.tools.payhelper.Main22Activity
 import com.tools.payhelper.R
@@ -27,6 +25,7 @@ import com.tools.payhelper.UploadPhotoActivity
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.bankcard.AddBankDialog
+import com.tools.payhelper.AddBankQrcodeActivity
 import com.tools.payhelper.pay.ui.bankcard.AddCardDialog
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog
 import com.tools.payhelper.pay.ui.bankcard.AddWechatPhoneDialog
@@ -105,7 +104,7 @@ class BankCardListActivity : AppCompatActivity() {
 
     fun addAlert(){
         lunch = listOf(getString(R.string.add_bankcard),
-            getString(R.string.add_pay),  getString(R.string.add_scan),getString(R.string.add_upload2),getString(R.string.add_wechat),getString(R.string.add_upload),getString(R.string.add_wechat_phone)
+            getString(R.string.add_pay),  getString(R.string.add_scan),getString(R.string.add_upload3),getString(R.string.add_upload2),getString(R.string.add_wechat),getString(R.string.add_upload),getString(R.string.add_wechat_phone)
         ,getString(R.string.add_bank))
         AlertDialog.Builder(this@BankCardListActivity)
             .setItems(lunch.toTypedArray()) { _, which ->
@@ -185,6 +184,12 @@ class BankCardListActivity : AppCompatActivity() {
                     getString(R.string.add_upload2) -> {
                         val intent  = Intent()
                         intent.setClass(this, UploadAliPayPhotoActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    getString(R.string.add_upload3) -> {
+                        val intent  = Intent()
+                        intent.setClass(this, AddBankQrcodeActivity::class.java)
                         startActivity(intent)
                     }
 
