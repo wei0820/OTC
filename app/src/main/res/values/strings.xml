@@ -43,7 +43,7 @@
 
     <string name="add_upload">微信原图（无法解析时选）</string>
     <string name="add_upload2">支付宝原图（无法解析时选）</string>
-    <string name="add_upload3">联银扫码</string>
+    <string name="add_upload3">银联扫码</string>
 
 
     <string-array name="planets_array">
