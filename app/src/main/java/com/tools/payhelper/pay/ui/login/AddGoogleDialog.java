@@ -97,6 +97,11 @@ public class AddGoogleDialog extends AlertDialog {
         loginDateModel.getGoogle(activity,new LoginDateModel.LoginrResponse() {
 
             @Override
+            public void getErrorResponse(@NonNull String s) {
+
+            }
+
+            @Override
             public void getResponse(@NonNull String s) {
                 if (!s.isEmpty()){
                     googleData = new Gson().fromJson(s,GoogleData.class);
@@ -161,6 +166,11 @@ public class AddGoogleDialog extends AlertDialog {
 
     public void setgooleKey(String key,String code){
         loginDateModel.setGoogleKey(activity,key, code, new LoginDateModel.LoginrResponse() {
+            @Override
+            public void getErrorResponse(@NonNull String s) {
+
+            }
+
             @Override
             public void getResponse(@NonNull String s) {
                 activity.runOnUiThread(new Runnable() {

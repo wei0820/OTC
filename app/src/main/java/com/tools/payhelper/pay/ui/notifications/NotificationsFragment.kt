@@ -156,6 +156,13 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
                 PayHelperUtils.saveBank(context,"0")
 
             }
+            if (it.data.unionRebate!=null){
+                PayHelperUtils.saveBank2(context,it.data.unionRebate.toString())
+
+            }else{
+                PayHelperUtils.saveBank2(context,"0")
+
+            }
 
 
             text1.text = it.data.commission.toString()

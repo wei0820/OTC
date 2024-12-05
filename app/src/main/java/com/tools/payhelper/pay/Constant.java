@@ -36,6 +36,7 @@ public class Constant {
     final static  String USER_REBATE = "USER_REBATE";
     final static  String USER_WECHAT = "USER_WECHAT";
     final static  String USER_BANK = "USER_BANK";
+    final static  String USER_BANK2 = "USER_BANK2";
 
 
     final static  String USER_PAYMENTXEREBATE = "USER_PAYMENTXEREBATE";

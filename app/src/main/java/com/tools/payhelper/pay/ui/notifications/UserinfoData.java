@@ -14,6 +14,7 @@ public class UserinfoData {
         @SerializedName("alipayRebate") public  float alipayRebate;
         @SerializedName("weChatRebate") public  float wechatrebate;
         @SerializedName("drmbRebate") public  float drmbRebate;
+        @SerializedName("unionRebate") public  float unionRebate;
         @SerializedName("quota") public  float quota;
         @SerializedName("frozen") public  float frozen;
         @SerializedName("payment") public  float payment;

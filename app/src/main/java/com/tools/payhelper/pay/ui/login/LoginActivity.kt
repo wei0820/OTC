@@ -100,7 +100,6 @@ class LoginActivity : BasicActivity() {
 
                             }else{
                                 ToastManager.showToastCenter(this,"请求异常 无法无法连线到远程服务器")
-
                                 progressDialog.dismiss()
                                 return@runOnUiThread
 

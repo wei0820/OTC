@@ -32,7 +32,7 @@ public class AddGroupDialog extends AlertDialog {
     private OnAddBanKListCallback onAddBanKListCallback;
     private Dialog dialog;
     private Switch aSwitch;
-    private  EditText textView,textView2,textiew22,wechattext,banktext;
+    private  EditText textView,textView2,textiew22,wechattext,banktext,unionRebatetext;
     private Handler handlerLoading = new Handler();
     GroupDateModel groupDateModel = new GroupDateModel();
     public void setOnAddCallback(OnAddCallback onAddCallback) {
@@ -84,25 +84,27 @@ public class AddGroupDialog extends AlertDialog {
         textiew22 = findViewById(R.id.text22);
         wechattext = findViewById(R.id.wechattext);
         banktext = findViewById(R.id.banktext);
+        unionRebatetext = findViewById(R.id.unionRebatetext);
         tel = findViewById(R.id.teledt);
         String maxString = PayHelperUtils.getRebate(activity).isEmpty() ? "" : PayHelperUtils.getRebate(activity);
         String minString = PayHelperUtils.getPaymentXeRebate(activity).isEmpty() ? "" : PayHelperUtils.getPaymentXeRebate(activity);
         String alipayRebate = PayHelperUtils.getAlipayRebate(activity).isEmpty()? "" : PayHelperUtils.getAlipayRebate(activity);
         String wechatRebate = PayHelperUtils.getWechat(activity).isEmpty()? "" : PayHelperUtils.getWechat(activity);
         String bankRebate = PayHelperUtils.getBank(activity).isEmpty()? "" : PayHelperUtils.getBank(activity);
+        String unionRebate = PayHelperUtils.getBank2(activity).isEmpty()? "" : PayHelperUtils.getBank2(activity);
 
 
 
 
         TextView message = findViewById(R.id.message);
         message.setText("您的佣金比例:\n"+"卖币:"+maxString+"\n"+"小额买币:"+minString+"\n"+"支付宝卖币:"+alipayRebate+"\n"+"微信卖币:"+wechatRebate
-        +"\n"+"数字人民币:"+bankRebate);
+        +"\n"+"数字人民币:"+bankRebate +"\n"+"银联:"+unionRebate);
         textView.setText(maxString);
         textView2.setText(minString);
         textiew22.setText(alipayRebate);
         wechattext.setText(wechatRebate);
         banktext.setText(bankRebate);
-
+        unionRebatetext.setText(unionRebate);
         view.findViewById(R.id.closeBtn).setOnClickListener(v -> {
             view.setEnabled(false);
             new Handler().postDelayed(() -> view.setEnabled(true), 500);
@@ -126,7 +128,7 @@ public class AddGroupDialog extends AlertDialog {
                 Double aa = Double.parseDouble(textiew22.getText().toString());
                 Double wechatDb = Double.parseDouble(wechattext.getText().toString());
                 Double bankDb = Double.parseDouble(banktext.getText().toString());
-
+                Double unionRebateDB = Double.parseDouble(unionRebatetext.getText().toString());
 
                 groupDateModel.getGroupRegister(activity, n, p, t,
                         re,
@@ -134,6 +136,7 @@ public class AddGroupDialog extends AlertDialog {
                         aa,
                         wechatDb,
                         bankDb,
+                        unionRebateDB,
                         new GroupDateModel.GroupResponse() {
                             @Override
                             public void getResponse(@NonNull String s) {

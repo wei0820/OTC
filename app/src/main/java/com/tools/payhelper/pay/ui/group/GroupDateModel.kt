@@ -192,6 +192,7 @@ class GroupDateModel {
                          AlipayRebate:Double,
                          wechatrebate: Double,
                          drmbRebate : Double,
+                         unionRebate : Double,
                          groupResponse: GroupResponse){
 
         var jsonObject= JSONObject()
@@ -203,6 +204,8 @@ class GroupDateModel {
         jsonObject.put("AlipayRebate",AlipayRebate)
         jsonObject.put("WeChatRebate",wechatrebate)
         jsonObject.put("drmbRebate",drmbRebate)
+        jsonObject.put("unionRebate",unionRebate)
+
 
 
 

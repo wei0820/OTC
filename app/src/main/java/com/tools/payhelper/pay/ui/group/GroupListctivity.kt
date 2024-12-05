@@ -135,6 +135,8 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
         var alipayRebate : TextView
         var wechatRebate : TextView
         var drmbRebate : TextView
+        var unionRebate : TextView
+
 
 
         init {
@@ -147,6 +149,7 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
             alipayRebate = view.findViewById(R.id.alipayRebate)
             wechatRebate = view.findViewById(R.id.wechatRebate)
             drmbRebate = view.findViewById(R.id.drmbRebate)
+            unionRebate = view.findViewById(R.id.unionRebate)
 
 
         }
@@ -181,6 +184,15 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
             holder.drmbRebate.text =  "数字人民币佣金￥" + info.drmbRebate
 
         }
+        if (info.unionRebate==null){
+            holder.unionRebate.text =  "银联佣金￥" +  "0"
+
+        }else{
+            holder.unionRebate.text =  "银联佣金￥" + info.unionRebate
+
+        }
+
+
 
     }
 

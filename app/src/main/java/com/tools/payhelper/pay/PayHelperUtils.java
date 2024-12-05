@@ -273,6 +273,18 @@ public class PayHelperUtils {
 
 
 
+    public static void saveBank2(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_BANK2, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_BANK2, token).apply();
+    }
+
+    public static String getBank2(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_BANK2, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_BANK2, "0");
+    }
+
 
 
 

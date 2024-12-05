@@ -36,6 +36,15 @@ class LoginViewModel : ViewModel() {
                         token.value = userData
 
                     }
+                }else{
+                    token.value =null
+                }
+
+            }
+
+            override fun getErrorResponse(s: String) {
+                if (!s.isEmpty()){
+                    token.value = null
                 }
 
             }
@@ -116,25 +125,29 @@ class LoginViewModel : ViewModel() {
                 }
             }
 
+            override fun getErrorResponse(s: String) {
+
+            }
+
         })
         return  data
     }
 
-    fun  getVersionUpdate(context: Context): LiveData<UpdateData>{
-        homeViewModel.getVersionUpdate(context, object : LoginDateModel.LoginrResponse {
-            override fun getResponse(s: String) {
-                if (!s.isEmpty()){
-                    viewModelScope.launch {
-                        var up = Gson().fromJson(s,UpdateData::class.java);
-                        update.value = up
-
-                    }
-                }
-            }
-
-        })
-        return  update
-    }
+//    fun  getVersionUpdate(context: Context): LiveData<UpdateData>{
+//        homeViewModel.getVersionUpdate(context, object : LoginDateModel.LoginrResponse {
+//            override fun getResponse(s: String) {
+//                if (!s.isEmpty()){
+//                    viewModelScope.launch {
+//                        var up = Gson().fromJson(s,UpdateData::class.java);
+//                        update.value = up
+//
+//                    }
+//                }
+//            }
+//
+//        })
+//        return  update
+//    }
 
 
 

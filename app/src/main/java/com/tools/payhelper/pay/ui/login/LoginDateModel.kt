@@ -54,6 +54,11 @@ class LoginDateModel {
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
+                if (!e.localizedMessage.isEmpty()){
+                    loginrResponse.getErrorResponse(e.localizedMessage)
+                }
+
+
 
             }
 
@@ -248,5 +253,6 @@ class LoginDateModel {
 
     interface LoginrResponse{
         fun getResponse(s : String)
+        fun getErrorResponse(s : String)
     }
 }

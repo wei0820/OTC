@@ -28,6 +28,8 @@ public class GroupListData {
         @SerializedName("weChatRebate") public  float wechatrebate;
 
         @SerializedName("drmbRebate") public  float drmbRebate;
+        @SerializedName("unionRebate") public  float unionRebate;
+
 
 
 
