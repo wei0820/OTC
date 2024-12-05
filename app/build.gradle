@@ -31,10 +31,12 @@ android {
         }
     }
     productFlavors {
-        luckyPay {
+        duobaoPay {
             resValue "string", "app_name", "多宝"
             applicationId "com.duobao"
-            manifestPlaceholders = [app_icon: "@drawable/img_duobao"]
+            manifestPlaceholders = [APPICON: "@drawable/img_duobao",
+                                    APPTHEME: "@style/Theme.JingyuPay",]
+
             buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
             buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
             buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
@@ -52,7 +54,8 @@ android {
         otcPay {
             resValue "string", "app_name", "聚宝OTC"
             applicationId "com.jingyu.otc"
-            manifestPlaceholders = [app_icon: "@drawable/img_otc"]
+            manifestPlaceholders = [APPICON: "@drawable/img_otc",
+                                    APPTHEME: "@style/Theme.JingyuPay",]
             buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
             buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
             buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
@@ -65,6 +68,27 @@ android {
 
 
         }
+        geelyPay{
+            resValue "string", "app_name", "GEELY OTC"
+            applicationId "com.geelyotc.pay"
+
+
+            manifestPlaceholders = [
+                    APPICON: "@drawable/favicon",
+                    APPTHEME : "@style/Theme.geely", //JPush上注册的包名对应的appkey.
+            ]
+
+            buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
+            buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
+            buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
+            buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
+            buildConfigField "String", "ELK_TYPE", "\"payhelper\""
+            buildConfigField "String", "UPDATE_URL", "\"https://pay.17otc.com/apk/version.json\""
+            buildConfigField "String", "md5key", "\"2io#ejQO\""
+            buildConfigField "String", "API_URL", "\"https://api.17otc.com/\""
+            buildConfigField "String", "EXRATE_URL", "\"https://pay.17otc.com/exrate.json\""
+        }
+
         buildTypes {
             debug {
                 minifyEnabled false
