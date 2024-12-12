@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.ui.login.*
 import com.tools.payhelper.pay.ui.notifications.UserinfoData
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +31,8 @@ class LoginViewModel : ViewModel() {
     fun getUserToken(context: Context,loginid:String,password:String,code:String) : LiveData<LoginData>{
         homeViewModel.setUserLogin(context,loginid,password,code, object : LoginDateModel.LoginrResponse {
             override fun getResponse(s: String) {
+                Log.d("Jack", s)
+
                 if (!s.isEmpty()){
                     viewModelScope.launch {
                         var userData = Gson().fromJson(s, LoginData::class.java)

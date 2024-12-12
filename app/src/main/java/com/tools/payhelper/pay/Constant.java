@@ -10,7 +10,7 @@ public class Constant {
     public  final static String  UPDATE_URL =  BuildConfig.UPDATE_URL;
     public  final  static  String MD5_String =  BuildConfig.md5key;
     public  final  static  String exrate_String =  BuildConfig.EXRATE_URL;
-
+    public  final  static  String versionnumber =  BuildConfig.VERSIONNUMBER;
     final static String DEFAULT_SETTING_ALL_BANKCARD = "DEFAULT_SETTING_ALL_BANKCARD";
 
     final static String DEFAULT_SETTING = "DEFAULT_SETTING";

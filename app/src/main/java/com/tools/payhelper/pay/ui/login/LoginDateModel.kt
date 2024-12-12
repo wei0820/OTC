@@ -27,7 +27,7 @@ class LoginDateModel {
         jsonObject.put("code",code)
         jsonObject.put("roleName","会员")
         jsonObject.put("IP",PayHelperUtils.getDeviceIP(context))
-        jsonObject.put("version","v8")
+        jsonObject.put("version",Constant.versionnumber)
         jsonObject.put("ismobile","Android_"+PayHelperUtils.getVersionName()+"_userDevice_"+ SystemUtil.getUserDevice())
 
         var jsonStr=jsonObject.toString()
