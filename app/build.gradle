@@ -87,6 +87,8 @@ android {
             buildConfigField "String", "md5key", "\"2io#ejQO\""
             buildConfigField "String", "API_URL", "\"https://api.17otc.com/\""
             buildConfigField "String", "EXRATE_URL", "\"https://pay.17otc.com/exrate.json\""
+
+
         }
 
         buildTypes {

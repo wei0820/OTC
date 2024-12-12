@@ -173,7 +173,6 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             name.text=  PayHelperUtils.getUserName(context)
 
 
-
         })
 
 
@@ -200,10 +199,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
     fun  getActivityData(){
         val activity: MainActivity? = activity as MainActivity?
-
-//        var boolean = activity!!.getData()
-            var boolean = PayHelperUtils.getGoogle(requireActivity());
-
+        var boolean = PayHelperUtils.getGoogle(requireActivity());
 
         if (boolean){
             val dialog = AddGoogleDialog(requireActivity())
