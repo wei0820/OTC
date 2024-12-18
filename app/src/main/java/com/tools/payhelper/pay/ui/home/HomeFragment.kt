@@ -1,9 +1,16 @@
 package com.jingyu.pay.ui.home
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationChannel.DEFAULT_CHANNEL_ID
+import android.app.NotificationManager
+import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
+
 import android.content.Intent
 import android.media.SoundPool
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -11,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -64,6 +72,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
     var handler: Handler? = null
 
     lateinit var   spinner : Spinner;
+    var  channelId : String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -123,6 +132,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
         setBuySetting()
         getBuyList()
+         channelId = getString(R.string.app_name)
 
 
         spinner = root.findViewById(R.id.spinner)
@@ -632,6 +642,24 @@ class HomeFragment : Fragment() ,Handler.Callback{
             handler!!.removeCallbacksAndMessages(null);
             handler = null;
 
+        }
+    }
+    @SuppressLint("WrongConstant")
+    fun createNot(){
+        // 確認是否為Android 8.0以上版本
+        // 8.0以上版本才需要建立通知渠道
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create the NotificationChannel
+            //設定通知渠道名稱、描述和重要性
+            val name = getString(R.string.app_name)
+            val descriptionText = getString(R.string.app_name)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val mChannel = NotificationChannel(channelId, name, importance)
+            mChannel.description = descriptionText
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(mChannel)
         }
     }
 
