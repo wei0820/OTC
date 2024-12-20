@@ -81,6 +81,7 @@ class SellViewModel : ViewModel() {
                     if (!s.isEmpty()){
                         var data = Gson().fromJson(s,SellListData::class.java)
                         if (data!=null){
+                            Log.d("getSellDataList",data.toString())
                             mSellListData.value = data
                         }
 

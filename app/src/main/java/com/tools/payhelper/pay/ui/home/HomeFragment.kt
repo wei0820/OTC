@@ -644,24 +644,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
         }
     }
-    @SuppressLint("WrongConstant")
-    fun createNot(){
-        // 確認是否為Android 8.0以上版本
-        // 8.0以上版本才需要建立通知渠道
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Create the NotificationChannel
-            //設定通知渠道名稱、描述和重要性
-            val name = getString(R.string.app_name)
-            val descriptionText = getString(R.string.app_name)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val mChannel = NotificationChannel(channelId, name, importance)
-            mChannel.description = descriptionText
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(mChannel)
-        }
-    }
+
 
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){

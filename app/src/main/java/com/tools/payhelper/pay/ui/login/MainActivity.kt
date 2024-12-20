@@ -1,5 +1,11 @@
 package com.tools.payhelper.pay.ui.login
 
+import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -8,6 +14,8 @@ import android.view.Window
 import android.view.WindowManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -15,11 +23,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.jingyu.pay.ui.login.LoginViewModel
+import com.tools.payhelper.BuildConfig
 import com.tools.payhelper.R
 import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.databinding.ActivityMainBinding
+import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
+import com.tools.payhelper.pay.ui.dashboard.SellListData
 import com.tools.payhelper.ui.login.LoginViewModelFactory
 import java.lang.String
 
@@ -31,6 +42,7 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         ViewModelProvider(this, LoginViewModelFactory()).get(LoginViewModel::class.java)
     }
     var handler: Handler? = null
+    var buyDataList: ArrayList<SellListData.Data> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +91,24 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
     fun getInfo(){
         loginViewModel.getUserInfo(this).observe(this, Observer {
         })
-        handler!!.sendEmptyMessageDelayed(1,15000)
+        loginViewModel.getCheckList(this).observe(this, Observer{
+            buyDataList.clear()
+            if (it!=null){
+                it.data.forEach {
+                    if (it.state==0){
+                        buyDataList.add(it)
+                    }
+                }
+            }
+            runOnUiThread {
+                if (buyDataList.size >=1){
+                    sendnot()
+                }
+            }
+
+
+        })
+        handler!!.sendEmptyMessageDelayed(1,60000)
     }
 
 
@@ -99,5 +128,56 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         }
         return false;
 
+    }
+    @SuppressLint("WrongConstant")
+    fun createNot(){
+        // 確認是否為Android 8.0以上版本
+        // 8.0以上版本才需要建立通知渠道
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create the NotificationChannel
+            //設定通知渠道名稱、描述和重要性
+            val name = getString(R.string.app_name)
+            val descriptionText = getString(R.string.app_name)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val mChannel = NotificationChannel("11", name, importance)
+            mChannel.description = descriptionText
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            val notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(mChannel)
+
+
+        }
+    }
+
+    fun sendnot(){
+        when(BuildConfig.APPLICATION_ID)
+        {
+            "com.duobao" ->
+                {
+            }
+            "com.jingyu.otc" ->
+                {
+
+                }
+            "com.geelyotc.pay" ->
+            {
+
+            }
+
+        }
+        val builder = NotificationCompat.Builder(this, "11")
+            .setSmallIcon(R.drawable.img_otc)
+            .setContentTitle("你有订单待确认")
+            .setContentText("你有订单待确认")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setDefaults(Notification.DEFAULT_ALL)
+
+
+        with(NotificationManagerCompat.from(this)) {
+            // notificationId is a unique int for each notification that you must define
+            val notificationId = 10
+            notify(notificationId, builder.build())
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.jingyu.pay.ui.login
 import android.app.Activity
 import android.content.Context
 import android.util.Log
+import com.jingyu.pay.ui.dashboard.SellDateModel
 import com.tools.payhelper.SystemUtil
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeUnit
 
 
 class LoginDateModel {
+    var BaseUrl : String = Constant.API_URL
 
     fun setUserLogin(context: Context,loginid:String,password:String,code:String,loginrResponse: LoginrResponse){
         var jsonObject= JSONObject()
@@ -249,6 +251,39 @@ class LoginDateModel {
             }
         })
 
+    }
+
+    fun getSellDataList(context: Context, loginrResponse: LoginrResponse){
+        var jsonObject= JSONObject()
+        jsonObject.put("token","")
+        var jsonStr=jsonObject.toString()
+        val contentType: MediaType = "application/json".toMediaType()
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
+        val request = Request.Builder()
+            .url(BaseUrl + "api/user/collectioning")
+            .get()
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .header("content-type","application/json")
+            .build()
+        Log.d("jack",BaseUrl + "api/user/collectioning")
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                loginrResponse.getResponse( response.body?.string()!!)
+            }
+        })
     }
 
     interface LoginrResponse{

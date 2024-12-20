@@ -74,6 +74,7 @@ class SellDateModel {
             .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
             .header("content-type","application/json")
             .build()
+        Log.d("jack",BaseUrl + "api/user/collectioning")
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

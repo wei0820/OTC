@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.tools.payhelper.pay.Constant
+import com.tools.payhelper.pay.ui.dashboard.SellListData
 import com.tools.payhelper.pay.ui.login.*
 import com.tools.payhelper.pay.ui.notifications.UserinfoData
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +24,7 @@ class LoginViewModel : ViewModel() {
     var  update  = MutableLiveData<UpdateData>()
     var version : MutableSharedFlow<UpdateData> = MutableSharedFlow<UpdateData>()
     var _version: MutableSharedFlow<UpdateData>  = version
+    var checkSellDatList = MutableLiveData<SellListData>()
     init {
         getUpdate()
     }
@@ -134,6 +136,27 @@ class LoginViewModel : ViewModel() {
 
         })
         return  data
+    }
+
+    fun getCheckList(context: Context) : LiveData<SellListData>{
+        homeViewModel.getSellDataList(context, object : LoginDateModel.LoginrResponse {
+            override fun getResponse(s: String) {
+                if (!s.isEmpty()){
+                    viewModelScope.launch {
+                        var ud = Gson().fromJson(s,SellListData::class.java)
+                        checkSellDatList.value = ud
+
+
+                    }
+                }
+            }
+
+            override fun getErrorResponse(s: String) {
+
+            }
+
+        })
+        return checkSellDatList
     }
 
 //    fun  getVersionUpdate(context: Context): LiveData<UpdateData>{

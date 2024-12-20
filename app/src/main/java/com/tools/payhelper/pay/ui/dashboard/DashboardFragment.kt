@@ -1,16 +1,23 @@
 package com.jingyu.pay.ui.dashboard
 
+import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.media.SoundPool
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,10 +49,7 @@ class DashboardFragment : Fragment() ,Handler.Callback{
     var buyDataList: ArrayList<SellListData.Data> = ArrayList()
 
     var extraDouble : Double = 7.5
-    var handler: Handler? = null
-
-    private var spool: SoundPool? = null
-    private var sourceid = 0
+    var sellHandler: Handler? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,8 +62,11 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         val root: View = binding.root
         val recyclerView: RecyclerView =  root.findViewById(R.id.recycler_view)
         switch =  root.findViewById(R.id.switch1);
-        handler = Handler(this)
+        sellHandler = Handler(this)
 
+        checkOpen()
+        getList()
+        getEtr()
 
         switch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, b ->
             val ischeckString = if (b) "卖币接单中" else "卖币暂停接单"
@@ -87,6 +94,7 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         recyclerView!!.adapter = adapter
 
         adapter!!.notifyDataSetChanged()
+
 
         return root
     }
@@ -139,19 +147,12 @@ class DashboardFragment : Fragment() ,Handler.Callback{
             }
 
         })
+
+
+
 //        sellViewModel.getUserInfo(requireActivity())
-        handler!!.sendEmptyMessageDelayed(1,60000)
-//        if(buyDataList.size>=1){
-//            if (PayHelperUtils.getVideoState(requireActivity())){
-//                spool = SoundPool(10, AudioManager.STREAM_MUSIC, 5)
-//                sourceid = spool!!.load(requireActivity(), R.raw.sell, 1)
-//                spool!!.setOnLoadCompleteListener { soundPool, i, i2 ->
-//                    soundPool!!.play(sourceid, 1.0F, 1.0F, 1, 1, 1.0F);
-//
-//                }
-//            }
-//
-//        }
+        sellHandler!!.sendEmptyMessageDelayed(1,25000)
+
 
 
 
@@ -225,28 +226,6 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     }
     fun confirmOrder(data: SellListData.Data){
-//
-//            val dialog = ConfirmOrderDialog(requireActivity(),data)
-//            dialog.setAddBankCallback {
-//                if (it != null){
-//                    if (it.code == 1){
-//                        requireActivity().runOnUiThread {
-//                            getList()
-//                            dialog.dismiss()
-//                            Toast.makeText(requireActivity(),it.msg,Toast.LENGTH_SHORT).show()
-//
-//                        }
-//                    }else{
-//                        requireActivity().runOnUiThread {
-//                            getList()
-//                            dialog.dismiss()
-//                        }
-//                    }
-//
-//                }
-//
-//            }
-//            dialog.show()
         if (data!=null){
             var intent = Intent()
             intent.setClass(requireActivity(),ConfirmOrderActivity::class.java)
@@ -271,9 +250,9 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     override fun onDestroy() {
         super.onDestroy()
-        if (handler != null) {
-            handler!!.removeCallbacksAndMessages(null);
-            handler = null;
+        if (sellHandler != null) {
+            sellHandler!!.removeCallbacksAndMessages(null);
+            sellHandler = null;
         }
         }
 
@@ -284,10 +263,11 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     override fun onResume() {
         super.onResume()
-        getList()
         checkOpen()
-        getUserinfo()
+        getList()
         getEtr()
+        getUserinfo()
+
 
 
 
@@ -400,13 +380,13 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){
+
             getList()
 
         }
         return false;
 
     }
-
 
 
 }
