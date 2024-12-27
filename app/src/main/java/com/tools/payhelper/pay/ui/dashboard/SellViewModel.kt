@@ -81,7 +81,6 @@ class SellViewModel : ViewModel() {
                     if (!s.isEmpty()){
                         var data = Gson().fromJson(s,SellListData::class.java)
                         if (data!=null){
-                            Log.d("getSellDataList",data.toString())
                             mSellListData.value = data
                         }
 
@@ -101,7 +100,6 @@ class SellViewModel : ViewModel() {
         sellDateModel.setConfirmOrder(id,userName,context, object :SellDateModel.SellResponse {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
-
                     if (!s.isEmpty()){
                         var data = Gson().fromJson(s,ConfirmData::class.java)
                         if (data!=null){

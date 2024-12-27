@@ -33,7 +33,6 @@ class LoginViewModel : ViewModel() {
     fun getUserToken(context: Context,loginid:String,password:String,code:String) : LiveData<LoginData>{
         homeViewModel.setUserLogin(context,loginid,password,code, object : LoginDateModel.LoginrResponse {
             override fun getResponse(s: String) {
-                Log.d("Jack", s)
 
                 if (!s.isEmpty()){
                     viewModelScope.launch {

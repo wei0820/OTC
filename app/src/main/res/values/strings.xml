@@ -66,5 +66,6 @@
         <item>银行卡</item>
         <item>支付宝</item>
     </string-array>
+    <string name="title_activity_transfer_money">TransferMoneyActivity</string>
 
 </resources>

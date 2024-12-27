@@ -18,6 +18,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -32,6 +33,8 @@ import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.dashboard.SellListData
 import com.tools.payhelper.ui.login.LoginViewModelFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.lang.String
 
 class MainActivity : AppCompatActivity(),Handler.Callback{
@@ -51,6 +54,7 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         handler = Handler(this)
 
+        Log.d("MainActivity","onCreate")
 
         val navView: BottomNavigationView = binding.navView
 
@@ -71,15 +75,59 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
 
     }
 
+
+    fun  checkVresion(){
+
+        lifecycleScope.launch {
+            loginViewModel._version.collect {
+                if (it!=null){
+                    if(it.data.quality!=null){
+                        PayHelperUtils.saveQuality(this@MainActivity,it.data.quality)
+                    }
+                }
+
+                if (PayHelperUtils.getVersionCode()<it.data.versionCode){
+                    val dialog = UpdateAlertDialog(this@MainActivity,it.data.url)
+                    dialog.setMessage(
+                        kotlin.String.format("欢迎使用%s原生V%s版本",
+                        getString(R.string.app_name),
+                        it.data.versionName)+"如升级失败，请选择网页下载升级")
+                    dialog.setIsForcedUpdate(true)
+                    dialog.show()
+                }
+
+
+
+            }
+        }
+
+
+    }
+
     override fun onResume() {
         super.onResume()
+        Log.d("MainActivity","onResume")
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("MainActivity","onStart")
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MainActivity","onPause")
 
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("MainActivity","onResume")
+
         if (handler != null) {
             handler!!.removeCallbacksAndMessages(null);
             handler = null;

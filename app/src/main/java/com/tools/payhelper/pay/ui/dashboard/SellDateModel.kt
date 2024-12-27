@@ -2,12 +2,9 @@ package com.jingyu.pay.ui.dashboard
 
 import android.content.Context
 import android.util.Log
-import com.jingyu.pay.ui.home.HomeDateModel
-import com.jingyu.pay.ui.login.LoginDateModel
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ui.login.SSLSocketClient
-
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -120,6 +117,7 @@ class SellDateModel {
 
     }
 
+    val callMap = HashMap<String, Call>()
 
     fun setConfirmOrder(id : String , userName : String,context: Context, sellResponse: SellResponse){
         var jsonObject= JSONObject()
@@ -127,6 +125,13 @@ class SellDateModel {
         jsonObject.put("userName",userName)
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
+        if (callMap.containsKey(id)) {
+            val call = callMap[id]
+            if (call != null && !call.isCanceled()) {
+                call.cancel()
+            }
+        }
+
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
 //        val client = OkHttpClient()
@@ -137,14 +142,19 @@ class SellDateModel {
             .writeTimeout(10, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .build()
+
         val request = Request.Builder()
             .url(BaseUrl + "api/user/confirm")
             .post(requestBody)
             .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
             .header("content-type","application/json")
+            .tag(id)
             .build()
 
-        client.newCall(request).enqueue(object : Callback {
+        val call = client.newCall(request)
+        callMap.put(id,call)
+
+        call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
             }
 

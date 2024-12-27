@@ -109,7 +109,7 @@ class DashboardFragment : Fragment() ,Handler.Callback{
             if (it!=null){
                 requireActivity().runOnUiThread {
                     if (!it.data.isEnable){
-                        ToastManager.showToastCenter(requireActivity(),"令牌失效 请重新登入")
+                        ToastManager.showToastCenter(requireActivity(),"getUserinfo 令牌失效 请重新登入")
                     }
                 }
 

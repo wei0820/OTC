@@ -1,8 +1,13 @@
 package com.jingyu.pay.ui.group
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.Context
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.ClipboardManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +47,7 @@ class GroupListctivity : AppCompatActivity() {
             finish()
         }
         getGroupList()
-        adapter = Adapter()
+        adapter = Adapter(this)
 
         recyclerView!!.layoutManager = LinearLayoutManager(this)
         adapter!!.updateList(buyDataList)
@@ -118,11 +123,24 @@ class GroupListctivity : AppCompatActivity() {
             }
         })
     }
-
+     fun copyToClipboard(str: String) {
+        val sdk = Build.VERSION.SDK_INT
+        if (sdk < Build.VERSION_CODES.HONEYCOMB) {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.text = str
+            Log.e("version", "1 version")
+        } else {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+            val clip = ClipData.newPlainText("text label", str)
+            clipboard.setPrimaryClip(clip)
+            Log.e("version", "2 version")
+        }
+    }
 
 }
-class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
+class Adapter(activity:GroupListctivity) : RecyclerView.Adapter<Adapter.ViewHolder>() {
     var bankCardInfoList:ArrayList<GroupListData.Data>? = null
+    var mActivity = activity
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -192,7 +210,14 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
         }
 
+        holder.orderno.setOnClickListener {
+            if (!info.loginId.isEmpty()){
+                mActivity.copyToClipboard(info.loginId)
+                ToastManager.showToastCenter(mActivity, "复制到剪贴簿用户名:"+info.loginId)
 
+            }
+
+        }
 
     }
 
@@ -204,4 +229,5 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
     fun updateList(list:ArrayList<GroupListData.Data>){
         bankCardInfoList = list
     }
+
 }

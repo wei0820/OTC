@@ -1,6 +1,7 @@
 package com.tools.payhelper.pay.ui.dashboard
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
@@ -24,16 +25,18 @@ class ConfirmOrderActivity : AppCompatActivity() {
     }
 
 
-    lateinit var closeBtn :Button
     lateinit var payName :TextView
     lateinit var getname :TextView
     lateinit var bank :TextView
     lateinit var price :TextView
     lateinit var ordernotext :TextView
     lateinit var okBtn :Button
+    lateinit var closeBtn :Button
+
     var  mSellListData: SellListData.Data? = null
     lateinit var nameEdt :EditText
     lateinit var priceEdt  :EditText
+    lateinit var progressDialog: ProgressDialog
 
 
     @SuppressLint("MissingInflatedId")
@@ -69,6 +72,9 @@ class ConfirmOrderActivity : AppCompatActivity() {
             this.finish()
         }
         okBtn = findViewById(R.id.okBtn)
+
+        getUserinfo()
+
         okBtn.setOnClickListener {
             val payname: String = mSellListData!!.payUserName.substring(mSellListData!!.payUserName.length - 1)
             var pirceName : String = mSellListData!!.score.toString()
@@ -97,23 +103,36 @@ class ConfirmOrderActivity : AppCompatActivity() {
                 }
             }
 
+            progressDialog = ProgressDialog(this)
+            progressDialog.setTitle("请稍候")
+            progressDialog.setMessage("请勿重覆点击...")
+            progressDialog.setCancelable(true) // blocks UI interaction
+            progressDialog.show()
+
+
             sellViewModel.getComfirmOrder(mSellListData!!.id, _name, this).observe(this, Observer {
                 if (it!=null){
                     runOnUiThread {
-                        if (it.code==1){
-                            ToastManager.showToastCenter(this, it.msg)
-                            this.finish()
-
-                        }
+                        ToastManager.showToastCenter(this, it.msg)
+                        progressDialog.dismiss()
+                        this.finish()
 
                     }
                 }else{
-                    ToastManager.showToastCenter(this, "令牌失效 请重新登入")
+                    runOnUiThread {
+                        ToastManager.showToastCenter(this, "请求异常 无法无法连线到远程服务器")
+                        progressDialog.dismiss()
+                    }
 
                 }
             })
 
 
         }
+    }
+
+
+    fun  getUserinfo(){
+        sellViewModel.getUserInfo(this).observe(this, Observer {  })
     }
 }

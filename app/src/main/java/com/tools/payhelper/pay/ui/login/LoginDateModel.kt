@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit
 
 class LoginDateModel {
     var BaseUrl : String = Constant.API_URL
+    val callMap = HashMap<String, Call>()
 
     fun setUserLogin(context: Context,loginid:String,password:String,code:String,loginrResponse: LoginrResponse){
         var jsonObject= JSONObject()
@@ -34,7 +35,12 @@ class LoginDateModel {
 
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
-
+        if (callMap.containsKey(loginid)) {
+            val call = callMap[loginid]
+            if (call != null && !call.isCanceled()) {
+                call.cancel()
+            }
+        }
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
 
@@ -54,7 +60,11 @@ class LoginDateModel {
             .post(requestBody)
             .header("content-type","application/json")
             .build()
-        client.newCall(request).enqueue(object : Callback {
+
+        val call = client.newCall(request)
+        callMap.put(loginid,call)
+
+        call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 if (!e.localizedMessage.isEmpty()){
                     loginrResponse.getErrorResponse(e.localizedMessage)
