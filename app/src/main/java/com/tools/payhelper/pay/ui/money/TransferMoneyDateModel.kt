@@ -2,6 +2,7 @@ package com.jingyu.pay.ui.notifications
 
 import android.content.Context
 import android.util.Log
+import com.jingyu.pay.ui.dashboard.SellDateModel
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ui.login.SSLSocketClient
@@ -15,7 +16,6 @@ import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class TransferMoneyDateModel {
-
 
     var BaseUrl : String = Constant.API_URL
     val callMap = HashMap<String, Call>()
@@ -68,6 +68,44 @@ class TransferMoneyDateModel {
         })
 
     }
+
+    fun getUserinfo(context: Context,orderResponse: OrderResponse){
+
+        var jsonObject= JSONObject()
+        jsonObject.put("token", PayHelperUtils.getUserToken(context))
+        var jsonStr=jsonObject.toString()
+        val contentType: MediaType = "application/json".toMediaType()
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
+        val request = Request.Builder()
+            .url(Constant.API_URL + "api/user/userinfo?")
+            .get()
+            .header("content-type","application/json")
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .build()
+        Log.d("Jack",Constant.API_URL + "api/user/userinfo?");
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                orderResponse.getResponse( response.body?.string()!!)
+            }
+        })
+
+    }
+
 
 
     interface OrderResponse{
