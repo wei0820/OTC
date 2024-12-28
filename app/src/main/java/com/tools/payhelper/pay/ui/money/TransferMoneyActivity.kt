@@ -7,6 +7,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import com.jingyu.pay.ui.group.GroupViewModel
+import com.jingyu.pay.ui.group.GroupViewModelFactory
+import com.jingyu.pay.ui.notifications.TransferMoneyViewModel
+import com.jingyu.pay.ui.notifications.TransferMoneyViewModelFactory
 import com.tools.payhelper.R
 import com.tools.payhelper.pay.PayHelperUtils
 
@@ -14,6 +19,9 @@ class TransferMoneyActivity : AppCompatActivity() {
     lateinit var  mMainAccountText : TextView
     lateinit var okBtn : Button
     lateinit var closeBtn : Button
+    val transferMoneyViewModel: TransferMoneyViewModel by lazy {
+        ViewModelProvider(this, TransferMoneyViewModelFactory()).get(TransferMoneyViewModel::class.java)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawableResource(android.R.color.transparent)

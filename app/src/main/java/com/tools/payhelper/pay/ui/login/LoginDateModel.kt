@@ -54,7 +54,6 @@ class LoginDateModel {
 
 
 
-        Log.d("Jack",Constant.API_URL + "api/auth")
         val request = Request.Builder()
             .url(Constant.API_URL + "api/auth")
             .post(requestBody)

@@ -137,6 +137,9 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
 
 
     fun getInfo(){
+
+
+
         loginViewModel.getUserInfo(this).observe(this, Observer {
         })
         loginViewModel.getCheckList(this).observe(this, Observer{
