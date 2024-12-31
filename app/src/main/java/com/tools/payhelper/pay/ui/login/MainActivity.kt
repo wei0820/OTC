@@ -113,6 +113,8 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
                     Log.d("MainActivity",it.data.versionCode.toString())
 
                     if (PayHelperUtils.getVersionCode()<it.data.versionCode){
+                        ToastManager.showToastCenter(this@MainActivity,"發現新版本");
+
 
                     }
                 }
