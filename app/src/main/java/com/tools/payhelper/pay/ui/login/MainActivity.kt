@@ -145,9 +145,8 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
 
 
         })
-        handler!!.sendEmptyMessageDelayed(1,60000)
+        handler!!.sendEmptyMessageDelayed(1,50000)
     }
-
 
     override fun onRestart() {
         super.onRestart()
