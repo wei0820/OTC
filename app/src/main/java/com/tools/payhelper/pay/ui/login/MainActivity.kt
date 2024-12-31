@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         lifecycleScope.launch {
             loginViewModel._version.collect {
                 if (it!=null){
-                    Log.d("MainActivity",it.data.versionCode.toString())
+                    Log.d("MainActivity",it.toString())
 
                     if (PayHelperUtils.getVersionCode()<it.data.versionCode){
                         ToastManager.showToastCenter(this@MainActivity,"發現新版本");
@@ -123,13 +123,13 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
 
 
         loginViewModel.getUserInfo(this).observe(this, Observer {
-            Log.d("MainActivity",it.data.toString())
+            Log.d("MainActivity",it.toString())
 
         })
         loginViewModel.getCheckList(this).observe(this, Observer{
             buyDataList.clear()
             if (it!=null){
-                Log.d("MainActivity",it.data.toString())
+                Log.d("MainActivity",it.toString())
 
                 it.data.forEach {
                     if (it.state==0){
