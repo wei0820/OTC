@@ -1,6 +1,7 @@
 package com.jingyu.pay.ui.dashboard
 
 import android.content.Context
+import android.os.Handler
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,9 +21,7 @@ import kotlinx.coroutines.launch
 
 class SellViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
+
     var exrateData = MutableLiveData<ExrateData>()
 
     var data = MutableLiveData<UserinfoData>()
@@ -99,7 +98,6 @@ class SellViewModel : ViewModel() {
         sellDateModel.setConfirmOrder(id,userName,context, object :SellDateModel.SellResponse {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
-
                     if (!s.isEmpty()){
                         var data = Gson().fromJson(s,ConfirmData::class.java)
                         if (data!=null){

@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.tools.payhelper.pay.Constant
+import com.tools.payhelper.pay.ui.dashboard.SellListData
 import com.tools.payhelper.pay.ui.login.*
 import com.tools.payhelper.pay.ui.notifications.UserinfoData
 import kotlinx.coroutines.Dispatchers
@@ -22,20 +24,31 @@ class LoginViewModel : ViewModel() {
     var  update  = MutableLiveData<UpdateData>()
     var version : MutableSharedFlow<UpdateData> = MutableSharedFlow<UpdateData>()
     var _version: MutableSharedFlow<UpdateData>  = version
+    var checkSellDatList = MutableLiveData<SellListData>()
     init {
         getUpdate()
     }
 
 
-    fun getUserToken(loginid:String,password:String,code:String) : LiveData<LoginData>{
-        homeViewModel.setUserLogin(loginid,password,code, object : LoginDateModel.LoginrResponse {
+    fun getUserToken(context: Context,loginid:String,password:String,code:String) : LiveData<LoginData>{
+        homeViewModel.setUserLogin(context,loginid,password,code, object : LoginDateModel.LoginrResponse {
             override fun getResponse(s: String) {
+
                 if (!s.isEmpty()){
                     viewModelScope.launch {
                         var userData = Gson().fromJson(s, LoginData::class.java)
                         token.value = userData
 
                     }
+                }else{
+                    token.value =null
+                }
+
+            }
+
+            override fun getErrorResponse(s: String) {
+                if (!s.isEmpty()){
+                    token.value = null
                 }
 
             }
@@ -116,25 +129,50 @@ class LoginViewModel : ViewModel() {
                 }
             }
 
+            override fun getErrorResponse(s: String) {
+
+            }
+
         })
         return  data
     }
 
-    fun  getVersionUpdate(context: Context): LiveData<UpdateData>{
-        homeViewModel.getVersionUpdate(context, object : LoginDateModel.LoginrResponse {
+    fun getCheckList(context: Context) : LiveData<SellListData>{
+        homeViewModel.getSellDataList(context, object : LoginDateModel.LoginrResponse {
             override fun getResponse(s: String) {
                 if (!s.isEmpty()){
                     viewModelScope.launch {
-                        var up = Gson().fromJson(s,UpdateData::class.java);
-                        update.value = up
+                        var ud = Gson().fromJson(s,SellListData::class.java)
+                        checkSellDatList.value = ud
+
 
                     }
                 }
             }
 
+            override fun getErrorResponse(s: String) {
+
+            }
+
         })
-        return  update
+        return checkSellDatList
     }
+
+//    fun  getVersionUpdate(context: Context): LiveData<UpdateData>{
+//        homeViewModel.getVersionUpdate(context, object : LoginDateModel.LoginrResponse {
+//            override fun getResponse(s: String) {
+//                if (!s.isEmpty()){
+//                    viewModelScope.launch {
+//                        var up = Gson().fromJson(s,UpdateData::class.java);
+//                        update.value = up
+//
+//                    }
+//                }
+//            }
+//
+//        })
+//        return  update
+//    }
 
 
 

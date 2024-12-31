@@ -61,6 +61,8 @@
                 android:text="bankName"/>
 
             <TextView
+                android:visibility="invisible"
+
                 android:layout_marginTop="12dp"
                 android:id="@+id/cardno"
                 android:gravity="center"
@@ -73,6 +75,8 @@
 
 
             <TextView
+                android:visibility="invisible"
+
                 android:layout_marginTop="12dp"
                 android:id="@+id/username"
                 android:gravity="center"

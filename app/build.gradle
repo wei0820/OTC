@@ -31,19 +31,22 @@ android {
         }
     }
     productFlavors {
-        luckyPay {
-            resValue "string", "app_name", "吉利"
-            applicationId "com.jingyu.pay"
-            manifestPlaceholders = [app_icon: "@drawable/favicon"]
+        duobaoPay {
+            resValue "string", "app_name", "多宝"
+            applicationId "com.duobao"
+            manifestPlaceholders = [APPICON: "@drawable/img_duobao",
+                                    APPTHEME: "@style/Theme.JingyuPay",]
+
             buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
             buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
             buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
             buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
             buildConfigField "String", "ELK_TYPE", "\"payhelper\""
-            buildConfigField "String", "UPDATE_URL", "\"https://pay.channel-lucky.com/apk/version.json\""
-            buildConfigField "String", "md5key", "\"2io#ejQO\""
-            buildConfigField "String", "API_URL", "\"https://api.channel-sign.com/\""
-            buildConfigField "String", "EXRATE_URL", "\"https://pay.channel-lucky.com/exrate.json\""
+            buildConfigField "String", "UPDATE_URL", "\"https://pay.colorwin.com/apk/duobaoversion.json\""
+            buildConfigField "String", "md5key", "\"R:M'3p&_\""
+            buildConfigField "String", "API_URL", "\"https://api.colorwin.com/\""
+            buildConfigField "String", "EXRATE_URL", "\"https://api.colorwin.com/exrate.json\""
+            buildConfigField "String", "VERSIONNUMBER", "\"v8\""
 
 
 
@@ -52,19 +55,48 @@ android {
         otcPay {
             resValue "string", "app_name", "聚宝OTC"
             applicationId "com.jingyu.otc"
-            manifestPlaceholders = [app_icon: "@drawable/img_otc"]
+            manifestPlaceholders = [APPICON: "@drawable/img_otc",
+                                    APPTHEME: "@style/Theme.JingyuPay",]
             buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
             buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
             buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
             buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
             buildConfigField "String", "ELK_TYPE", "\"payhelper\""
-            buildConfigField "String", "UPDATE_URL", "\"https://pay.juying.org/apk/version.json\""
+            buildConfigField "String", "UPDATE_URL", "\"https://pay.colorwin.com/apk/version.json\""
             buildConfigField "String", "md5key", "\"R:M'3p&_\""
-            buildConfigField "String", "API_URL", "\"https://api.juying.org/\""
-            buildConfigField "String", "EXRATE_URL", "\"https://pay.juying.org/exrate.json\""
+            buildConfigField "String", "API_URL", "\"https://api.colorwin.com/\""
+            buildConfigField "String", "EXRATE_URL", "\"https://api.colorwin.com/exrate.json\""
+            buildConfigField "String", "VERSIONNUMBER", "\"v8\""
 
 
         }
+        geelyPay{
+            resValue "string", "app_name", "GEELY OTC"
+            applicationId "com.geelyotc.pay"
+
+
+            manifestPlaceholders = [
+                    APPICON: "@drawable/favicon",
+                    APPTHEME : "@style/Theme.geely", //JPush上注册的包名对应的appkey.
+            ]
+
+            buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
+            buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
+            buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
+            buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
+            buildConfigField "String", "ELK_TYPE", "\"payhelper\""
+            buildConfigField "String", "UPDATE_URL", "\"https://pay.17otc.com/apk/version.json\""
+            buildConfigField "String", "md5key", "\"2io#ejQO\""
+            buildConfigField "String", "API_URL", "\"https://api.17otc.com/\""
+            buildConfigField "String", "EXRATE_URL", "\"https://pay.17otc.com/exrate.json\""
+            buildConfigField "String", "VERSIONNUMBER", "\"v9\""
+
+
+
+
+
+        }
+
         buildTypes {
             debug {
                 minifyEnabled false
@@ -86,7 +118,7 @@ android {
             def date = new Date().format("yyyyMMdd" , TimeZone.getTimeZone("GMT+08"))
             if(variant.buildType.name.equals('debug')){
                 ///"commonui_${date}_${versionName}.apk"
-                outputFileName = "jingyuotcpay-v${variant.versionName}.apk"
+                outputFileName = "juyingotcpay.apk"
             }
             if(variant.buildType.name.equals('release')){
                 outputFileName = "commonpop_${versionName}.apk"
@@ -123,6 +155,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -147,6 +180,7 @@ dependencies {
     implementation files('libs/JSONJava.jar')
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
     compileOnly files('libs/XposedBridgeApi-54.jar')
     implementation files('libs/rabbitmq-client.jar')
 
@@ -193,5 +227,11 @@ dependencies {
 
 
     implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如4.0.3
+
+
+    implementation 'com.gongwen:marqueelibrary:1.1.3'
+    implementation 'com.pixelcarrot.base64image:base64image:1.0.0'
+
+
 
 }

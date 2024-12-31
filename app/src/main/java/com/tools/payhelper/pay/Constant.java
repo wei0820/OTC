@@ -10,7 +10,7 @@ public class Constant {
     public  final static String  UPDATE_URL =  BuildConfig.UPDATE_URL;
     public  final  static  String MD5_String =  BuildConfig.md5key;
     public  final  static  String exrate_String =  BuildConfig.EXRATE_URL;
-
+    public  final  static  String versionnumber =  BuildConfig.VERSIONNUMBER;
     final static String DEFAULT_SETTING_ALL_BANKCARD = "DEFAULT_SETTING_ALL_BANKCARD";
 
     final static String DEFAULT_SETTING = "DEFAULT_SETTING";
@@ -22,6 +22,9 @@ public class Constant {
 
     final static  String USER_TOKEN = "USERTOKEN";
 
+    final static  String DEVICE_IP = "DEVICEIP";
+
+
 
 
     final static  String LOGIN_USER_TOKEN = "LOGIN_USER_TOKEN";
@@ -32,6 +35,8 @@ public class Constant {
     final static  String OPEN_URL = "OPEN_URL";
     final static  String USER_REBATE = "USER_REBATE";
     final static  String USER_WECHAT = "USER_WECHAT";
+    final static  String USER_BANK = "USER_BANK";
+    final static  String USER_BANK2 = "USER_BANK2";
 
 
     final static  String USER_PAYMENTXEREBATE = "USER_PAYMENTXEREBATE";
@@ -48,6 +53,7 @@ public class Constant {
 
     final static  String CHECKGOOGLE = "CHECKGOOGLE";
 
+    final static  String QUALITY = "QUALITY";
 
 
 

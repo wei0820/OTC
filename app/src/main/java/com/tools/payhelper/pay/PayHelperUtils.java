@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.format.Formatter;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -15,12 +16,37 @@ import com.tools.payhelper.pay.ui.home.BuyData;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 public class PayHelperUtils {
+
+
+    public static  String getLocalIpAddress(Context context) {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        String ip = Formatter.formatIpAddress(inetAddress.hashCode());
+                        Log.d("Jack", "***** IP="+ ip);
+                        PayHelperUtils.saveDeviceIP(context,ip);
+                        return ip;
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            Log.d("Jack", ex.toString());
+        }
+        return null;
+    }
 
     public static Integer getVersionCode(){
         return  BuildConfig.VERSION_CODE;
@@ -48,7 +74,18 @@ public class PayHelperUtils {
         }
     }
 
+    // 存ip
+    public static void saveDeviceIP(Context context, String ip) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.DEVICE_IP, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.DEVICE_IP, ip).apply();
+    }
 
+    public static String getDeviceIP(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.DEVICE_IP, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.DEVICE_IP, "125.119.224.148");
+    }
 
 
     // 存token
@@ -222,6 +259,33 @@ public class PayHelperUtils {
         return sharedPreferences.getString(Constant.USER_WECHAT, "");
     }
 
+    public static void saveBank(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_BANK, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_BANK, token).apply();
+    }
+
+    public static String getBank(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_BANK, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_BANK, "0");
+    }
+
+
+
+    public static void saveBank2(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_BANK2, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_BANK2, token).apply();
+    }
+
+    public static String getBank2(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_BANK2, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_BANK2, "0");
+    }
+
+
 
 
 
@@ -346,6 +410,18 @@ public class PayHelperUtils {
         return sharedPreferences.getBoolean(Constant.CHECKGOOGLE, true);
     }
 
+    // quality
+    public static void saveQuality(Context context, int token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.QUALITY, Context.MODE_PRIVATE).edit();
+        edit.putInt(Constant.QUALITY, token).apply();
+    }
+
+    public static int getQuality(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.QUALITY, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getInt(Constant.QUALITY, 40);
+    }
 
 
     // 存銀行卡列表 全部

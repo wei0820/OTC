@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -17,15 +18,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.jingyu.pay.BasicActivity
-import com.tools.payhelper.pay.ui.login.MainActivity
 import com.tools.payhelper.R
+import com.tools.payhelper.SystemUtil
 import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
+import com.tools.payhelper.pay.ui.login.MainActivity
 import com.tools.payhelper.ui.login.LoginViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.String
 
 
 class LoginActivity : BasicActivity() {
@@ -42,6 +43,7 @@ class LoginActivity : BasicActivity() {
     var tokenString = "test"
 
 
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,23 +54,18 @@ class LoginActivity : BasicActivity() {
         edt3 = findViewById(R.id.edt3)
         _versiontext = findViewById(R.id.vertext);
         _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
-
-
+        _versiontext.visibility = View.GONE
         check()
-        checkVresion()
-
-
+        PayHelperUtils.getLocalIpAddress(this)
 
         loginButton.setOnClickListener {
             loginButton.isEnabled = false
             loginButton.isClickable = false;
             progressDialog = ProgressDialog(this)
-            progressDialog.setTitle("Please Wait")
-            progressDialog.setMessage("Loading ...")
+            progressDialog.setTitle("请稍候")
+            progressDialog.setMessage("登入中 ...")
             progressDialog.setCancelable(true) // blocks UI interaction
             progressDialog.show()
-            Log.d("jack","1")
-            Log.d("jack",tokenString)
 
             var loginid = edt.text.toString()
             var password = edt2.text.toString()
@@ -85,19 +82,25 @@ class LoginActivity : BasicActivity() {
                 return@setOnClickListener
 
             }
-//            loginViewModel.getUserData(loginid,PayHelperUtils.md5(password),code)
 
-            loginViewModel.getUserToken(loginid,PayHelperUtils.md5(password),code).observe(this, Observer {
+
+
+
+            loginViewModel.getUserToken(this,loginid,PayHelperUtils.md5(password),code).observe(this, Observer {
 
                 if (it!=null){
                     runOnUiThread {
                         if (it.code==1){
                             if(!it.msg.isEmpty()){
+                                ToastManager.showToastCenter(this,it.msg)
                                 loginButton.isEnabled = true
                                 loginButton.isClickable = true;
+                                progressDialog.dismiss()
+                                return@runOnUiThread
 
-                                progressDialog.hide()
-                                ToastManager.showToastCenter(this,it.msg)
+                            }else{
+                                ToastManager.showToastCenter(this,"请求异常 无法无法连线到远程服务器")
+                                progressDialog.dismiss()
                                 return@runOnUiThread
 
                             }
@@ -119,11 +122,10 @@ class LoginActivity : BasicActivity() {
                 }else{
 
                     runOnUiThread {
-                        ToastManager.showToastCenter(this,"error")
+                        ToastManager.showToastCenter(this,"请求异常 无法无法连线到远程服务器")
                         loginButton.isEnabled = true
                         loginButton.isClickable = true;
-
-                        progressDialog.hide()
+                        progressDialog.dismiss()
                     }
 
                 }
@@ -140,6 +142,12 @@ class LoginActivity : BasicActivity() {
     fun  checkVresion(){
         lifecycleScope.launch {
             loginViewModel._version.collect {
+                if (it!=null){
+                    if(it.data.quality!=null){
+                        PayHelperUtils.saveQuality(this@LoginActivity,it.data.quality)
+                    }
+                }
+
                 if (PayHelperUtils.getVersionCode()<it.data.versionCode){
                     val dialog = UpdateAlertDialog(this@LoginActivity,it.data.url)
                     dialog.setMessage(String.format("欢迎使用%s原生V%s版本",
@@ -232,5 +240,12 @@ class LoginActivity : BasicActivity() {
         // toast a message as "cancelled"
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        checkVresion()
+
+    }
+    
 
 }

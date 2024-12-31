@@ -18,6 +18,7 @@ public class BuyData {
         @SerializedName("created") public  String created;
         @SerializedName("ordertype") public  String ordertype;
 
+
     }
 
 }

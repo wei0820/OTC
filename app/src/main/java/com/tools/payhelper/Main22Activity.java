@@ -3,14 +3,21 @@ package com.tools.payhelper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -40,10 +47,12 @@ import com.permissionx.guolindev.callback.ForwardToSettingsCallback;
 import com.permissionx.guolindev.callback.RequestCallback;
 import com.permissionx.guolindev.request.ExplainScope;
 import com.permissionx.guolindev.request.ForwardScope;
+import com.tools.payhelper.pay.BaseManager;
 import com.tools.payhelper.pay.ToastManager;
 import com.tools.payhelper.pay.ui.bankcard.AddBankCardData;
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog;
 
+import java.io.ByteArrayOutputStream;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -54,12 +63,13 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
     private AddPayCardDialog.OnAddBanKListCallback onAddBanKListCallback;
     private Handler handlerLoading = new Handler();
     private Button btn_scan, btn_album;
-    private TextView padd;
+    private EditText padd;
     public static final String CAMERA = Manifest.permission.CAMERA;
     public static final String WRITE_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     public static final int SCAN_RESULT = 1120;
     public final static int DEVICE_PHOTO_REQUEST = 1234;
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
+    private Button messageButton;
     public void setOnAddCallback(AddPayCardDialog.OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
     }
@@ -91,6 +101,8 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
 //        tv_content = findViewById(R.id.tv_content);
         btn_scan.setOnClickListener(this);
 //        btn_album.setOnClickListener(this);
+        messageButton = findViewById(R.id.message);
+        messageButton.setOnClickListener(this);
 
         name = findViewById(R.id.bank_card);
         pd = findViewById(R.id.bank_card_no);
@@ -99,7 +111,7 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
         usernaem = findViewById(R.id.nameedt);
         eusername = findViewById(R.id.enameedt);
         payedt = findViewById(R.id.payedt);
-        padd = findViewById(R.id.pay_adds);
+        padd = findViewById(R.id.addurl);
 
 
         findViewById(R.id.closeBtn).setOnClickListener(v -> {
@@ -163,6 +175,11 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.scanbtn://打开相册
                 checkStorage();
+                break;
+            case R.id.message:
+                Uri uri = Uri.parse("https://www.online-qr-scanner.com/zh-tw/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 break;
 
         }
@@ -235,6 +252,7 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
 
                         String imagePath = BitMapUtil.getPicturePathFromUri(this, uri);
 
+
                         //对获取到的二维码照片进行压缩
                         Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
                         Result result = setZxingResult(generatedQRCode);
@@ -298,6 +316,11 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
             e.printStackTrace();
             return null;
         }
+
+
     }
 
+
+
 }
+

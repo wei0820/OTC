@@ -132,33 +132,33 @@ public class ConfirmOrderDialog extends AlertDialog {
                     Toast.makeText(activity, "金额输入错误", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                sellDateModel.setConfirmOrder(mSellListData.id, _name, activity, new SellDateModel.SellResponse() {
-                    @Override
-                    public void getResponse(@NonNull String s) {
-
-                        if (!s.isEmpty()){
-                            ConfirmData confirmData = new Gson().fromJson(s,ConfirmData.class);
-                            if (confirmData!=null){
-                                onAddBanKListCallback.onResponse(confirmData);
-                                activity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ToastManager.showToastCenter(activity,confirmData.msg);
-                                        dismiss();
-                                    }
-                                });
-
-                            }else {
-                                Toast.makeText(activity, "令牌失效 请重新登入", Toast.LENGTH_SHORT).show();
-                                dismiss();
-                            }
-                        }else {
-                            Toast.makeText(activity, "令牌失效 请重新登入", Toast.LENGTH_SHORT).show();
-                            dismiss();
-                        }
-                    }
-                });
+//
+//                sellDateModel.setConfirmOrder(mSellListData.id, _name, activity, new SellDateModel.SellResponse() {
+//                    @Override
+//                    public void getResponse(@NonNull String s) {
+//
+//                        if (!s.isEmpty()){
+//                            ConfirmData confirmData = new Gson().fromJson(s,ConfirmData.class);
+//                            if (confirmData!=null){
+//                                onAddBanKListCallback.onResponse(confirmData);
+//                                activity.runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        ToastManager.showToastCenter(activity,confirmData.msg);
+//                                        dismiss();
+//                                    }
+//                                });
+//
+//                            }else {
+//                                Toast.makeText(activity, "令牌失效 请重新登入", Toast.LENGTH_SHORT).show();
+//                                dismiss();
+//                            }
+//                        }else {
+//                            Toast.makeText(activity, "令牌失效 请重新登入", Toast.LENGTH_SHORT).show();
+//                            dismiss();
+//                        }
+//                    }
+//                });
 
 
             }

@@ -25,7 +25,7 @@
             android:textSize="18sp"
             android:textColor="@android:color/white" />
 
-        <TextView
+        <Button
             android:id="@+id/message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,8 +34,7 @@
             android:layout_marginEnd="20dp"
             android:lineSpacingExtra="3sp"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
-            android:text=""/>
+            android:text="上传失败 自行取连结"/>
 
         <LinearLayout
             android:visibility="gone"
@@ -220,18 +219,29 @@
                 android:textColor="@android:color/black"
                 android:text="地址" />
 
-            <TextView
-                android:gravity="center_vertical"
-                android:id="@+id/pay_adds"
+            <EditText
+                android:id="@+id/addurl"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
                 android:background="@drawable/bg_grey"
                 android:ellipsize="end"
-                android:hint=""
                 android:paddingStart="10dp"
                 android:textSize="15sp"
+                android:inputType="text"
                 android:imeOptions="actionDone"/>
+<!--            <TextView-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:id="@+id/pay_adds"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:background="@drawable/bg_grey"-->
+<!--                android:ellipsize="end"-->
+<!--                android:hint=""-->
+<!--                android:paddingStart="10dp"-->
+<!--                android:textSize="15sp"-->
+<!--                android:imeOptions="actionDone"/>-->
             <Button
                 android:id="@+id/scanbtn"
                 android:layout_width="wrap_content"

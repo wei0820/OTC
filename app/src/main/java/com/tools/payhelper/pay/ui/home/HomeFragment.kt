@@ -1,18 +1,24 @@
 package com.jingyu.pay.ui.home
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationChannel.DEFAULT_CHANNEL_ID
+import android.app.NotificationManager
+import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
+
 import android.content.Intent
 import android.media.SoundPool
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.isVisible
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -29,8 +35,9 @@ import com.tools.payhelper.pay.ui.home.BuyData
 import com.tools.payhelper.pay.ui.order.PaymentMatchingData
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
-import com.jingyu.pay.ui.home.HomeFragment
 import com.tools.payhelper.databinding.FragmentHomeBinding
+import com.tools.payhelper.pay.AppManagerViewModel
+import com.tools.payhelper.ui.login.AppManagerViewModelFactory
 
 
 class HomeFragment : Fragment() ,Handler.Callback{
@@ -47,20 +54,25 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     lateinit var group : RadioGroup
     lateinit var recyclerView: RecyclerView
-    var exrateDouble : Double = 7.5
+     var exrateDouble : Double = 7.5
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
     lateinit var fab: FloatingActionButton
-    var  isIng : Boolean = false
+     var  isIng : Boolean = false
 
     val merchantOrdersViewModel: HomeViewModel by lazy {
         ViewModelProvider(this, HomeViewModelFactory()).get(HomeViewModel::class.java)
     }
+
+    val appManagerViewModel : AppManagerViewModel by lazy{
+        ViewModelProvider(this,AppManagerViewModelFactory()).get(AppManagerViewModel::class.java)
+    }
     var handler: Handler? = null
 
     lateinit var   spinner : Spinner;
+    var  channelId : String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -120,6 +132,9 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
         setBuySetting()
         getBuyList()
+         channelId = getString(R.string.app_name)
+
+
         spinner = root.findViewById(R.id.spinner)
         val adapter = ArrayAdapter.createFromResource(requireActivity(),
             R.array.spinner_buy,
@@ -246,11 +261,11 @@ class HomeFragment : Fragment() ,Handler.Callback{
                                             buyDataList.add(datum)
                                             adapter!!.notifyDataSetChanged()
                                         }
-                                    "银行卡" ->
-                                        if (datum.ordertype.equals("BANK")){
-                                            buyDataList.add(datum)
-                                            adapter!!.notifyDataSetChanged()
-                                        }
+                                        "银行卡" ->
+                                            if (datum.ordertype.equals("BANK")){
+                                                buyDataList.add(datum)
+                                                adapter!!.notifyDataSetChanged()
+                                            }
                                 }
                             }
 
@@ -328,6 +343,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     }
     fun setBuySetting(){
+
         val maxString =
             if (PayHelperUtils.getBuyMax(activity).isEmpty()) "99999" else PayHelperUtils.getBuyMax(
                 activity
@@ -344,6 +360,9 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
 
     fun  getPament(id:String){
+
+
+
         ToastManager.showToastCenter(requireActivity(),id);
 
         merchantOrdersViewModel.getPaymentMatchingData(requireActivity(),id).observe(requireActivity(),
@@ -395,7 +414,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
         intent.data = Uri.parse(url)
         startActivity(intent)
 
-        requireActivity().runOnUiThread {
+          requireActivity().runOnUiThread {
             getinglIst()
             fab.hide()
 
@@ -626,6 +645,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
         }
     }
 
+
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){
             if (!isIng){
@@ -655,10 +675,8 @@ class HomeFragment : Fragment() ,Handler.Callback{
                 val sPos = pos.toString()
                 val sInfo = parent.getItemAtPosition(pos).toString()
                 //String sInfo=parent.getSelectedItem().toString();
-                Log.d("Jack","選項$sPos:$sInfo")
 //                getSelectList(dateString,sInfo)
                 getBuyList(sInfo)
-
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

@@ -6,11 +6,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +33,7 @@ import com.permissionx.guolindev.callback.ForwardToSettingsCallback;
 import com.permissionx.guolindev.callback.RequestCallback;
 import com.permissionx.guolindev.request.ExplainScope;
 import com.permissionx.guolindev.request.ForwardScope;
+import com.tools.payhelper.pay.BaseManager;
 import com.tools.payhelper.pay.ToastManager;
 import com.tools.payhelper.pay.ui.bankcard.AddBankCardData;
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog;
@@ -47,12 +48,15 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
     private AddPayCardDialog.OnAddBanKListCallback onAddBanKListCallback;
     private Handler handlerLoading = new Handler();
     private Button btn_scan, btn_album;
-    private TextView padd;
+    private EditText padd;
     public static final String CAMERA = Manifest.permission.CAMERA;
+
+
     public static final String WRITE_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     public static final int SCAN_RESULT = 1120;
     public final static int DEVICE_PHOTO_REQUEST = 1234;
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
+    private Button messageButton;
     public void setOnAddCallback(AddPayCardDialog.OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
     }
@@ -92,7 +96,7 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
         usernaem = findViewById(R.id.nameedt);
         eusername = findViewById(R.id.enameedt);
         payedt = findViewById(R.id.payedt);
-        padd = findViewById(R.id.pay_adds);
+        padd = findViewById(R.id.addurl);
 
 
         findViewById(R.id.closeBtn).setOnClickListener(v -> {
@@ -100,7 +104,8 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
 
         });
 
-
+        messageButton = findViewById(R.id.message);
+        messageButton.setOnClickListener(this);
 
 
         findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
@@ -157,7 +162,11 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
             case R.id.scanbtn://打开相册
                 checkStorage();
                 break;
-
+            case R.id.message:
+                Uri uri = Uri.parse("https://www.online-qr-scanner.com/zh-tw/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -230,6 +239,7 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
 
                         //对获取到的二维码照片进行压缩
                         Bitmap generatedQRCode = BitMapUtil.compressPicture(imagePath);
+
                         Result result = setZxingResult(generatedQRCode);
                         if (result == null) {
                             ToastManager.showToastCenter(this,"解析失败,请确认档案为正确的二维码图档");

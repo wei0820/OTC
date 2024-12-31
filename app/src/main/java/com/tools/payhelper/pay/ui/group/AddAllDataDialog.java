@@ -94,9 +94,9 @@ public class AddAllDataDialog extends AlertDialog {
         payment.setText("买币交易量"+paymentString);
         collection.setText("卖币交易量"+collectionString);
         commission.setText("佣金"+commissionString);
-        paymentXe.setText("小额买币交易量"+paymentXeString);
-        paymentXeQty.setText("小额买币笔数"+paymentXeQtyString);
-        paymentXeCom.setText("小额买币佣金"+paymentXeComString);
+//        paymentXe.setText("小额买币交易量"+paymentXeString);
+//        paymentXeQty.setText("小额买币笔数"+paymentXeQtyString);
+//        paymentXeCom.setText("小额买币佣金"+paymentXeComString);
 
 
         view.findViewById(R.id.closeBtn).setOnClickListener(v -> {

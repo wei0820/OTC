@@ -1,16 +1,24 @@
 package com.jingyu.pay.ui.notifications
 
+import android.content.ClipData
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.text.ClipboardManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.CompoundButton
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.Switch
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.tools.payhelper.pay.ui.login.MainActivity
 import com.jingyu.pay.ui.accountchange.AccountChangeActivity
 import com.jingyu.pay.ui.bankcard.BankCardListActivity
 import com.jingyu.pay.ui.buyrecord.BuyRecordActivity
@@ -24,8 +32,11 @@ import com.tools.payhelper.R
 import com.tools.payhelper.databinding.FragmentNotificationsBinding
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
-import com.tools.payhelper.pay.ui.payment.PaymentActivity
 import com.tools.payhelper.pay.ui.login.AddGoogleDialog
+import com.tools.payhelper.pay.ui.login.MainActivity
+import com.tools.payhelper.pay.ui.money.TransListActivity
+import com.tools.payhelper.pay.ui.money.TransferMoneyActivity
+import com.tools.payhelper.pay.ui.payment.PaymentActivity
 import kotlinx.coroutines.launch
 
 class NotificationsFragment : Fragment() ,View.OnClickListener{
@@ -55,6 +66,8 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var name :TextView
     lateinit var mSwitchButton : Switch
     lateinit var paymentlayout :RelativeLayout
+    lateinit var mCanUserLayout : LinearLayout
+    lateinit var transMoneyRelativeLayout: RelativeLayout
 
 
     val personalViewModel: PersonalViewModel by lazy {
@@ -88,6 +101,8 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         reportday_layout = root.findViewById(R.id.reportday_layout)
         passlayout = root.findViewById(R.id.passlayout);
         paymentlayout  = root.findViewById(R.id.paymentlayout);
+        mCanUserLayout = root.findViewById(R.id.canuselayout)
+        transMoneyRelativeLayout = root.findViewById(R.id.tranmoneylayout)
 
         buy_record_layout.setOnClickListener(this)
         sell_record_layout.setOnClickListener(this)
@@ -100,6 +115,8 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         reportday_layout.setOnClickListener(this)
         passlayout.setOnClickListener(this)
         paymentlayout.setOnClickListener(this)
+        mCanUserLayout.setOnClickListener(this)
+        transMoneyRelativeLayout.setOnClickListener(this)
 
         var b = PayHelperUtils.getVideoState(requireActivity())
         mSwitchButton.isChecked = b
@@ -149,6 +166,21 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())
             PayHelperUtils.saveAlipayRebate(context,it.data.alipayRebate.toString())
             PayHelperUtils.saveWechat(context,it.data.wechatrebate.toString())
+            if (it.data.drmbRebate!=null){
+                PayHelperUtils.saveBank(context,it.data.drmbRebate.toString())
+
+            }else{
+                PayHelperUtils.saveBank(context,"0")
+
+            }
+            if (it.data.unionRebate!=null){
+                PayHelperUtils.saveBank2(context,it.data.unionRebate.toString())
+
+            }else{
+                PayHelperUtils.saveBank2(context,"0")
+
+            }
+
 
             text1.text = it.data.commission.toString()
             text2.text = it.data.quota.toString()
@@ -156,7 +188,6 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             text4.text = it.data.payment.toString()
             text5.text = it.data.collection.toString()
             name.text=  PayHelperUtils.getUserName(context)
-
 
 
         })
@@ -177,18 +208,29 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             R.id.layout_groupreport ->startActivity(Intent().setClass(requireActivity(),GroupReportActivity::class.java))
             R.id.banklayout ->startActivity(Intent().setClass(requireActivity(),BankCardListActivity::class.java))
             R.id.reportday_layout->startActivity(Intent().setClass(requireActivity(),ReportDayActivity::class.java))
-            R.id.passlayout -> startActivity(Intent().setClass(requireActivity(), PasswordActivity::class.java))
-            R.id.paymentlayout -> startActivity(Intent().setClass(requireActivity(), PaymentActivity::class.java))
+            R.id.passlayout -> {startActivity(Intent().setClass(requireActivity(), PasswordActivity::class.java))}
+            R.id.paymentlayout -> {
+                startActivity(Intent().setClass(requireActivity(), PaymentActivity::class.java))
+
+            }
+
+            R.id.canuselayout->{
+                copyToClipboard(text2.text.toString())
+                ToastManager.showToastCenter(activity, "复制到剪贴簿:"+text2.text.toString())
+
+            }
+
+            R.id.tranmoneylayout ->{
+                startActivity(Intent().setClass(requireActivity(), TransListActivity::class.java))
+
+            }
 
         }
     }
 
     fun  getActivityData(){
         val activity: MainActivity? = activity as MainActivity?
-
-//        var boolean = activity!!.getData()
-            var boolean = PayHelperUtils.getGoogle(requireActivity());
-
+        var boolean = PayHelperUtils.getGoogle(requireActivity());
 
         if (boolean){
             val dialog = AddGoogleDialog(requireActivity())
@@ -211,6 +253,21 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
         }
 
+    }
+    private fun copyToClipboard(str: String) {
+        val sdk = Build.VERSION.SDK_INT
+        if (sdk < Build.VERSION_CODES.HONEYCOMB) {
+            val clipboard =
+                requireActivity()!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.text = str
+            Log.e("version", "1 version")
+        } else {
+            val clipboard =
+                requireActivity()!!.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+            val clip = ClipData.newPlainText("text label", str)
+            clipboard.setPrimaryClip(clip)
+            Log.e("version", "2 version")
+        }
     }
 
 
