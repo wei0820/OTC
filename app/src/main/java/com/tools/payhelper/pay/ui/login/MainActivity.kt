@@ -76,57 +76,26 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
     }
 
 
-    fun  checkVresion(){
-
-        lifecycleScope.launch {
-            loginViewModel._version.collect {
-                if (it!=null){
-                    if(it.data.quality!=null){
-                        PayHelperUtils.saveQuality(this@MainActivity,it.data.quality)
-                    }
-                }
-
-                if (PayHelperUtils.getVersionCode()<it.data.versionCode){
-                    val dialog = UpdateAlertDialog(this@MainActivity,it.data.url)
-                    dialog.setMessage(
-                        kotlin.String.format("欢迎使用%s原生V%s版本",
-                        getString(R.string.app_name),
-                        it.data.versionName)+"如升级失败，请选择网页下载升级")
-                    dialog.setIsForcedUpdate(true)
-                    dialog.show()
-                }
-
-
-
-            }
-        }
-
-
-    }
 
     override fun onResume() {
         super.onResume()
-        Log.d("MainActivity","onResume")
 
 
     }
 
     override fun onStart() {
         super.onStart()
-        Log.d("MainActivity","onStart")
 
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d("MainActivity","onPause")
 
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("MainActivity","onResume")
 
         if (handler != null) {
             handler!!.removeCallbacksAndMessages(null);
@@ -138,13 +107,28 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
 
     fun getInfo(){
 
+        lifecycleScope.launch {
+            loginViewModel._version.collect {
+                if (it!=null){
+                    Log.d("MainActivity",it.data.versionCode.toString())
+
+                    if (PayHelperUtils.getVersionCode()<it.data.versionCode){
+
+                    }
+                }
+            }
+        }
 
 
         loginViewModel.getUserInfo(this).observe(this, Observer {
+            Log.d("MainActivity",it.data.toString())
+
         })
         loginViewModel.getCheckList(this).observe(this, Observer{
             buyDataList.clear()
             if (it!=null){
+                Log.d("MainActivity",it.data.toString())
+
                 it.data.forEach {
                     if (it.state==0){
                         buyDataList.add(it)

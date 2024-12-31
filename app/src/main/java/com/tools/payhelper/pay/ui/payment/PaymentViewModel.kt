@@ -46,7 +46,6 @@ class PaymentViewModel : ViewModel() {
     fun getPaymentList(context: Context):LiveData<PaymentData>{
         paymentDateModel.getPaymentList(context, object :PaymentDateModel.BankCardResponse {
             override fun getResponse(s: String) {
-                Log.d("jack_getPaymentList",s)
                 viewModelScope.launch {
                     if (!s.isEmpty()){
                         var data = Gson().fromJson(s,PaymentData::class.java)

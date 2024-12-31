@@ -34,6 +34,7 @@ import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.login.AddGoogleDialog
 import com.tools.payhelper.pay.ui.login.MainActivity
+import com.tools.payhelper.pay.ui.money.TransListActivity
 import com.tools.payhelper.pay.ui.money.TransferMoneyActivity
 import com.tools.payhelper.pay.ui.payment.PaymentActivity
 import kotlinx.coroutines.launch
@@ -220,7 +221,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             }
 
             R.id.tranmoneylayout ->{
-                startActivity(Intent().setClass(requireActivity(), TransferMoneyActivity::class.java))
+                startActivity(Intent().setClass(requireActivity(), TransListActivity::class.java))
 
             }
 

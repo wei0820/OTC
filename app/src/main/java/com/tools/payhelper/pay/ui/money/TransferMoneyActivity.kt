@@ -1,9 +1,12 @@
 package com.tools.payhelper.pay.ui.money
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -24,19 +27,55 @@ class TransferMoneyActivity : AppCompatActivity() {
     val transferMoneyViewModel: TransferMoneyViewModel by lazy {
         ViewModelProvider(this, TransferMoneyViewModelFactory()).get(TransferMoneyViewModel::class.java)
     }
+    lateinit var  transEdit :EditText
+    lateinit var scroeEditText: EditText
+    lateinit var mGoogleEditText: EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawableResource(android.R.color.transparent)
         window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
         setContentView(R.layout.add_tran_money)
-        checkUserinfo()
+//        checkUserinfo()
         mMainAccountText = findViewById(R.id.nameedt)
         mMainAccountText.text = PayHelperUtils.getUserName(this)
         closeBtn = findViewById(R.id.closeBtn)
         closeBtn.setOnClickListener {
+
             this.finish()
         }
         okBtn = findViewById(R.id.okBtn)
+        transEdit = findViewById(R.id.bank_card)
+        scroeEditText = findViewById(R.id.payedt)
+        mGoogleEditText = findViewById(R.id.googleedt)
+        okBtn.setOnClickListener {
+            if (transEdit.text.isEmpty()){
+                ToastManager.showToastCenter(this,"请勿输入空值")
+                return@setOnClickListener
+            }
+            if (scroeEditText.text.isEmpty()){
+                ToastManager.showToastCenter(this,"请勿输入空值")
+
+                return@setOnClickListener}
+            if (mGoogleEditText.text.isEmpty()){
+                ToastManager.showToastCenter(this,"请勿输入空值")
+                return@setOnClickListener}
+
+            var  id = transEdit.text.toString()
+            var  scroe = scroeEditText.text.toString().toDouble()
+            var  google = mGoogleEditText.text.toString()
+
+
+            transferMoneyViewModel.setPostTransMoneyData(this,id,scroe,google).observe(this,
+                Observer {
+                    if (it!=null){
+                        runOnUiThread {
+                            Toast.makeText(this,it.msg,Toast.LENGTH_SHORT).show()
+                            this.finish()
+                        }
+                    }
+                })
+
+        }
 
     }
 

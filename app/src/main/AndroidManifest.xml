@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tools.payhelper"
-    android:versionCode="63"
-    android:versionName="1.0.63">
+    android:versionCode="64"
+    android:versionName="1.0.64">
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -63,6 +63,14 @@
             android:name=".pay.ui.payment.PaymentActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".pay.ui.money.TransListActivity"
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
