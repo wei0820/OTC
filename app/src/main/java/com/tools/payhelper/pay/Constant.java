@@ -32,6 +32,8 @@ public class Constant {
     final static  String BUY_MAX = "BUY_MAX";
     final static  String BUY_MIN = "BUY_MIN";
     final static  String BUY_ISOPEN = "BUY_ISOPEN";
+    final static  String B_ISOPEN = "B_ISOPEN";
+
     final static  String OPEN_URL = "OPEN_URL";
     final static  String USER_REBATE = "USER_REBATE";
     final static  String USER_WECHAT = "USER_WECHAT";

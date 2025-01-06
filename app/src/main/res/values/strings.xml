@@ -65,6 +65,8 @@
         <item>全部</item>
         <item>银行卡</item>
         <item>支付宝</item>
+        <item>微信</item>
+
     </string-array>
     <string name="title_activity_transfer_money">TransferMoneyActivity</string>
 

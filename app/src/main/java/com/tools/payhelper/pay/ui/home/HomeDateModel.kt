@@ -2,6 +2,7 @@ package com.jingyu.pay.ui.home
 
 import android.content.Context
 import android.util.Log
+import com.jingyu.pay.ui.dashboard.SellDateModel
 import com.jingyu.pay.ui.login.LoginDateModel
 import com.jingyu.pay.ui.order.OrderDateModel
 import com.tools.payhelper.pay.Constant
@@ -37,7 +38,7 @@ class HomeDateModel {
 
 
         val url: String = urlBuilder.build().toString()
-        Log.d("Jack",url)
+        Log.d("Jack＿getBuyDataList",url)
 
         val requestBody = jsonStr.toRequestBody(contentType)
 //        val client = OkHttpClient()
@@ -56,8 +57,6 @@ class HomeDateModel {
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.d("Jack",e.toString());
-
 
             }
 
@@ -68,6 +67,39 @@ class HomeDateModel {
 
     }
 
+    fun setCloseBuySetting(context: Context, buyResponse: BuyResponse){
+        var jsonObject= JSONObject()
+        jsonObject.put("token","")
+        var jsonStr=jsonObject.toString()
+        val contentType: MediaType = "application/json".toMediaType()
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
+        val request = Request.Builder()
+            .url(BaseUrl + "api/user/PaymentQueueOff")
+            .get()
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .header("content-type","application/json")
+            .build()
+        Log.d("Jack＿getBuyDataList",BaseUrl + "api/user/PaymentQueueOff")
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                buyResponse.getResponse( response.body?.string()!!)
+            }
+        })
+
+    }
     fun getUserinfo(context: Context, orderResponse: BuyResponse){
 
         var jsonObject= JSONObject()

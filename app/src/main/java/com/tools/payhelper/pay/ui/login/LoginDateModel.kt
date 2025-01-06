@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit
 
 class LoginDateModel {
     var BaseUrl : String = Constant.API_URL
-    val callMap = HashMap<String, Call>()
+    val callMap = HashMap<Long, Call>()
 
     fun setUserLogin(context: Context,loginid:String,password:String,code:String,loginrResponse: LoginrResponse){
         var jsonObject= JSONObject()
@@ -34,9 +34,11 @@ class LoginDateModel {
         jsonObject.put("ismobile","Android_"+PayHelperUtils.getVersionName()+"_userDevice_"+ SystemUtil.getUserDevice())
 
         var jsonStr=jsonObject.toString()
+        val time  = System.currentTimeMillis()
+
         val contentType: MediaType = "application/json".toMediaType()
-        if (callMap.containsKey(loginid)) {
-            val call = callMap[loginid]
+        if (callMap.containsKey(time)) {
+            val call = callMap[time]
             if (call != null && !call.isCanceled()) {
                 call.cancel()
             }
@@ -61,7 +63,7 @@ class LoginDateModel {
             .build()
 
         val call = client.newCall(request)
-        callMap.put(loginid,call)
+        callMap.put(time,call)
 
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

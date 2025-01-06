@@ -107,29 +107,27 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
 
     fun getInfo(){
 
-        lifecycleScope.launch {
-            loginViewModel._version.collect {
-                if (it!=null){
-                    Log.d("MainActivity",it.toString())
-
-                    if (PayHelperUtils.getVersionCode()<it.data.versionCode){
-                        ToastManager.showToastCenter(this@MainActivity,"發現新版本");
-
-
-                    }
-                }
-            }
-        }
+//        lifecycleScope.launch {
+//            loginViewModel._version.collect {
+//                if (it!=null){
+//                    Log.d("MainActivity",it.toString())
+//
+//                    if (PayHelperUtils.getVersionCode()<it.data.versionCode){
+//                        ToastManager.showToastCenter(this@MainActivity,"發現新版本");
+//
+//
+//                    }
+//                }
+//            }
+//        }
 
 
         loginViewModel.getUserInfo(this).observe(this, Observer {
-            Log.d("MainActivity",it.toString())
 
         })
         loginViewModel.getCheckList(this).observe(this, Observer{
             buyDataList.clear()
             if (it!=null){
-                Log.d("MainActivity",it.toString())
 
                 it.data.forEach {
                     if (it.state==0){
@@ -191,10 +189,36 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         {
             "com.duobao" ->
                 {
+                    val builder = NotificationCompat.Builder(this, "11")
+                        .setSmallIcon(R.drawable.img_duobao)
+                        .setContentTitle("你有订单待确认")
+                        .setContentText("你有订单待确认")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setDefaults(Notification.DEFAULT_ALL)
+
+
+                    with(NotificationManagerCompat.from(this)) {
+                        // notificationId is a unique int for each notification that you must define
+                        val notificationId = 10
+                        notify(notificationId, builder.build())
+                    }
+
             }
             "com.jingyu.otc" ->
                 {
+                    val builder = NotificationCompat.Builder(this, "11")
+                        .setSmallIcon(R.drawable.img_otc)
+                        .setContentTitle("你有订单待确认")
+                        .setContentText("你有订单待确认")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setDefaults(Notification.DEFAULT_ALL)
 
+
+                    with(NotificationManagerCompat.from(this)) {
+                        // notificationId is a unique int for each notification that you must define
+                        val notificationId = 10
+                        notify(notificationId, builder.build())
+                    }
                 }
             "com.geelyotc.pay" ->
             {
@@ -202,18 +226,6 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
             }
 
         }
-        val builder = NotificationCompat.Builder(this, "11")
-            .setSmallIcon(R.drawable.img_otc)
-            .setContentTitle("你有订单待确认")
-            .setContentText("你有订单待确认")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setDefaults(Notification.DEFAULT_ALL)
 
-
-        with(NotificationManagerCompat.from(this)) {
-            // notificationId is a unique int for each notification that you must define
-            val notificationId = 10
-            notify(notificationId, builder.build())
-        }
     }
 }

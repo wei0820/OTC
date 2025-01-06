@@ -160,6 +160,23 @@ public class PayHelperUtils {
 
     }
 
+    public static void isAllShowNews(Context context,String getNews){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+            alertDialog.setTitle("公告");
+            alertDialog.setMessage(getNews);
+            /*一樣，不熟的用這個打就OK了*/
+            alertDialog.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    saveUserInfoNews(context,getNews);
+                }
+            });
+            alertDialog.setCancelable(false);
+            alertDialog.show();
+
+
+    }
+
 
     public static String md5(String content) {
         byte[] hash;
@@ -208,7 +225,17 @@ public class PayHelperUtils {
         return sharedPreferences.getString(Constant.BUY_MIN, "");
     }
 
+    public static void saveBIsOpen(Context context, boolean token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.B_ISOPEN, Context.MODE_PRIVATE).edit();
+        edit.putBoolean(Constant.B_ISOPEN, token).apply();
+    }
 
+    public static Boolean getBIsOpen(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.B_ISOPEN, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getBoolean(Constant.B_ISOPEN, false);
+    }
     public static void saveBuyIsOpen(Context context, boolean token) {
         SharedPreferences.Editor edit = context.getSharedPreferences(Constant.BUY_ISOPEN, Context.MODE_PRIVATE).edit();
         edit.putBoolean(Constant.BUY_ISOPEN, token).apply();

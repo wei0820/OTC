@@ -1,24 +1,21 @@
 package com.jingyu.pay.ui.home
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationChannel.DEFAULT_CHANNEL_ID
-import android.app.NotificationManager
-import android.content.Context
-import android.content.Context.NOTIFICATION_SERVICE
-
 import android.content.Intent
 import android.media.SoundPool
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.core.content.ContextCompat.getSystemService
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.RadioGroup
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -27,17 +24,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tools.payhelper.R
-
+import com.tools.payhelper.databinding.FragmentHomeBinding
 import com.tools.payhelper.pay.AddBuySettingDilog
+import com.tools.payhelper.pay.AppManagerViewModel
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.home.BuyData
 import com.tools.payhelper.pay.ui.order.PaymentMatchingData
+import com.tools.payhelper.ui.login.AppManagerViewModelFactory
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
-import com.tools.payhelper.databinding.FragmentHomeBinding
-import com.tools.payhelper.pay.AppManagerViewModel
-import com.tools.payhelper.ui.login.AppManagerViewModelFactory
 
 
 class HomeFragment : Fragment() ,Handler.Callback{
@@ -202,25 +198,25 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     }
     fun  getBuyList(){
+            merchantOrdersViewModel.getBuyDataList(requireActivity()).observe(requireActivity(),
+                Observer {
+                    buyDataList.clear()
+                    buyIDDataList.clear()
+                    if (it.code == 0){
+                        if (it.data!=null){
 
-        merchantOrdersViewModel.getBuyDataList(requireActivity()).observe(requireActivity(),
-            Observer {
-                buyDataList.clear()
-                buyIDDataList.clear()
-                if (it.code == 0){
-                    if (it.data!=null){
+                            for (datum in it.data) {
+                                buyDataList.add(datum)
+                                buyIDDataList.add(datum.id)
+                                adapter!!.notifyDataSetChanged()
 
-                        for (datum in it.data) {
-                            buyDataList.add(datum)
-                            buyIDDataList.add(datum.id)
-                            adapter!!.notifyDataSetChanged()
-
-                        }
-                        if (buyDataList.size<=0){
+                            }
+                            if (buyDataList.size<=0){
+                            }
                         }
                     }
-                }
-            })
+                })
+
         adapter = BuyAdapter(this)
 
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
@@ -240,41 +236,50 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
 
     fun  getBuyList(type :String){
+            merchantOrdersViewModel.getBuyDataList(requireActivity()).observe(requireActivity(),
+                Observer {
+                    buyDataList.clear()
+                    buyIDDataList.clear()
+                    if (it.code == 0){
+                        if (it.data!=null){
 
-        merchantOrdersViewModel.getBuyDataList(requireActivity()).observe(requireActivity(),
-            Observer {
-                buyDataList.clear()
-                buyIDDataList.clear()
-                if (it.code == 0){
-                    if (it.data!=null){
-
-                        for (datum in it.data) {
-                            if (type=="全部"){
-                                isIng = false
-                                buyDataList.add(datum)
+                            for (datum in it.data) {
+                                if (type=="全部"){
+                                    isIng = false
+                                    buyDataList.add(datum)
 //                                buyIDDataList.add(datum.id)
-                                adapter!!.notifyDataSetChanged()
-                            }else{
-                                when(type){
-                                    "支付宝" ->
-                                        if (datum.ordertype.equals("JFB")){
-                                            buyDataList.add(datum)
-                                            adapter!!.notifyDataSetChanged()
-                                        }
+                                    adapter!!.notifyDataSetChanged()
+                                }else{
+                                    when(type){
+                                        "支付宝" ->
+                                            if (datum.ordertype.equals("JFB")){
+                                                buyDataList.add(datum)
+                                                adapter!!.notifyDataSetChanged()
+                                            }
                                         "银行卡" ->
                                             if (datum.ordertype.equals("BANK")){
                                                 buyDataList.add(datum)
                                                 adapter!!.notifyDataSetChanged()
                                             }
+
+                                        "微信" ->
+                                            if (datum.ordertype.equals("WECHAT")){
+                                                buyDataList.add(datum)
+                                                adapter!!.notifyDataSetChanged()
+                                            }
+
+
+                                    }
                                 }
+
+
                             }
 
-
                         }
-
                     }
-                }
-            })
+                })
+
+
         adapter = BuyAdapter(this)
 
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
@@ -343,7 +348,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     }
     fun setBuySetting(){
-
         val maxString =
             if (PayHelperUtils.getBuyMax(activity).isEmpty()) "99999" else PayHelperUtils.getBuyMax(
                 activity
@@ -360,8 +364,6 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
 
     fun  getPament(id:String){
-
-
 
         ToastManager.showToastCenter(requireActivity(),id);
 
@@ -654,6 +656,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
                 }
                 spinner.setSelection(0)
                 getBuyList()
+
             }else{
                 requireActivity().runOnUiThread {
                     ToastManager.showToastCenter(requireActivity(),"进行中订单/买币資料刷新")

@@ -64,24 +64,26 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         switch =  root.findViewById(R.id.switch1);
         sellHandler = Handler(this)
 
-        checkOpen()
+//        checkOpen()
         getList()
         getEtr()
 
         switch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, b ->
             val ischeckString = if (b) "卖币接单中" else "卖币暂停接单"
             switch.setText(ischeckString)
+            if(b != PayHelperUtils.getSellState(requireActivity())) {
 
-            if (b){
-                openSell()
-                PayHelperUtils.saveSellState(requireActivity(),true)
-
-
-            }else{
-                closeSell()
-                PayHelperUtils.saveSellState(requireActivity(),false)
+                if (b) {
+                    openSell()
+                    PayHelperUtils.saveSellState(requireActivity(), true)
 
 
+                } else {
+                    closeSell()
+                    PayHelperUtils.saveSellState(requireActivity(), false)
+
+
+                }
             }
         })
 
@@ -164,12 +166,12 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         val ischeckString = if (b) "卖币接单中" else "卖币暂停接单"
 
         switch.text = ischeckString
-        if (b) {
-            openSell()
-
-        }else{
-            closeSell()
-        }
+//        if (b) {
+////            openSell()
+//
+//        }else{
+////            closeSell()
+//        }
 
     }
     fun openSell(){
