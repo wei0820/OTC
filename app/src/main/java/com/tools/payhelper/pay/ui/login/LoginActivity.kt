@@ -57,6 +57,8 @@ class LoginActivity : BasicActivity() {
         _versiontext.visibility = View.GONE
         check()
         PayHelperUtils.getLocalIpAddress(this)
+        PayHelperUtils.saveBIsOpen(this,false)
+        PayHelperUtils.saveSellState(this,false)
         loginButton.setOnClickListener {
             loginButton.isEnabled = false
             loginButton.isClickable = false;

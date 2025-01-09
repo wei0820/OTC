@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 class TransferMoneyDateModel {
 
     var BaseUrl : String = Constant.API_URL
-    val callMap = HashMap<String, Call>()
+    val callMap = HashMap<Long, Call>()
 
     fun setPostTransMoneyData(context: Context,loginId:String,score:Double,code:String,orderResponse: OrderResponse){
         var jsonObject= JSONObject()
@@ -46,9 +46,10 @@ class TransferMoneyDateModel {
             .build()
         Log.d("trans",BaseUrl + "api/user/transfer")
         Log.d("trans",jsonStr)
+        val time  = System.currentTimeMillis()
 
-        if (callMap.containsKey(loginId)) {
-            val call = callMap[loginId]
+        if (callMap.containsKey(time)) {
+            val call = callMap[time]
             if (call != null && !call.isCanceled()) {
                 call.cancel()
             }
@@ -56,7 +57,7 @@ class TransferMoneyDateModel {
 
 
         val call = client.newCall(request)
-        callMap.put(loginId,call)
+        callMap.put(time,call)
 
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

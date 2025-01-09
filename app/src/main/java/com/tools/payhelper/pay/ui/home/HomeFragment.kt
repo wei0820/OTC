@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -348,18 +349,30 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     }
     fun setBuySetting(){
-        val maxString =
-            if (PayHelperUtils.getBuyMax(activity).isEmpty()) "99999" else PayHelperUtils.getBuyMax(
-                activity
-            )
-        val minString =
-            if (PayHelperUtils.getBuyMin(activity).isEmpty()) "1" else PayHelperUtils.getBuyMin(
-                activity
-            )
+        Log.d("setBuySetting","in")
+        if (!PayHelperUtils.getBIsOpen(requireActivity())){
+            Log.d("setBuySetting","false")
 
-        merchantOrdersViewModel.getBuySetting(requireActivity(),minString,maxString).observe(requireActivity(), Observer {
+            val maxString =
+                if (PayHelperUtils.getBuyMax(activity).isEmpty()) "99999" else PayHelperUtils.getBuyMax(
+                    activity
+                )
+            val minString =
+                if (PayHelperUtils.getBuyMin(activity).isEmpty()) "1" else PayHelperUtils.getBuyMin(
+                    activity
+                )
 
-        })
+            merchantOrdersViewModel.getBuySetting(requireActivity(),minString,maxString).observe(requireActivity(), Observer {
+                if (it!=null){
+                    if (it.code==0){
+                        PayHelperUtils.saveBIsOpen(requireActivity(),true)
+                    }
+                }
+
+            })
+        }
+        Log.d("setBuySetting","true")
+
     }
 
 

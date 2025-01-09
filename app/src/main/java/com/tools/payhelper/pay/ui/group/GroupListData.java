@@ -25,7 +25,10 @@ public class GroupListData {
         @SerializedName("commission") public  double commission;
         @SerializedName("created") public  String created;
         @SerializedName("alipayRebate") public  String alipayRebate;
+
         @SerializedName("weChatRebate") public  float wechatrebate;
+        @SerializedName("weChatXeRebate") public  float weChatXeRebate;
+        @SerializedName("alipayXeRebate") public  String alipayXeRebate;
 
         @SerializedName("drmbRebate") public  float drmbRebate;
         @SerializedName("unionRebate") public  float unionRebate;

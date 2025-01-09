@@ -37,12 +37,15 @@ public class Constant {
     final static  String OPEN_URL = "OPEN_URL";
     final static  String USER_REBATE = "USER_REBATE";
     final static  String USER_WECHAT = "USER_WECHAT";
+    final static  String USER_WECHATXE = "USER_WECHATXE";
+
     final static  String USER_BANK = "USER_BANK";
     final static  String USER_BANK2 = "USER_BANK2";
 
 
     final static  String USER_PAYMENTXEREBATE = "USER_PAYMENTXEREBATE";
     final static  String USER_AlipayRebate = "USER_AlipayRebate";
+    final static  String USER_AlipayXERebate = "USER_AlipayXERebate";
     final static  String CHECKSELLSTATE = "CHECKSELLSTATE";
     final static  String VIDEOSWITCH = "VIDEOSWITCH";
 

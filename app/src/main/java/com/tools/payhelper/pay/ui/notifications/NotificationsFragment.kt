@@ -180,6 +180,21 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
                 PayHelperUtils.saveBank2(context,"0")
 
             }
+            if(it.data.alipayXeRebate!=null){
+                PayHelperUtils.saveAlipayXeRebate(context,it.data.alipayXeRebate.toString())
+
+            }else{
+                PayHelperUtils.saveAlipayXeRebate(context,"0")
+
+            }
+            if (it.data.weChatXeRebate!=null){
+                PayHelperUtils.saveWechatXe(context,it.data.weChatXeRebate.toString())
+
+            }else{
+                PayHelperUtils.saveWechatXe(context,"0")
+
+            }
+
 
 
             text1.text = it.data.commission.toString()

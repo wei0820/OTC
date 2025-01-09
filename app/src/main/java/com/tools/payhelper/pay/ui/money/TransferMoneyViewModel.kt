@@ -45,7 +45,6 @@ class TransferMoneyViewModel : ViewModel() {
             TransferMoneyDateModel.OrderResponse {
             override fun getResponse(s: String) {
                 if (!s.isEmpty()){
-                    Log.d("trans",s)
                     viewModelScope.launch {
                         var ud = Gson().fromJson(s, TransferData::class.java)
                         mTransdata.value = ud
@@ -56,6 +55,8 @@ class TransferMoneyViewModel : ViewModel() {
             }
 
             override fun getFailure(s: String) {
+
+
             }
 
         })

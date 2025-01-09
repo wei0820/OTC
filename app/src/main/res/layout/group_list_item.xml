@@ -4,6 +4,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="alipayRebate" />
+
     <LinearLayout
         android:layout_marginTop="12dp"
         android:paddingStart="20dp"
@@ -92,11 +99,26 @@
             android:textSize="14sp"
             android:textColor="#3a3a3a"
             android:gravity="center_horizontal"
+            android:id="@+id/alipayXeRebate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500000.000" />
+        <TextView
+            android:textSize="14sp"
+            android:textColor="#3a3a3a"
+            android:gravity="center_horizontal"
             android:id="@+id/wechatRebate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="500000.000" />
-
+        <TextView
+            android:textSize="14sp"
+            android:textColor="#3a3a3a"
+            android:gravity="center_horizontal"
+            android:id="@+id/wechatXeRebate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500000.000" />
         <TextView
             android:textSize="14sp"
             android:textColor="#3a3a3a"

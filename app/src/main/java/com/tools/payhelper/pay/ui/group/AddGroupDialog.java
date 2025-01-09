@@ -32,7 +32,7 @@ public class AddGroupDialog extends AlertDialog {
     private OnAddBanKListCallback onAddBanKListCallback;
     private Dialog dialog;
     private Switch aSwitch;
-    private  EditText textView,textView2,textiew22,wechattext,banktext,unionRebatetext;
+    private  EditText textView,textView2,textiew22,wechattext,banktext,unionRebatetext,alipayRebateXeText,wechatxetext;
     private Handler handlerLoading = new Handler();
     GroupDateModel groupDateModel = new GroupDateModel();
     public void setOnAddCallback(OnAddCallback onAddCallback) {
@@ -83,26 +83,41 @@ public class AddGroupDialog extends AlertDialog {
         textView2 = findViewById(R.id.text2);
         textiew22 = findViewById(R.id.text22);
         wechattext = findViewById(R.id.wechattext);
+        alipayRebateXeText = findViewById(R.id.alipayRebateXe);
+        wechatxetext = findViewById(R.id.wechatxetext);
         banktext = findViewById(R.id.banktext);
         unionRebatetext = findViewById(R.id.unionRebatetext);
         tel = findViewById(R.id.teledt);
         String maxString = PayHelperUtils.getRebate(activity).isEmpty() ? "" : PayHelperUtils.getRebate(activity);
         String minString = PayHelperUtils.getPaymentXeRebate(activity).isEmpty() ? "" : PayHelperUtils.getPaymentXeRebate(activity);
         String alipayRebate = PayHelperUtils.getAlipayRebate(activity).isEmpty()? "" : PayHelperUtils.getAlipayRebate(activity);
+        String alipayRebateXe = PayHelperUtils.getAlipayXeRebate(activity).isEmpty()? "" : PayHelperUtils.getAlipayXeRebate(activity);
+
         String wechatRebate = PayHelperUtils.getWechat(activity).isEmpty()? "" : PayHelperUtils.getWechat(activity);
+        String wechatRebateXe = PayHelperUtils.getWechatXe(activity).isEmpty()? "" : PayHelperUtils.getWechatXe(activity);
+
         String bankRebate = PayHelperUtils.getBank(activity).isEmpty()? "" : PayHelperUtils.getBank(activity);
         String unionRebate = PayHelperUtils.getBank2(activity).isEmpty()? "" : PayHelperUtils.getBank2(activity);
 
 
 
-
         TextView message = findViewById(R.id.message);
-        message.setText("您的佣金比例:\n"+"卖币:"+maxString+"\n"+"小额买币:"+minString+"\n"+"支付宝卖币:"+alipayRebate+"\n"+"微信卖币:"+wechatRebate
-        +"\n"+"数字人民币:"+bankRebate +"\n"+"银联:"+unionRebate);
+        message.setText("您的佣金比例:\n"+
+                "卖币:"+maxString+"\n"+
+                "小额买币:"+minString+"\n"+
+                "支付宝卖币:"+alipayRebate+"\n"+
+                "小额支付宝:"+alipayRebateXe+"\n"+
+                "微信卖币:"+wechatRebate+"\n"+
+                "小额微信:"+wechatRebateXe +"\n"+
+                "数字人民币:"+bankRebate +"\n"+
+                "银联:"+unionRebate);
         textView.setText(maxString);
         textView2.setText(minString);
         textiew22.setText(alipayRebate);
+        alipayRebateXeText.setText(alipayRebateXe);
+
         wechattext.setText(wechatRebate);
+        wechatxetext.setText(wechatRebateXe);
         banktext.setText(bankRebate);
         unionRebatetext.setText(unionRebate);
         view.findViewById(R.id.closeBtn).setOnClickListener(v -> {
@@ -129,6 +144,9 @@ public class AddGroupDialog extends AlertDialog {
                 Double wechatDb = Double.parseDouble(wechattext.getText().toString());
                 Double bankDb = Double.parseDouble(banktext.getText().toString());
                 Double unionRebateDB = Double.parseDouble(unionRebatetext.getText().toString());
+                Double alipayRebateXeDB = Double.parseDouble(alipayRebateXeText.getText().toString());
+                Double wechatXeDb = Double.parseDouble(wechatxetext.getText().toString());
+
 
                 groupDateModel.getGroupRegister(activity, n, p, t,
                         re,
@@ -137,6 +155,8 @@ public class AddGroupDialog extends AlertDialog {
                         wechatDb,
                         bankDb,
                         unionRebateDB,
+                        alipayRebateXeDB,
+                        wechatXeDb,
                         new GroupDateModel.GroupResponse() {
                             @Override
                             public void getResponse(@NonNull String s) {

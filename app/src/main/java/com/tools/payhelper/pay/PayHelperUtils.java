@@ -274,6 +274,17 @@ public class PayHelperUtils {
     }
 
 
+    public static void saveWechatXe(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_WECHATXE, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_WECHATXE, token).apply();
+    }
+
+    public static String getWechatXe(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_WECHATXE, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_WECHATXE, "");
+    }
     public static void saveWechat(Context context, String token) {
         SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_WECHAT, Context.MODE_PRIVATE).edit();
         edit.putString(Constant.USER_WECHAT, token).apply();
@@ -341,6 +352,19 @@ public class PayHelperUtils {
 
         return sharedPreferences.getString(Constant.USER_AlipayRebate, "");
     }
+
+    public static void saveAlipayXeRebate(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_AlipayXERebate, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_AlipayXERebate, token).apply();
+    }
+
+    public static String getAlipayXeRebate(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_AlipayXERebate, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_AlipayXERebate, "");
+    }
+
 
 
     public static void saveSellState(Context context, boolean token) {

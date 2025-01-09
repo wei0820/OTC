@@ -36,6 +36,7 @@ class LoginViewModel : ViewModel() {
 
                 if (!s.isEmpty()){
                     viewModelScope.launch {
+
                         var userData = Gson().fromJson(s, LoginData::class.java)
                         token.value = userData
 

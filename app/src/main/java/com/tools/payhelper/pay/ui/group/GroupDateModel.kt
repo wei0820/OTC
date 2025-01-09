@@ -184,7 +184,8 @@ class GroupDateModel {
 
 
 
-    fun getGroupRegister(context: Context,LoginId:String,
+    fun getGroupRegister(context: Context,
+                         LoginId:String,
                          PassWord:String,
                          Tel:String,
                          Rebate:Double,
@@ -193,6 +194,8 @@ class GroupDateModel {
                          wechatrebate: Double,
                          drmbRebate : Double,
                          unionRebate : Double,
+                         AlipayXeRebate:Double,
+                         wechaXetrebate: Double,
                          groupResponse: GroupResponse){
 
         var jsonObject= JSONObject()
@@ -203,6 +206,8 @@ class GroupDateModel {
         jsonObject.put("PaymentXeRebate",PaymentXeRebate)
         jsonObject.put("AlipayRebate",AlipayRebate)
         jsonObject.put("WeChatRebate",wechatrebate)
+        jsonObject.put("AlipayXeRebate",AlipayXeRebate)
+        jsonObject.put("WeChatXeRebate",wechaXetrebate)
         jsonObject.put("drmbRebate",drmbRebate)
         jsonObject.put("unionRebate",unionRebate)
 
