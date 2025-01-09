@@ -31,7 +31,7 @@ class LoginDateModel {
         jsonObject.put("roleName","会员")
         jsonObject.put("IP",PayHelperUtils.getDeviceIP(context))
         jsonObject.put("version",Constant.versionnumber)
-        jsonObject.put("ismobile","Android_"+PayHelperUtils.getVersionName()+"_userDevice_"+ SystemUtil.getUserDevice())
+        jsonObject.put("ismobile","Android_"+PayHelperUtils.getVersionName()+"_userDevice_"+ SystemUtil.getUserDevice()+"_userAppName_"+Constant.apppakegename)
 
         var jsonStr=jsonObject.toString()
         val time  = System.currentTimeMillis()

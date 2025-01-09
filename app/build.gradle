@@ -47,6 +47,8 @@ android {
             buildConfigField "String", "API_URL", "\"https://api.colorwin.com/\""
             buildConfigField "String", "EXRATE_URL", "\"https://api.colorwin.com/exrate.json\""
             buildConfigField "String", "VERSIONNUMBER", "\"v8\""
+            buildConfigField "String", "APPNAME", "\"多宝\""
+
 
 
 
@@ -67,6 +69,8 @@ android {
             buildConfigField "String", "API_URL", "\"https://api.colorwin.com/\""
             buildConfigField "String", "EXRATE_URL", "\"https://api.colorwin.com/exrate.json\""
             buildConfigField "String", "VERSIONNUMBER", "\"v8\""
+            buildConfigField "String", "APPNAME", "\"聚宝OTC\""
+
 
 
         }
@@ -90,10 +94,7 @@ android {
             buildConfigField "String", "API_URL", "\"https://api.17otc.com/\""
             buildConfigField "String", "EXRATE_URL", "\"https://pay.17otc.com/exrate.json\""
             buildConfigField "String", "VERSIONNUMBER", "\"v9\""
-
-
-
-
+            buildConfigField "String", "APPNAME", "\"GEELY OTC\""
 
         }
 
