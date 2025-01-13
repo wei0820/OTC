@@ -23,7 +23,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +72,8 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
     public final static int DEVICE_PHOTO_REQUEST = 1234;
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
     private Button messageButton;
+    private Switch aSwitch;
+    private boolean ischeck =false;
     public void setOnAddCallback(AddPayCardDialog.OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
     }
@@ -112,7 +116,18 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
         eusername = findViewById(R.id.enameedt);
         payedt = findViewById(R.id.payedt);
         padd = findViewById(R.id.addurl);
+        aSwitch = findViewById(R.id.switchbutton);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    ischeck =b;
+                }else {
+                    ischeck =b;
 
+                }
+            }
+        });
 
         findViewById(R.id.closeBtn).setOnClickListener(v -> {
             Main22Activity.this.finish();
@@ -133,7 +148,8 @@ public class Main22Activity extends AppCompatActivity implements View.OnClickLis
                 String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(Main22Activity.this, n, p, t, payF, google, username, euserName, new BankCardDateModel.BankCardResponse() {
+                boolean b = ischeck;
+                bankCardDateModel.setBankCard(Main22Activity.this, n, p, t, payF, google, username, euserName, b,"",false,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

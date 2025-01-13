@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,6 +59,8 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
     public final static int DEVICE_PHOTO_REQUEST = 1234;
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
     private Button messageButton;
+    private Switch aSwitch;
+    private boolean ischeck =false;
     public void setOnAddCallback(AddPayCardDialog.OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
     }
@@ -106,8 +110,18 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
 
         messageButton = findViewById(R.id.message);
         messageButton.setOnClickListener(this);
+        aSwitch = findViewById(R.id.switchbutton);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    ischeck =b;
+                }else {
+                    ischeck =b;
 
-
+                }
+            }
+        });
         findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +133,8 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
                 String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(AddWechatActivity.this, n, p, t, payF, google, username, euserName, new BankCardDateModel.BankCardResponse() {
+                boolean b = ischeck;
+                bankCardDateModel.setBankCard(AddWechatActivity.this, n, p, t, payF, google, username, euserName,ischeck,"",false, new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

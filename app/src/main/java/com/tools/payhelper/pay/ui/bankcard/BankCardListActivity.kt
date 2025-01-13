@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -16,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.gson.Gson
 
 import com.tools.payhelper.AddWechatActivity
 import com.tools.payhelper.Main22Activity
@@ -26,10 +29,18 @@ import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.bankcard.AddBankDialog
 import com.tools.payhelper.AddBankQrcodeActivity
+import com.tools.payhelper.UpadteAddWechatActivity
+import com.tools.payhelper.UpdateAddBankQrcodeActivity
+import com.tools.payhelper.UpdateMain22Activity
+import com.tools.payhelper.UpdateUploadAliPayPhotoActivity
 import com.tools.payhelper.pay.ui.bankcard.AddCardDialog
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog
 import com.tools.payhelper.pay.ui.bankcard.AddWechatPhoneDialog
 import com.tools.payhelper.pay.ui.bankcard.BanCardListData
+import com.tools.payhelper.pay.ui.bankcard.UpdateAddBankDialog
+import com.tools.payhelper.pay.ui.bankcard.UpdateAddCardDialog
+import com.tools.payhelper.pay.ui.bankcard.UpdateAddPayCardDialog
+import com.tools.payhelper.pay.ui.bankcard.UpdateAddWechatPhoneDialog
 
 class BankCardListActivity : AppCompatActivity() {
     lateinit var  close :ImageButton
@@ -263,6 +274,9 @@ class BankCardListActivity : AppCompatActivity() {
                 var userName : TextView
                 var pinName : TextView
             var lockName : TextView
+            var ischeck : TextView
+            var layout : LinearLayout
+            var collectionlimittext : TextView
 
 
 
@@ -275,7 +289,12 @@ class BankCardListActivity : AppCompatActivity() {
                 userName = view.findViewById(R.id.username)
                 pinName = view.findViewById(R.id.pin)
                 lockName= view.findViewById(R.id.lock)
+                ischeck  = view.findViewById(R.id.ischeck);
+                layout = view.findViewById(R.id.layout)
+                collectionlimittext = view.findViewById(R.id.collectionlimittext)
+
             }
+
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -311,15 +330,144 @@ class BankCardListActivity : AppCompatActivity() {
                 mActivity.deleteBankCard(info.id)
             }
 
-//            holder.switchButton.setOnCheckedChangeListener { compoundButton, b ->
-//                if(info.isEnable)
-//
-//
-//
-//            }
 
             holder.switchButton.setOnClickListener {
-                                mActivity.setStopBankCard(info.id)
+
+               mActivity.setStopBankCard(info.id)
+
+            }
+
+            if (info.isAWXe==true){
+                holder.ischeck.text = "是否只用于小额收款:"+"是"
+
+            }else{
+                holder.ischeck.text = "是否只用于小额收款:"+"否"
+
+            }
+            holder.collectionlimittext.text = "收款:" +info.collectionlimit
+
+            holder.layout.setOnLongClickListener {
+                when(info.bankName){
+
+                    mActivity.getString(R.string.add_pay)->{
+                        val dialog = UpdateAddPayCardDialog(mActivity,info)
+                        dialog.setAddBankCallback {
+                            if (it!=null){
+                                mActivity.runOnUiThread {
+                                    ToastManager.showToastCenter(mActivity,it.msg)
+                                    mActivity.getBankCardList()
+
+                                }
+                            }
+                        }
+                        dialog.show()
+
+
+                    }
+                    mActivity.getString(R.string.add_scan)->{
+                        if (info!=null){
+                            var intent = Intent()
+                            intent.setClass(mActivity, UpdateMain22Activity::class.java)
+                            intent.putExtra("json", Gson().toJson(info))
+                            mActivity.startActivity(intent)
+                        }else{
+                            Toast.makeText(mActivity,"发生错误 请重新登入", Toast.LENGTH_SHORT).show()
+
+                        }
+
+                    }
+                    mActivity.getString(R.string.add_wechat)->{
+                        if (info!=null){
+                            var intent = Intent()
+                            intent.setClass(mActivity, UpadteAddWechatActivity::class.java)
+                            intent.putExtra("json", Gson().toJson(info))
+                            mActivity.startActivity(intent)
+                        }else{
+                            Toast.makeText(mActivity,"发生错误 请重新登入", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+                    mActivity.getString(R.string.add_wechat_phone)->{
+                        val dialog = UpdateAddWechatPhoneDialog( mActivity,info)
+                        dialog.setAddBankCallback {
+                            if (it!=null){
+                                mActivity.runOnUiThread {
+                                    ToastManager.showToastCenter( mActivity,it.msg)
+                                    mActivity.getBankCardList()
+
+                                }
+                            }
+                        }
+                        dialog.show()
+
+                    }
+                    mActivity.getString(R.string.add_upload)->{
+                        if (info!=null){
+                            var intent = Intent()
+                            intent.setClass(mActivity, UpadteAddWechatActivity::class.java)
+                            intent.putExtra("json", Gson().toJson(info))
+                            mActivity.startActivity(intent)
+                        }else{
+                            Toast.makeText(mActivity,"发生错误 请重新登入", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+                    mActivity.getString(R.string.add_upload2)->{
+                        if (info!=null){
+                            var intent = Intent()
+                            intent.setClass(mActivity, UpdateUploadAliPayPhotoActivity::class.java)
+                            intent.putExtra("json", Gson().toJson(info))
+                            mActivity.startActivity(intent)
+                        }else{
+                            Toast.makeText(mActivity,"发生错误 请重新登入", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+                    mActivity.getString(R.string.add_upload3)->{
+                        if (info!=null){
+                            var intent = Intent()
+                            intent.setClass(mActivity, UpdateAddBankQrcodeActivity::class.java)
+                            intent.putExtra("json", Gson().toJson(info))
+                            mActivity.startActivity(intent)
+                        }else{
+                            Toast.makeText(mActivity,"发生错误 请重新登入", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+
+                    mActivity.getString(R.string.add_bank)->{
+
+
+                        val dialog = UpdateAddBankDialog(mActivity,info)
+                        dialog.setAddBankCallback {
+                            if (it!=null){
+                                mActivity.runOnUiThread {
+                                    ToastManager.showToastCenter(mActivity,it.msg)
+                                    mActivity.getBankCardList()
+
+                                }
+                            }
+                        }
+                        dialog.show()
+
+                    }
+                    else -> {
+
+                        val dialog = UpdateAddCardDialog(mActivity,info)
+                        dialog.setAddBankCallback {
+                            if (it!=null){
+                                mActivity.runOnUiThread {
+                                    ToastManager.showToastCenter(mActivity,it.msg)
+                                    mActivity.getBankCardList()
+
+                                }
+                            }
+                        }
+                        dialog.show()
+                    }
+
+                }
+                true
 
             }
 

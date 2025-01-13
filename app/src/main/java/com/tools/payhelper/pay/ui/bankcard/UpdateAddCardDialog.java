@@ -23,7 +23,7 @@ import com.tools.payhelper.R;
 import com.tools.payhelper.pay.PayHelperUtils;
 
 
-public class AddBankDialog extends AlertDialog {
+public class UpdateAddCardDialog extends AlertDialog {
     private Activity activity;
     private EditText pd, name,tel,googleedt,usernaem,eusername,payedt;
     private Spinner spinner;
@@ -34,6 +34,7 @@ public class AddBankDialog extends AlertDialog {
     private  TextView textView,textView2;
     private Handler handlerLoading = new Handler();
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
+    private BanCardListData.Data data;
     public void setOnAddCallback(OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
     }
@@ -50,17 +51,18 @@ public class AddBankDialog extends AlertDialog {
         void onResponse(AddBankCardData addBankCardData);
     }
 
-    public AddBankDialog(Activity activity) {
+    public UpdateAddCardDialog(Activity activity,BanCardListData.Data data) {
         super(activity);
         this.activity = activity;
+        this.data = data;
     }
 
 
-    protected AddBankDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    protected UpdateAddCardDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
-    protected AddBankDialog(Context context, int themeResId) {
+    protected UpdateAddCardDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
 
@@ -70,7 +72,7 @@ public class AddBankDialog extends AlertDialog {
         getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
-        View view = LayoutInflater.from(activity).inflate(R.layout.add_bank, null);
+        View view = LayoutInflater.from(activity).inflate(R.layout.add_bank_card, null);
         setView(view);
         setContentView(view);
         setCanceledOnTouchOutside(false);
@@ -87,7 +89,14 @@ public class AddBankDialog extends AlertDialog {
         String maxString = PayHelperUtils.getRebate(activity).isEmpty() ? "" : PayHelperUtils.getRebate(activity);
         String minString = PayHelperUtils.getPaymentXeRebate(activity).isEmpty() ? "" : PayHelperUtils.getPaymentXeRebate(activity);
 
-
+        if (data!=null){
+            name.setText(data.bankName);
+            pd.setText(data.subName);
+            tel.setText(data.cardNo);
+            usernaem.setText(data.userName);
+            eusername.setText(data.pinYin);
+            payedt.setText(String.valueOf(data.collectionlimit));
+        }
 
 
 
@@ -112,15 +121,15 @@ public class AddBankDialog extends AlertDialog {
         view.findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String n = "数字人民币";
-                String p = "";
+                String n = name.getText().toString();
+                String p = pd.getText().toString();
                 String t = tel.getText().toString();
                 String google = googleedt.getText().toString();
                 String username = usernaem.getText().toString();
-                String euserName = "";
+                String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName,false,"",false, new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName, false,data.id,true,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

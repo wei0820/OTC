@@ -2,7 +2,6 @@ package com.tools.payhelper.pay.ui.bankcard;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,30 +9,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.jingyu.pay.ui.bankcard.BankCardDateModel;
 import com.tools.payhelper.R;
-import com.tools.payhelper.pay.PayHelperUtils;
 
 
-public class AddBankDialog extends AlertDialog {
+public class UpdateAddWechatPhoneDialog extends AlertDialog {
     private Activity activity;
     private EditText pd, name,tel,googleedt,usernaem,eusername,payedt;
-    private Spinner spinner;
     private OnAddCallback onAddCallback;
     private OnAddBanKListCallback onAddBanKListCallback;
-    private Dialog dialog;
-    private Switch aSwitch;
-    private  TextView textView,textView2;
     private Handler handlerLoading = new Handler();
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
+
+    private Switch aSwitch;
+    private boolean ischeck =false;
     public void setOnAddCallback(OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
     }
@@ -50,27 +46,29 @@ public class AddBankDialog extends AlertDialog {
         void onResponse(AddBankCardData addBankCardData);
     }
 
-    public AddBankDialog(Activity activity) {
+    public UpdateAddWechatPhoneDialog(Activity activity,BanCardListData.Data data) {
         super(activity);
         this.activity = activity;
+        this.data = data;
+
     }
 
 
-    protected AddBankDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    protected UpdateAddWechatPhoneDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
-    protected AddBankDialog(Context context, int themeResId) {
+    protected UpdateAddWechatPhoneDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
-
+    private BanCardListData.Data data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
-        View view = LayoutInflater.from(activity).inflate(R.layout.add_bank, null);
+        View view = LayoutInflater.from(activity).inflate(R.layout.add_wechat_phone, null);
         setView(view);
         setContentView(view);
         setCanceledOnTouchOutside(false);
@@ -83,19 +81,28 @@ public class AddBankDialog extends AlertDialog {
         usernaem = findViewById(R.id.nameedt);
         eusername = findViewById(R.id.enameedt);
         payedt = findViewById(R.id.payedt);
+        aSwitch = findViewById(R.id.switchbutton);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    ischeck =b;
+                }else {
+                    ischeck =b;
 
-        String maxString = PayHelperUtils.getRebate(activity).isEmpty() ? "" : PayHelperUtils.getRebate(activity);
-        String minString = PayHelperUtils.getPaymentXeRebate(activity).isEmpty() ? "" : PayHelperUtils.getPaymentXeRebate(activity);
+                }
+            }
+        });
+
+        if (data!=null){
+            pd.setText(data.subName);
+            usernaem.setText(data.userName);
+            eusername.setText(data.pinYin);
+            payedt.setText(String.valueOf(data.collectionlimit));
+            aSwitch.setChecked(data.isAWXe);
 
 
-
-
-
-//        TextView message = findViewById(R.id.message);
-//        message.setText("您的佣金比例:\n"+"卖币:"+maxString+"\n"+"小额买币:"+minString);
-//        textView.setText(maxString);
-//        textView2.setText(minString);
-
+        }
 
         view.findViewById(R.id.closeBtn).setOnClickListener(v -> {
             view.setEnabled(false);
@@ -112,15 +119,15 @@ public class AddBankDialog extends AlertDialog {
         view.findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String n = "数字人民币";
-                String p = "";
-                String t = tel.getText().toString();
+                String n = "微信转账";
+                String p = pd.getText().toString();
+                String t = "NA";
                 String google = googleedt.getText().toString();
                 String username = usernaem.getText().toString();
-                String euserName = "";
+                String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName,false,"",false, new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName,ischeck, data.id, data.isEnable, new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

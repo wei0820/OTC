@@ -23,8 +23,9 @@ import com.tools.payhelper.R;
 import com.tools.payhelper.pay.PayHelperUtils;
 
 
-public class AddBankDialog extends AlertDialog {
+public class UpdateAddBankDialog extends AlertDialog {
     private Activity activity;
+    private  BanCardListData.Data dd;
     private EditText pd, name,tel,googleedt,usernaem,eusername,payedt;
     private Spinner spinner;
     private OnAddCallback onAddCallback;
@@ -50,17 +51,19 @@ public class AddBankDialog extends AlertDialog {
         void onResponse(AddBankCardData addBankCardData);
     }
 
-    public AddBankDialog(Activity activity) {
+    public UpdateAddBankDialog(Activity activity,BanCardListData.Data data) {
         super(activity);
         this.activity = activity;
+        this.dd = data;
+
     }
 
 
-    protected AddBankDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    protected UpdateAddBankDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
-    protected AddBankDialog(Context context, int themeResId) {
+    protected UpdateAddBankDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
 
@@ -87,7 +90,12 @@ public class AddBankDialog extends AlertDialog {
         String maxString = PayHelperUtils.getRebate(activity).isEmpty() ? "" : PayHelperUtils.getRebate(activity);
         String minString = PayHelperUtils.getPaymentXeRebate(activity).isEmpty() ? "" : PayHelperUtils.getPaymentXeRebate(activity);
 
+        if (dd!=null){
+            tel.setText(dd.cardNo);
+            usernaem.setText(dd.userName);
+            payedt.setText(String.valueOf(dd.collectionlimit));
 
+        }
 
 
 
@@ -120,7 +128,9 @@ public class AddBankDialog extends AlertDialog {
                 String euserName = "";
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName,false,"",false, new BankCardDateModel.BankCardResponse() {
+                String id = dd.id;
+                boolean b = dd.isEnable;
+                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName,false,id, b,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

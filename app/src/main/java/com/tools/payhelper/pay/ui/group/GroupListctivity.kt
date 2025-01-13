@@ -224,6 +224,7 @@ class Adapter(activity:GroupListctivity) : RecyclerView.Adapter<Adapter.ViewHold
             holder.wechatXeRebate.text =  "小额微信佣金￥" + info.weChatXeRebate
 
         }else{
+
             holder.wechatXeRebate.text =  "小额微信佣金￥"+  "0"
 
         }

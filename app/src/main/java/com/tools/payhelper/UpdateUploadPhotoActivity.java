@@ -42,18 +42,18 @@ import com.permissionx.guolindev.callback.ForwardToSettingsCallback;
 import com.permissionx.guolindev.callback.RequestCallback;
 import com.permissionx.guolindev.request.ExplainScope;
 import com.permissionx.guolindev.request.ForwardScope;
-import com.tools.payhelper.pay.BaseManager;
 import com.tools.payhelper.pay.PayHelperUtils;
 import com.tools.payhelper.pay.ToastManager;
 import com.tools.payhelper.pay.ui.bankcard.AddBankCardData;
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog;
+import com.tools.payhelper.pay.ui.bankcard.BanCardListData;
 
 import java.io.ByteArrayOutputStream;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class UploadPhotoActivity extends AppCompatActivity implements View.OnClickListener {
+public class UpdateUploadPhotoActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText  name,tel,googleedt,usernaem,eusername,payedt,pd;
     private AddPayCardDialog.OnAddCallback onAddCallback;
     private AddPayCardDialog.OnAddBanKListCallback onAddBanKListCallback;
@@ -69,6 +69,8 @@ public class UploadPhotoActivity extends AppCompatActivity implements View.OnCli
     private Button messageButton;
     private Switch aSwitch;
     private boolean ischeck =false;
+    private   BanCardListData.Data data;
+
     public void setOnAddCallback(AddPayCardDialog.OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
     }
@@ -114,11 +116,28 @@ public class UploadPhotoActivity extends AppCompatActivity implements View.OnCli
         aSwitch = findViewById(R.id.switchbutton);
 
         findViewById(R.id.closeBtn).setOnClickListener(v -> {
-            UploadPhotoActivity.this.finish();
+            UpdateUploadPhotoActivity.this.finish();
 
         });
 
+        Intent intent = getIntent();
+        String json = intent.getStringExtra("json");
+        try {
+            if (!json.isEmpty()){
+                data= new Gson().fromJson(json, BanCardListData.Data.class);
+                if (data!=null){
+                    pd.setText(data.bankName);
+                    padd.setText(data.cardNo);
+                    usernaem.setText(data.userName);
+                    eusername.setText(data.pinYin);
+                    payedt.setText(String.valueOf(data.collectionlimit));
+                    aSwitch.setChecked(data.isAWXe);
+                }
 
+            }
+        }catch (Exception e){
+
+        }
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -142,7 +161,7 @@ public class UploadPhotoActivity extends AppCompatActivity implements View.OnCli
                 String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(UploadPhotoActivity.this, n, p, t, payF, google, username, euserName, ischeck,"",false,new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(UpdateUploadPhotoActivity.this, n, p, t, payF, google, username, euserName, ischeck, data.id, data.isEnable,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){
@@ -152,14 +171,14 @@ public class UploadPhotoActivity extends AppCompatActivity implements View.OnCli
                                     @Override
                                     public void run() {
                                         if (addBankCardData.code==0){
-                                            ToastManager.showToastCenter(UploadPhotoActivity.this,addBankCardData.msg);
-                                            UploadPhotoActivity.this.finish();
+                                            ToastManager.showToastCenter(UpdateUploadPhotoActivity.this,addBankCardData.msg);
+                                            UpdateUploadPhotoActivity.this.finish();
 //                                            Intent intent = new Intent();
 //                                            intent.setClass(Main22Activity.this, BankCardListActivity.class);
 //                                            startActivity(intent);
 
                                         }else {
-                                            ToastManager.showToastCenter(UploadPhotoActivity.this,addBankCardData.msg);
+                                            ToastManager.showToastCenter(UpdateUploadPhotoActivity.this,addBankCardData.msg);
                                         }
                                     }
                                 });

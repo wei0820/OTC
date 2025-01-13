@@ -21,5 +21,6 @@ public class BanCardListData {
         @SerializedName("isEnable") public  boolean isEnable;
         @SerializedName("created") public  String created;
         @SerializedName("lock") public  String lock;
+        @SerializedName("isAWXe") public  boolean isAWXe;
     }
 }

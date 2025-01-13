@@ -30,6 +30,7 @@ class BankCardViewModel : ViewModel() {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
                     if (!s.isEmpty()){
+                        Log.d("getBankList",s);
                         var data = Gson().fromJson(s,BanCardListData::class.java)
                         bankCardData.value = data
                     }
