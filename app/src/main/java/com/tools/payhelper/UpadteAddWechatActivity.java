@@ -128,9 +128,7 @@ public class UpadteAddWechatActivity extends AppCompatActivity implements View.O
         String json = intent.getStringExtra("json");
         try {
             if (!json.isEmpty()){
-                Log.d("update",json);
                 data= new Gson().fromJson(json, BanCardListData.Data.class);
-                Log.d("update",data.id);
                 if (data!=null){
                     pd.setText(data.bankName);
                     padd.setText(data.cardNo);
@@ -157,7 +155,7 @@ public class UpadteAddWechatActivity extends AppCompatActivity implements View.O
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
                 boolean b = ischeck;
-                bankCardDateModel.setBankCard(UpadteAddWechatActivity.this, n, p, t, payF, google, username, euserName,ischeck,"",false, new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(UpadteAddWechatActivity.this, n, p, t, payF, google, username, euserName,ischeck,data.id,data.isEnable, new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){
