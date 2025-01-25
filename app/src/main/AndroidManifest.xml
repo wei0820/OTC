@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tools.payhelper"
-    android:versionCode="71"
-    android:versionName="1.0.71">
+    android:versionCode="72"
+    android:versionName="1.0.72">
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -205,6 +205,15 @@
         <!-- </activity> -->
         <activity
             android:name="com.jingyu.pay.ui.group.ReportDayActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name="com.tools.payhelper.pay.ui.news.NewsListActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data

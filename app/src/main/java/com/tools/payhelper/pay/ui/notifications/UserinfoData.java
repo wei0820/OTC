@@ -29,6 +29,8 @@ public class UserinfoData {
         @SerializedName("isVIP") public  boolean isVIP;
         @SerializedName("cardQty") public  int cardQty;
         @SerializedName("note") public  String note;
+        @SerializedName("note2") public  String note2;
+
         @SerializedName("apIs") public  String apIs;
         @SerializedName("index") public  String index;
 

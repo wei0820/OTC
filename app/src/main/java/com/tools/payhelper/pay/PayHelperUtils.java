@@ -145,7 +145,7 @@ public class PayHelperUtils {
         String localNews = getUserInfoNews(context);
         if (!localNews.equals(getNews)){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-            alertDialog.setTitle("公告");
+            alertDialog.setTitle("一般公告");
             alertDialog.setMessage(getNews);
             /*一樣，不熟的用這個打就OK了*/
             alertDialog.setPositiveButton("確定", new DialogInterface.OnClickListener() {
@@ -162,7 +162,7 @@ public class PayHelperUtils {
 
     public static void isAllShowNews(Context context,String getNews){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-            alertDialog.setTitle("公告");
+            alertDialog.setTitle("置顶公告");
             alertDialog.setMessage(getNews);
             /*一樣，不熟的用這個打就OK了*/
             alertDialog.setPositiveButton("確定", new DialogInterface.OnClickListener() {

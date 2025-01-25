@@ -36,6 +36,7 @@ import com.tools.payhelper.pay.ui.login.AddGoogleDialog
 import com.tools.payhelper.pay.ui.login.MainActivity
 import com.tools.payhelper.pay.ui.money.TransListActivity
 import com.tools.payhelper.pay.ui.money.TransferMoneyActivity
+import com.tools.payhelper.pay.ui.news.NewsListActivity
 import com.tools.payhelper.pay.ui.payment.PaymentActivity
 import kotlinx.coroutines.launch
 
@@ -68,6 +69,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var paymentlayout :RelativeLayout
     lateinit var mCanUserLayout : LinearLayout
     lateinit var transMoneyRelativeLayout: RelativeLayout
+    lateinit var newslayout: LinearLayout
 
 
     val personalViewModel: PersonalViewModel by lazy {
@@ -103,12 +105,14 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         paymentlayout  = root.findViewById(R.id.paymentlayout);
         mCanUserLayout = root.findViewById(R.id.canuselayout)
         transMoneyRelativeLayout = root.findViewById(R.id.tranmoneylayout)
+        newslayout = root.findViewById(R.id.newlayout);
 
         buy_record_layout.setOnClickListener(this)
         sell_record_layout.setOnClickListener(this)
         frozenrecord.setOnClickListener(this)
         account_layou.setOnClickListener(this)
         layout_grouplist.setOnClickListener(this)
+        newslayout.setOnClickListener(this)
 
         layout_groupreport.setOnClickListener(this)
         banklayout.setOnClickListener(this)
@@ -159,8 +163,9 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             var array = it.data.apIs.split("|");
 
             PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
+            PayHelperUtils.isAllShowNews(context,it.data.note)
 
-            PayHelperUtils.isShowNews(context,it.data.note)
+            PayHelperUtils.isShowNews(context,it.data.note2)
 
             PayHelperUtils.saveRebate(context,it.data.rebate.toString())
             PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())
@@ -237,6 +242,10 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
             R.id.tranmoneylayout ->{
                 startActivity(Intent().setClass(requireActivity(), TransListActivity::class.java))
+
+            }
+            R.id.newlayout->{
+                startActivity(Intent().setClass(requireActivity(), NewsListActivity::class.java))
 
             }
 
