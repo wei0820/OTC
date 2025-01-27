@@ -48,14 +48,17 @@ class NewsListActivity : AppCompatActivity() {
         newsListViewModel.getNewsList(this).observe(this, Observer {
             newsListData.clear()
             if (it!=null){
-                if (it.data!=null){
+                if(it.code==0){
+                    if (it.data!=null){
 
-                    for (datum in it.data) {
-                        newsListData.add(datum)
-                        adapter!!.notifyDataSetChanged()
+                        for (datum in it.data) {
+                            newsListData.add(datum)
+                            adapter!!.notifyDataSetChanged()
 
+                        }
                     }
                 }
+
             }
         })
     }
@@ -65,21 +68,15 @@ class NewsListActivity : AppCompatActivity() {
 
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            var bankName: TextView
             var cardNo: TextView
             var time: TextView
-            var amount: TextView
             var orderno: TextView
-            var frozen : TextView
 
 
             init {
-                bankName = view.findViewById(R.id.bankname)
                 cardNo = view.findViewById(R.id.cardno)
                 time = view.findViewById(R.id.time)
-                amount = view.findViewById(R.id.amount)
                 orderno = view.findViewById(R.id.orderno)
-                frozen = view.findViewById(R.id.frozen);
 
 
             }
@@ -87,7 +84,7 @@ class NewsListActivity : AppCompatActivity() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view =
-                LayoutInflater.from(parent.context).inflate(R.layout.reportday_list_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.news_list_item, parent, false)
             return ViewHolder(view)
         }
 
@@ -97,7 +94,8 @@ class NewsListActivity : AppCompatActivity() {
             var isTopString = if (info.isTop) "置顶公告" else "一般公告"
             holder.orderno.text = isTopString
             holder.cardNo.text = info.istext
-            holder.time.text = info.SapplyDate
+            var timeS = info.SapplyDate.substring(0, info.SapplyDate.indexOf("T"));
+            holder.time.text = timeS
 
 
 

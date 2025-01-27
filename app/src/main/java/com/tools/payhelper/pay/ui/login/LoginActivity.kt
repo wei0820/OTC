@@ -59,6 +59,8 @@ class LoginActivity : BasicActivity() {
         PayHelperUtils.getLocalIpAddress(this)
         PayHelperUtils.saveBIsOpen(this,false)
         PayHelperUtils.saveSellState(this,false)
+        PayHelperUtils.saveTopNews(this,"")
+
         loginButton.setOnClickListener {
             loginButton.isEnabled = false
             loginButton.isClickable = false;

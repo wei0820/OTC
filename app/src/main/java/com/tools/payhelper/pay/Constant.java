@@ -30,6 +30,8 @@ public class Constant {
 
     final static  String LOGIN_USER_TOKEN = "LOGIN_USER_TOKEN";
     final static  String USERINFO_NEWS = "USERINFO_NEWS";
+    final static  String USERINFO_TOP_NEWS = "USERINFO_TOP_NEWS";
+
     final static  String BUY_MAX = "BUY_MAX";
     final static  String BUY_MIN = "BUY_MIN";
     final static  String BUY_ISOPEN = "BUY_ISOPEN";

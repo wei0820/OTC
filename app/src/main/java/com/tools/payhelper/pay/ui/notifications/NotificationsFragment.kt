@@ -162,10 +162,16 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
             var array = it.data.apIs.split("|");
 
-            PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
-            PayHelperUtils.isAllShowNews(context,it.data.note)
 
+            PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
             PayHelperUtils.isShowNews(context,it.data.note2)
+
+            if(!it.data.note.isEmpty()){
+                var arraynote = it.data.note.split("|");
+                PayHelperUtils.isAllShowNews(context,arraynote,it.data.note)
+            }
+
+
 
             PayHelperUtils.saveRebate(context,it.data.rebate.toString())
             PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())

@@ -139,9 +139,21 @@ public class PayHelperUtils {
 
         return sharedPreferences.getString(Constant.USERINFO_NEWS, "");
     }
+    public static void saveTopNews(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USERINFO_TOP_NEWS, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USERINFO_TOP_NEWS, token).apply();
+    }
 
+    public static String getTopNews(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USERINFO_TOP_NEWS, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USERINFO_TOP_NEWS, "");
+    }
 
     public static void isShowNews(Context context,String getNews){
+        if(getNews.isEmpty()) return;
+        if (getNews.equals("")) return;
         String localNews = getUserInfoNews(context);
         if (!localNews.equals(getNews)){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
@@ -160,20 +172,30 @@ public class PayHelperUtils {
 
     }
 
-    public static void isAllShowNews(Context context,String getNews){
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-            alertDialog.setTitle("置顶公告");
-            alertDialog.setMessage(getNews);
-            /*一樣，不熟的用這個打就OK了*/
-            alertDialog.setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    saveUserInfoNews(context,getNews);
-                }
-            });
-            alertDialog.setCancelable(false);
-            alertDialog.show();
+    public static void isAllShowNews(Context context,List<String> getNews,String note){
+        if(note.isEmpty()) return;
+        if (note.equals("")) return;
 
+        String localNews = getTopNews(context);
+        if (!localNews.contains(note)) {
+            saveTopNews(context, note);
+
+            for (String getNew : getNews) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                alertDialog.setTitle("置顶公告");
+                alertDialog.setMessage(getNew);
+                /*一樣，不熟的用這個打就OK了*/
+                alertDialog.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                alertDialog.setCancelable(false);
+                alertDialog.show();
+            }
+
+
+        }
 
     }
 

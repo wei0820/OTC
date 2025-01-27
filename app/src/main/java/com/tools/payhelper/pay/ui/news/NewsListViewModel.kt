@@ -30,6 +30,8 @@ class NewsListViewModel : ViewModel() {
         newsListDateModel.getNewsLList(context, object :NewsListDateModel.GroupResponse {
             override fun getResponse(s: String) {
                 viewModelScope.launch {
+                    Log.d("Announcements",s)
+
                     if (!s.isEmpty()){
                         var ud = Gson().fromJson(s, NewsListData::class.java)
                         groupListData.value = ud
