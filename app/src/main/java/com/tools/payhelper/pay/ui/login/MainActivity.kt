@@ -10,34 +10,27 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.Log
-import android.view.Window
 import android.view.WindowManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jingyu.pay.ui.login.LoginViewModel
 import com.tools.payhelper.BuildConfig
 import com.tools.payhelper.R
-import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.databinding.ActivityMainBinding
-import com.tools.payhelper.pay.Constant
-import com.tools.payhelper.pay.PayHelperUtils
-import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.dashboard.SellListData
 import com.tools.payhelper.ui.login.LoginViewModelFactory
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import java.lang.String
 
-class MainActivity : AppCompatActivity(),Handler.Callback{
+class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1
+
 
     private lateinit var binding: ActivityMainBinding
     private  val TAG = "MainActivity"
@@ -72,7 +65,10 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         navView.selectedItemId = R.id.navigation_notifications
         getInfo()
 
+        CheckServiceManager.check(this)
 
+
+        NotifyHelper.getInstance().setNotifyListener(this)
     }
 
 
@@ -227,5 +223,17 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
 
         }
 
+    }
+
+    override fun onReceiveMessage(type: String?) {
+        Log.d("onReceiveMessage", type!!)
+
+        if(!type.isEmpty()){
+        }
+
+
+    }
+
+    override fun onRemovedMessage(type: Int) {
     }
 }
