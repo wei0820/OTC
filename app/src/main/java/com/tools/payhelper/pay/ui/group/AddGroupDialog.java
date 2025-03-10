@@ -6,6 +6,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,6 +22,7 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.jingyu.pay.ui.group.GroupDateModel;
+import com.tools.payhelper.DecimalInputTextWatcher;
 import com.tools.payhelper.R;
 import com.tools.payhelper.pay.PayHelperUtils;
 import com.tools.payhelper.pay.ToastManager;
@@ -99,27 +103,39 @@ public class AddGroupDialog extends AlertDialog {
         String bankRebate = PayHelperUtils.getBank(activity).isEmpty()? "" : PayHelperUtils.getBank(activity);
         String unionRebate = PayHelperUtils.getBank2(activity).isEmpty()? "" : PayHelperUtils.getBank2(activity);
 
-
-
         TextView message = findViewById(R.id.message);
+//        "小额买币:"+two(minString)+"\n"+
         message.setText("您的佣金比例:\n"+
-                "卖币:"+maxString+"\n"+
-                "小额买币:"+minString+"\n"+
-                "支付宝卖币:"+alipayRebate+"\n"+
-                "小额支付宝:"+alipayRebateXe+"\n"+
-                "微信卖币:"+wechatRebate+"\n"+
-                "小额微信:"+wechatRebateXe +"\n"+
-                "数字人民币:"+bankRebate +"\n"+
-                "银联:"+unionRebate);
-        textView.setText(maxString);
-        textView2.setText(minString);
-        textiew22.setText(alipayRebate);
-        alipayRebateXeText.setText(alipayRebateXe);
+                "卡卡卖币:"+two(maxString)+"\n"+
 
-        wechattext.setText(wechatRebate);
-        wechatxetext.setText(wechatRebateXe);
-        banktext.setText(bankRebate);
-        unionRebatetext.setText(unionRebate);
+                "支付宝卖币:"+two(alipayRebate)+"\n"+
+                "小额支付宝:"+two(alipayRebateXe)+"\n"+
+                "微信卖币:"+two(wechatRebate)+"\n"+
+                "小额微信:"+two(wechatRebateXe) +"\n"+
+                "数字人民币:"+two(bankRebate) +"\n"+
+                "银联:"+two(unionRebate));
+
+
+        textView.setText(two(maxString));
+        textView2.setText(minString);
+
+        textiew22.setText(two(alipayRebate));
+        alipayRebateXeText.setText(two(alipayRebateXe));
+
+        wechattext.setText(two(wechatRebate));
+        wechatxetext.setText(two(wechatRebateXe));
+        banktext.setText(two(bankRebate));
+        unionRebatetext.setText(two(unionRebate));
+
+
+        editTextCheck(textView);
+        editTextCheck(textView2);
+        editTextCheck(textiew22);
+        editTextCheck(alipayRebateXeText);
+        editTextCheck(wechattext);
+        editTextCheck(wechatxetext);
+        editTextCheck(banktext);
+        editTextCheck(unionRebatetext);
         view.findViewById(R.id.closeBtn).setOnClickListener(v -> {
             view.setEnabled(false);
             new Handler().postDelayed(() -> view.setEnabled(true), 500);
@@ -139,7 +155,8 @@ public class AddGroupDialog extends AlertDialog {
                 String p = pd.getText().toString();
                 String t = tel.getText().toString();
                 Double re = Double.parseDouble(textView.getText().toString());
-                Double Pa = Double.parseDouble(textView2.getText().toString());
+
+                Double Pa = Double.parseDouble(PayHelperUtils.getPaymentXeRebate(activity));
                 Double aa = Double.parseDouble(textiew22.getText().toString());
                 Double wechatDb = Double.parseDouble(wechattext.getText().toString());
                 Double bankDb = Double.parseDouble(banktext.getText().toString());
@@ -175,4 +192,17 @@ public class AddGroupDialog extends AlertDialog {
         });
     }
 
+    public static String two(String s){
+        return  String.format("%.2f", Double.parseDouble(s));
+
+    }
+    private static boolean isValidInput(String input) {
+        // 使用正则表达式验证输入是否符合要求
+        String pattern = "^(\\.\\d{1,2})?$";
+        return input.matches(pattern);
+    }
+    public static void editTextCheck(EditText editText){
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        editText.addTextChangedListener(new DecimalInputTextWatcher(editText,3,2));// 整數最多3位，小數最多5位
+    }
 }

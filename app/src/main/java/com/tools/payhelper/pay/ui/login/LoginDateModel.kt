@@ -295,6 +295,66 @@ class LoginDateModel {
                 loginrResponse.getResponse( response.body?.string()!!)
             }
         })
+
+
+    }
+
+    fun postDRMBNotification(context: Context,FromAccount:String,ToAccount:String,Amount:String,FullText:String,loginrResponse: LoginrResponse){
+        var jsonObject= JSONObject()
+        jsonObject.put("FromAccount",FromAccount)
+        jsonObject.put("ToAccount",ToAccount)
+        jsonObject.put("Amount",Amount)
+        jsonObject.put("FullText",FullText)
+
+        var jsonStr=jsonObject.toString()
+        val time  = System.currentTimeMillis()
+
+        val contentType: MediaType = "application/json".toMediaType()
+        if (callMap.containsKey(time)) {
+            val call = callMap[time]
+            if (call != null && !call.isCanceled()) {
+                call.cancel()
+            }
+        }
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
+
+
+
+        val request = Request.Builder()
+            .url(Constant.API_URL + "api/user/DRMBNotification")
+            .post(requestBody)
+            .header("content-type","application/json")
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .build()
+        Log.d("onReceiveMessage",Constant.API_URL + "api/DRMBNotification")
+
+        val call = client.newCall(request)
+        callMap.put(time,call)
+
+        call.enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                if (!e.localizedMessage.isEmpty()){
+                    loginrResponse.getErrorResponse(e.localizedMessage)
+                }
+
+
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                loginrResponse.getResponse( response.body?.string()!!)
+            }
+        })
+
     }
 
     interface LoginrResponse{

@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
         navView.selectedItemId = R.id.navigation_notifications
         getInfo()
 
-        CheckServiceManager.check(this)
+//        CheckServiceManager.check(this)
 
 
         NotifyHelper.getInstance().setNotifyListener(this)
@@ -229,6 +229,10 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
         Log.d("onReceiveMessage", type!!)
 
         if(!type.isEmpty()){
+            loginViewModel.postDb(this,"","","",type).observe(this, Observer {
+                Log.d("onReceiveMessage", it.msg)
+
+            })
         }
 
 

@@ -39,12 +39,18 @@ public class MyNotificationListenerService extends NotificationListenerService {
 
         // 你可以在这里添加自己的逻辑来处理通知
         if (notificationContent !=null){
-            //这里就已经成功获取了
-            //notificationContent即为获取到的通知内容
             Log.d("MyNotificationListenerService",packageName);//打印出来内容
-
             Log.d("MyNotificationListenerService",notificationContent);//打印出来内容
-            NotifyHelper.getInstance().onReceive(notificationContent);
+
+            if (packageName.equals("cn.gov.pbc.dcep")){
+                //这里就已经成功获取了
+                //notificationContent即为获取到的通知内容
+                Log.d("MyNotificationListenerService",packageName);//打印出来内容
+
+                Log.d("MyNotificationListenerService",notificationContent);//打印出来内容
+                NotifyHelper.getInstance().onReceive(notificationContent);
+            }
+
         }
     }
 

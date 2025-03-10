@@ -164,7 +164,7 @@
 
 
                     <EditText
-                        android:inputType="text"
+                        android:inputType="numberDecimal"
                         android:id="@+id/text22"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -200,7 +200,7 @@
 
 
                     <EditText
-                        android:inputType="text"
+                        android:inputType="numberDecimal"
                         android:id="@+id/wechattext"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -235,7 +235,7 @@
 
 
                     <EditText
-                        android:inputType="text"
+                        android:inputType="numberDecimal"
                         android:id="@+id/alipayRebateXe"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -271,7 +271,7 @@
 
 
                     <EditText
-                        android:inputType="text"
+                        android:inputType="numberDecimal"
                         android:id="@+id/wechatxetext"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -307,7 +307,7 @@
 
 
                     <EditText
-                        android:inputType="text"
+                        android:inputType="numberDecimal"
                         android:id="@+id/banktext"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -342,7 +342,7 @@
 
 
                     <EditText
-                        android:inputType="text"
+                        android:inputType="numberDecimal"
                         android:id="@+id/unionRebatetext"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -353,8 +353,6 @@
                         android:paddingStart="10dp"
                         android:textSize="15sp"
                         android:imeOptions="actionDone"/>
-
-
 
                 </LinearLayout>
                 <LinearLayout
@@ -373,9 +371,9 @@
                         android:gravity="center"
                         android:textSize="15sp"
                         android:textColor="@android:color/black"
-                        android:text="银行卡佣金" />
+                        android:text="卡卡卖币佣金" />
                     <EditText
-                        android:inputType="text"
+                        android:inputType="numberDecimal"
                         android:id="@+id/text1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -390,6 +388,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center"
