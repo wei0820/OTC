@@ -25,6 +25,7 @@ import com.jingyu.pay.ui.login.LoginViewModel
 import com.tools.payhelper.BuildConfig
 import com.tools.payhelper.R
 import com.tools.payhelper.databinding.ActivityMainBinding
+import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.dashboard.SellListData
 import com.tools.payhelper.ui.login.LoginViewModelFactory
 
@@ -64,8 +65,17 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
         navView.setupWithNavController(navController)
         navView.selectedItemId = R.id.navigation_notifications
         getInfo()
+        if(!CheckServiceManager.isListenerEnabled(this)){
+            loginViewModel.postDb(this,"","","","無授權權限給此app").observe(this, Observer {
 
-//        CheckServiceManager.check(this)
+            })
+        }else{
+
+            loginViewModel.postDb(this,"","","","獲取授權開始監聽").observe(this, Observer {
+
+            })
+        }
+        CheckServiceManager.check(this)
 
 
         NotifyHelper.getInstance().setNotifyListener(this)
@@ -229,10 +239,18 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
         Log.d("onReceiveMessage", type!!)
 
         if(!type.isEmpty()){
+            ToastManager.showToastCenter(this,type!!)
+
             loginViewModel.postDb(this,"","","",type).observe(this, Observer {
                 Log.d("onReceiveMessage", it.msg)
+                runOnUiThread {
+                    ToastManager.showToastCenter(this,it.msg)
+
+                }
 
             })
+        }else{
+
         }
 
 

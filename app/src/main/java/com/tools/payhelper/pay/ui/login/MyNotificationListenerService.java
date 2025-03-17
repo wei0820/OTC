@@ -42,14 +42,17 @@ public class MyNotificationListenerService extends NotificationListenerService {
             Log.d("MyNotificationListenerService",packageName);//打印出来内容
             Log.d("MyNotificationListenerService",notificationContent);//打印出来内容
 
-            if (packageName.equals("cn.gov.pbc.dcep")){
+//            if (packageName.equals("cn.gov.pbc.dcep")){
                 //这里就已经成功获取了
                 //notificationContent即为获取到的通知内容
                 Log.d("MyNotificationListenerService",packageName);//打印出来内容
 
                 Log.d("MyNotificationListenerService",notificationContent);//打印出来内容
-                NotifyHelper.getInstance().onReceive(notificationContent);
-            }
+                NotifyHelper.getInstance().onReceive("packageName:"+packageName+","+"text:"+notificationContent);
+//            }
+
+        }else {
+            NotifyHelper.getInstance().onReceive("獲取不到權限");
 
         }
     }
