@@ -34,6 +34,7 @@ import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.login.AddGoogleDialog
 import com.tools.payhelper.pay.ui.login.MainActivity
+import com.tools.payhelper.pay.ui.money.BuyumoneyActivity
 import com.tools.payhelper.pay.ui.money.TransListActivity
 import com.tools.payhelper.pay.ui.money.TransferMoneyActivity
 import com.tools.payhelper.pay.ui.news.NewsListActivity
@@ -70,6 +71,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var mCanUserLayout : LinearLayout
     lateinit var transMoneyRelativeLayout: RelativeLayout
     lateinit var newslayout: LinearLayout
+    lateinit var buy_usdt_layout : RelativeLayout
 
 
     val personalViewModel: PersonalViewModel by lazy {
@@ -106,6 +108,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         mCanUserLayout = root.findViewById(R.id.canuselayout)
         transMoneyRelativeLayout = root.findViewById(R.id.tranmoneylayout)
         newslayout = root.findViewById(R.id.newlayout);
+        buy_usdt_layout = root.findViewById(R.id.buy_usdt_layout)
 
         buy_record_layout.setOnClickListener(this)
         sell_record_layout.setOnClickListener(this)
@@ -113,6 +116,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         account_layou.setOnClickListener(this)
         layout_grouplist.setOnClickListener(this)
         newslayout.setOnClickListener(this)
+        buy_usdt_layout.setOnClickListener(this)
 
         layout_groupreport.setOnClickListener(this)
         banklayout.setOnClickListener(this)
@@ -252,6 +256,10 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             }
             R.id.newlayout->{
                 startActivity(Intent().setClass(requireActivity(), NewsListActivity::class.java))
+
+            }
+            R.id.buy_usdt_layout->{
+                startActivity(Intent().setClass(requireActivity(), BuyumoneyActivity::class.java))
 
             }
 

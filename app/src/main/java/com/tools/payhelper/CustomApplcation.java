@@ -7,7 +7,6 @@ import android.content.Context;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
-import com.tencent.bugly.crashreport.CrashReport;
 
 
 /**
@@ -35,7 +34,6 @@ public class CustomApplcation extends MultiDexApplication {
         super.onCreate();
         context = getApplicationContext();
         mInstance = this;
-        CrashReport.initCrashReport(getApplicationContext(), "7f2bcf2301", false);
 
 //        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
     }

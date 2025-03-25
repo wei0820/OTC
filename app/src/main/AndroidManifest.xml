@@ -76,6 +76,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".pay.ui.money.BuyumoneyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".pay.ui.dashboard.ConfirmOrderActivity"
             android:exported="false">
             <meta-data
