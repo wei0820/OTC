@@ -242,7 +242,6 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
             ToastManager.showToastCenter(this,type!!)
 
             loginViewModel.postDb(this,"","","",type).observe(this, Observer {
-                Log.d("onReceiveMessage", it.msg)
                 runOnUiThread {
                     ToastManager.showToastCenter(this,it.msg)
 

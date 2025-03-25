@@ -98,6 +98,27 @@ android {
 
         }
 
+
+        jubaoku{
+            resValue "string", "app_name", "金蚁"
+            applicationId "com.jubaoku"
+
+
+            manifestPlaceholders = [APPICON: "@drawable/jubaoku",
+                                    APPTHEME: "@style/Theme.JingyuPay",]
+            buildConfigField "String", "HTTP_DOMAIN", "\"https://api01.gr.nozen99.com/\""
+            buildConfigField "String", "ENVIROMENT_NAME", "\"env_cfg_nozen99_gr\""
+            buildConfigField "String", "SETTING_DOMIN", "\"https://za.gr.nozen99.com/app/\""
+            buildConfigField "String", "API_DOMAIN", "\"https://portal.broslpay.com/\""
+            buildConfigField "String", "ELK_TYPE", "\"payhelper\""
+            buildConfigField "String", "UPDATE_URL", "\"https://pay.jubaoku.com/apk/jubaoku.json\""
+            buildConfigField "String", "md5key", "\"\u0024N.A!\u0024F-\""
+            buildConfigField "String", "API_URL", "\"https://api.jubaoku.com/\""
+            buildConfigField "String", "EXRATE_URL", "\"https://api.jubaoku.com/exrate.json\""
+            buildConfigField "String", "VERSIONNUMBER", "\"v8\""
+            buildConfigField "String", "APPNAME", "\"金蚁\""
+        }
+
         buildTypes {
             debug {
                 minifyEnabled false
