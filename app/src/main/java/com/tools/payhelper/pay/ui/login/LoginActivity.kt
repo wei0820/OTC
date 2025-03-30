@@ -246,7 +246,7 @@ class LoginActivity : BasicActivity() {
 
     override fun onResume() {
         super.onResume()
-//        checkVresion()
+        checkVresion()
 
     }
     

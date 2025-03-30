@@ -10,9 +10,12 @@ import com.google.gson.Gson
 import com.jingyu.pay.ui.dashboard.SellDateModel
 import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
+import com.tools.payhelper.pay.ui.login.PostDBData
 import com.tools.payhelper.pay.ui.login.SSLSocketClient
+import com.tools.payhelper.pay.ui.money.PostUsdtData
 import com.tools.payhelper.pay.ui.money.TransferData
 import com.tools.payhelper.pay.ui.money.TransferListData
+import com.tools.payhelper.pay.ui.money.UsdtinfoData
 import com.tools.payhelper.pay.ui.notifications.UserinfoData
 import kotlinx.coroutines.launch
 import okhttp3.Call
@@ -36,7 +39,9 @@ class TransferMoneyViewModel : ViewModel() {
     var data = MutableLiveData<UserinfoData>()
     var mTransdata = MutableLiveData<TransferData>()
     var mTransdataList = MutableLiveData<TransferListData>()
+    var mUsdtinfoData = MutableLiveData<UsdtinfoData>()
 
+    var mPostDBData = MutableLiveData<PostUsdtData>()
 
     var transferMoneyDateModel = TransferMoneyDateModel()
 
@@ -64,7 +69,31 @@ class TransferMoneyViewModel : ViewModel() {
 
     }
 
+    fun setPostUsdtData(context: Context,score:Double,code:String,hashvaule:String): LiveData<PostUsdtData>{
+        transferMoneyDateModel.setPostUsdtata(context,score,code,hashvaule, object :
+            TransferMoneyDateModel.OrderResponse {
+            override fun getResponse(s: String) {
+                if (!s.isEmpty()){
+                    viewModelScope.launch {
+                        Log.d("usdt",s);
 
+                        var ud = Gson().fromJson(s, PostUsdtData::class.java)
+                        mPostDBData.value = ud
+
+
+                    }
+                }
+            }
+
+            override fun getFailure(s: String) {
+
+
+            }
+
+        })
+        return  mPostDBData
+
+    }
 
     fun getUserInfo(context: Context): LiveData<UserinfoData>{
         transferMoneyDateModel.getUserinfo(context, object : TransferMoneyDateModel.OrderResponse {
@@ -108,6 +137,29 @@ class TransferMoneyViewModel : ViewModel() {
 
         })
         return  mTransdataList
+    }
+
+
+    fun getUSDTInfo(context: Context) : LiveData<UsdtinfoData>{
+        transferMoneyDateModel.getUSDTInfo(context, object : PersonalDateModel.OrderResponse {
+            override fun getResponse(s: String) {
+
+                if (!s.isEmpty()){
+
+                    viewModelScope.launch {
+                        var ud = Gson().fromJson(s, UsdtinfoData::class.java)
+                        mUsdtinfoData.value = ud
+
+
+                    }
+                }
+            }
+
+            override fun getFailure(s: String) {
+            }
+
+        })
+        return  mUsdtinfoData
     }
 
 }

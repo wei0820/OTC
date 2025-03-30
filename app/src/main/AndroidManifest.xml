@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tools.payhelper"
-    android:versionCode="74"
-    android:versionName="1.0.74">
+    android:versionCode="101"
+    android:versionName="1.0.101">
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -77,6 +77,13 @@
         </activity>
         <activity
             android:name=".pay.ui.money.BuyumoneyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".pay.ui.money.BuyumoneyListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

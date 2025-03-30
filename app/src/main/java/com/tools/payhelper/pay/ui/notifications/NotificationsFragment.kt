@@ -35,6 +35,7 @@ import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.login.AddGoogleDialog
 import com.tools.payhelper.pay.ui.login.MainActivity
 import com.tools.payhelper.pay.ui.money.BuyumoneyActivity
+import com.tools.payhelper.pay.ui.money.BuyumoneyListActivity
 import com.tools.payhelper.pay.ui.money.TransListActivity
 import com.tools.payhelper.pay.ui.money.TransferMoneyActivity
 import com.tools.payhelper.pay.ui.news.NewsListActivity
@@ -72,6 +73,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var transMoneyRelativeLayout: RelativeLayout
     lateinit var newslayout: LinearLayout
     lateinit var buy_usdt_layout : RelativeLayout
+    lateinit var buy_usdtlist_layout : RelativeLayout
 
 
     val personalViewModel: PersonalViewModel by lazy {
@@ -109,6 +111,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         transMoneyRelativeLayout = root.findViewById(R.id.tranmoneylayout)
         newslayout = root.findViewById(R.id.newlayout);
         buy_usdt_layout = root.findViewById(R.id.buy_usdt_layout)
+        buy_usdtlist_layout = root.findViewById(R.id.buy_usdtlist_layout)
 
         buy_record_layout.setOnClickListener(this)
         sell_record_layout.setOnClickListener(this)
@@ -117,6 +120,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         layout_grouplist.setOnClickListener(this)
         newslayout.setOnClickListener(this)
         buy_usdt_layout.setOnClickListener(this)
+        buy_usdtlist_layout.setOnClickListener(this)
 
         layout_groupreport.setOnClickListener(this)
         banklayout.setOnClickListener(this)
@@ -260,6 +264,10 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             }
             R.id.buy_usdt_layout->{
                 startActivity(Intent().setClass(requireActivity(), BuyumoneyActivity::class.java))
+
+            }
+            R.id.buy_usdtlist_layout->{
+                startActivity(Intent().setClass(requireActivity(), BuyumoneyListActivity::class.java))
 
             }
 

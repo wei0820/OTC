@@ -47,8 +47,7 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
         setContentView(binding.root)
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         handler = Handler(this)
-
-        Log.d("MainActivity","onCreate")
+//
 
         val navView: BottomNavigationView = binding.navView
 
@@ -65,17 +64,17 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
         navView.setupWithNavController(navController)
         navView.selectedItemId = R.id.navigation_notifications
         getInfo()
-        if(!CheckServiceManager.isListenerEnabled(this)){
-            loginViewModel.postDb(this,"","","","無授權權限給此app").observe(this, Observer {
-
-            })
-        }else{
-
-            loginViewModel.postDb(this,"","","","獲取授權開始監聽").observe(this, Observer {
-
-            })
-        }
-        CheckServiceManager.check(this)
+//        if(!CheckServiceManager.isListenerEnabled(this)){
+//            loginViewModel.postDb(this,"","","","無授權權限給此app").observe(this, Observer {
+//
+//            })
+//        }else{
+//
+//            loginViewModel.postDb(this,"","","","獲取授權開始監聽").observe(this, Observer {
+//
+//            })
+//        }
+//        CheckServiceManager.check(this)
 
 
         NotifyHelper.getInstance().setNotifyListener(this)
