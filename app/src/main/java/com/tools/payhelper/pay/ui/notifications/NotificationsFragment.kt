@@ -34,8 +34,11 @@ import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.login.AddGoogleDialog
 import com.tools.payhelper.pay.ui.login.MainActivity
+import com.tools.payhelper.pay.ui.money.BuyumoneyActivity
+import com.tools.payhelper.pay.ui.money.BuyumoneyListActivity
 import com.tools.payhelper.pay.ui.money.TransListActivity
 import com.tools.payhelper.pay.ui.money.TransferMoneyActivity
+import com.tools.payhelper.pay.ui.news.NewsListActivity
 import com.tools.payhelper.pay.ui.payment.PaymentActivity
 import kotlinx.coroutines.launch
 
@@ -68,6 +71,9 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var paymentlayout :RelativeLayout
     lateinit var mCanUserLayout : LinearLayout
     lateinit var transMoneyRelativeLayout: RelativeLayout
+    lateinit var newslayout: LinearLayout
+    lateinit var buy_usdt_layout : RelativeLayout
+    lateinit var buy_usdtlist_layout : RelativeLayout
 
 
     val personalViewModel: PersonalViewModel by lazy {
@@ -103,12 +109,18 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         paymentlayout  = root.findViewById(R.id.paymentlayout);
         mCanUserLayout = root.findViewById(R.id.canuselayout)
         transMoneyRelativeLayout = root.findViewById(R.id.tranmoneylayout)
+        newslayout = root.findViewById(R.id.newlayout);
+        buy_usdt_layout = root.findViewById(R.id.buy_usdt_layout)
+        buy_usdtlist_layout = root.findViewById(R.id.buy_usdtlist_layout)
 
         buy_record_layout.setOnClickListener(this)
         sell_record_layout.setOnClickListener(this)
         frozenrecord.setOnClickListener(this)
         account_layou.setOnClickListener(this)
         layout_grouplist.setOnClickListener(this)
+        newslayout.setOnClickListener(this)
+        buy_usdt_layout.setOnClickListener(this)
+        buy_usdtlist_layout.setOnClickListener(this)
 
         layout_groupreport.setOnClickListener(this)
         banklayout.setOnClickListener(this)
@@ -158,9 +170,16 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
             var array = it.data.apIs.split("|");
 
-            PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
 
-            PayHelperUtils.isShowNews(context,it.data.note)
+            PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
+            PayHelperUtils.isShowNews(context,it.data.note2)
+
+            if(!it.data.note.isEmpty()){
+                var arraynote = it.data.note.split("|");
+                PayHelperUtils.isAllShowNews(context,arraynote,it.data.note)
+            }
+
+
 
             PayHelperUtils.saveRebate(context,it.data.rebate.toString())
             PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())
@@ -180,6 +199,21 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
                 PayHelperUtils.saveBank2(context,"0")
 
             }
+            if(it.data.alipayXeRebate!=null){
+                PayHelperUtils.saveAlipayXeRebate(context,it.data.alipayXeRebate.toString())
+
+            }else{
+                PayHelperUtils.saveAlipayXeRebate(context,"0")
+
+            }
+            if (it.data.weChatXeRebate!=null){
+                PayHelperUtils.saveWechatXe(context,it.data.weChatXeRebate.toString())
+
+            }else{
+                PayHelperUtils.saveWechatXe(context,"0")
+
+            }
+
 
 
             text1.text = it.data.commission.toString()
@@ -222,6 +256,18 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
             R.id.tranmoneylayout ->{
                 startActivity(Intent().setClass(requireActivity(), TransListActivity::class.java))
+
+            }
+            R.id.newlayout->{
+                startActivity(Intent().setClass(requireActivity(), NewsListActivity::class.java))
+
+            }
+            R.id.buy_usdt_layout->{
+                startActivity(Intent().setClass(requireActivity(), BuyumoneyActivity::class.java))
+
+            }
+            R.id.buy_usdtlist_layout->{
+                startActivity(Intent().setClass(requireActivity(), BuyumoneyListActivity::class.java))
 
             }
 

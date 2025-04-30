@@ -152,6 +152,8 @@ class Adapter(activity:GroupListctivity) : RecyclerView.Adapter<Adapter.ViewHold
         var frozen : TextView
         var alipayRebate : TextView
         var wechatRebate : TextView
+        var alipayXeRebate : TextView
+        var wechatXeRebate : TextView
         var drmbRebate : TextView
         var unionRebate : TextView
 
@@ -166,6 +168,8 @@ class Adapter(activity:GroupListctivity) : RecyclerView.Adapter<Adapter.ViewHold
             frozen = view.findViewById(R.id.frozen);
             alipayRebate = view.findViewById(R.id.alipayRebate)
             wechatRebate = view.findViewById(R.id.wechatRebate)
+            alipayXeRebate = view.findViewById(R.id.alipayXeRebate)
+            wechatXeRebate = view.findViewById(R.id.wechatXeRebate)
             drmbRebate = view.findViewById(R.id.drmbRebate)
             unionRebate = view.findViewById(R.id.unionRebate)
 
@@ -207,6 +211,21 @@ class Adapter(activity:GroupListctivity) : RecyclerView.Adapter<Adapter.ViewHold
 
         }else{
             holder.unionRebate.text =  "银联佣金￥" + info.unionRebate
+
+        }
+        if (info.alipayXeRebate!=null){
+            holder.alipayXeRebate.text = "小额支付宝佣金￥" + info.alipayXeRebate
+
+        }else{
+            holder.alipayXeRebate.text = "小额支付宝佣金￥" +  "0"
+
+        }
+        if (info.weChatXeRebate!=null){
+            holder.wechatXeRebate.text =  "小额微信佣金￥" + info.weChatXeRebate
+
+        }else{
+
+            holder.wechatXeRebate.text =  "小额微信佣金￥"+  "0"
 
         }
 

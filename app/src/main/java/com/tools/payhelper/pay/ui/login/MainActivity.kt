@@ -10,34 +10,28 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.Log
-import android.view.Window
 import android.view.WindowManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jingyu.pay.ui.login.LoginViewModel
 import com.tools.payhelper.BuildConfig
 import com.tools.payhelper.R
-import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.databinding.ActivityMainBinding
-import com.tools.payhelper.pay.Constant
-import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.dashboard.SellListData
 import com.tools.payhelper.ui.login.LoginViewModelFactory
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import java.lang.String
 
-class MainActivity : AppCompatActivity(),Handler.Callback{
+class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1
+
 
     private lateinit var binding: ActivityMainBinding
     private  val TAG = "MainActivity"
@@ -53,8 +47,7 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         setContentView(binding.root)
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         handler = Handler(this)
-
-        Log.d("MainActivity","onCreate")
+//
 
         val navView: BottomNavigationView = binding.navView
 
@@ -71,8 +64,20 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         navView.setupWithNavController(navController)
         navView.selectedItemId = R.id.navigation_notifications
         getInfo()
+//        if(!CheckServiceManager.isListenerEnabled(this)){
+//            loginViewModel.postDb(this,"","","","無授權權限給此app").observe(this, Observer {
+//
+//            })
+//        }else{
+//
+//            loginViewModel.postDb(this,"","","","獲取授權開始監聽").observe(this, Observer {
+//
+//            })
+//        }
+//        CheckServiceManager.check(this)
 
 
+        NotifyHelper.getInstance().setNotifyListener(this)
     }
 
 
@@ -107,27 +112,40 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
 
     fun getInfo(){
 
-        lifecycleScope.launch {
-            loginViewModel._version.collect {
-                if (it!=null){
-                    Log.d("MainActivity",it.data.versionCode.toString())
+//        lifecycleScope.launch {
+//            loginViewModel._version.collect {
+//                if (it!=null){
+//                    Log.d("MainActivity",it.toString())
+//
+//                    if (PayHelperUtils.getVersionCode()<it.data.versionCode){
+//                        ToastManager.showToastCenter(this@MainActivity,"發現新版本");
+//
+//
+//                    }
+//                }
+//            }
+//        }
 
-                    if (PayHelperUtils.getVersionCode()<it.data.versionCode){
+
+        loginViewModel.getUserInfo(this).observe(this, Observer {
+            if(it!=null){
+                Log.d("jack",it.data.isEnable.toString())
+                Log.d("jack",it.data.isCollectionQueue.toString())
+
+                if (!it.data.isEnable){
+                    ToastManager.showToastCenter(this,"令牌失效 请重新登入")
+                }else{
+                    if(!it.data.isCollectionQueue){
+                        ToastManager.showToastCenter(this,"卖币已关闭 请重新开启(先关闭在开启) 或 重新登入")
 
                     }
                 }
             }
-        }
-
-
-        loginViewModel.getUserInfo(this).observe(this, Observer {
-            Log.d("MainActivity",it.data.toString())
 
         })
         loginViewModel.getCheckList(this).observe(this, Observer{
             buyDataList.clear()
             if (it!=null){
-                Log.d("MainActivity",it.data.toString())
 
                 it.data.forEach {
                     if (it.state==0){
@@ -143,9 +161,8 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
 
 
         })
-        handler!!.sendEmptyMessageDelayed(1,60000)
+        handler!!.sendEmptyMessageDelayed(1,50000)
     }
-
 
     override fun onRestart() {
         super.onRestart()
@@ -190,10 +207,36 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
         {
             "com.duobao" ->
                 {
+                    val builder = NotificationCompat.Builder(this, "11")
+                        .setSmallIcon(R.drawable.img_duobao)
+                        .setContentTitle("你有订单待确认")
+                        .setContentText("你有订单待确认")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setDefaults(Notification.DEFAULT_ALL)
+
+
+                    with(NotificationManagerCompat.from(this)) {
+                        // notificationId is a unique int for each notification that you must define
+                        val notificationId = 10
+                        notify(notificationId, builder.build())
+                    }
+
             }
             "com.jingyu.otc" ->
                 {
+                    val builder = NotificationCompat.Builder(this, "11")
+                        .setSmallIcon(R.drawable.img_otc)
+                        .setContentTitle("你有订单待确认")
+                        .setContentText("你有订单待确认")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setDefaults(Notification.DEFAULT_ALL)
 
+
+                    with(NotificationManagerCompat.from(this)) {
+                        // notificationId is a unique int for each notification that you must define
+                        val notificationId = 10
+                        notify(notificationId, builder.build())
+                    }
                 }
             "com.geelyotc.pay" ->
             {
@@ -201,18 +244,29 @@ class MainActivity : AppCompatActivity(),Handler.Callback{
             }
 
         }
-        val builder = NotificationCompat.Builder(this, "11")
-            .setSmallIcon(R.drawable.img_otc)
-            .setContentTitle("你有订单待确认")
-            .setContentText("你有订单待确认")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setDefaults(Notification.DEFAULT_ALL)
 
+    }
 
-        with(NotificationManagerCompat.from(this)) {
-            // notificationId is a unique int for each notification that you must define
-            val notificationId = 10
-            notify(notificationId, builder.build())
+    override fun onReceiveMessage(type: String?) {
+        Log.d("onReceiveMessage", type!!)
+
+        if(!type.isEmpty()){
+            ToastManager.showToastCenter(this,type!!)
+
+            loginViewModel.postDb(this,"","","",type).observe(this, Observer {
+                runOnUiThread {
+                    ToastManager.showToastCenter(this,it.msg)
+
+                }
+
+            })
+        }else{
+
         }
+
+
+    }
+
+    override fun onRemovedMessage(type: Int) {
     }
 }

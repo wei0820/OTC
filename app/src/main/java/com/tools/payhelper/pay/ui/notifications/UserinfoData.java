@@ -13,6 +13,8 @@ public class UserinfoData {
         @SerializedName("paymentXeRebate") public  float paymentXeRebate;
         @SerializedName("alipayRebate") public  float alipayRebate;
         @SerializedName("weChatRebate") public  float wechatrebate;
+        @SerializedName("weChatXeRebate") public  float weChatXeRebate;
+        @SerializedName("alipayXeRebate") public  String alipayXeRebate;
         @SerializedName("drmbRebate") public  float drmbRebate;
         @SerializedName("unionRebate") public  float unionRebate;
         @SerializedName("quota") public  float quota;
@@ -27,8 +29,14 @@ public class UserinfoData {
         @SerializedName("isVIP") public  boolean isVIP;
         @SerializedName("cardQty") public  int cardQty;
         @SerializedName("note") public  String note;
+        @SerializedName("note2") public  String note2;
+
         @SerializedName("apIs") public  String apIs;
         @SerializedName("index") public  String index;
+        @SerializedName("isCollectionQueue") public  boolean isCollectionQueue;
+
+
+
 
     }
 

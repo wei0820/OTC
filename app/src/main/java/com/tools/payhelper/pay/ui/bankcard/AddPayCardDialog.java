@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -30,6 +31,8 @@ public class AddPayCardDialog extends AlertDialog {
     private OnAddBanKListCallback onAddBanKListCallback;
     private Handler handlerLoading = new Handler();
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
+    private Switch aSwitch;
+    private boolean ischeck =false;
     public void setOnAddCallback(OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
     }
@@ -79,6 +82,18 @@ public class AddPayCardDialog extends AlertDialog {
         usernaem = findViewById(R.id.nameedt);
         eusername = findViewById(R.id.enameedt);
         payedt = findViewById(R.id.payedt);
+        aSwitch = findViewById(R.id.switchbutton);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    ischeck =b;
+                }else {
+                    ischeck =b;
+
+                }
+            }
+        });
 
 
         view.findViewById(R.id.closeBtn).setOnClickListener(v -> {
@@ -104,7 +119,8 @@ public class AddPayCardDialog extends AlertDialog {
                 String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName, new BankCardDateModel.BankCardResponse() {
+                boolean b = ischeck;
+                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName,b, "",false,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

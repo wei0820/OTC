@@ -21,6 +21,8 @@ class LoginViewModel : ViewModel() {
     var data = MutableLiveData<UserinfoData>()
     var homeViewModel = LoginDateModel()
     var  token  = MutableLiveData<LoginData>()
+    var  postData  = MutableLiveData<PostDBData>()
+
     var  update  = MutableLiveData<UpdateData>()
     var version : MutableSharedFlow<UpdateData> = MutableSharedFlow<UpdateData>()
     var _version: MutableSharedFlow<UpdateData>  = version
@@ -36,6 +38,7 @@ class LoginViewModel : ViewModel() {
 
                 if (!s.isEmpty()){
                     viewModelScope.launch {
+
                         var userData = Gson().fromJson(s, LoginData::class.java)
                         token.value = userData
 
@@ -56,6 +59,26 @@ class LoginViewModel : ViewModel() {
         })
 
         return  token;
+    }
+
+    fun postDb(context: Context,FromAccount:String,ToAccount:String,Amount:String,FullText:String) : LiveData<PostDBData>{
+        homeViewModel.postDRMBNotification(context,FromAccount,ToAccount,Amount,FullText,
+            object : LoginDateModel.LoginrResponse {
+                override fun getResponse(s: String) {
+                    viewModelScope.launch {
+                        Log.d("onReceiveMessage",s)
+                        var mpostData = Gson().fromJson(s, PostDBData::class.java)
+                        postData.value = mpostData
+
+
+                    }
+                }
+
+                override fun getErrorResponse(s: String) {
+                }
+
+            })
+        return postData
     }
 
 //    fun getGoolge() :{
@@ -120,6 +143,8 @@ class LoginViewModel : ViewModel() {
             override fun getResponse(s: String) {
 
                 if (!s.isEmpty()){
+                    Log.d("jack",s)
+
                     viewModelScope.launch {
                         var ud = Gson().fromJson(s,UserinfoData::class.java)
                         data.value = ud

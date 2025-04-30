@@ -186,8 +186,9 @@
 
 
             </LinearLayout>
-
             <LinearLayout
+                android:id="@+id/newlayout"
+                android:visibility="visible"
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -198,7 +199,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/img3"
-                    android:text="团队管理"></TextView>
+                    android:text="公告栏"></TextView>
                 <RelativeLayout
                     android:visibility="gone"
                     android:layout_marginLeft="16dp"
@@ -232,6 +233,86 @@
 
                         ></ImageView>
                 </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/layout_newlist"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:id="@+id/newimg"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_credit_card_24"
+
+                        ></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="22dp"
+                        android:layout_toRightOf="@+id/newimg"
+                        android:text="公告栏"></TextView>
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+
+                        ></ImageView>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/img3"
+                    android:text="团队管理"></TextView>
+<!--                <RelativeLayout-->
+<!--                    android:visibility="gone"-->
+<!--                    android:layout_marginLeft="16dp"-->
+<!--                    android:layout_marginRight="8dp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    >-->
+<!--                    <ImageView-->
+<!--                        android:id="@+id/img1"-->
+<!--                        android:layout_alignParentLeft="true"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/ic_baseline_groups_24"-->
+
+<!--                        ></ImageView>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:layout_marginLeft="22dp"-->
+<!--                        android:layout_toRightOf="@+id/img1"-->
+<!--                        android:text="创建成员"></TextView>-->
+
+
+<!--                    <ImageView-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"-->
+
+<!--                        ></ImageView>-->
+<!--                </RelativeLayout>-->
                 <RelativeLayout
                     android:id="@+id/layout_grouplist"
                     android:layout_marginTop="8dp"
@@ -346,6 +427,71 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/img3"
                     android:text="交易纪录"></TextView>
+                <RelativeLayout
+                    android:id="@+id/buy_usdt_layout"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:id="@+id/img49"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_credit_card_24"
+
+                        ></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="22dp"
+                        android:layout_toRightOf="@+id/img49"
+                        android:text="买币(USDT)"></TextView>
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+
+                        ></ImageView>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/buy_usdtlist_layout"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:id="@+id/img499"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_credit_card_24"
+
+                        ></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="22dp"
+                        android:layout_toRightOf="@+id/img499"
+                        android:text="买币(USDT)列表（上传凭证）"></TextView>
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+
+                        ></ImageView>
+                </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/buy_record_layout"
                     android:layout_marginTop="8dp"

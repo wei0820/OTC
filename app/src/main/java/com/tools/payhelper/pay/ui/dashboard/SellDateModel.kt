@@ -117,7 +117,7 @@ class SellDateModel {
 
     }
 
-    val callMap = HashMap<String, Call>()
+    val callMap = HashMap<Long, Call>()
 
     fun setConfirmOrder(id : String , userName : String,context: Context, sellResponse: SellResponse){
         var jsonObject= JSONObject()
@@ -125,8 +125,9 @@ class SellDateModel {
         jsonObject.put("userName",userName)
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
-        if (callMap.containsKey(id)) {
-            val call = callMap[id]
+        val time  = System.currentTimeMillis()
+        if (callMap.containsKey(time)) {
+            val call = callMap[time]
             if (call != null && !call.isCanceled()) {
                 call.cancel()
             }
@@ -152,7 +153,7 @@ class SellDateModel {
             .build()
 
         val call = client.newCall(request)
-        callMap.put(id,call)
+        callMap.put(time,call)
 
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -232,6 +233,7 @@ class SellDateModel {
         })
 
     }
+
 
 
 

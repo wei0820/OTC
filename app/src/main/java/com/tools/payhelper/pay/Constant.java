@@ -11,6 +11,7 @@ public class Constant {
     public  final  static  String MD5_String =  BuildConfig.md5key;
     public  final  static  String exrate_String =  BuildConfig.EXRATE_URL;
     public  final  static  String versionnumber =  BuildConfig.VERSIONNUMBER;
+    public   final  static  String  apppakegename = BuildConfig.APPNAME;
     final static String DEFAULT_SETTING_ALL_BANKCARD = "DEFAULT_SETTING_ALL_BANKCARD";
 
     final static String DEFAULT_SETTING = "DEFAULT_SETTING";
@@ -29,18 +30,28 @@ public class Constant {
 
     final static  String LOGIN_USER_TOKEN = "LOGIN_USER_TOKEN";
     final static  String USERINFO_NEWS = "USERINFO_NEWS";
+    final static  String USERINFO_TOP_NEWS = "USERINFO_TOP_NEWS";
+
     final static  String BUY_MAX = "BUY_MAX";
     final static  String BUY_MIN = "BUY_MIN";
     final static  String BUY_ISOPEN = "BUY_ISOPEN";
+    final static  String B_ISOPEN = "B_ISOPEN";
+
+    final static  String USER_ID = "USER_ID";
+
+
     final static  String OPEN_URL = "OPEN_URL";
     final static  String USER_REBATE = "USER_REBATE";
     final static  String USER_WECHAT = "USER_WECHAT";
+    final static  String USER_WECHATXE = "USER_WECHATXE";
+
     final static  String USER_BANK = "USER_BANK";
     final static  String USER_BANK2 = "USER_BANK2";
 
 
     final static  String USER_PAYMENTXEREBATE = "USER_PAYMENTXEREBATE";
     final static  String USER_AlipayRebate = "USER_AlipayRebate";
+    final static  String USER_AlipayXERebate = "USER_AlipayXERebate";
     final static  String CHECKSELLSTATE = "CHECKSELLSTATE";
     final static  String VIDEOSWITCH = "VIDEOSWITCH";
 

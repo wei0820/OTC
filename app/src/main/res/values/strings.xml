@@ -33,16 +33,16 @@
     <string name="menu_slideshow">銀行卡列表</string>
 
     <string name="add_bankcard">新增银行卡</string>
-    <string name="add_pay">新增支付宝转帐</string>
+    <string name="add_pay">支付宝转账</string>
 
-    <string name="add_scan">新增支付宝扫码</string>
+    <string name="add_scan">支付宝扫码</string>
 
-    <string name="add_wechat">新增微信扫码</string>
-    <string name="add_wechat_phone">新增微信转账</string>
-    <string name="add_bank">新增数字人民币</string>
+    <string name="add_wechat">微信扫码</string>
+    <string name="add_wechat_phone">微信转账</string>
+    <string name="add_bank">数字人民币</string>
 
-    <string name="add_upload">微信原图（无法解析时选）</string>
-    <string name="add_upload2">支付宝原图（无法解析时选）</string>
+    <string name="add_upload">微信扫码(原图)</string>
+    <string name="add_upload2">支付宝扫码(原图)</string>
     <string name="add_upload3">银联扫码</string>
 
 
@@ -65,6 +65,8 @@
         <item>全部</item>
         <item>银行卡</item>
         <item>支付宝</item>
+        <item>微信</item>
+
     </string-array>
 
 

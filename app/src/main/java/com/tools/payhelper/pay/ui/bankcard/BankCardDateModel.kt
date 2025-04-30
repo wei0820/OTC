@@ -104,6 +104,9 @@ class BankCardDateModel {
                     code:String,
                     userName:String,
                     PinYin:String,
+                    isAWXe:Boolean,
+                    id:String,
+                    IsEnable:Boolean,
                          groupResponse: BankCardResponse){
 
         var jsonObject= JSONObject()
@@ -114,8 +117,12 @@ class BankCardDateModel {
         jsonObject.put("collectionlimit",collectionlimit)
         jsonObject.put("code",code)
         jsonObject.put("userName",userName)
-        jsonObject.put("id","")
         jsonObject.put("PinYin",PinYin)
+        jsonObject.put("isAWXe",isAWXe)
+        jsonObject.put("id",id)
+
+
+
 
 
         var jsonStr=jsonObject.toString()

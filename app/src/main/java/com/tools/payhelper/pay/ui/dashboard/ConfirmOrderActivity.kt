@@ -18,6 +18,12 @@ import com.jingyu.pay.ui.dashboard.SellViewModelFactory
 import com.tools.payhelper.R
 import com.tools.payhelper.pay.ToastManager
 
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 class ConfirmOrderActivity : AppCompatActivity() {
 
     val sellViewModel: SellViewModel by lazy {
@@ -135,4 +141,5 @@ class ConfirmOrderActivity : AppCompatActivity() {
     fun  getUserinfo(){
         sellViewModel.getUserInfo(this).observe(this, Observer {  })
     }
+
 }

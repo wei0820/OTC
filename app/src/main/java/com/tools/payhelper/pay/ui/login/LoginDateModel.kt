@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit
 
 class LoginDateModel {
     var BaseUrl : String = Constant.API_URL
-    val callMap = HashMap<String, Call>()
+    val callMap = HashMap<Long, Call>()
 
     fun setUserLogin(context: Context,loginid:String,password:String,code:String,loginrResponse: LoginrResponse){
         var jsonObject= JSONObject()
@@ -31,12 +31,14 @@ class LoginDateModel {
         jsonObject.put("roleName","会员")
         jsonObject.put("IP",PayHelperUtils.getDeviceIP(context))
         jsonObject.put("version",Constant.versionnumber)
-        jsonObject.put("ismobile","Android_"+PayHelperUtils.getVersionName()+"_userDevice_"+ SystemUtil.getUserDevice())
+        jsonObject.put("ismobile","Android_"+PayHelperUtils.getVersionName()+"_userDevice_"+ SystemUtil.getUserDevice()+"_userAppName_"+Constant.apppakegename+PayHelperUtils.getUserId(context))
 
         var jsonStr=jsonObject.toString()
+        val time  = System.currentTimeMillis()
+
         val contentType: MediaType = "application/json".toMediaType()
-        if (callMap.containsKey(loginid)) {
-            val call = callMap[loginid]
+        if (callMap.containsKey(time)) {
+            val call = callMap[time]
             if (call != null && !call.isCanceled()) {
                 call.cancel()
             }
@@ -61,7 +63,7 @@ class LoginDateModel {
             .build()
 
         val call = client.newCall(request)
-        callMap.put(loginid,call)
+        callMap.put(time,call)
 
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -293,6 +295,66 @@ class LoginDateModel {
                 loginrResponse.getResponse( response.body?.string()!!)
             }
         })
+
+
+    }
+
+    fun postDRMBNotification(context: Context,FromAccount:String,ToAccount:String,Amount:String,FullText:String,loginrResponse: LoginrResponse){
+        var jsonObject= JSONObject()
+        jsonObject.put("FromAccount",FromAccount)
+        jsonObject.put("ToAccount",ToAccount)
+        jsonObject.put("Amount",Amount)
+        jsonObject.put("FullText",FullText)
+
+        var jsonStr=jsonObject.toString()
+        val time  = System.currentTimeMillis()
+
+        val contentType: MediaType = "application/json".toMediaType()
+        if (callMap.containsKey(time)) {
+            val call = callMap[time]
+            if (call != null && !call.isCanceled()) {
+                call.cancel()
+            }
+        }
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
+
+
+
+        val request = Request.Builder()
+            .url(Constant.API_URL + "api/user/DRMBNotification")
+            .post(requestBody)
+            .header("content-type","application/json")
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .build()
+        Log.d("onReceiveMessage",Constant.API_URL + "api/DRMBNotification")
+
+        val call = client.newCall(request)
+        callMap.put(time,call)
+
+        call.enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                if (!e.localizedMessage.isEmpty()){
+                    loginrResponse.getErrorResponse(e.localizedMessage)
+                }
+
+
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                loginrResponse.getResponse( response.body?.string()!!)
+            }
+        })
+
     }
 
     interface LoginrResponse{

@@ -16,7 +16,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -62,6 +64,8 @@ public class UploadAliPayPhotoActivity extends AppCompatActivity implements View
     public static final int SCAN_RESULT = 1120;
     public final static int DEVICE_PHOTO_REQUEST = 1234;
     public String photobaseurl = "";
+    private Switch aSwitch;
+    private boolean ischeck =false;
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
     private Button messageButton;
     public void setOnAddCallback(AddPayCardDialog.OnAddCallback onAddCallback) {
@@ -106,8 +110,18 @@ public class UploadAliPayPhotoActivity extends AppCompatActivity implements View
         eusername = findViewById(R.id.enameedt);
         payedt = findViewById(R.id.payedt);
         padd = findViewById(R.id.addurl);
+        aSwitch = findViewById(R.id.switchbutton);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    ischeck =b;
+                }else {
+                    ischeck =b;
 
-
+                }
+            }
+        });
         findViewById(R.id.closeBtn).setOnClickListener(v -> {
             UploadAliPayPhotoActivity.this.finish();
 
@@ -127,7 +141,7 @@ public class UploadAliPayPhotoActivity extends AppCompatActivity implements View
                 String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(UploadAliPayPhotoActivity.this, n, p, t, payF, google, username, euserName, new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(UploadAliPayPhotoActivity.this, n, p, t, payF, google, username, euserName,ischeck, "",false,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

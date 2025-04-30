@@ -85,9 +85,9 @@ public class AddBuySettingDilog extends AlertDialog {
         aSwitch = findViewById(R.id.switch1);
         String maxString = PayHelperUtils.getBuyMax(activity).isEmpty() ? "" : PayHelperUtils.getBuyMax(activity);
         String minString = PayHelperUtils.getBuyMin(activity).isEmpty() ? "" : PayHelperUtils.getBuyMin(activity);
-        String ischeckString =PayHelperUtils.getBuyIsOpen(activity) ? "买币已开启" : "买币已关闭";
+        String ischeckString =PayHelperUtils.getBIsOpen(activity) ? "买币已开启" : "买币已关闭";
 
-        boolean ischeck = PayHelperUtils.getBuyIsOpen(activity);
+        boolean ischeck = PayHelperUtils.getBIsOpen(activity);
         min.setText(minString);
         max.setText(maxString);
         aSwitch.setChecked(ischeck);
@@ -99,7 +99,7 @@ public class AddBuySettingDilog extends AlertDialog {
                 aSwitch.setText(ischeckString);
 
 
-                PayHelperUtils.saveBuyIsOpen(activity,b);
+                PayHelperUtils.saveBIsOpen(activity,b);
 
             }
         });
@@ -127,34 +127,71 @@ public class AddBuySettingDilog extends AlertDialog {
             public void onClick(View view) {
                 String minSt = min.getText().toString().isEmpty() ? "300" : min.getText().toString();
                 String maxSt = max.getText().toString().isEmpty() ? "1000": max.getText().toString();
+                Boolean b = PayHelperUtils.getBIsOpen(activity);
 
                 PayHelperUtils.saveBuyMax(activity,maxSt);
                 PayHelperUtils.saveBuyMin(activity,minSt);
 
+                if (b){
+                    open(view,minSt,maxSt);
+                }else {
+                    close(view);
+                }
 
 
-                homeDateModel.setBuySetting(activity, minSt, maxSt, new HomeDateModel.BuyResponse() {
-                    @Override
-                    public void getResponse(@NonNull String s) {
-                        if (!s.isEmpty()){
-                            StartBuyData buyData = new Gson().fromJson(s, StartBuyData.class);
-                            if (buyData!=null){
-                                onAddBanKListCallback.onResponse(buyData);
-                                InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-                                if (inputMethodManager != null) {
-                                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                                }
-                            }
+
+
+
+            }
+        });
+    }
+
+    public void open(View view,String minSt ,String maxSt){
+
+
+        homeDateModel.setBuySetting(activity, minSt, maxSt, new HomeDateModel.BuyResponse() {
+            @Override
+            public void getResponse(@NonNull String s) {
+                if (!s.isEmpty()){
+                    StartBuyData buyData = new Gson().fromJson(s, StartBuyData.class);
+                    if (buyData!=null){
+                        onAddBanKListCallback.onResponse(buyData);
+                        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        if (inputMethodManager != null) {
+                            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                         }
-
                     }
+                }
 
-                    @Override
-                    public void getFailure(@NonNull String s) {
+            }
 
+            @Override
+            public void getFailure(@NonNull String s) {
+
+            }
+        });
+    }
+
+    public void close(View view){
+        homeDateModel.setCloseBuySetting(activity, new HomeDateModel.BuyResponse() {
+            @Override
+            public void getResponse(@NonNull String s) {
+                if (!s.isEmpty()){
+                    Log.d("Jack＿getBuyDataList",s);
+
+                    StartBuyData buyData = new Gson().fromJson(s, StartBuyData.class);
+                    if (buyData!=null){
+                        onAddBanKListCallback.onResponse(buyData);
+                        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        if (inputMethodManager != null) {
+                            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        }
                     }
-                });
+                }
+            }
 
+            @Override
+            public void getFailure(@NonNull String s) {
 
             }
         });
