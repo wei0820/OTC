@@ -3,8 +3,10 @@ package com.jingyu.pay.ui.login
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaDrm
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -23,10 +25,13 @@ import com.tools.payhelper.SystemUtil
 import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
+import com.tools.payhelper.pay.ui.login.DeviceInfoUtils
 import com.tools.payhelper.pay.ui.login.MainActivity
+import com.tools.payhelper.pay.ui.login.TelephonyManager
 import com.tools.payhelper.ui.login.LoginViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 
 class LoginActivity : BasicActivity() {
@@ -56,10 +61,17 @@ class LoginActivity : BasicActivity() {
         _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
         _versiontext.visibility = View.GONE
         check()
+        getID()
+        val androidId = DeviceInfoUtils.getAndroidId(this)
+
+        Log.d("androidId",androidId)
+
+
         PayHelperUtils.getLocalIpAddress(this)
         PayHelperUtils.saveBIsOpen(this,false)
         PayHelperUtils.saveSellState(this,false)
         PayHelperUtils.saveTopNews(this,"")
+
 
         loginButton.setOnClickListener {
             loginButton.isEnabled = false
@@ -249,6 +261,24 @@ class LoginActivity : BasicActivity() {
         checkVresion()
 
     }
+
+    fun getID(){
+
+        try {
+            var uuid = UUID(-0x121074568629b532L, -0x5c37d8232ae2de13L)
+            var drm = MediaDrm(uuid)
+            var  id = drm.getPropertyByteArray(MediaDrm.PROPERTY_DEVICE_UNIQUE_ID)
+            PayHelperUtils.saveUserId(this,"_id_"+id);
+        }catch (e :Exception){
+
+
+        }finally {
+
+
+        }
+
+    }
+
     
 
 }

@@ -12,6 +12,7 @@ import com.tools.payhelper.pay.Constant
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ui.login.PostDBData
 import com.tools.payhelper.pay.ui.login.SSLSocketClient
+import com.tools.payhelper.pay.ui.money.BuyUsdtListData
 import com.tools.payhelper.pay.ui.money.PostUsdtData
 import com.tools.payhelper.pay.ui.money.TransferData
 import com.tools.payhelper.pay.ui.money.TransferListData
@@ -44,6 +45,9 @@ class TransferMoneyViewModel : ViewModel() {
     var mPostDBData = MutableLiveData<PostUsdtData>()
 
     var transferMoneyDateModel = TransferMoneyDateModel()
+
+    var mBuyUsdtListData = MutableLiveData<BuyUsdtListData>()
+
 
     fun setPostTransMoneyData(context: Context,loginId:String,score:Double,code:String): LiveData<TransferData>{
         transferMoneyDateModel.setPostTransMoneyData(context,loginId,score,code, object :
@@ -161,5 +165,27 @@ class TransferMoneyViewModel : ViewModel() {
         })
         return  mUsdtinfoData
     }
+    fun getUsdtList(context: Context): LiveData<BuyUsdtListData>{
+        transferMoneyDateModel.getUSDTList(context, object : PersonalDateModel.OrderResponse {
+            override fun getResponse(s: String) {
 
+                if (!s.isEmpty()){
+                    Log.d("usdt",s);
+
+                    viewModelScope.launch {
+                        var ud = Gson().fromJson(s, BuyUsdtListData::class.java)
+                        mBuyUsdtListData.value = ud
+
+
+                    }
+                }
+            }
+
+            override fun getFailure(s: String) {
+            }
+
+        })
+        return  mBuyUsdtListData
+
+    }
 }

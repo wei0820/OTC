@@ -524,4 +524,20 @@ public class PayHelperUtils {
             return bankCardInfo;
         }
     }
+
+
+
+
+    // id
+    public static void saveUserId(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_ID, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_ID, token).apply();
+    }
+
+    public static String getUserId(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_ID, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_ID, "_id_");
+    }
 }

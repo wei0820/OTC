@@ -143,6 +143,8 @@ class LoginViewModel : ViewModel() {
             override fun getResponse(s: String) {
 
                 if (!s.isEmpty()){
+                    Log.d("jack",s)
+
                     viewModelScope.launch {
                         var ud = Gson().fromJson(s,UserinfoData::class.java)
                         data.value = ud

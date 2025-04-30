@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout
+        android:visibility="invisible"
         android:paddingLeft="20dp"
         android:paddingTop="5dp"
         android:paddingEnd="5dp"
@@ -107,8 +108,8 @@
 
                 android:id="@+id/username"
                 android:gravity="center"
-                android:textSize="14sp"
-                android:textColor="#9e9e9e"
+                android:textSize="16sp"
+                android:textColor="#3a3a3a"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
@@ -140,14 +141,15 @@
             android:layout_height="wrap_content"
             android:text="500000.000" />
         <TextView
+            android:singleLine="true"
+            android:ellipsize="middle"
             android:layout_marginTop="12dp"
             android:textSize="16sp"
             android:textColor="#3a3a3a"
-            android:gravity="center_horizontal"
+            android:gravity="left"
             android:id="@+id/exrate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="500000.000" />
+            android:layout_height="wrap_content"></TextView>
         <TextView
             android:layout_marginTop="12dp"
             android:textSize="16sp"
@@ -156,7 +158,7 @@
             android:id="@+id/usdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="500000.000" />
+            />
 
 
     </LinearLayout>
@@ -204,7 +206,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_login_blue_radius"
-            android:text="付款完成"
+            android:text="待上传"
             android:textColor="@android:color/white"
             android:textSize="14sp"/>
 

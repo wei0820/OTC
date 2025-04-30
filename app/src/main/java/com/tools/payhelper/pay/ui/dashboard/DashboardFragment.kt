@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -108,13 +109,17 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     fun  getUserinfo(){
         sellViewModel.getUserInfo(requireActivity()).observe(viewLifecycleOwner, Observer {
-            if (it!=null){
-                requireActivity().runOnUiThread {
-                    if (!it.data.isEnable){
-                        ToastManager.showToastCenter(requireActivity(),"getUserinfo 令牌失效 请重新登入")
+            if(it!=null){
+                Log.d("jack",it.data.isEnable.toString())
+                Log.d("jack",it.data.isCollectionQueue.toString())
+                if (!it.data.isEnable){
+                    ToastManager.showToastCenter(requireActivity(),"令牌失效 请重新登入")
+                }else{
+                    if(!it.data.isCollectionQueue){
+                        ToastManager.showToastCenter(requireActivity(),"卖币已关闭 请重新开启(先关闭在开启) 或 重新登入")
+
                     }
                 }
-
             }
         })
     }
@@ -248,6 +253,12 @@ class DashboardFragment : Fragment() ,Handler.Callback{
     override fun onStop() {
 
         super.onStop()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        getList()
+
     }
 
     override fun onDestroy() {

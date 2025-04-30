@@ -33,6 +33,10 @@ public class UserinfoData {
 
         @SerializedName("apIs") public  String apIs;
         @SerializedName("index") public  String index;
+        @SerializedName("isCollectionQueue") public  boolean isCollectionQueue;
+
+
+
 
     }
 

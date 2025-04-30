@@ -231,7 +231,42 @@ class TransferMoneyDateModel {
         })
 
     }
+    fun getUSDTList(context: Context,orderResponse: PersonalDateModel.OrderResponse){
 
+        var jsonObject= JSONObject()
+        jsonObject.put("token","")
+        var jsonStr=jsonObject.toString()
+        val contentType: MediaType = "application/json".toMediaType()
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+//        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(), SSLSocketClient.getX509TrustManager())
+            .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
+        val request = Request.Builder()
+            .url(BaseUrl + "api/user/GetUSDTTopups")
+            .get()
+            .header("content-type","application/json")
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .build()
+        Log.d("usdt",BaseUrl + "api/user/GetUSDTTopups");
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                orderResponse.getResponse( response.body?.string()!!)
+            }
+        })
+
+    }
 
     interface OrderResponse{
         fun getResponse(s : String)

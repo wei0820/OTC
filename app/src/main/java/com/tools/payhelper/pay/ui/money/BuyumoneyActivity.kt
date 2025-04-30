@@ -37,6 +37,8 @@ class BuyumoneyActivity : AppCompatActivity() {
     lateinit var mGoogleEditText: EditText
     lateinit var qrimg : ImageView
     lateinit var mMonytttext : TextView
+    lateinit var mMonytttext2 : TextView
+
     lateinit var copybtn : Button
     lateinit var mHashvalueEditText: EditText
     var copytextt = ""
@@ -51,6 +53,7 @@ class BuyumoneyActivity : AppCompatActivity() {
 //        checkUserinfo()
         mCopyTextView = findViewById(R.id.copytext)
         mMonytttext = findViewById(R.id.monytttext)
+        mMonytttext2 = findViewById(R.id.monytttext2)
         mHashvalueEditText = findViewById(R.id.hashvedt)
         qrimg = findViewById(R.id.qrimg);
         closeBtn = findViewById(R.id.closeBtn)
@@ -70,11 +73,18 @@ class BuyumoneyActivity : AppCompatActivity() {
                         mCopyTextView.text = it.data.usdT_ADDR
                         copytextt =  it.data.usdT_ADDR
                         pprice = it.data.usdT_EXRATE
+                        runOnUiThread {
+
+                            mMonytttext.text = pprice.toString()
+                            mMonytttext2.text = "0.0"
+
+                        }
+
                     }
                 }else{
                     AlertDialog.Builder(this)
                         .setTitle("提示")
-                        .setMessage("当前暂停功能")
+                        .setMessage("连线异常，请稍后再试")
                         .setPositiveButton("确定") { _, _ ->this.finish() }
                         .show()
                 }
@@ -82,7 +92,7 @@ class BuyumoneyActivity : AppCompatActivity() {
             }else{
                 AlertDialog.Builder(this)
                     .setTitle("提示")
-                    .setMessage("当前暂停功能")
+                    .setMessage("连线异常，请稍后再试")
                     .setPositiveButton("确定") { _, _ ->this.finish() }
                     .show()
             }
@@ -98,8 +108,23 @@ class BuyumoneyActivity : AppCompatActivity() {
         okBtn = findViewById(R.id.okBtn)
         scroeEditText = findViewById(R.id.payedt)
         scroeEditText.addTextChangedListener {
-            var price = pprice * (scroeEditText.text.toString().toDouble())
-            mMonytttext.text = pprice.toString()+"\t"+"/"+"\t"+two(price.toString())
+            if(!scroeEditText.text.toString().isEmpty()){
+                try {
+                    var price = pprice * (scroeEditText.text.toString().toDouble())
+                    mMonytttext2.text = two(price.toString())
+                }catch (e: Exception){
+                    ToastManager.showToastCenter(this,"格式有误 请检查")
+
+                }finally {
+                    mMonytttext2.text = "0.0"
+
+                }
+
+
+            }else{
+                mMonytttext2.text = "0.0"
+            }
+
 
         }
         mGoogleEditText = findViewById(R.id.googleedt)

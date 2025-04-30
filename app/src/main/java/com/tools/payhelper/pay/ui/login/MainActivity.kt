@@ -128,6 +128,19 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
 
 
         loginViewModel.getUserInfo(this).observe(this, Observer {
+            if(it!=null){
+                Log.d("jack",it.data.isEnable.toString())
+                Log.d("jack",it.data.isCollectionQueue.toString())
+
+                if (!it.data.isEnable){
+                    ToastManager.showToastCenter(this,"令牌失效 请重新登入")
+                }else{
+                    if(!it.data.isCollectionQueue){
+                        ToastManager.showToastCenter(this,"卖币已关闭 请重新开启(先关闭在开启) 或 重新登入")
+
+                    }
+                }
+            }
 
         })
         loginViewModel.getCheckList(this).observe(this, Observer{
