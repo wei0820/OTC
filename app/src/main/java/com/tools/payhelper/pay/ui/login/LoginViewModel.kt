@@ -66,7 +66,6 @@ class LoginViewModel : ViewModel() {
             object : LoginDateModel.LoginrResponse {
                 override fun getResponse(s: String) {
                     viewModelScope.launch {
-                        Log.d("onReceiveMessage",s)
                         var mpostData = Gson().fromJson(s, PostDBData::class.java)
                         postData.value = mpostData
 
@@ -119,11 +118,9 @@ class LoginViewModel : ViewModel() {
      fun getUpdate(){
         viewModelScope.launch {
             homeViewModel.getUpdate().flowOn(Dispatchers.IO).catch {
-                Log.d("Jack",it.localizedMessage)
             }.filter {
                 !it.isEmpty()
             }.collect {
-                Log.d("Jack",it)
                 if (!it.isEmpty()){
             var userData = Gson().fromJson(it, UpdateData::class.java)
                     version.emit(userData)
@@ -143,7 +140,6 @@ class LoginViewModel : ViewModel() {
             override fun getResponse(s: String) {
 
                 if (!s.isEmpty()){
-                    Log.d("jack",s)
 
                     viewModelScope.launch {
                         var ud = Gson().fromJson(s,UserinfoData::class.java)

@@ -168,60 +168,72 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         super.onResume()
         personalViewModel.get(requireActivity()).observe(requireActivity(), Observer {
 
-            var array = it.data.apIs.split("|");
+            if(it!=null){
+                if (it.data!=null){
+
+                    var array = it.data.apIs.split("|");
 
 
-            PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
-            PayHelperUtils.isShowNews(context,it.data.note2)
+                    PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
+                    PayHelperUtils.isShowNews(context,it.data.note2)
 
-            if(!it.data.note.isEmpty()){
-                var arraynote = it.data.note.split("|");
-                PayHelperUtils.isAllShowNews(context,arraynote,it.data.note)
-            }
+                    if(!it.data.note.isEmpty()){
+                        var arraynote = it.data.note.split("|");
+                        PayHelperUtils.isAllShowNews(context,arraynote,it.data.note)
+                    }
 
 
 
-            PayHelperUtils.saveRebate(context,it.data.rebate.toString())
-            PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())
-            PayHelperUtils.saveAlipayRebate(context,it.data.alipayRebate.toString())
-            PayHelperUtils.saveWechat(context,it.data.wechatrebate.toString())
-            if (it.data.drmbRebate!=null){
-                PayHelperUtils.saveBank(context,it.data.drmbRebate.toString())
+                    PayHelperUtils.saveRebate(context,it.data.rebate.toString())
+                    PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())
+                    PayHelperUtils.saveAlipayRebate(context,it.data.alipayRebate.toString())
+                    PayHelperUtils.saveWechat(context,it.data.wechatrebate.toString())
+                    if (it.data.drmbRebate!=null){
+                        PayHelperUtils.saveBank(context,it.data.drmbRebate.toString())
 
+                    }else{
+                        PayHelperUtils.saveBank(context,"0")
+
+                    }
+                    if (it.data.unionRebate!=null){
+                        PayHelperUtils.saveBank2(context,it.data.unionRebate.toString())
+
+                    }else{
+                        PayHelperUtils.saveBank2(context,"0")
+
+                    }
+                    if(it.data.alipayXeRebate!=null){
+                        PayHelperUtils.saveAlipayXeRebate(context,it.data.alipayXeRebate.toString())
+
+                    }else{
+                        PayHelperUtils.saveAlipayXeRebate(context,"0")
+
+                    }
+                    if (it.data.weChatXeRebate!=null){
+                        PayHelperUtils.saveWechatXe(context,it.data.weChatXeRebate.toString())
+
+                    }else{
+                        PayHelperUtils.saveWechatXe(context,"0")
+
+                    }
+
+
+
+                    text1.text = it.data.commission.toString()
+                    text2.text = it.data.quota.toString()
+                    text3.text = it.data.frozen.toString()
+                    text4.text = it.data.payment.toString()
+                    text5.text = it.data.collection.toString()
+                    name.text=  PayHelperUtils.getUserName(context)
+                }else{
+                    ToastManager.showToastCenter(requireActivity(),"令牌失效 请重新登入")
+
+                }
             }else{
-                PayHelperUtils.saveBank(context,"0")
-
-            }
-            if (it.data.unionRebate!=null){
-                PayHelperUtils.saveBank2(context,it.data.unionRebate.toString())
-
-            }else{
-                PayHelperUtils.saveBank2(context,"0")
-
-            }
-            if(it.data.alipayXeRebate!=null){
-                PayHelperUtils.saveAlipayXeRebate(context,it.data.alipayXeRebate.toString())
-
-            }else{
-                PayHelperUtils.saveAlipayXeRebate(context,"0")
-
-            }
-            if (it.data.weChatXeRebate!=null){
-                PayHelperUtils.saveWechatXe(context,it.data.weChatXeRebate.toString())
-
-            }else{
-                PayHelperUtils.saveWechatXe(context,"0")
+                ToastManager.showToastCenter(requireActivity(),"令牌失效 请重新登入")
 
             }
 
-
-
-            text1.text = it.data.commission.toString()
-            text2.text = it.data.quota.toString()
-            text3.text = it.data.frozen.toString()
-            text4.text = it.data.payment.toString()
-            text5.text = it.data.collection.toString()
-            name.text=  PayHelperUtils.getUserName(context)
 
 
         })

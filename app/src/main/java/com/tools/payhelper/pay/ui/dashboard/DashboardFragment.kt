@@ -110,14 +110,15 @@ class DashboardFragment : Fragment() ,Handler.Callback{
     fun  getUserinfo(){
         sellViewModel.getUserInfo(requireActivity()).observe(viewLifecycleOwner, Observer {
             if(it!=null){
-                Log.d("jack",it.data.isEnable.toString())
-                Log.d("jack",it.data.isCollectionQueue.toString())
+
                 if (!it.data.isEnable){
                     ToastManager.showToastCenter(requireActivity(),"令牌失效 请重新登入")
                 }else{
-                    if(!it.data.isCollectionQueue){
-                        ToastManager.showToastCenter(requireActivity(),"卖币已关闭 请重新开启(先关闭在开启) 或 重新登入")
+                    if(it.data.isCollectionQueue!=null){
+                        if(!it.data.isCollectionQueue){
+                            ToastManager.showToastCenter(requireActivity(),"卖币已关闭 请重新开启(先关闭在开启) 或 重新登入")
 
+                        }
                     }
                 }
             }
