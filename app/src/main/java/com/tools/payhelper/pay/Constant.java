@@ -69,11 +69,11 @@ public class Constant {
 
     // 給 SerializedName 定義的 預設值
 
-    final  static  String DefaultValue_String =  "Unknown";
-    final  static  int DefaultValue_Int =  0;
+   public final  static  String DefaultValue_String =  "Unknown";
+    public final  static  int DefaultValue_Int =  0;
 
-    final  static  Double DefaultValue_Double =  0.0;
-    final  static  Boolean DefaultValue_boolean =  false;
+    public final  static  Double DefaultValue_Double =  0.0;
+    public final  static  Boolean DefaultValue_boolean =  false;
 
 
 

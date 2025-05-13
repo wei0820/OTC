@@ -1,22 +1,23 @@
 package com.tools.payhelper.pay.ui.home;
 
 import com.google.gson.annotations.SerializedName;
+import com.tools.payhelper.pay.Constant;
 
 public class BuyData {
-    @SerializedName("code") public  int code;
-    @SerializedName("msg") public  String msg;
-    @SerializedName("data") public  Data []data;
+    @SerializedName("code") public  int code = Constant.DefaultValue_Int;
+    @SerializedName("msg") public  String msg = Constant.DefaultValue_String;
+    @SerializedName("data") public  Data []data = null;
     public class Data{
-        @SerializedName("id") public  String id;
-        @SerializedName("orderNo") public  String orderNo;
-        @SerializedName("bankName") public  String bankName;
-        @SerializedName("subName") public  String subName;
-        @SerializedName("userName") public  String userName;
-        @SerializedName("cardId") public  String cardId;
-        @SerializedName("state") public  String state;
-        @SerializedName("score") public  Double score;
-        @SerializedName("created") public  String created;
-        @SerializedName("ordertype") public  String ordertype;
+        @SerializedName("id") public  String id = Constant.DefaultValue_String ;
+        @SerializedName("orderNo") public  String orderNo = Constant.DefaultValue_String ;
+        @SerializedName("bankName") public  String bankName = Constant.DefaultValue_String ;
+        @SerializedName("subName") public  String subName = Constant.DefaultValue_String ;
+        @SerializedName("userName") public  String userName = Constant.DefaultValue_String ;
+        @SerializedName("cardId") public  String cardId = Constant.DefaultValue_String ;
+        @SerializedName("state") public  String state = Constant.DefaultValue_String ;
+        @SerializedName("score") public  Double score = Constant.DefaultValue_Double ;
+        @SerializedName("created") public  String created = Constant.DefaultValue_String ;
+        @SerializedName("ordertype") public  String ordertype = Constant.DefaultValue_String ;
 
 
     }
