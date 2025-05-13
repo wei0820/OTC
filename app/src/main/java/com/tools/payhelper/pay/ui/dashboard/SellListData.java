@@ -1,6 +1,7 @@
 package com.tools.payhelper.pay.ui.dashboard;
 
 import com.google.gson.annotations.SerializedName;
+import com.tools.payhelper.pay.Constant;
 
 public class SellListData {
 
@@ -23,6 +24,7 @@ public class SellListData {
         @SerializedName("userName") public  String userName = "Unknown";
         @SerializedName("cardNo") public  String cardNo = "Unknown";
         @SerializedName("bankName") public  String bankName = "Unknown";
+
 
     }
 

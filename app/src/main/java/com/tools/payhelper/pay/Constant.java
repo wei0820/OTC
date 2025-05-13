@@ -67,6 +67,15 @@ public class Constant {
     final static  String QUALITY = "QUALITY";
 
 
+    // 給 SerializedName 定義的 預設值
+
+    final  static  String DefaultValue_String =  "Unknown";
+    final  static  int DefaultValue_Int =  0;
+
+    final  static  Double DefaultValue_Double =  0.0;
+    final  static  Boolean DefaultValue_boolean =  false;
+
+
 
 
 
