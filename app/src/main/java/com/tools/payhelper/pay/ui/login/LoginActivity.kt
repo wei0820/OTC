@@ -2,6 +2,7 @@ package com.jingyu.pay.ui.login
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -31,6 +32,7 @@ import com.tools.payhelper.pay.ui.login.TelephonyManager
 import com.tools.payhelper.ui.login.LoginViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.io.File
 import java.util.UUID
 
 
@@ -64,8 +66,7 @@ class LoginActivity : BasicActivity() {
         getID()
         val androidId = DeviceInfoUtils.getAndroidId(this)
 
-        Log.d("androidId",androidId)
-
+//        checkCrashLog()
 
         PayHelperUtils.getLocalIpAddress(this)
         PayHelperUtils.saveBIsOpen(this,false)
@@ -74,6 +75,8 @@ class LoginActivity : BasicActivity() {
 
 
         loginButton.setOnClickListener {
+
+//            throw RuntimeException("test")
             loginButton.isEnabled = false
             loginButton.isClickable = false;
             progressDialog = ProgressDialog(this)
@@ -279,6 +282,16 @@ class LoginActivity : BasicActivity() {
 
     }
 
-    
+    private fun checkCrashLog() {
+        val file = File(filesDir, "crash_log.txt")
+        if (file.exists()) {
+            val crashLog = file.readText()
+            AlertDialog.Builder(this)
+                .setTitle("發現閃退紀錄")
+                .setMessage("發現閃退紀錄") // 只顯示前 500 字
+                .setNegativeButton("稍後再看", null)
+                .show()
+        }
+    }
 
 }

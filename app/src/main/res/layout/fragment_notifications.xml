@@ -779,6 +779,39 @@
                         ></ImageView>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/crashlayout"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:id="@+id/img15555"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_credit_card_24"
+
+                        ></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="22dp"
+                        android:layout_toRightOf="@+id/img15555"
+                        android:text="闪退查询"></TextView>
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+
+                        ></ImageView>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:visibility="gone"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp"

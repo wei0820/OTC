@@ -122,6 +122,7 @@ class LoginViewModel : ViewModel() {
                 !it.isEmpty()
             }.collect {
                 if (!it.isEmpty()){
+                    Log.d("Jack",it)
             var userData = Gson().fromJson(it, UpdateData::class.java)
                     version.emit(userData)
 

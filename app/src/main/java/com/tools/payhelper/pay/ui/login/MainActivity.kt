@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         handler = Handler(this)
 //
-
+        createNot()
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -163,7 +163,7 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
 
 
         })
-        handler!!.sendEmptyMessageDelayed(1,50000)
+        handler!!.sendEmptyMessageDelayed(1,30000)
     }
 
     override fun onRestart() {
@@ -205,10 +205,17 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
     }
 
     fun sendnot(){
+
+
+
+//
         when(BuildConfig.APPLICATION_ID)
         {
-            "com.duobao" ->
+
+
+                "com.duobao" ->
                 {
+
                     val builder = NotificationCompat.Builder(this, "11")
                         .setSmallIcon(R.drawable.img_duobao)
                         .setContentTitle("你有订单待确认")
@@ -226,19 +233,20 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
             }
             "com.jingyu.otc" ->
                 {
-                    val builder = NotificationCompat.Builder(this, "11")
-                        .setSmallIcon(R.drawable.img_otc)
-                        .setContentTitle("你有订单待确认")
-                        .setContentText("你有订单待确认")
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setDefaults(Notification.DEFAULT_ALL)
+        val builder = NotificationCompat.Builder(this, "11")
+            .setSmallIcon(R.drawable.img_otc)
+            .setContentTitle("你有订单待确认")
+            .setContentText("你有订单待确认")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setDefaults(Notification.DEFAULT_ALL)
 
 
-                    with(NotificationManagerCompat.from(this)) {
-                        // notificationId is a unique int for each notification that you must define
-                        val notificationId = 10
-                        notify(notificationId, builder.build())
-                    }
+        with(NotificationManagerCompat.from(this)) {
+            // notificationId is a unique int for each notification that you must define
+            val notificationId = 10
+            notify(notificationId, builder.build())
+        }
+
                 }
             "com.geelyotc.pay" ->
             {

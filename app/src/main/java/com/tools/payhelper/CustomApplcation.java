@@ -34,6 +34,10 @@ public class CustomApplcation extends MultiDexApplication {
         super.onCreate();
         context = getApplicationContext();
         mInstance = this;
+        // 設定全域未捕捉例外處理器
+        Thread.setDefaultUncaughtExceptionHandler(
+                new GlobalExceptionHandler(getApplicationContext())
+        );
 
 //        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
     }
