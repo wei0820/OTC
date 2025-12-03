@@ -454,7 +454,15 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     override fun onDestroyView() {
         super.onDestroyView()
+        if (handler != null) {
+            handler!!.removeCallbacksAndMessages(null);
+            handler = null;
+
+        }
         _binding = null
+
+
+
     }
     class BuyAdapter(fragment: HomeFragment) : RecyclerView.Adapter<BuyAdapter.ViewHolder>() {
         var bankCardInfoList:ArrayList<BuyData.Data>? = null
@@ -653,6 +661,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     override fun onDestroy() {
         super.onDestroy()
+
         if (handler != null) {
             handler!!.removeCallbacksAndMessages(null);
             handler = null;
@@ -663,23 +672,38 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     override fun handleMessage(p0: Message): Boolean {
         if (p0.what ==1){
-            if (!isIng){
-                requireActivity().runOnUiThread {
-                    ToastManager.showToastCenter(requireActivity(),"买币資料刷新")
-                }
-                spinner.setSelection(0)
-                getBuyList()
 
-            }else{
-                requireActivity().runOnUiThread {
-                    ToastManager.showToastCenter(requireActivity(),"进行中订单/买币資料刷新")
-                }
-                getinglIst()
+            if (!isAdded || activity == null || _binding == null) return false
 
+//            if (!isIng){
+//                requireActivity().runOnUiThread {
+//                    ToastManager.showToastCenter(requireActivity(),"买币資料刷新")
+//                }
+//                spinner.setSelection(0)
+//                getBuyList()
+//
+//            }else{
+//                requireActivity().runOnUiThread {
+//                    ToastManager.showToastCenter(requireActivity(),"进行中订单/买币資料刷新")
+//                }
+//                getinglIst()
+//
+//            }
+//
+//        }
+//        return false;
+            activity?.runOnUiThread {
+                if (!isIng) {
+                    ToastManager.showToastCenter(requireActivity(), "买币資料刷新")
+                    spinner.setSelection(0)
+                    getBuyList()
+                } else {
+                    ToastManager.showToastCenter(requireActivity(), "进行中订单/买币資料刷新")
+                    getinglIst()
+                }
             }
-
         }
-        return false;
+        return true
     }
 
     private val spnOnItemSelected: AdapterView.OnItemSelectedListener =

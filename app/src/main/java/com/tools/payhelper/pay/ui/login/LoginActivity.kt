@@ -24,6 +24,7 @@ import com.jingyu.pay.BasicActivity
 import com.tools.payhelper.R
 import com.tools.payhelper.SystemUtil
 import com.tools.payhelper.UpdateAlertDialog
+import com.tools.payhelper.pay.CrashDetailActivity
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.login.DeviceInfoUtils
@@ -60,8 +61,11 @@ class LoginActivity : BasicActivity() {
         edt2 = findViewById(R.id.edt2)
         edt3 = findViewById(R.id.edt3)
         _versiontext = findViewById(R.id.vertext);
-        _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
-        _versiontext.visibility = View.GONE
+//        _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
+        _versiontext.setOnClickListener {
+            startActivity(Intent().setClass(this, CrashDetailActivity::class.java))
+
+        }
         check()
         getID()
         val androidId = DeviceInfoUtils.getAndroidId(this)

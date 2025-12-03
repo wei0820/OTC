@@ -338,7 +338,7 @@
                         android:gravity="center"
                         android:textSize="15sp"
                         android:textColor="@android:color/black"
-                        android:text="银联佣金" />
+                        android:text="转卡模式佣金" />
 
 
                     <EditText

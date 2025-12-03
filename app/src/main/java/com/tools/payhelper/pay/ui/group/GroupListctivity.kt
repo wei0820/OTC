@@ -207,10 +207,10 @@ class Adapter(activity:GroupListctivity) : RecyclerView.Adapter<Adapter.ViewHold
 
         }
         if (info.unionRebate==null){
-            holder.unionRebate.text =  "银联佣金￥" +  "0"
+            holder.unionRebate.text =  "转卡模式佣金￥" +  "0"
 
         }else{
-            holder.unionRebate.text =  "银联佣金￥" + info.unionRebate
+            holder.unionRebate.text =  "转卡模式佣金￥" + info.unionRebate
 
         }
         if (info.alipayXeRebate!=null){

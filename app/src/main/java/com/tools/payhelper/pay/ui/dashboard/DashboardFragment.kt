@@ -285,6 +285,10 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     override fun onDestroyView() {
         super.onDestroyView()
+        if (sellHandler != null) {
+            sellHandler!!.removeCallbacksAndMessages(null);
+            sellHandler = null;
+        }
         _binding = null
     }
 
@@ -430,12 +434,20 @@ class DashboardFragment : Fragment() ,Handler.Callback{
     }
 
     override fun handleMessage(p0: Message): Boolean {
+
+
         if (p0.what ==1){
+            if (!isAdded || activity == null || _binding == null) return false
 
-            getList()
+            activity?.runOnUiThread {
+                getList()
 
+            }
         }
-        return false;
+
+
+
+        return true;
 
     }
 

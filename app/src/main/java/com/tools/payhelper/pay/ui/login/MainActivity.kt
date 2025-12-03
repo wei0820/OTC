@@ -75,9 +75,9 @@ class MainActivity : AppCompatActivity(),Handler.Callback, NotifyListener {
 //            })
 //        }
 //        CheckServiceManager.check(this)
-
-
-        NotifyHelper.getInstance().setNotifyListener(this)
+//
+//
+//        NotifyHelper.getInstance().setNotifyListener(this)
     }
 
 

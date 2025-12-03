@@ -2,10 +2,10 @@
     "code": 0,
     "msg": "success",
     "data": {
-        "versionCode": 1116,
-        "versionName": "1.1.16",
+        "versionCode": 1119,
+        "versionName": "1.1.19",
         "url": "https://pay.17otc.com/apk/otc/juyingotcpay.apk",
-        "quality":"100"
+        "quality":100
        
     }
 }

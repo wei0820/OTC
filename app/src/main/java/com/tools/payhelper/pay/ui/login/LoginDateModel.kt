@@ -48,8 +48,7 @@ class LoginDateModel {
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
         // 2. 建立 User-Agent 字串
-        val userAgent = "Mozilla/5.0 (Linux; Android ${Build.VERSION.RELEASE}; ${Build.MODEL}) " +
-                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36"
+
 
         val client = OkHttpClient.Builder()
             .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
@@ -57,10 +56,6 @@ class LoginDateModel {
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
-            .retryOnConnectionFailure(true)
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
             .build()
 
 
@@ -69,7 +64,6 @@ class LoginDateModel {
             .url(Constant.API_URL + "api/auth")
             .post(requestBody)
             .header("content-type","application/json")
-            .header("User-Agent", userAgent)
             .build()
 
         val call = client.newCall(request)
