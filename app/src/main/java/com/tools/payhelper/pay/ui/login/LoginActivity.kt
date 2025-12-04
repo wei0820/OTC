@@ -172,9 +172,10 @@ class LoginActivity : BasicActivity() {
 
                 if (PayHelperUtils.getVersionCode()<it.data.versionCode){
                     val dialog = UpdateAlertDialog(this@LoginActivity,it.data.url)
-                    dialog.setMessage(String.format("欢迎使用%s原生V%s版本",
+                    dialog.setMessage(String.format("欢迎使用%s原生V%s版本"+"\n"+"當前版本:"+PayHelperUtils.getVersionCode()
+                            +"\n"+"線上版本:"+it.data.versionCode,
                         getString(R.string.app_name),
-                        it.data.versionName)+"如升级失败，请选择网页下载升级")
+                        it.data.versionName)+"\n"+"如升级失败，请选择网页下载升级")
                     dialog.setIsForcedUpdate(true)
                     dialog.show()
             }

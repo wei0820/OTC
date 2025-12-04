@@ -35,6 +35,7 @@ import com.tools.payhelper.UpdateMain22Activity
 import com.tools.payhelper.UpdateUploadAliPayPhotoActivity
 import com.tools.payhelper.pay.ui.bankcard.AddCardDialog
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog
+import com.tools.payhelper.pay.ui.bankcard.AddToCardDialog
 import com.tools.payhelper.pay.ui.bankcard.AddWechatPhoneDialog
 import com.tools.payhelper.pay.ui.bankcard.BanCardListData
 import com.tools.payhelper.pay.ui.bankcard.UpdateAddBankDialog
@@ -199,9 +200,21 @@ class BankCardListActivity : AppCompatActivity() {
                     }
 
                     getString(R.string.add_upload3) -> {
-                        val intent  = Intent()
-                        intent.setClass(this, AddBankQrcodeActivity::class.java)
-                        startActivity(intent)
+//                        val intent  = Intent()
+//                        intent.setClass(this, AddBankQrcodeActivity::class.java)
+//                        startActivity(intent)
+
+                        val dialog = AddToCardDialog(this)
+                        dialog.setAddBankCallback {
+                            if (it!=null){
+                                runOnUiThread {
+                                    ToastManager.showToastCenter(this,it.msg)
+                                    getBankCardList()
+
+                                }
+                            }
+                        }
+                        dialog.show()
                     }
 
                 }
