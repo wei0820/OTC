@@ -1,6 +1,7 @@
 package com.jingyu.pay.ui.dashboard
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -51,7 +52,8 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     var extraDouble : Double = 7.5
     var sellHandler: Handler? = null
-
+    private var lastClickTime = 0L
+    private val cooldownMillis = 10_000L // 10 秒
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,8 +73,11 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
         switch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, b ->
             val ischeckString = if (b) "卖币接单中" else "卖币暂停接单"
-            switch.setText(ischeckString)
+            val currentTime = System.currentTimeMillis()
+
             if(b != PayHelperUtils.getSellState(requireActivity())) {
+                showAlert(b)
+                switch.text = ischeckString
 
                 if (b) {
                     openSell()
@@ -85,7 +90,14 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
 
                 }
+
             }
+
+
+
+
+
+
         })
 
 
@@ -106,17 +118,43 @@ class DashboardFragment : Fragment() ,Handler.Callback{
         super.onViewCreated(view, savedInstanceState)
 
     }
+    private fun onSwitchToggled(button: CompoundButton, isChecked: Boolean) {
+        switch.setOnCheckedChangeListener(null)
+        switch.isChecked = !isChecked
+        switch.setOnCheckedChangeListener(this::onSwitchToggled)
+    }
 
+    private fun showAlert(isChecked: Boolean) {
+        val state = if (isChecked) "开启" else "关闭"
+        AlertDialog.Builder(requireActivity())
+            .setTitle("提示")
+            .setMessage("你已${state}此功能")
+            .setPositiveButton("確定", null)
+            .show()
+    }
     fun  getUserinfo(){
         sellViewModel.getUserInfo(requireActivity()).observe(viewLifecycleOwner, Observer {
             if(it!=null){
-                Log.d("jack",it.data.isEnable.toString())
-                Log.d("jack",it.data.isCollectionQueue.toString())
+
                 if (!it.data.isEnable){
                     ToastManager.showToastCenter(requireActivity(),"令牌失效 请重新登入")
                 }else{
-                    if(!it.data.isCollectionQueue){
-                        ToastManager.showToastCenter(requireActivity(),"卖币已关闭 请重新开启(先关闭在开启) 或 重新登入")
+                    if(it.data.isCollectionQueue!=null){
+                        if(!it.data.isCollectionQueue){
+                            ToastManager.showToastCenter(requireActivity(),"卖币已关闭 请重新开启(先关闭在开启) 或 重新登入")
+
+                        }else{
+                            ToastManager.showToastCenter(requireActivity(),"卖币已开启")
+
+                        }
+
+//                        Log.d("isCollectionQueue",it.data.isCollectionQueue.toString())
+//
+//                        val ischeckString = if (it.data.isCollectionQueue) "卖币接单中" else "卖币暂停接单"
+//                        switch.isChecked = it.data.isCollectionQueue
+//
+//                        switch.text = ischeckString
+
 
                     }
                 }
@@ -247,6 +285,10 @@ class DashboardFragment : Fragment() ,Handler.Callback{
 
     override fun onDestroyView() {
         super.onDestroyView()
+        if (sellHandler != null) {
+            sellHandler!!.removeCallbacksAndMessages(null);
+            sellHandler = null;
+        }
         _binding = null
     }
 
@@ -392,12 +434,20 @@ class DashboardFragment : Fragment() ,Handler.Callback{
     }
 
     override fun handleMessage(p0: Message): Boolean {
+
+
         if (p0.what ==1){
+            if (!isAdded || activity == null || _binding == null) return false
 
-            getList()
+            activity?.runOnUiThread {
+                getList()
 
+            }
         }
-        return false;
+
+
+
+        return true;
 
     }
 

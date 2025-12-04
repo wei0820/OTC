@@ -2,6 +2,7 @@ package com.jingyu.pay.ui.login
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -23,6 +24,7 @@ import com.jingyu.pay.BasicActivity
 import com.tools.payhelper.R
 import com.tools.payhelper.SystemUtil
 import com.tools.payhelper.UpdateAlertDialog
+import com.tools.payhelper.pay.CrashDetailActivity
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.login.DeviceInfoUtils
@@ -31,6 +33,7 @@ import com.tools.payhelper.pay.ui.login.TelephonyManager
 import com.tools.payhelper.ui.login.LoginViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.io.File
 import java.util.UUID
 
 
@@ -58,14 +61,16 @@ class LoginActivity : BasicActivity() {
         edt2 = findViewById(R.id.edt2)
         edt3 = findViewById(R.id.edt3)
         _versiontext = findViewById(R.id.vertext);
-        _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
-        _versiontext.visibility = View.GONE
+//        _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
+        _versiontext.setOnClickListener {
+            startActivity(Intent().setClass(this, CrashDetailActivity::class.java))
+
+        }
         check()
         getID()
         val androidId = DeviceInfoUtils.getAndroidId(this)
 
-        Log.d("androidId",androidId)
-
+//        checkCrashLog()
 
         PayHelperUtils.getLocalIpAddress(this)
         PayHelperUtils.saveBIsOpen(this,false)
@@ -74,6 +79,8 @@ class LoginActivity : BasicActivity() {
 
 
         loginButton.setOnClickListener {
+
+//            throw RuntimeException("test")
             loginButton.isEnabled = false
             loginButton.isClickable = false;
             progressDialog = ProgressDialog(this)
@@ -165,9 +172,10 @@ class LoginActivity : BasicActivity() {
 
                 if (PayHelperUtils.getVersionCode()<it.data.versionCode){
                     val dialog = UpdateAlertDialog(this@LoginActivity,it.data.url)
-                    dialog.setMessage(String.format("欢迎使用%s原生V%s版本",
+                    dialog.setMessage(String.format("欢迎使用%s原生V%s版本"+"\n"+"當前版本:"+PayHelperUtils.getVersionCode()
+                            +"\n"+"線上版本:"+it.data.versionCode,
                         getString(R.string.app_name),
-                        it.data.versionName)+"如升级失败，请选择网页下载升级")
+                        it.data.versionName)+"\n"+"如升级失败，请选择网页下载升级")
                     dialog.setIsForcedUpdate(true)
                     dialog.show()
             }
@@ -279,6 +287,16 @@ class LoginActivity : BasicActivity() {
 
     }
 
-    
+    private fun checkCrashLog() {
+        val file = File(filesDir, "crash_log.txt")
+        if (file.exists()) {
+            val crashLog = file.readText()
+            AlertDialog.Builder(this)
+                .setTitle("發現閃退紀錄")
+                .setMessage("發現閃退紀錄") // 只顯示前 500 字
+                .setNegativeButton("稍後再看", null)
+                .show()
+        }
+    }
 
 }

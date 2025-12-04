@@ -1,28 +1,30 @@
 package com.tools.payhelper.pay.ui.dashboard;
 
 import com.google.gson.annotations.SerializedName;
+import com.tools.payhelper.pay.Constant;
 
 public class SellListData {
 
-    @SerializedName("code") public  int code;
+    @SerializedName("code") public  int code = 1;
 
-    @SerializedName("msg") public  String msg;
-    @SerializedName("data") public  Data[] data;
+    @SerializedName("msg") public  String msg = "Unknown";
+    @SerializedName("data") public  Data[] data = null;
     public class Data{
-        @SerializedName("id") public  String id;
-        @SerializedName("orderNo") public  String orderNo;
+        @SerializedName("id") public  String id = "Unknown";
+        @SerializedName("orderNo") public  String orderNo = "Unknown";
         @SerializedName("payUserName") public  String payUserName;
-        @SerializedName("collectionQueueId") public  String collectionQueueId;
-        @SerializedName("accountId") public  String accountId;
-        @SerializedName("state") public  int state;
-        @SerializedName("isEnable") public  boolean isEnable;
-        @SerializedName("commission") public  double commission;
-        @SerializedName("score") public  double score;
-        @SerializedName("remark") public  String remark;
-        @SerializedName("created") public  String created;
-        @SerializedName("userName") public  String userName;
-        @SerializedName("cardNo") public  String cardNo;
-        @SerializedName("bankName") public  String bankName;
+        @SerializedName("collectionQueueId") public  String collectionQueueId= "Unknown";
+        @SerializedName("accountId") public  String accountId= "Unknown";
+        @SerializedName("state") public  int state = 0;
+        @SerializedName("isEnable") public  boolean isEnable = false;
+        @SerializedName("commission") public  double commission = 0.0;
+        @SerializedName("score") public  double score = 0.0;
+        @SerializedName("remark") public  String remark = "Unknown";
+        @SerializedName("created") public  String created = "Unknown";
+        @SerializedName("userName") public  String userName = "Unknown";
+        @SerializedName("cardNo") public  String cardNo = "Unknown";
+        @SerializedName("bankName") public  String bankName = "Unknown";
+
 
     }
 

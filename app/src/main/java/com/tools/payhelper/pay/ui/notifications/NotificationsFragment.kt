@@ -30,6 +30,7 @@ import com.jingyu.pay.ui.sellrecord.SellRecordActivity
 import com.jingyu.pay.ui.transaction.TransactionActivity
 import com.tools.payhelper.R
 import com.tools.payhelper.databinding.FragmentNotificationsBinding
+import com.tools.payhelper.pay.CrashDetailActivity
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.login.AddGoogleDialog
@@ -37,7 +38,6 @@ import com.tools.payhelper.pay.ui.login.MainActivity
 import com.tools.payhelper.pay.ui.money.BuyumoneyActivity
 import com.tools.payhelper.pay.ui.money.BuyumoneyListActivity
 import com.tools.payhelper.pay.ui.money.TransListActivity
-import com.tools.payhelper.pay.ui.money.TransferMoneyActivity
 import com.tools.payhelper.pay.ui.news.NewsListActivity
 import com.tools.payhelper.pay.ui.payment.PaymentActivity
 import kotlinx.coroutines.launch
@@ -74,6 +74,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var newslayout: LinearLayout
     lateinit var buy_usdt_layout : RelativeLayout
     lateinit var buy_usdtlist_layout : RelativeLayout
+    lateinit var mCrashlayout :RelativeLayout
 
 
     val personalViewModel: PersonalViewModel by lazy {
@@ -113,6 +114,9 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         buy_usdt_layout = root.findViewById(R.id.buy_usdt_layout)
         buy_usdtlist_layout = root.findViewById(R.id.buy_usdtlist_layout)
 
+        mCrashlayout = root.findViewById(R.id.crashlayout)
+
+        mCrashlayout.setOnClickListener(this)
         buy_record_layout.setOnClickListener(this)
         sell_record_layout.setOnClickListener(this)
         frozenrecord.setOnClickListener(this)
@@ -168,60 +172,72 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         super.onResume()
         personalViewModel.get(requireActivity()).observe(requireActivity(), Observer {
 
-            var array = it.data.apIs.split("|");
+            if(it!=null){
+                if (it.data!=null){
+
+                    var array = it.data.apIs.split("|");
 
 
-            PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
-            PayHelperUtils.isShowNews(context,it.data.note2)
+                    PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
+                    PayHelperUtils.isShowNews(context,it.data.note2)
 
-            if(!it.data.note.isEmpty()){
-                var arraynote = it.data.note.split("|");
-                PayHelperUtils.isAllShowNews(context,arraynote,it.data.note)
-            }
+                    if(!it.data.note.isEmpty()){
+                        var arraynote = it.data.note.split("|");
+                        PayHelperUtils.isAllShowNews(context,arraynote,it.data.note)
+                    }
 
 
 
-            PayHelperUtils.saveRebate(context,it.data.rebate.toString())
-            PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())
-            PayHelperUtils.saveAlipayRebate(context,it.data.alipayRebate.toString())
-            PayHelperUtils.saveWechat(context,it.data.wechatrebate.toString())
-            if (it.data.drmbRebate!=null){
-                PayHelperUtils.saveBank(context,it.data.drmbRebate.toString())
+                    PayHelperUtils.saveRebate(context,it.data.rebate.toString())
+                    PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())
+                    PayHelperUtils.saveAlipayRebate(context,it.data.alipayRebate.toString())
+                    PayHelperUtils.saveWechat(context,it.data.wechatrebate.toString())
+                    if (it.data.drmbRebate!=null){
+                        PayHelperUtils.saveBank(context,it.data.drmbRebate.toString())
 
+                    }else{
+                        PayHelperUtils.saveBank(context,"0")
+
+                    }
+                    if (it.data.unionRebate!=null){
+                        PayHelperUtils.saveBank2(context,it.data.unionRebate.toString())
+
+                    }else{
+                        PayHelperUtils.saveBank2(context,"0")
+
+                    }
+                    if(it.data.alipayXeRebate!=null){
+                        PayHelperUtils.saveAlipayXeRebate(context,it.data.alipayXeRebate.toString())
+
+                    }else{
+                        PayHelperUtils.saveAlipayXeRebate(context,"0")
+
+                    }
+                    if (it.data.weChatXeRebate!=null){
+                        PayHelperUtils.saveWechatXe(context,it.data.weChatXeRebate.toString())
+
+                    }else{
+                        PayHelperUtils.saveWechatXe(context,"0")
+
+                    }
+
+
+
+                    text1.text = it.data.commission.toString()
+                    text2.text = it.data.quota.toString()
+                    text3.text = it.data.frozen.toString()
+                    text4.text = it.data.payment.toString()
+                    text5.text = it.data.collection.toString()
+                    name.text=  PayHelperUtils.getUserName(context)
+                }else{
+                    ToastManager.showToastCenter(requireActivity(),"令牌失效 请重新登入")
+
+                }
             }else{
-                PayHelperUtils.saveBank(context,"0")
-
-            }
-            if (it.data.unionRebate!=null){
-                PayHelperUtils.saveBank2(context,it.data.unionRebate.toString())
-
-            }else{
-                PayHelperUtils.saveBank2(context,"0")
-
-            }
-            if(it.data.alipayXeRebate!=null){
-                PayHelperUtils.saveAlipayXeRebate(context,it.data.alipayXeRebate.toString())
-
-            }else{
-                PayHelperUtils.saveAlipayXeRebate(context,"0")
-
-            }
-            if (it.data.weChatXeRebate!=null){
-                PayHelperUtils.saveWechatXe(context,it.data.weChatXeRebate.toString())
-
-            }else{
-                PayHelperUtils.saveWechatXe(context,"0")
+                ToastManager.showToastCenter(requireActivity(),"令牌失效 请重新登入")
 
             }
 
-
-
-            text1.text = it.data.commission.toString()
-            text2.text = it.data.quota.toString()
-            text3.text = it.data.frozen.toString()
-            text4.text = it.data.payment.toString()
-            text5.text = it.data.collection.toString()
-            name.text=  PayHelperUtils.getUserName(context)
 
 
         })
@@ -268,6 +284,11 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             }
             R.id.buy_usdtlist_layout->{
                 startActivity(Intent().setClass(requireActivity(), BuyumoneyListActivity::class.java))
+
+            }
+
+            R.id.crashlayout->{
+                startActivity(Intent().setClass(requireActivity(), CrashDetailActivity::class.java))
 
             }
 

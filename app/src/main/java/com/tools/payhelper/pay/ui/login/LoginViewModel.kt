@@ -44,14 +44,14 @@ class LoginViewModel : ViewModel() {
 
                     }
                 }else{
-                    token.value =null
+                    token.postValue(null)
                 }
 
             }
 
             override fun getErrorResponse(s: String) {
                 if (!s.isEmpty()){
-                    token.value = null
+                    token.postValue(null)
                 }
 
             }
@@ -66,7 +66,6 @@ class LoginViewModel : ViewModel() {
             object : LoginDateModel.LoginrResponse {
                 override fun getResponse(s: String) {
                     viewModelScope.launch {
-                        Log.d("onReceiveMessage",s)
                         var mpostData = Gson().fromJson(s, PostDBData::class.java)
                         postData.value = mpostData
 
@@ -115,35 +114,59 @@ class LoginViewModel : ViewModel() {
 //        return  update
 //    }
 
-     @SuppressLint("SuspiciousIndentation")
-     fun getUpdate(){
+//     @SuppressLint("SuspiciousIndentation")
+//     fun getUpdate(){
+//        viewModelScope.launch {
+//            homeViewModel.getUpdate().flowOn(Dispatchers.IO).catch {
+//            }.filter {
+//                !it.isEmpty()
+//            }.collect {
+//                if (!it.isEmpty()){
+//            var userData = Gson().fromJson(it, UpdateData::class.java)
+//                    version.emit(userData)
+//
+//                }
+//
+//
+//
+//
+//            }
+//        }
+//
+//    }
+
+
+    @SuppressLint("SuspiciousIndentation")
+    fun getUpdate() {
         viewModelScope.launch {
-            homeViewModel.getUpdate().flowOn(Dispatchers.IO).catch {
-                Log.d("Jack",it.localizedMessage)
-            }.filter {
-                !it.isEmpty()
-            }.collect {
-                Log.d("Jack",it)
-                if (!it.isEmpty()){
-            var userData = Gson().fromJson(it, UpdateData::class.java)
-                    version.emit(userData)
-
+            homeViewModel.getUpdate()
+                .flowOn(Dispatchers.IO)
+                .catch { e ->
+                    Log.e("getUpdate", "資料流錯誤: ${e.message}", e)
                 }
-
-
-
-
-            }
+                .filter { it.isNotBlank() }
+                .collect { result ->
+                    try {
+                        val json = result.trim()
+                        if (json.startsWith("{")) {
+                            val userData = Gson().fromJson(json, UpdateData::class.java)
+                            version.emit(userData)
+                        } else {
+                            Log.w("getUpdate", "非預期回傳格式: $json")
+                        }
+                    } catch (e: Exception) {
+                        Log.e("getUpdate", "解析失敗: ${e.message}", e)
+                    }
+                }
         }
-
     }
+
 
     fun getUserInfo(context: Context) : LiveData<UserinfoData>{
         homeViewModel.getUserinfo(context, object : LoginDateModel.LoginrResponse {
             override fun getResponse(s: String) {
 
                 if (!s.isEmpty()){
-                    Log.d("jack",s)
 
                     viewModelScope.launch {
                         var ud = Gson().fromJson(s,UserinfoData::class.java)

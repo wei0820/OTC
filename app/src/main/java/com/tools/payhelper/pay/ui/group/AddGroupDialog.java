@@ -113,7 +113,7 @@ public class AddGroupDialog extends AlertDialog {
                 "微信卖币:"+two(wechatRebate)+"\n"+
                 "小额微信:"+two(wechatRebateXe) +"\n"+
                 "数字人民币:"+two(bankRebate) +"\n"+
-                "银联:"+two(unionRebate));
+                "转卡模式:"+two(unionRebate));
 
 
         textView.setText(two(maxString));

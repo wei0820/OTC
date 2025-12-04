@@ -123,7 +123,7 @@ public class AddBankQrcodeActivity extends AppCompatActivity implements View.OnC
         findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String n = "银联扫码";
+                String n = "转卡扫码";
                 String p = pd.getText().toString();
                 String t = padd.getText().toString();
                 String google = googleedt.getText().toString();

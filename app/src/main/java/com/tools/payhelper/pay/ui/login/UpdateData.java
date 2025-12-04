@@ -6,20 +6,20 @@ public class UpdateData {
 
 
     @SerializedName("msg")
-    public  String msg;
+    public  String msg = "Unknown";
 
     @SerializedName("code")
-    public  int code;
+    public  int code = 1;
     @SerializedName("data")
-    public Data data;
+    public Data data = null;
     public class Data{
         @SerializedName("versionName")
-        public  String versionName;
+        public  String versionName = "Unknown";
         @SerializedName("versionCode")
-        public  Integer versionCode;
+        public  Integer versionCode = 0;
         @SerializedName("url")
-        public String  url;
+        public String  url = "Unknown";
         @SerializedName("quality")
-        public int  quality;
+        public int  quality = 0;
     }
 }

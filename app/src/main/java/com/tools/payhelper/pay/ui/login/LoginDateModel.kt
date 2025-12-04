@@ -2,6 +2,7 @@ package com.jingyu.pay.ui.login
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import com.jingyu.pay.ui.dashboard.SellDateModel
 import com.tools.payhelper.SystemUtil
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -45,6 +47,8 @@ class LoginDateModel {
         }
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
+        // 2. 建立 User-Agent 字串
+
 
         val client = OkHttpClient.Builder()
             .sslSocketFactory(SSLSocketClient.getSSLSocketFactory(),SSLSocketClient.getX509TrustManager())
