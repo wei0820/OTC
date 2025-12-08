@@ -130,7 +130,7 @@ public class UpdateAddBankDialog extends AlertDialog {
                 Float payF = Float.parseFloat(pay);
                 String id = dd.id;
                 boolean b = dd.isEnable;
-                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName,false,id, b,new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName,false,id, b,0,0,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

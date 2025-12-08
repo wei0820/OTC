@@ -153,7 +153,7 @@ public class UpdateAddBankQrcodeActivity extends AppCompatActivity implements Vi
                 String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(UpdateAddBankQrcodeActivity.this, n, p, t, payF, google, username, euserName, false, data.id, data.isEnable,new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(UpdateAddBankQrcodeActivity.this, n, p, t, payF, google, username, euserName, false, data.id, data.isEnable,0,0,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

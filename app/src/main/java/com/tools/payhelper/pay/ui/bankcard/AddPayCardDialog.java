@@ -120,7 +120,7 @@ public class AddPayCardDialog extends AlertDialog {
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
                 boolean b = ischeck;
-                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName,b, "",false,new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName,b, "",false,0,0,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

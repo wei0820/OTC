@@ -131,7 +131,7 @@ public class AddBankQrcodeActivity extends AppCompatActivity implements View.OnC
                 String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(AddBankQrcodeActivity.this, n, p, t, payF, google, username, euserName, false,"",false,new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(AddBankQrcodeActivity.this, n, p, t, payF, google, username, euserName, false,"",false,0,0,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

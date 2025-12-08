@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.jingyu.pay.ui.bankcard.BankCardDateModel;
 import com.tools.payhelper.R;
 import com.tools.payhelper.pay.PayHelperUtils;
+import com.tools.payhelper.pay.ToastManager;
 
 
 public class AddToCardDialog extends AlertDialog {
@@ -33,6 +34,7 @@ public class AddToCardDialog extends AlertDialog {
     private Switch aSwitch;
     private  TextView textView,textView2;
     private Handler handlerLoading = new Handler();
+    private EditText minAmountedt,maxAmountedt;
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
     public void setOnAddCallback(OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
@@ -84,6 +86,10 @@ public class AddToCardDialog extends AlertDialog {
 //        eusername = findViewById(R.id.enameedt);
         payedt = findViewById(R.id.payedt);
 
+        minAmountedt = findViewById(R.id.minAmountedt);
+        maxAmountedt = findViewById(R.id.maxAmountedt);
+
+
         String maxString = PayHelperUtils.getRebate(activity).isEmpty() ? "" : PayHelperUtils.getRebate(activity);
         String minString = PayHelperUtils.getPaymentXeRebate(activity).isEmpty() ? "" : PayHelperUtils.getPaymentXeRebate(activity);
 
@@ -120,7 +126,29 @@ public class AddToCardDialog extends AlertDialog {
 //                String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, "", false,"",false,new BankCardDateModel.BankCardResponse() {
+
+                String minAmount = minAmountedt.getText().toString().isEmpty() ?"100" : minAmountedt.getText().toString();
+                Float minAmountedtF = Float.parseFloat(minAmount);
+
+                String maxAmount = maxAmountedt.getText().toString().isEmpty() ?"20000" : maxAmountedt.getText().toString();
+                Float maxAmountF = Float.parseFloat(maxAmount);
+                if (minAmountedtF>maxAmountF){
+                    ToastManager.showToastCenter(activity,"最小不能大于最大区间");
+                    return;
+
+                }
+                if (minAmountedtF<100){
+                    ToastManager.showToastCenter(activity,"最小区间不能小于100");
+                    return;
+
+                }
+                if (maxAmountF>20000){
+                    ToastManager.showToastCenter(activity,"最大区间不能大于20000");
+                    return;
+                }
+
+
+                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, "", false,"",false,minAmountedtF,maxAmountF,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

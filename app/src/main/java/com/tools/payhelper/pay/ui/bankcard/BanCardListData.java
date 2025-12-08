@@ -23,5 +23,10 @@ public class BanCardListData {
         @SerializedName("created") public  String created = Constant.DefaultValue_String;
         @SerializedName("lock") public  String lock  = Constant.DefaultValue_String;
         @SerializedName("isAWXe") public  boolean isAWXe = Constant.DefaultValue_boolean;
+
+        @SerializedName("minAmount") public  double minAmount = Constant.DefaultValue_Double;
+
+        @SerializedName("maxAmount") public  double maxAmount = Constant.DefaultValue_Double;
+
     }
 }
