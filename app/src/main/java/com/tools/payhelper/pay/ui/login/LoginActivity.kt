@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaDrm
@@ -12,24 +11,21 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
-import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.jingyu.pay.BasicActivity
 import com.tools.payhelper.R
-import com.tools.payhelper.SystemUtil
 import com.tools.payhelper.UpdateAlertDialog
 import com.tools.payhelper.pay.CrashDetailActivity
 import com.tools.payhelper.pay.PayHelperUtils
 import com.tools.payhelper.pay.ToastManager
 import com.tools.payhelper.pay.ui.login.DeviceInfoUtils
 import com.tools.payhelper.pay.ui.login.MainActivity
-import com.tools.payhelper.pay.ui.login.TelephonyManager
 import com.tools.payhelper.ui.login.LoginViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -45,6 +41,7 @@ class LoginActivity : BasicActivity() {
     lateinit var edt2 : EditText
     lateinit var edt3 : EditText
     lateinit var loginButton: Button
+    lateinit var NetCheckButton :Button
     lateinit var _versiontext : TextView
 
     lateinit var progressDialog: ProgressDialog
@@ -61,6 +58,7 @@ class LoginActivity : BasicActivity() {
         edt2 = findViewById(R.id.edt2)
         edt3 = findViewById(R.id.edt3)
         _versiontext = findViewById(R.id.vertext);
+        NetCheckButton = findViewById(R.id.netcheck)
 //        _versiontext.text = "当前版本:" + PayHelperUtils.getVersionName() +"\n"+ "当前版本号:"+ PayHelperUtils.getVersionCode()+"\n"+ "当前网址:"+ PayHelperUtils.getOpenUrl(this)
         _versiontext.setOnClickListener {
             startActivity(Intent().setClass(this, CrashDetailActivity::class.java))
@@ -68,6 +66,17 @@ class LoginActivity : BasicActivity() {
         }
         check()
         getID()
+        NetCheckButton.setOnClickListener {
+            try {
+                val intent = Intent()
+                intent.setAction(Intent.ACTION_VIEW)
+                intent.setData(Uri.parse("https://api.colorwin.com/api/auth/sign"))
+                startActivity(intent)
+            }catch (e:Exception){
+                ToastManager.showToastCenter(this,"当前手机没有浏览器")
+            }
+
+        }
         val androidId = DeviceInfoUtils.getAndroidId(this)
 
 //        checkCrashLog()

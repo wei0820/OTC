@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tools.payhelper"
-    android:versionCode="1122"
-    android:versionName="1.1.22">
+    android:versionCode="1123"
+    android:versionName="1.1.23">
 
     <uses-sdk
         android:minSdkVersion="19"
