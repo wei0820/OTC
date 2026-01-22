@@ -349,10 +349,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
     }
     fun setBuySetting(){
-        Log.d("setBuySetting","in")
         if (!PayHelperUtils.getBIsOpen(requireActivity())){
-            Log.d("setBuySetting","false")
-
             val maxString =
                 if (PayHelperUtils.getBuyMax(activity).isEmpty()) "99999" else PayHelperUtils.getBuyMax(
                     activity
