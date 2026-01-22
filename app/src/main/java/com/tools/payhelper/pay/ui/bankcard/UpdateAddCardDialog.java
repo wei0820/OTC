@@ -129,7 +129,7 @@ public class UpdateAddCardDialog extends AlertDialog {
                 String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName, false,data.id,true,new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName, false,data.id,true,0,0,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

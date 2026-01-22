@@ -43,7 +43,7 @@
 
     <string name="add_upload">微信扫码(原图)</string>
     <string name="add_upload2">支付宝扫码(原图)</string>
-    <string name="add_upload3">转卡扫码</string>
+    <string name="add_upload3">转卡模式</string>
 
 
     <string-array name="planets_array">

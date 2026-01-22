@@ -107,7 +107,11 @@ class BankCardDateModel {
                     isAWXe:Boolean,
                     id:String,
                     IsEnable:Boolean,
-                         groupResponse: BankCardResponse){
+                    minAmount:Float,
+                    maxAmountedt:Float,
+
+
+                    groupResponse: BankCardResponse){
 
         var jsonObject= JSONObject()
         jsonObject.put("bankName",bankName)
@@ -120,6 +124,9 @@ class BankCardDateModel {
         jsonObject.put("PinYin",PinYin)
         jsonObject.put("isAWXe",isAWXe)
         jsonObject.put("id",id)
+        jsonObject.put("minAmount",minAmount)
+        jsonObject.put("maxAmountedt",maxAmountedt)
+
 
 
 

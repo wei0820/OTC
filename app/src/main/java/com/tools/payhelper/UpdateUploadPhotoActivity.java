@@ -161,7 +161,7 @@ public class UpdateUploadPhotoActivity extends AppCompatActivity implements View
                 String euserName = eusername.getText().toString();
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(UpdateUploadPhotoActivity.this, n, p, t, payF, google, username, euserName, ischeck, data.id, data.isEnable,new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(UpdateUploadPhotoActivity.this, n, p, t, payF, google, username, euserName, ischeck, data.id, data.isEnable,0,0,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

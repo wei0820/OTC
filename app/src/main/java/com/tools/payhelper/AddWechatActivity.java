@@ -134,7 +134,7 @@ public class AddWechatActivity extends AppCompatActivity implements View.OnClick
                 String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
                 Float payF = Float.parseFloat(pay);
                 boolean b = ischeck;
-                bankCardDateModel.setBankCard(AddWechatActivity.this, n, p, t, payF, google, username, euserName,ischeck,"",false, new BankCardDateModel.BankCardResponse() {
+                bankCardDateModel.setBankCard(AddWechatActivity.this, n, p, t, payF, google, username, euserName,ischeck,"",false,0,0, new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

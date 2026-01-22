@@ -290,6 +290,7 @@ class BankCardListActivity : AppCompatActivity() {
             var ischeck : TextView
             var layout : LinearLayout
             var collectionlimittext : TextView
+            var israngeTexView :TextView
 
 
 
@@ -305,6 +306,7 @@ class BankCardListActivity : AppCompatActivity() {
                 ischeck  = view.findViewById(R.id.ischeck);
                 layout = view.findViewById(R.id.layout)
                 collectionlimittext = view.findViewById(R.id.collectionlimittext)
+                israngeTexView = view.findViewById(R.id.isrange)
 
             }
 
@@ -334,6 +336,14 @@ class BankCardListActivity : AppCompatActivity() {
             }else{
                 holder.lockName.text = "备注" + ""
             }
+
+            if (info.bankName.equals("转卡模式")){
+                holder.israngeTexView.text = "区间:"+info.minAmount+"~"+info.maxAmount
+
+            }else{
+                holder.israngeTexView.visibility = View.GONE
+            }
+
 
 
             holder.switchButton.isChecked = info.isEnable
