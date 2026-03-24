@@ -185,7 +185,7 @@ class LoginActivity : BasicActivity() {
                             +"\n"+"線上版本:"+it.data.versionCode,
                         getString(R.string.app_name),
                         it.data.versionName)+"\n"+"如升级失败，请选择网页下载升级")
-                    dialog.setIsForcedUpdate(true)
+//                    dialog.setIsForcedUpdate(true)
                     dialog.show()
             }
 
