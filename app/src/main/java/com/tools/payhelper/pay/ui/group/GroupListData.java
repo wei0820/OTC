@@ -32,6 +32,8 @@ public class GroupListData {
 
         @SerializedName("drmbRebate") public  float drmbRebate;
         @SerializedName("unionRebate") public  float unionRebate;
+        @SerializedName("unionPayRebate") public  float unionPayRebate;
+
 
 
 

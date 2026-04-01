@@ -31,8 +31,8 @@ import java.net.URL;
 public class UpdateAlertDialog extends AlertDialog {
     private String message;
     private ProgressDialog progressDialog;
-    private String fileName = "jingyuotcpay.apk";
-//    private String fileName = "duobao.apk";
+//    private String fileName = "jingyuotcpay.apk";
+    private String fileName = "duobao.apk";
 
     private String _url;
 

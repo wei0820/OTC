@@ -45,6 +45,9 @@
     <string name="add_upload2">支付宝扫码(原图)</string>
     <string name="add_upload3">转卡模式</string>
 
+    <string name="add_upload4">联银扫码</string>
+
+
 
     <string-array name="planets_array">
         <item>一般訊息</item>

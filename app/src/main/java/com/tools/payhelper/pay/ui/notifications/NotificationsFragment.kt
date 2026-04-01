@@ -206,6 +206,15 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
                         PayHelperUtils.saveBank2(context,"0")
 
                     }
+
+
+                    if (it.data.unionPayRebate!=null){
+                        PayHelperUtils.saveBank3(context,it.data.unionPayRebate.toString())
+
+                    }else{
+                        PayHelperUtils.saveBank3(context,"0")
+
+                    }
                     if(it.data.alipayXeRebate!=null){
                         PayHelperUtils.saveAlipayXeRebate(context,it.data.alipayXeRebate.toString())
 

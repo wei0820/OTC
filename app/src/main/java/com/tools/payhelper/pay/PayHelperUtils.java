@@ -345,6 +345,17 @@ public class PayHelperUtils {
         return sharedPreferences.getString(Constant.USER_BANK2, "0");
     }
 
+    public static void saveBank3(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_BANK3, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_BANK3, token).apply();
+    }
+
+    public static String getBank3(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_BANK3, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_BANK3, "0");
+    }
 
 
 
