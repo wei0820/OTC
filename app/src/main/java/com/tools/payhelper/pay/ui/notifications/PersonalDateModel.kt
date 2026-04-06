@@ -50,10 +50,10 @@ class PersonalDateModel {
         })
 
     }
-    fun test(context: Context,token:String,orderResponse: OrderResponse){
+    fun test(context: Context,orderResponse: OrderResponse){
 
         var jsonObject= JSONObject()
-        jsonObject.put("token",token)
+        jsonObject.put("token",PayHelperUtils.getUserToken(context))
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
         //调用请求
