@@ -48,6 +48,8 @@ public class Constant {
     final static  String USER_BANK = "USER_BANK";
     final static  String USER_BANK2 = "USER_BANK2";
     final static  String USER_BANK3 = "USER_BANK3";
+    final static  String USER_QQ = "USER_QQ";
+
 
 
 

@@ -34,12 +34,14 @@ import com.tools.payhelper.UpdateAddBankQrcodeActivity
 import com.tools.payhelper.UpdateMain22Activity
 import com.tools.payhelper.UpdateUploadAliPayPhotoActivity
 import com.tools.payhelper.pay.ui.bankcard.AddCardDialog
+import com.tools.payhelper.pay.ui.bankcard.AddMoneyBagDialog
 import com.tools.payhelper.pay.ui.bankcard.AddPayCardDialog
 import com.tools.payhelper.pay.ui.bankcard.AddToCardDialog
 import com.tools.payhelper.pay.ui.bankcard.AddWechatPhoneDialog
 import com.tools.payhelper.pay.ui.bankcard.BanCardListData
 import com.tools.payhelper.pay.ui.bankcard.UpdateAddBankDialog
 import com.tools.payhelper.pay.ui.bankcard.UpdateAddCardDialog
+import com.tools.payhelper.pay.ui.bankcard.UpdateAddMoneyBagDialog
 import com.tools.payhelper.pay.ui.bankcard.UpdateAddPayCardDialog
 import com.tools.payhelper.pay.ui.bankcard.UpdateAddWechatPhoneDialog
 
@@ -187,6 +189,20 @@ class BankCardListActivity : AppCompatActivity() {
                         }
                         dialog.show()
                     }
+                    getString(R.string.add_qq) -> {
+                        val dialog = AddMoneyBagDialog(this)
+                        dialog.setAddBankCallback {
+                            if (it!=null){
+                                runOnUiThread {
+                                    ToastManager.showToastCenter(this,it.msg)
+                                    getBankCardList()
+
+                                }
+                            }
+                        }
+                        dialog.show()
+                    }
+
 
                     getString(R.string.add_upload) -> {
                         val intent  = Intent()
@@ -479,6 +495,24 @@ class BankCardListActivity : AppCompatActivity() {
                         dialog.show()
 
                     }
+
+                    mActivity.getString(R.string.add_qq)->{
+
+
+                        val dialog = UpdateAddMoneyBagDialog(mActivity,info)
+                        dialog.setAddBankCallback {
+                            if (it!=null){
+                                mActivity.runOnUiThread {
+                                    ToastManager.showToastCenter(mActivity,it.msg)
+                                    mActivity.getBankCardList()
+
+                                }
+                            }
+                        }
+                        dialog.show()
+
+                    }
+
                     else -> {
 
                         val dialog = UpdateAddCardDialog(mActivity,info)

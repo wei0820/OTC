@@ -357,7 +357,17 @@ public class PayHelperUtils {
         return sharedPreferences.getString(Constant.USER_BANK3, "0");
     }
 
+    public static void saveQQ(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_QQ, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_QQ, token).apply();
+    }
 
+    public static String getQQ(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_QQ, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_QQ, "0");
+    }
 
 
 

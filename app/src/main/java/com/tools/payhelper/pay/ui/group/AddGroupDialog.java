@@ -38,6 +38,8 @@ public class AddGroupDialog extends AlertDialog {
     private Switch aSwitch;
     private  EditText textView,textView2,textiew22,wechattext,banktext,unionRebatetext,alipayRebateXeText,wechatxetext,unionRayRebatetext;
     private Handler handlerLoading = new Handler();
+
+    private EditText QQEditText;
     GroupDateModel groupDateModel = new GroupDateModel();
     public void setOnAddCallback(OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
@@ -80,7 +82,7 @@ public class AddGroupDialog extends AlertDialog {
         setContentView(view);
         setCanceledOnTouchOutside(false);
         setCancelable(false);
-
+        QQEditText = findViewById(R.id.qqtext);
         name = findViewById(R.id.bank_card);
         pd = findViewById(R.id.bank_card_no);
         textView = findViewById(R.id.text1);
@@ -105,6 +107,10 @@ public class AddGroupDialog extends AlertDialog {
         String unionRebate = PayHelperUtils.getBank2(activity).isEmpty()? "" : PayHelperUtils.getBank2(activity);
         String unionPayRebate = PayHelperUtils.getBank3(activity).isEmpty()? "" : PayHelperUtils.getBank3(activity);
 
+
+        String QQ = PayHelperUtils.getQQ(activity).isEmpty()? "" : PayHelperUtils.getQQ(activity);
+
+
         TextView message = findViewById(R.id.message);
 //        "小额买币:"+two(minString)+"\n"+
         message.setText("您的佣金比例:\n"+
@@ -115,6 +121,7 @@ public class AddGroupDialog extends AlertDialog {
                 "微信卖币:"+two(wechatRebate)+"\n"+
                 "小额微信:"+two(wechatRebateXe) +"\n"+
                 "数字人民币:"+two(bankRebate) +"\n"+
+                "QQ钱包充值:"+two(QQ) +"\n"+
                 "转卡模式:"+two(unionRebate)+"\n"+
                 "联银扫码模式:"+two(unionPayRebate));
 
@@ -130,7 +137,9 @@ public class AddGroupDialog extends AlertDialog {
         banktext.setText(two(bankRebate));
         unionRebatetext.setText(two(unionRebate));
         unionRayRebatetext.setText(two(unionPayRebate));
+        QQEditText.setText(two(QQ));
 
+        editTextCheck(QQEditText);
 
         editTextCheck(textView);
         editTextCheck(textView2);
@@ -170,6 +179,7 @@ public class AddGroupDialog extends AlertDialog {
 
                 Double alipayRebateXeDB = Double.parseDouble(alipayRebateXeText.getText().toString());
                 Double wechatXeDb = Double.parseDouble(wechatxetext.getText().toString());
+                Double qqDb = Double.parseDouble(QQEditText.getText().toString());
 
 
                 groupDateModel.getGroupRegister(activity, n, p, t,

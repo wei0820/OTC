@@ -21,11 +21,11 @@ import com.google.gson.Gson;
 import com.jingyu.pay.ui.bankcard.BankCardDateModel;
 import com.tools.payhelper.R;
 import com.tools.payhelper.pay.PayHelperUtils;
-import com.tools.payhelper.pay.ToastManager;
 
 
-public class AddMoneyBagDialog extends AlertDialog {
+public class UpdateAddMoneyBagDialog extends AlertDialog {
     private Activity activity;
+    private  BanCardListData.Data dd;
     private EditText pd, name,tel,googleedt,usernaem,eusername,payedt;
     private Spinner spinner;
     private OnAddCallback onAddCallback;
@@ -34,7 +34,6 @@ public class AddMoneyBagDialog extends AlertDialog {
     private Switch aSwitch;
     private  TextView textView,textView2;
     private Handler handlerLoading = new Handler();
-    private int number;
     BankCardDateModel bankCardDateModel = new BankCardDateModel();
     public void setOnAddCallback(OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
@@ -52,17 +51,19 @@ public class AddMoneyBagDialog extends AlertDialog {
         void onResponse(AddBankCardData addBankCardData);
     }
 
-    public AddMoneyBagDialog(Activity activity) {
+    public UpdateAddMoneyBagDialog(Activity activity, BanCardListData.Data data) {
         super(activity);
         this.activity = activity;
+        this.dd = data;
+
     }
 
 
-    protected AddMoneyBagDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    protected UpdateAddMoneyBagDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
-    protected AddMoneyBagDialog(Context context, int themeResId) {
+    protected UpdateAddMoneyBagDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
 
@@ -72,7 +73,7 @@ public class AddMoneyBagDialog extends AlertDialog {
         getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
-        View view = LayoutInflater.from(activity).inflate(R.layout.add_moneybag, null);
+        View view = LayoutInflater.from(activity).inflate(R.layout.add_bank, null);
         setView(view);
         setContentView(view);
         setCanceledOnTouchOutside(false);
@@ -89,7 +90,12 @@ public class AddMoneyBagDialog extends AlertDialog {
         String maxString = PayHelperUtils.getRebate(activity).isEmpty() ? "" : PayHelperUtils.getRebate(activity);
         String minString = PayHelperUtils.getPaymentXeRebate(activity).isEmpty() ? "" : PayHelperUtils.getPaymentXeRebate(activity);
 
+        if (dd!=null){
+            tel.setText(dd.cardNo);
+            usernaem.setText(dd.userName);
+            payedt.setText(String.valueOf(dd.collectionlimit));
 
+        }
 
 
 
@@ -120,23 +126,11 @@ public class AddMoneyBagDialog extends AlertDialog {
                 String google = googleedt.getText().toString();
                 String username = usernaem.getText().toString();
                 String euserName = "";
-                String input = payedt.getText().toString();
-                try {
-                     number = Integer.parseInt(input);
-                    // Use your integer here
-                } catch (NumberFormatException e) {
-                    // Handle the error if the string is empty or invalid
-                }
-                if (number<100){
-                    ToastManager.showToastCenter(activity,"最小为100 最大为999 请检查再输入");
-                }
-                if (number>999) {
-                    ToastManager.showToastCenter(activity,"最小为100 最大为999 请检查再输入");
-
-                }
-//                String pay = payedt.getText().toString().isEmpty() ?"100" : payedt.getText().toString();
-//                Float payF = Float.parseFloat(pay);
-                bankCardDateModel.setBankCard(activity, n, p, t, number, google, username, euserName,false,"",false,0,0, new BankCardDateModel.BankCardResponse() {
+                String pay = payedt.getText().toString().isEmpty() ?"50000" : payedt.getText().toString();
+                Float payF = Float.parseFloat(pay);
+                String id = dd.id;
+                boolean b = dd.isEnable;
+                bankCardDateModel.setBankCard(activity, n, p, t, payF, google, username, euserName,false,id, b,0,0,new BankCardDateModel.BankCardResponse() {
                     @Override
                     public void getResponse(@NonNull String s) {
                         if (!s.isEmpty()){

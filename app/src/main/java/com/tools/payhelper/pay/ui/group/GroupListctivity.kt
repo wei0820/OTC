@@ -206,6 +206,15 @@ class Adapter(activity:GroupListctivity) : RecyclerView.Adapter<Adapter.ViewHold
             holder.drmbRebate.text =  "数字人民币佣金￥" + info.drmbRebate
 
         }
+
+        if (info.drmbRebate==null){
+            holder.drmbRebate.text =  "QQ钱包充值佣金￥" +  "0"
+
+        }else{
+            holder.drmbRebate.text =  "QQ钱包充值佣金￥" + info.drmbRebate
+
+        }
+
         if (info.unionRebate==null){
             holder.unionRebate.text =  "转卡佣金￥" +  "0"
 
