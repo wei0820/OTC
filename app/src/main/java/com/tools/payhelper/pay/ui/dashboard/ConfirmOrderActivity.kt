@@ -79,7 +79,7 @@ class ConfirmOrderActivity : AppCompatActivity() {
         }
         okBtn = findViewById(R.id.okBtn)
 
-        getUserinfo()
+//        getUserinfo()
 
         okBtn.setOnClickListener {
             val payname: String = mSellListData!!.payUserName.substring(mSellListData!!.payUserName.length - 1)

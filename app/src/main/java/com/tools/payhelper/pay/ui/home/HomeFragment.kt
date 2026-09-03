@@ -570,6 +570,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
             var payName : TextView
             var cancelButton : Button
             var sureButton  : Button
+            var remarkText : TextView
 
 
             init {
@@ -585,6 +586,7 @@ class HomeFragment : Fragment() ,Handler.Callback{
                 payName = view.findViewById(R.id.payname);
                 cancelButton = view.findViewById(R.id.cancel_button)
                 sureButton = view.findViewById(R.id.sure_button)
+                remarkText = view.findViewById(R.id.remark)
 
 
             }
@@ -640,6 +642,9 @@ class HomeFragment : Fragment() ,Handler.Callback{
 
             holder.sureButton.setOnClickListener {
                 mfragment.confirmOrder(info.id)
+            }
+            if (info.remark!=null){
+                holder.remarkText.text = ""+info.remark
             }
 
         }
